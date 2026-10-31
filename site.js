@@ -1,6 +1,9 @@
 
 (() => {
 const motion=matchMedia('(prefers-reduced-motion: reduce)');
+const root=document.documentElement,themeButton=document.getElementById('theme-toggle'),themeIcon=document.getElementById('theme-icon');
+function setTheme(theme){root.dataset.theme=theme;themeButton?.setAttribute('aria-label',theme==='dark'?'Switch to beige mode':'Switch to warm dark mode');themeIcon?.setAttribute('icon',theme==='dark'?'lucide:sun':'lucide:moon');try{localStorage.setItem('karthik-beige-theme',theme);}catch{}}
+let savedTheme;try{savedTheme=localStorage.getItem('karthik-beige-theme');}catch{}setTheme(savedTheme==='dark'?'dark':'light');themeButton?.addEventListener('click',()=>setTheme(root.dataset.theme==='dark'?'light':'dark'));
 const loader=document.getElementById('page-loader');
 if(loader){
   document.body.classList.add('is-loading');
@@ -31,9 +34,6 @@ if(loader){
   }
   requestAnimationFrame(updateLoader);
 }
-const root=document.documentElement,themeButton=document.getElementById('theme-toggle'),themeIcon=document.getElementById('theme-icon');
-function setTheme(theme){root.dataset.theme=theme;themeButton.setAttribute('aria-label',theme==='dark'?'Switch to beige mode':'Switch to warm dark mode');themeIcon.setAttribute('icon',theme==='dark'?'lucide:sun':'lucide:moon');try{localStorage.setItem('karthik-beige-theme',theme);}catch{}}
-let savedTheme;try{savedTheme=localStorage.getItem('karthik-beige-theme');}catch{}setTheme(savedTheme==='dark'?'dark':'light');themeButton.addEventListener('click',()=>setTheme(root.dataset.theme==='dark'?'light':'dark'));
 
 const menuToggle=document.getElementById('menu-toggle');
 const menuClose=document.getElementById('menu-close');
@@ -127,9 +127,9 @@ motion.addEventListener('change',startWeatherCycle);
 
 
 const projectData=[
-  {slug:'data-engineering',category:'Data engineering',title:'Construction safety, in real time.',name:'Data Engineering Project',image:'assets/project-data.jpg',summary:'A wearable sensor system that detects falls, slips and near-misses on construction sites.',mapLabel:'Construction safety',mapPosition:[24,55],topics:['sensors','ble','realtime','python']},
-  {slug:'engineering-exploration',category:'Engineering exploration',title:'More independence, one curb at a time.',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.',mapLabel:'Wheelchair mobility',mapPosition:[58,42],topics:['accessibility','mechanical']},
-  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Living',name:'IoT System for Sustainable Living',image:'assets/project-iot.png',summary:'Coming soon.',mapLabel:'Sustainable home',mapPosition:[77,61],topics:['sensors','ble','connected','energy']}
+  {slug:'data-engineering',category:'Data engineering',title:'Data Engineering Project',name:'Data Engineering Project',image:'assets/project-data.jpg',summary:'A wearable sensor system that detects falls, slips and near-misses on construction sites.',mapLabel:'Data Engineering Project',mapPosition:[24,55],topics:['sensors','ble','realtime','python']},
+  {slug:'engineering-exploration',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.',mapLabel:'Engineering Exploration Project',mapPosition:[58,42],topics:['accessibility','mechanical']},
+  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Living',name:'IoT System for Sustainable Living',image:'assets/project-iot.png',summary:'Coming soon.',mapLabel:'IoT System for Sustainable Living',mapPosition:[77,61],topics:['sensors','ble','connected','energy']}
 ];
 const projectMapTopics=[
   {id:'sensors',label:'Sensors',position:[12,24]},
@@ -170,18 +170,22 @@ if(mapStage && mapCanvas && mapNodes){
     else element.setAttribute('aria-hidden','true');
     mapNodes.append(element);labels.set(node.id,element);
   });
-  // Background specks are a repeatable pattern, not randomized each frame.
-  const stars=Array.from({length:74},(_,i)=>({
+  // A light background star field sits behind an evenly distributed 3D dot sphere.
+  const stars=Array.from({length:32},(_,i)=>({
     x:((i*47.41+17.3)%100)/100, y:((i*29.73+8.8)%100)/100,
-    r:i%9===0?1.35:.56, a:.09+(i%6)*.042
+    r:i%9===0?1.05:.50, a:.07+(i%5)*.02
   }));
-  const dust=Array.from({length:45},(_,i)=>{
-    const lat=-76+((i*41.7)%151),lon=((i*83.2)%360)-180;
-    return sph(lat,lon);
+  const dust=Array.from({length:260},(_,i)=>{
+    // Fibonacci sphere: no gaps at the poles and no clustering as it rotates.
+    const y=1-2*(i+.5)/260;
+    const ring=Math.sqrt(Math.max(0,1-y*y));
+    const theta=i*Math.PI*(3-Math.sqrt(5));
+    return {x:Math.cos(theta)*ring,y,z:Math.sin(theta)*ring};
   });
   let width=0,height=0,radius=0,cx=0,cy=0,dpr=1;
   let yaw=-.08,pitch=-.04,velocity=.0022,pitchVelocity=0;
   let hovering=false,overLabel=false,dragging=false,moved=false,gesture=null;
+  let targetPitch=-.04;
   let pointerX=0,pointerY=0,visible=true,frameId=0,lastTime=0;
   const calm=()=>motion.matches;
   const norm=(p)=>{
@@ -202,7 +206,7 @@ if(mapStage && mapCanvas && mapNodes){
     mapCanvas.style.width=width+'px';mapCanvas.style.height=height+'px';
     context.setTransform(dpr,0,0,dpr,0,0);
     radius=Math.min(width*.345,height*.435,283);
-    if(width<620)radius=Math.min(width*.35,height*.39,165);
+    if(width<620)radius=Math.min(width*.40,height*.42,170);
     cx=width*.5;cy=height*.5;
     draw();
   }
@@ -231,46 +235,71 @@ if(mapStage && mapCanvas && mapNodes){
   function draw(){
     if(!context||!width)return;
     context.clearRect(0,0,width,height);
-    const front='#e6eef2';
-    // Very soft rotating globe; no opaque disc that would hide the network.
-    const aura=context.createRadialGradient(cx,cy,radius*.24,cx,cy,radius*1.3);
-    aura.addColorStop(0,'rgba(117,157,178,.035)');
-    aura.addColorStop(.7,'rgba(117,157,178,.027)');
-    aura.addColorStop(1,'rgba(117,157,178,0)');
-    circle(cx,cy,radius*1.32,aura);
-    for(const star of stars)circle(star.x*width,star.y*height,star.r,'rgba(216,227,231,'+star.a+')');
-    // Meridian/latitude traces sell the 3D shape but stay deliberately faint.
-    context.lineWidth=.7;
-    for(const longitude of [-120,-60,0,60,120,180]){
-      const points=Array.from({length:69},(_,i)=>proj(sph(-90+i*180/68,longitude)));
-      drawRing(points,.055);
-    }
-    for(const latitude of [-65,-32,0,32,65]){
-      const points=Array.from({length:129},(_,i)=>proj(sph(latitude,-180+i*360/128)));
-      drawRing(points,.046);
-    }
-    for(const [a,b] of edges)sphericalCurve(a.coords,b.coords,.20);
+    for(const star of stars)circle(star.x*width,star.y*height,star.r,'rgba(213,224,231,'+star.a+')');
+    const aura=context.createRadialGradient(cx,cy,radius*.3,cx,cy,radius*1.16);
+    aura.addColorStop(0,'rgba(126,165,185,.032)');
+    aura.addColorStop(.7,'rgba(126,165,185,.014)');
+    aura.addColorStop(1,'rgba(126,165,185,0)');
+    circle(cx,cy,radius*1.15,aura);
+
+    // Rear surface first: only tiny dim dots, with neither labels nor lines.
+    // This is the actual hidden side of the same sphere, not random screen noise.
     for(const point of dust){
       const p=proj(point);
-      circle(p.x,p.y,p.z>0?1.15:.75,'rgba(232,240,242,'+(.13+(p.z+1)*.15).toFixed(3)+')');
+      if(p.z>=0)continue;
+      const fade=.10+(.17*(1+p.z));
+      circle(p.x,p.y,.7+(1+p.z)*.27,'rgba(198,219,232,'+fade.toFixed(3)+')');
     }
     for(const node of globeNodes){
       const p=proj(node.coords);
-      const isFront=p.z>-.12;
-      if(isFront){
-        const intensity=Math.min(1,Math.max(.2,(p.z+.15)*1.25));
+      if(p.z>=0)continue;
+      circle(p.x,p.y,node.project?1.8:1.1,'rgba(210,228,240,'+(node.project?.33:.21)+')');
+    }
+
+    // Subtle 3D latitude/longitude guides and links appear only at the front.
+    context.lineWidth=.7;
+    for(const longitude of [-120,-60,0,60,120,180]){
+      const points=Array.from({length:69},(_,i)=>proj(sph(-90+i*180/68,longitude)));
+      drawRing(points,.043);
+    }
+    for(const latitude of [-65,-32,0,32,65]){
+      const points=Array.from({length:129},(_,i)=>proj(sph(latitude,-180+i*360/128)));
+      drawRing(points,.036);
+    }
+    for(const [a,b] of edges)sphericalCurve(a.coords,b.coords,.19);
+
+    // Foreground dots have more contrast, which makes the rotation readable.
+    for(const point of dust){
+      const p=proj(point);
+      if(p.z<0)continue;
+      circle(p.x,p.y,1.04+.33*p.z,'rgba(230,239,245,'+(.33+.28*p.z).toFixed(3)+')');
+    }
+    for(const node of globeNodes){
+      const p=proj(node.coords);
+      const isFront=p.z>=.035;
+      if(p.z>=0){
         if(node.project){
-          circle(p.x,p.y,8.4,'rgba(220,232,242,'+(.07+.12*intensity)+')');
-          circle(p.x,p.y,4.7,'rgba(243,247,249,'+(.50+.50*intensity)+')');
-        }else circle(p.x,p.y,2.5,'rgba(231,238,242,'+(.27+.58*intensity)+')');
+          circle(p.x,p.y,7,'rgba(214,233,244,'+(.08+.1*p.z).toFixed(3)+')');
+          circle(p.x,p.y,4.3,'rgba(244,249,252,'+(.6+.4*p.z).toFixed(3)+')');
+        }else circle(p.x,p.y,2.4,'rgba(234,242,249,'+(.38+.5*p.z).toFixed(3)+')');
       }
       const label=labels.get(node.id);
-      const shown=p.z>-.18;
-      label.style.left=p.x+'px';label.style.top=p.y+'px';
-      // Keep labels inside the mobile viewport even near the globe's edge.
-      label.style.transform=(width<650&&p.x>width*.66)
-        ?'translate(calc(-100% - 12px),10px)':'translate(12px,10px)';
-      label.style.opacity=shown?String(Math.min(1,Math.max(.23,(p.z+.18)*1.3))):'0';
+      // Do not show names on the back of the sphere; only the dots above.
+      const shown=isFront;
+      label.style.top=p.y+'px';
+      const onRight=p.x>cx;
+      if(node.project){
+        // The full project names must stay inside the globe panel, even on phones.
+        const labelWidth=label.offsetWidth||155;
+        const preferred=onRight?p.x+13:p.x-labelWidth-13;
+        label.style.left=Math.min(width-labelWidth-8,Math.max(8,preferred))+'px';
+        label.style.transform='translateY(-50%)';
+      }else{
+        label.style.left=p.x+'px';
+        label.style.transform=(width<650&&p.x>width*.62)
+          ?'translate(calc(-100% - 10px),-50%)':'translate(10px,-50%)';
+      }
+      label.style.opacity=shown?String(Math.min(1,Math.max(.22,(p.z)*2.1))):'0';
       label.style.visibility=shown?'visible':'hidden';
       if(node.project){label.tabIndex=shown?0:-1;label.style.zIndex=String(Math.round((p.z+1)*10));}
     }
@@ -295,6 +324,10 @@ if(mapStage && mapCanvas && mapNodes){
       if(overLabel)target=0;
       velocity+=(target-velocity)*.034*dt;
       yaw+=velocity*dt;
+      if(hovering&&!overLabel){
+        targetPitch=Math.max(-.55,Math.min(.55,(.5-pointerY/height)*.52));
+        pitch+=(targetPitch-pitch)*.014*dt;
+      }
       pitch+=pitchVelocity*dt;
       pitchVelocity*=Math.pow(.92,dt);
       pitch=Math.max(-.95,Math.min(.95,pitch));
@@ -595,20 +628,52 @@ const caseStudyContent={
       </figure>
     </section>
 
-    <section class="tri-mechanism tri-reveal tri-mechanism--authentic" aria-label="Our original tri-star design sketches">
-      <div class="tri-mechanism-left">
-        <span class="tri-eyebrow">THE SOLUTION</span>
-        <h2>Three wheels.<br>One idea.</h2>
-        <p>The front caster is replaced by three small wheels positioned around a motor-driven hub, designed to help a wheelchair move over raised curbs.</p>
-        <span class="tri-drawing-note">ORIGINAL TEAM DRAWINGS</span>
-      </div>
-      <figure class="tri-original-sketch-sheet">
-        <a href="https://static.wixstatic.com/media/a3abd1_c107b200cdaa4b649ca409b76e899055~mv2.png/v1/fill/w_980%2Ch_710%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_auto/dfdfdfadasasasa.png" target="_blank" rel="noopener noreferrer" aria-label="Open our original hand-drawn wheelchair sketches">
-          <img src="https://static.wixstatic.com/media/a3abd1_c107b200cdaa4b649ca409b76e899055~mv2.png/v1/fill/w_980%2Ch_710%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_auto/dfdfdfadasasasa.png" alt="Original hand-drawn wheelchair concept sketches from our Engineering Exploration project" loading="lazy" data-original-wix-sketch>
-          <span class="tri-sketch-open">View our original drawings <span aria-hidden="true">↗</span></span>
-        </a>
-      </figure>
-    </section>
+<section class="tri-mechanism tri-reveal tri-mechanism--authentic tri-mechanism--interactive" aria-label="TRI-STAR wheel concept and how the mechanism works">
+  <div class="tri-mechanism-left">
+    <span class="tri-eyebrow">THE SOLUTION</span>
+    <h2>Three wheels.<br>One idea.</h2>
+    <p>The front caster is replaced by three small wheels positioned around a motor-driven hub, designed to help a wheelchair move over raised curbs.</p>
+    <button class="tri-rotate-button" type="button" data-tri-toggle aria-pressed="true" aria-label="Pause wheel animation"><iconify-icon icon="lucide:pause" aria-hidden="true"></iconify-icon><span>Pause animation</span></button>
+  </div>
+  <div class="tri-mechanism-art" aria-label="Animated side view of three wheels revolving around a central hub, demonstrating the TRI-STAR design approaching a curb" role="img">
+    <svg viewBox="0 0 420 420" aria-hidden="true" focusable="false">
+      <defs>
+        <pattern id="tri-grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="currentColor" stroke-opacity=".07" stroke-width=".8"/></pattern>
+        <linearGradient id="tri-ground" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c4b39b"/><stop offset="1" stop-color="#8c7b66"/></linearGradient>
+      </defs>
+      <rect x="5" y="5" width="410" height="410" rx="22" fill="url(#tri-grid)"/>
+      <path class="tri-surface" d="M25 348 H310 V286 H406" fill="none" stroke="currentColor" stroke-opacity=".56" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path class="tri-step-shape" d="M310 286 H406 V376 H310 Z" fill="currentColor" fill-opacity=".085"/>
+      <text class="tri-diagram-small" x="325" y="271" fill="currentColor">CURB</text>
+      <path d="M40 345 H308" stroke="currentColor" stroke-opacity=".15" stroke-dasharray="3 8" stroke-width="1"/>
+      <circle cx="200" cy="242" r="121" fill="none" stroke="currentColor" stroke-opacity=".12" stroke-dasharray="3 10" stroke-width="1.5"/>
+      <g class="tri-wheel-orbit">
+        <path d="M200 242 L200 146 M200 242 L283 290 M200 242 L117 290" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="17" stroke-linecap="round" />
+        <path d="M200 242 L200 146 M200 242 L283 290 M200 242 L117 290" fill="none" stroke="currentColor" stroke-opacity=".9" stroke-width="5" stroke-linecap="round" />
+        <g class="tri-tire" transform="translate(200 146)">
+          <circle r="38" fill="#d9cbb7" stroke="#564a3d" stroke-width="9"/><circle r="29.5" fill="#a79278" stroke="#eaddca" stroke-width="1.4"/>
+          <path d="M-26 0H26M0-26V26M-18-18L18 18M-18 18L18-18" stroke="#f5eadc" stroke-width="2" opacity=".8"/><circle r="8" fill="#4d4034" stroke="#f0e4d4" stroke-width="2"/>
+        </g>
+        <g class="tri-tire" transform="translate(283 290)">
+          <circle r="38" fill="#d9cbb7" stroke="#564a3d" stroke-width="9"/><circle r="29.5" fill="#a79278" stroke="#eaddca" stroke-width="1.4"/>
+          <path d="M-26 0H26M0-26V26M-18-18L18 18M-18 18L18-18" stroke="#f5eadc" stroke-width="2" opacity=".8"/><circle r="8" fill="#4d4034" stroke="#f0e4d4" stroke-width="2"/>
+        </g>
+        <g class="tri-tire" transform="translate(117 290)">
+          <circle r="38" fill="#d9cbb7" stroke="#564a3d" stroke-width="9"/><circle r="29.5" fill="#a79278" stroke="#eaddca" stroke-width="1.4"/>
+          <path d="M-26 0H26M0-26V26M-18-18L18 18M-18 18L18-18" stroke="#f5eadc" stroke-width="2" opacity=".8"/><circle r="8" fill="#4d4034" stroke="#f0e4d4" stroke-width="2"/>
+        </g>
+        <circle cx="200" cy="242" r="22" fill="#e9dcca" stroke="#4d4034" stroke-width="6"/>
+        <circle cx="200" cy="242" r="9" fill="#574536"/>
+        <circle cx="200" cy="242" r="3.6" fill="#fff6eb"/>
+      </g>
+      <path d="M160 103Q207 65 264 107" stroke="currentColor" stroke-opacity=".4" stroke-width="2" stroke-dasharray="5 7" fill="none"/>
+      <path d="M254 92L264 107L249 112" stroke="currentColor" stroke-opacity=".75" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <text class="tri-diagram-small" x="26" y="36" fill="currentColor">ROTATING HUB · CONCEPT VIEW</text>
+      <text class="tri-diagram-small" x="26" y="394" fill="currentColor">SIDE VIEW  /  NOT TO SCALE</text>
+    </svg>
+    <div class="tri-diagram-caption"><span>THREE-WHEEL MECHANISM</span><span class="tri-live-dot" aria-hidden="true"></span></div>
+  </div>
+</section>
 
     <section class="tri-process tri-reveal" aria-label="The design process">
       <div class="tri-section-head"><div><span class="tri-eyebrow">THE DESIGN PROCESS</span><h2>From sketches<br>to a prototype.</h2></div><p>We brainstormed, compared ideas and tested a scaled wheel mechanism.</p></div>
@@ -622,22 +687,20 @@ const caseStudyContent={
     </section>
 
     <section class="tri-demo tri-reveal" aria-label="Original prototype demonstration videos">
-      <div class="tri-section-head tri-demo-head"><div><span class="tri-eyebrow">PROTOTYPE DEMONSTRATION</span><h2>See the difference.</h2></div><p>Watch the original wheelchair prototype tests on our Wix portfolio.</p></div>
+      <div class="tri-section-head tri-demo-head"><div><span class="tri-eyebrow">PROTOTYPE DEMONSTRATION</span><h2>See the difference.</h2></div><p>Watch the two original prototype tests right here.</p></div>
       <div class="tri-demo-grid">
         <article class="tri-demo-card tri-video-card">
-          <a class="tri-demo-video-link" href="https://lenenity.wixsite.com/portfolio-showcase/home-2" target="_blank" rel="noopener noreferrer" aria-label="Watch original normal caster wheel demonstration video on Wix">
-            <img src="assets/tri-normal-caster.jpg" alt="Preview frame from the real normal caster wheel demonstration video" loading="lazy">
-            <span class="tri-video-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-            <span class="tri-video-source">WATCH ORIGINAL VIDEO ON WIX ↗</span>
-          </a>
+          <video class="tri-native-video" controls playsinline preload="metadata" poster="assets/tri-normal-caster.jpg" aria-label="Before: normal caster wheel prototype demonstration">
+            <source src="assets/tri-normal-caster.mp4" type="video/mp4">
+            Your browser does not support embedded videos.
+          </video>
           <div class="tri-video-caption"><span>VIDEO / NORMAL CASTER</span><strong>Before</strong></div>
         </article>
         <article class="tri-demo-card tri-video-card">
-          <a class="tri-demo-video-link" href="https://lenenity.wixsite.com/portfolio-showcase/home-2" target="_blank" rel="noopener noreferrer" aria-label="Watch original tri-star wheel demonstration video on Wix">
-            <img src="assets/tri-prototype-step.jpg" alt="Preview frame from the real TRI-STAR demonstration video" loading="lazy">
-            <span class="tri-video-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-            <span class="tri-video-source">WATCH ORIGINAL VIDEO ON WIX ↗</span>
-          </a>
+          <video class="tri-native-video" controls playsinline preload="metadata" poster="assets/tri-prototype-step.jpg" aria-label="After: TRI-STAR wheel prototype demonstration">
+            <source src="assets/tri-star-wheels.mp4" type="video/mp4">
+            Your browser does not support embedded videos.
+          </video>
           <div class="tri-video-caption"><span>VIDEO / TRI-STAR WHEELS</span><strong>After</strong></div>
         </article>
       </div>
@@ -668,7 +731,7 @@ function initCaseInteractives(){
     },{once:true});
   });
   const wheelToggle=detail.querySelector('[data-tri-toggle]');
-  if(wheelToggle){wheelToggle.addEventListener('click',()=>{const stage=detail.querySelector('.tri-mechanism');const paused=stage.classList.toggle('tri-is-paused');wheelToggle.setAttribute('aria-pressed',String(!paused));wheelToggle.querySelector('span').textContent=paused?'Play animation':'Pause animation';wheelToggle.querySelector('iconify-icon').setAttribute('icon',paused?'lucide:play':'lucide:pause');});}
+  if(wheelToggle){wheelToggle.addEventListener('click',()=>{const stage=detail.querySelector('.tri-mechanism');const paused=stage.classList.toggle('tri-is-paused');wheelToggle.setAttribute('aria-pressed',String(!paused));wheelToggle.setAttribute('aria-label',paused?'Play wheel animation':'Pause wheel animation');wheelToggle.querySelector('span').textContent=paused?'Play animation':'Pause animation';wheelToggle.querySelector('iconify-icon')?.setAttribute('icon',paused?'lucide:play':'lucide:pause');});}
   detail.querySelectorAll('.ed-image-open').forEach(button=>button.addEventListener('click',()=>{
     const image=lightbox.querySelector('img');image.src=button.dataset.photo;image.alt=button.dataset.alt||'';
     lightbox.showModal();
@@ -780,8 +843,8 @@ const navPreview=document.getElementById('nav-preview');
 const navHeader=document.querySelector('.floating-header');
 const previewItems=[...document.querySelectorAll('.nav-preview-item')];
 const previewData=[
-  {image:'assets/project-data.jpg',category:'DATA ENGINEERING',title:'Construction safety, in real time.',desc:'Wearable sensors for construction-site safety.'},
-  {image:'assets/project-engineering.jpg',category:'ENGINEERING EXPLORATION',title:'More independence, one curb at a time.',desc:'A motorised tri-star wheel attachment.'},
+  {image:'assets/project-data.jpg',category:'DATA ENGINEERING',title:'Data Engineering Project',desc:'Wearable sensors for construction-site safety.'},
+  {image:'assets/project-engineering.jpg',category:'ENGINEERING EXPLORATION',title:'Engineering Exploration Project',desc:'A motorised tri-star wheel attachment.'},
   {image:'assets/project-iot.png',category:'INTERNET OF THINGS',title:'IoT System for Sustainable Living',desc:'Coming soon.'}
 ];
 function setPreviewProject(i){
@@ -870,15 +933,16 @@ function addChatLine(who,message,link,reaction=false){
   chatMessages.scrollTop=chatMessages.scrollHeight;
 }
 // Prewritten, self-contained portfolio knowledge. No external model or API key.
+
 function offTopicResponse(q){
   if(/\b(suicide|self[- ]harm|hurt myself|kill myself|want to die)\b/i.test(q)){
-    return {message:'If this is about your safety or someone else’s, please talk with a trusted person or local emergency service right now. Karthik is only a portfolio guide.'};
+    return {message:'If this is about your safety or someone else’s, please talk with a trusted person or local emergency service right now. This is only my prewritten portfolio assistant.'};
   }
   if(/\b(porn|nudes?|explicit sex|sexual content|rape|racial slur|hate speech|make (a )?bomb|explosives?|hack (an? |the )?(account|password|computer)|steal (data|passwords?|money)|make malware|doxx?|home address)\b/i.test(q)){
-    return {message:'Nice try 😭 Karthik is here for projects, skills and engineering stories. Let’s keep it portfolio-friendly.',reaction:true};
+    return {message:'I keep this little portfolio chat focused on my projects, skills and engineering work. Try asking about one of those instead!',reaction:true};
   }
   if(/\b(fuck|shit|bitch|bastard|asshole|dumbass|idiot|stupid|loser|shut up|screw you|hate you|you suck|karthik sucks)\b/i.test(q)){
-    return {message:'Caught that one 💀 Ask me about Karthik’s work instead!',reaction:true};
+    return {message:'Let’s keep it friendly 😅 Ask me about what I’ve built or what I’m learning.',reaction:true};
   }
   return null;
 }
@@ -886,24 +950,25 @@ function portfolioReply(raw){
   const q=raw.toLowerCase().replace(/[’]/g,"'").trim();
   const redir=offTopicResponse(q);
   if(redir)return redir;
-  if(/\b(are you (a|an) (ai|bot)|are you real|are you human|(?:r u|are u|u r|u a|you are).{0,22}\b(?:ai|bot|human|real)|chatgpt|ai chatbot|who are you|who r u|karthikgpt)\b/.test(q))return {message:'I’m Karthik! Just a fun name for this portfolio’s mini assistant. My answers are prewritten from Karthik’s projects and resume, so I’m not a live AI model. Ehe!'};
-  if(/\b(hi|hey|hello|sup|yo|good morning|good evening)\b/.test(q)&&q.split(/\s+/).length<5)return {message:'Hey hey! 👋 I’m Karthik, the portfolio guide. Want to explore his projects, skills, internship or awards?'};
-  if(/\b(thanks|thank you|tysm|thx)\b/.test(q))return {message:'You’re welcome! ✦ Want to explore another part of the portfolio?'};
-  if(/\b(contact|email|reach|message|linkedin|hire|connect|collab|talk to|social)\b/.test(q))return {message:`You can reach Karthik at ${portfolioMail}, or connect with him on LinkedIn.`,link:{label:'Get in touch',href:'#contact'}};
-  if(/\b(resume|cv|curriculum vitae|download pdf|download (it|file))\b/.test(q))return {message:'Of course! You can view or download Karthik’s one-page resume. It covers his education, awards, skills and internship experience.',link:{label:'Open resume (PDF)',href:'assets/karthik-resume.pdf'}};
-  if(/\b(intern|internship|iwow|work experience|worked at|job|600|300|1200|lora|modbus|meter|esso)\b/.test(q))return {message:'Karthik interned at iWOW Connections from 8 April to 26 August 2024. He configured 600+ 4G modems and IoT sensors, 300+ Modbus RTU modems, and monitored 1,200+ water, electricity and BTU meters over LoRa networks. He also supported signal tests and documentation.',link:{label:'View experience',href:'#about'}};
-  if(/\b(awards?|prizes?|merit|director.s list|achievements?|honou?rs?|sinda|recognition|aeis)\b/.test(q))return {message:'His awards include the Director’s List at NYP (Y1S2) and twice at ITE, an ITE Certificate of Merit, the SINDA Excellence Awards 2025 and the AEIS Book Prize from ITE.',link:{label:'See awards',href:'#about'}};
-  if(/\b(tri[- ]?star|wheelchair|curb|engineering exploration|mobility|wheel attachment)\b/.test(q))return {message:'His Engineering Exploration Project explores a motorised tri-star wheel attachment to help self-propelled wheelchair users get over curbs more independently.',link:{label:'Explore the project',href:'#project-engineering-exploration'}};
-  if(/\b(construction|fall detection|fall|slip|near[- ]?miss|safety|wearable|vest|data engineering project)\b/.test(q))return {message:'His Data Engineering Project focuses on construction safety. Wearable sensors help detect falls, slips and near-misses so sensor data becomes useful safety insights.',link:{label:'Explore the project',href:'#project-data-engineering'}};
-  if(/\b(sustainable|smart home|plant care|thing speak|thingspeak|zigbee|home automation|energy saving)\b/.test(q))return {message:'His IoT System for Sustainable Living uses connected sensors to explore home comfort, energy saving, plant care and security.',link:{label:'Explore the project',href:'#project-iot-sustainable-living'}};
-  if(/\b(projects?|portfolio|built|build|work on|made|case stud)\b/.test(q))return {message:'Karthik has three featured projects: a wearable construction-safety system, a tri-star wheelchair attachment concept, and an IoT sustainable-living system.',link:{label:'See all projects',href:'#projects'}};
-  if(/\b(higher nitec|ite|electronics|education|degree|diploma|nyp|polytechnic|stud(y|ies|ying)|school|course|qualification|graduate|secondary)\b/.test(q))return {message:'Karthik is studying for a Diploma in AI & Data Engineering at Nanyang Polytechnic (2025–2028). He completed Higher Nitec in Electronics Engineering at ITE (2023–2025) and attended Christ Church Secondary School before that.',link:{label:'View education',href:'#about'}};
-  if(/\b(python|power bi|powerbi|mysql|sql|pandas|numpy|matplotlib|aws|machine learning|code|programming|skills?|tools?|technology|stack|arduino|raspberry|sensor|iot|ble|cloud|deep learning|nlp|computer vision)\b/.test(q))return {message:'Karthik works with Python, Pandas, NumPy, Matplotlib, Power BI, Scikit-learn, Deep Learning, NLP, Computer Vision, Arduino (C/C++), Raspberry Pi, M5Stack, BLE, AWS Cloud and MySQL.',link:{label:'Explore the toolkit',href:'#about'}};
-  if(/\b(interest|passion|motivat|why ai|artificial intelligence|data science|future|goal|aspir)\b/.test(q))return {message:'He enjoys exploring how AI, data and connected devices can turn practical ideas into things that improve everyday life.',link:{label:'Get to know Karthik',href:'#about'}};
-  if(/\b(hobb|free time|outside|fun|video games?|games?|books?|reading|shows?|movies?|spare time)\b/.test(q))return {message:'Outside of technology, Karthik enjoys reading, watching shows and playing video games.'};
-  if(/\b(name|karthik|who is he|about him|background|tell me about)\b/.test(q))return {message:'Palaniappan Alagu Karthik is an AI & Data Engineering student at Nanyang Polytechnic with a Higher Nitec in Electronics Engineering. He enjoys AI, IoT and hands-on projects.',link:{label:'Get to know him',href:'#about'}};
-  return {message:'Hmm, I don’t have a reliable answer for that in my notes. Try asking me about his internship, projects, education, awards or skills.',link:{label:'Explore projects',href:'#projects'}};
+  if(/\b(are you (a|an) (ai|bot)|are you real|are you human|(?:r u|are u|u r|u a|you are).{0,22}\b(?:ai|bot|human|real)|chatgpt|ai chatbot|who are you|who r u|karthikgpt)\b/.test(q))return {message:'I’m the prewritten portfolio version of Karthik, not a live AI or a real-time conversation with him. I answer in his voice using information from the site.'};
+  if(/\b(hi|hey|hello|sup|yo|good morning|good evening)\b/.test(q)&&q.split(/\s+/).length<5)return {message:'Hey! I’m Karthik — well, my little prewritten portfolio assistant. Want to see my projects, skills, internship or achievements?'};
+  if(/\b(thanks|thank you|tysm|thx)\b/.test(q))return {message:'You’re welcome! Want to explore another part of my portfolio?'};
+  if(/\b(contact|email|reach|message|linkedin|hire|connect|collab|talk to|social)\b/.test(q))return {message:`You can contact me at ${portfolioMail}, or connect with me on LinkedIn.`,link:{label:'Contact me',href:'#contact'}};
+  if(/\b(resume|cv|curriculum vitae|download pdf|download (it|file))\b/.test(q))return {message:'You can view or download my resume. It includes my education, achievements, technical skills and internship experience.',link:{label:'Open my resume (PDF)',href:'assets/karthik-resume.pdf'}};
+  if(/\b(intern|internship|iwow|work experience|worked at|job|600|300|1200|lora|modbus|meter|esso)\b/.test(q))return {message:'I interned at iWOW Connections from April to August 2024. I configured 4G modems, IoT sensors and Modbus RTU devices, helped monitor meters over LoRa networks, and supported signal testing and documentation.',link:{label:'See my experience',href:'#about'}};
+  if(/\b(awards?|prizes?|merit|director.s list|achievements?|honou?rs?|sinda|recognition|aeis)\b/.test(q))return {message:'My achievements include the Director’s List at NYP, two Director’s List awards at ITE, the ITE Certificate of Merit, the SINDA Excellence Awards 2025 and the AEIS Book Prize from ITE.',link:{label:'My achievements',href:'#about'}};
+  if(/\b(tri[- ]?star|wheelchair|curb|engineering exploration|mobility|wheel attachment)\b/.test(q))return {message:'For my Engineering Exploration Project, my team explored a motorised tri-star wheel attachment to help wheelchair users overcome curbs. I worked on the switch, Arduino Uno and DC motor circuit, and took part in brainstorming and testing. We tested the concept with a small-scale prototype.',link:{label:'My engineering project',href:'#project-engineering-exploration'}};
+  if(/\b(construction|fall detection|fall|slip|near[- ]?miss|safety|wearable|vest|data engineering project)\b/.test(q))return {message:'For my Data Engineering Project, my team built a wearable-sensor prototype to collect movement data and highlight potential slips, falls and near-misses. I developed the Main.py launcher that starts our Python data collection and processing scripts.',link:{label:'My data project',href:'#project-data-engineering'}};
+  if(/\b(sustainable|smart home|plant care|thing speak|thingspeak|zigbee|home automation|energy saving)\b/.test(q))return {message:'My IoT System for Sustainable Living project focuses on connected sensors and home automation. I’m still preparing the detailed write-up, so this page is marked Coming Soon.',link:{label:'My IoT project',href:'#project-iot-sustainable-living'}};
+  if(/\b(projects?|portfolio|built|build|work on|made|case stud)\b/.test(q))return {message:'I’m featuring three projects here: a wearable construction-safety system, a tri-star wheelchair mobility concept, and an IoT system for sustainable living. The first two have detailed project pages, and the IoT write-up is coming soon.',link:{label:'Explore my projects',href:'#projects'}};
+  if(/\b(higher nitec|ite|electronics|education|degree|diploma|nyp|polytechnic|stud(y|ies|ying)|school|course|qualification|graduate|secondary)\b/.test(q))return {message:'I’m studying for a Diploma in AI & Data Engineering at Nanyang Polytechnic. Before that, I completed Higher Nitec in Electronics Engineering at ITE, and I attended Christ Church Secondary School.',link:{label:'My education timeline',href:'#about'}};
+  if(/\b(python|power bi|powerbi|mysql|sql|pandas|numpy|matplotlib|aws|machine learning|code|programming|skills?|tools?|technology|stack|arduino|raspberry|sensor|iot|ble|cloud|deep learning|nlp|computer vision)\b/.test(q))return {message:'I work with Python, Pandas, NumPy, Matplotlib, Power BI, Scikit-learn, Arduino (C/C++), Raspberry Pi, M5Stack, BLE, AWS Cloud and MySQL. I’m also learning more about Deep Learning, NLP and Computer Vision.',link:{label:'My skills & tools',href:'#about'}};
+  if(/\b(interest|passion|motivat|why ai|artificial intelligence|data science|future|goal|aspir)\b/.test(q))return {message:'I enjoy exploring how AI, data and connected devices can turn practical ideas into useful things. That’s why I like learning by building projects.',link:{label:'More about me',href:'#about'}};
+  if(/\b(hobb|free time|outside|fun|video games?|games?|books?|reading|shows?|movies?|spare time)\b/.test(q))return {message:'Outside of technology, I enjoy reading, watching shows and playing video games.'};
+  if(/\b(name|karthik|who is he|about him|background|tell me about|about you|who you are)\b/.test(q))return {message:'I’m Palaniappan Alagu Karthik, an AI & Data Engineering student at Nanyang Polytechnic. I previously studied Electronics Engineering at ITE, and I enjoy AI, IoT and hands-on engineering projects.',link:{label:'More about me',href:'#about'}};
+  return {message:'I don’t have a reliable answer to that in my portfolio notes yet. Try asking about my internship, projects, education, achievements or skills.',link:{label:'Explore my projects',href:'#projects'}};
 }
+
 function submitChat(value){
   const text=(typeof value==='string'?value:chatQuestion.value).trim().slice(0,350);
   if(!text)return;

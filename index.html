@@ -16,11 +16,68 @@
 <body>
 <div id="page-loader" class="page-loader" role="status" aria-label="Loading Karthik's portfolio">
   <div class="loader-inner" aria-hidden="true">
-    <img class="loader-keyboard" src="assets/loader-keyboard.svg" alt="" width="450" height="235">
+    <div class="loader-network">
+      <div class="loader-halo"></div>
+      <svg class="loader-k" viewBox="0 0 320 320" aria-hidden="true">
+        <circle class="constellation ring" cx="160" cy="160" r="110"></circle>
+        <circle class="constellation ring" cx="160" cy="160" r="84"></circle>
+        <line class="constellation" x1="52" y1="94" x2="110" y2="105"></line>
+        <line class="constellation" x1="58" y1="224" x2="110" y2="215"></line>
+        <line class="constellation" x1="176" y1="34" x2="208" y2="72"></line>
+        <line class="constellation" x1="264" y1="118" x2="208" y2="72"></line>
+        <line class="constellation" x1="282" y1="164" x2="216" y2="248"></line>
+        <line class="constellation" x1="234" y1="276" x2="216" y2="248"></line>
+        <g class="edges">
+          <line class="network-edge" pathLength="1" style="--delay:.05s" x1="110" y1="55" x2="110" y2="105"></line>
+          <line class="network-edge" pathLength="1" style="--delay:.12s" x1="110" y1="105" x2="110" y2="160"></line>
+          <line class="network-edge" pathLength="1" style="--delay:.2s" x1="110" y1="160" x2="110" y2="215"></line>
+          <line class="network-edge" pathLength="1" style="--delay:.28s" x1="110" y1="215" x2="110" y2="265"></line>
+          <line class="network-edge" pathLength="1" style="--delay:.36s" x1="110" y1="160" x2="158" y2="117"></line>
+          <line class="network-edge" pathLength="1" style="--delay:.46s" x1="158" y1="117" x2="208" y2="72"></line>
+          <line class="network-edge" pathLength="1" style="--delay:.56s" x1="110" y1="160" x2="160" y2="202"></line>
+          <line class="network-edge" pathLength="1" style="--delay:.66s" x1="160" y1="202" x2="216" y2="248"></line>
+          <line class="network-edge network-edge--faint" pathLength="1" style="--delay:.74s" x1="52" y1="94" x2="110" y2="105"></line>
+          <line class="network-edge network-edge--faint" pathLength="1" style="--delay:.82s" x1="58" y1="224" x2="110" y2="215"></line>
+          <line class="network-edge network-edge--faint" pathLength="1" style="--delay:.9s" x1="176" y1="34" x2="208" y2="72"></line>
+          <line class="network-edge network-edge--faint" pathLength="1" style="--delay:.98s" x1="264" y1="118" x2="208" y2="72"></line>
+          <line class="network-edge network-edge--faint" pathLength="1" style="--delay:1.06s" x1="282" y1="164" x2="216" y2="248"></line>
+          <line class="network-edge network-edge--faint" pathLength="1" style="--delay:1.14s" x1="234" y1="276" x2="216" y2="248"></line>
+        </g>
+        <g class="ambient-dots">
+          <circle class="ambient-dot" style="--delay:.1s" cx="52" cy="94" r="3"></circle>
+          <circle class="ambient-dot" style="--delay:.3s" cx="58" cy="224" r="3"></circle>
+          <circle class="ambient-dot" style="--delay:.45s" cx="176" cy="34" r="3"></circle>
+          <circle class="ambient-dot" style="--delay:.6s" cx="264" cy="118" r="3"></circle>
+          <circle class="ambient-dot" style="--delay:.75s" cx="282" cy="164" r="2.6"></circle>
+          <circle class="ambient-dot" style="--delay:.9s" cx="234" cy="276" r="2.8"></circle>
+          <circle class="ambient-dot" style="--delay:1.05s" cx="245" cy="52" r="2.4"></circle>
+          <circle class="ambient-dot" style="--delay:1.18s" cx="80" cy="278" r="2.4"></circle>
+          <circle class="ambient-dot" style="--delay:1.3s" cx="288" cy="84" r="2.2"></circle>
+        </g>
+        <g class="nodes">
+          <circle class="network-node" style="--delay:.08s" cx="110" cy="55" r="6.5"></circle>
+          <circle class="network-node" style="--delay:.16s" cx="110" cy="105" r="6"></circle>
+          <circle class="network-node network-node--core" style="--delay:.24s" cx="110" cy="160" r="7"></circle>
+          <circle class="network-node" style="--delay:.32s" cx="110" cy="215" r="6"></circle>
+          <circle class="network-node" style="--delay:.4s" cx="110" cy="265" r="6.5"></circle>
+          <circle class="network-node" style="--delay:.48s" cx="158" cy="117" r="6"></circle>
+          <circle class="network-node network-node--core" style="--delay:.56s" cx="208" cy="72" r="6.5"></circle>
+          <circle class="network-node" style="--delay:.64s" cx="160" cy="202" r="6"></circle>
+          <circle class="network-node network-node--core" style="--delay:.72s" cx="216" cy="248" r="6.5"></circle>
+        </g>
+        <g class="blips">
+          <circle class="node-blip" style="--delay:1.2s" cx="110" cy="160" r="9"></circle>
+          <circle class="node-blip" style="--delay:1.35s" cx="208" cy="72" r="8.5"></circle>
+          <circle class="node-blip" style="--delay:1.5s" cx="216" cy="248" r="8.5"></circle>
+        </g>
+      </svg>
+    </div>
     <div class="loader-progress">
       <div class="loader-track"><span class="loader-fill"></span></div>
       <div class="loader-meta"><span>Loading</span><span id="loader-count">000</span></div>
     </div>
+  </div>
+</div>
   </div>
 </div>
 <div id="portfolio" class="min-h-screen relative">
@@ -46,7 +103,7 @@
     </div>
     <div class="nav-preview-display">
       <img id="nav-preview-image" src="assets/project-data.jpg" alt="Data Engineering Project visual" width="800" height="600">
-      <div class="nav-preview-caption"><small id="nav-preview-category">DATA ENGINEERING</small><strong id="nav-preview-title">Construction safety, in real time.</strong><span id="nav-preview-desc">Wearable sensors for construction-site safety.</span></div>
+      <div class="nav-preview-caption"><small id="nav-preview-category">DATA ENGINEERING</small><strong id="nav-preview-title">Data Engineering Project</strong><span id="nav-preview-desc">Wearable sensors for construction-site safety.</span></div>
     </div>
   </div>
   <button id="theme-toggle" class="theme-toggle glass" type="button" aria-label="Switch to light mode"><iconify-icon id="theme-icon" icon="lucide:sun" aria-hidden="true"></iconify-icon></button>
@@ -131,7 +188,7 @@
       <div class="about-grid" aria-label="Education, experience, skills and achievements">
         <article class="about-tile tile-education tile-animate" style="--tile-order:0">
           <div class="tile-top"><span class="tile-label"><iconify-icon icon="lucide:graduation-cap" aria-hidden="true"></iconify-icon> EDUCATION</span><span class="tile-index">01</span></div>
-          <h3>Still learning.<br><em>Always building.</em></h3>
+          <h3>Education<br><em>timeline.</em></h3>
           <div class="education-item"><span class="education-year">2025 — 2028</span><strong>Diploma in AI &amp; Data Engineering</strong><span>Nanyang Polytechnic · Currently studying</span></div>
           <div class="education-item"><span class="education-year">2023 — 2025</span><strong>Higher Nitec in Electronics Engineering</strong><span>Institute of Technical Education (ITE)</span></div>
           <div class="education-item"><span class="education-year">2019 — 2022</span><strong>GCE N(A) Level</strong><span>Christ Church Secondary School</span></div>
@@ -174,8 +231,8 @@
           </div>
         </article>
         <article class="about-tile tile-awards tile-animate" style="--tile-order:3">
-          <div class="tile-top"><span class="tile-label"><iconify-icon icon="lucide:award" aria-hidden="true"></iconify-icon> MILESTONES</span><span class="tile-index">04</span></div>
-          <h3>Little wins,<br><em>big motivation.</em></h3>
+          <div class="tile-top"><span class="tile-label"><iconify-icon icon="lucide:award" aria-hidden="true"></iconify-icon> ACHIEVEMENTS</span><span class="tile-index">04</span></div>
+          <h3>My<br><em>achievements.</em></h3>
           <ul class="award-list">
             <li><iconify-icon icon="lucide:sparkles" aria-hidden="true"></iconify-icon><span>Director's List <small>Nanyang Polytechnic · Y1S2</small></span></li>
             <li class="ite-directors-awards"><iconify-icon icon="lucide:sparkles" aria-hidden="true"></iconify-icon><span><span class="ite-directors-heading">Director's List <span class="ite-awards-count" aria-label="Awarded twice at ITE">2× at ITE</span></span><small>Apr–Sep 2023</small><small>Oct 2023–Mar 2024</small></span></li>
@@ -214,13 +271,13 @@
             <noscript><p class="project-map-nojs">Explore the project cards below.</p></noscript>
           </div>
         </div>
-        <p class="project-map-hint">Drag to spin · Move your mouse to steer · Select a project to open</p>
+        <p class="project-map-hint">Drag to spin · Move your mouse to steer · Select a visible project</p>
       </div>
       <div class="project-gallery-heading"><span>THE PROJECTS</span><p>Explore each build in detail.</p></div>
       <div class="project-rail-wrap">
         <div id="project-rail" class="own-projects" role="region" aria-roledescription="carousel" aria-label="My Projects" tabindex="0">
-          <a id="open-data-engineering" class="project-card" href="#project-data-engineering" aria-label="Open Data Engineering Project"><div class="project-cover"><img src="assets/project-data.jpg" alt="Data Engineering Project" loading="lazy" width="800" height="600" data-cover="data-engineering"><span class="project-image-cta" aria-hidden="true">View project ↗</span></div><div class="project-card-copy"><div class="project-meta"><span>01</span><span>DATA ENGINEERING</span></div><h3>Construction safety, in real time.</h3><p>A wearable sensor system that detects falls, slips and near-misses on construction sites.</p><span class="project-open">View project <span aria-hidden="true">↗</span></span></div></a>
-          <a id="open-engineering-exploration" class="project-card" href="#project-engineering-exploration" aria-label="Open Engineering Exploration Project"><div class="project-cover"><img src="assets/project-engineering.jpg" alt="Engineering Exploration Project" loading="lazy" width="800" height="600" data-cover="engineering-exploration"><span class="project-image-cta" aria-hidden="true">View project ↗</span></div><div class="project-card-copy"><div class="project-meta"><span>02</span><span>ENGINEERING EXPLORATION</span></div><h3>More independence, one curb at a time.</h3><p>A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.</p><span class="project-open">View project <span aria-hidden="true">↗</span></span></div></a>
+          <a id="open-data-engineering" class="project-card" href="#project-data-engineering" aria-label="Open Data Engineering Project"><div class="project-cover"><img src="assets/project-data.jpg" alt="Data Engineering Project" loading="lazy" width="800" height="600" data-cover="data-engineering"><span class="project-image-cta" aria-hidden="true">View project ↗</span></div><div class="project-card-copy"><div class="project-meta"><span>01</span><span>DATA ENGINEERING</span></div><h3>Data Engineering Project</h3><p>A wearable sensor system that detects falls, slips and near-misses on construction sites.</p><span class="project-open">View project <span aria-hidden="true">↗</span></span></div></a>
+          <a id="open-engineering-exploration" class="project-card" href="#project-engineering-exploration" aria-label="Open Engineering Exploration Project"><div class="project-cover"><img src="assets/project-engineering.jpg" alt="Engineering Exploration Project" loading="lazy" width="800" height="600" data-cover="engineering-exploration"><span class="project-image-cta" aria-hidden="true">View project ↗</span></div><div class="project-card-copy"><div class="project-meta"><span>02</span><span>ENGINEERING EXPLORATION</span></div><h3>Engineering Exploration Project</h3><p>A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.</p><span class="project-open">View project <span aria-hidden="true">↗</span></span></div></a>
           <a id="open-iot-sustainable-living" class="project-card" href="#project-iot-sustainable-living" aria-label="IoT System for Sustainable Living, coming soon"><div class="project-cover"><img src="assets/project-iot.png" alt="IoT System for Sustainable Living" loading="lazy" width="800" height="600" data-cover="iot-sustainable-living"><span class="project-image-cta" aria-hidden="true">View project ↗</span></div><div class="project-card-copy"><div class="project-meta"><span>03</span><span>INTERNET OF THINGS</span></div><h3>IoT System for Sustainable Living</h3><p>Coming soon.</p><span class="project-open">Coming soon <span aria-hidden="true">↗</span></span></div></a>
         </div>
       </div>
@@ -240,17 +297,17 @@
 <aside id="portfolio-chat" class="chat-panel" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
   <div class="chat-header">
     <div class="chat-avatar" aria-hidden="true"><img src="assets/chat-smiley.png" alt=""><span class="chat-avatar-dot"></span></div>
-    <div class="chat-heading"><h2 id="chat-title">Karthik <span class="chat-beta">PORTFOLIO ASSISTANT</span></h2><p>Your guide to Karthik’s work <span aria-hidden="true">·</span> Online</p></div>
+    <div class="chat-heading"><h2 id="chat-title">Karthik <span class="chat-beta">PORTFOLIO ASSISTANT</span></h2><p>My projects, in my words <span aria-hidden="true">·</span> Online</p></div>
     <button id="chat-reset" class="chat-icon-button" type="button" aria-label="Start a new chat" title="New chat"><iconify-icon icon="lucide:plus" aria-hidden="true"></iconify-icon></button>
     <button id="chat-close" class="chat-icon-button" type="button" aria-label="Close chat"><iconify-icon icon="lucide:x" aria-hidden="true"></iconify-icon></button>
   </div>
   <div class="chat-messages" id="chat-messages" role="log" aria-label="Chat messages" aria-live="polite" aria-relevant="additions" aria-atomic="false">
-    <div class="chat-line chat-line--bot"><span class="chat-message-avatar" aria-hidden="true"><img src="assets/chat-smiley.png" alt=""></span><div class="chat-bubble">Hey! I’m <strong>Karthik</strong> ✦ Your mini portfolio guide. Ask me about his projects, internship, skills, awards or studies. Ehe!</div></div>
+    <div class="chat-line chat-line--bot"><span class="chat-message-avatar" aria-hidden="true"><img src="assets/chat-smiley.png" alt=""></span><div class="chat-bubble">Hey! I’m <strong>Karthik</strong> ✦ Well, my prewritten portfolio assistant. Ask about the projects I built, my internship, skills, achievements or studies!</div></div>
     <div class="chat-quick-questions" id="chat-quick-questions" aria-label="Suggested questions">
-      <button type="button" data-chat-question="What projects has Karthik built?">His projects <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What did Karthik do during his internship?">Internship <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What skills does Karthik have?">Skills &amp; tools <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What awards did Karthik receive?">Awards <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
+      <button type="button" data-chat-question="What projects have you worked on?">My projects <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
+      <button type="button" data-chat-question="What did you do during your internship?">My internship <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
+      <button type="button" data-chat-question="What are your skills?">My skills <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
+      <button type="button" data-chat-question="What awards have you received?">My achievements <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
     </div>
   </div>
   <div class="chat-bottom">
@@ -259,7 +316,7 @@
       <textarea id="question" name="question" rows="1" placeholder="Ask me something..." autocomplete="off" maxlength="350"></textarea>
       <button id="chat-send" class="chat-send" type="submit" aria-label="Send message" disabled><iconify-icon icon="lucide:arrow-up" aria-hidden="true"></iconify-icon></button>
     </form>
-    <p class="chat-footnote">Karthik gives built-in answers from this portfolio, not live AI.</p>
+    <p class="chat-footnote">Prewritten answers in my voice, not a live conversation or AI.</p>
   </div>
 </aside>
 

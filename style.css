@@ -729,17 +729,39 @@ body.menu-open .menu-bars span:nth-child(3){transform:translateY(-6.5px) rotate(
 @media(prefers-reduced-motion:reduce){.project-globe-label{transition:none}}
 /* Minimal warm-dark opening screen. */
 body.is-loading{overflow:hidden}
-.page-loader{--loader-progress:0%;position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:#211c18;color:#f0e5d6;border-top:5px solid #3b322a;opacity:1;visibility:visible;transition:opacity .65s ease,visibility .65s ease}
+:root[data-theme=light] .page-loader{--loader-bg-top:#f1e7db;--loader-bg-bottom:#ded0bf;--loader-fg:#2f2821;--loader-muted:#736557;--loader-line:rgba(93,73,51,.18);--loader-strong:#36291f;--loader-soft:#fcf4e8;--loader-glow:rgba(194,160,109,.34);--loader-node:#33271d;--loader-node-ring:rgba(244,233,219,.86)}
+:root[data-theme=dark] .page-loader{--loader-bg-top:#181411;--loader-bg-bottom:#231c17;--loader-fg:#f0e5d6;--loader-muted:#b8a998;--loader-line:rgba(233,220,200,.14);--loader-strong:#eadbc7;--loader-soft:#2f251d;--loader-glow:rgba(217,188,132,.18);--loader-node:#f0e5d6;--loader-node-ring:rgba(79,62,44,.8)}
+.page-loader{position:fixed;inset:0;z-index:200;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 42%,var(--loader-glow) 0,transparent 30%),linear-gradient(180deg,var(--loader-bg-top),var(--loader-bg-bottom));color:var(--loader-fg);opacity:1;visibility:visible;transition:opacity .75s ease,visibility .75s ease}
+.page-loader::before{content:"";position:absolute;inset:-20%;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;opacity:.18;mask-image:radial-gradient(circle at center,black 28%,transparent 85%)}
 .page-loader.is-complete{opacity:0;visibility:hidden;pointer-events:none}
-.loader-inner{display:grid;justify-items:center;width:min(450px,85vw);transform:translateY(-2%)}
-.loader-keyboard{display:block;width:min(390px,76vw);height:auto;opacity:.9;animation:loader-breathe 2.3s ease-in-out infinite alternate}
-.loader-progress{width:200px;max-width:65vw;margin-top:64px}
-.loader-track{height:1px;background:rgba(240,229,214,.26);overflow:hidden}
-.loader-fill{display:block;width:var(--loader-progress);height:100%;background:#e9dcc8;transition:width .12s linear}
-.loader-meta{display:flex;align-items:center;justify-content:space-between;margin-top:13px;color:#b8a998;font:12px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.02em}
-@keyframes loader-breathe{from{transform:translateY(0);opacity:.72}to{transform:translateY(-5px);opacity:1}}
-@media(max-width:600px){.loader-progress{margin-top:42px;width:170px}.loader-meta{font-size:11px}}
-@media(prefers-reduced-motion:reduce){.page-loader,.loader-fill{transition:none}.loader-keyboard{animation:none}}
+.loader-inner{position:relative;display:grid;justify-items:center;width:min(520px,88vw);transform:translateY(-3%)}
+.loader-network{position:relative;width:min(340px,72vw);aspect-ratio:1;display:grid;place-items:center}
+.loader-halo{position:absolute;inset:16%;border-radius:50%;background:radial-gradient(circle,var(--loader-glow),transparent 70%);filter:blur(20px);opacity:.85;animation:loader-halo 2.6s ease-in-out infinite alternate}
+.loader-k{position:relative;z-index:1;display:block;width:100%;height:auto;overflow:visible;filter:drop-shadow(0 14px 32px rgba(0,0,0,.16))}
+.loader-k .constellation{fill:none;stroke:var(--loader-line);stroke-width:1.2;opacity:.5}
+.loader-k .constellation.ring{opacity:.24}
+.loader-k .network-edge{fill:none;stroke:var(--loader-strong);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;opacity:.2;stroke-dasharray:1;stroke-dashoffset:1;animation:draw-edge .8s var(--ease) forwards,edge-pulse 2.4s ease-in-out calc(1.05s + var(--delay,0s)) infinite alternate}
+.loader-k .network-edge--faint{stroke-width:2.1;opacity:.12}
+.loader-k .network-node{fill:var(--loader-node);stroke:var(--loader-node-ring);stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.2);animation:node-in .45s var(--ease) forwards}
+.loader-k .network-node--core{stroke-width:3.3}
+.loader-k .ambient-dot{fill:var(--loader-strong);opacity:0;animation:star-in .5s ease forwards,star-twinkle 2.4s ease-in-out calc(1.05s + var(--delay,0s)) infinite alternate}
+.loader-k .node-blip{fill:none;stroke:var(--loader-strong);stroke-width:1.4;opacity:0;transform-box:fill-box;transform-origin:center;animation:blip-ring 2.2s ease-out var(--delay,1s) infinite}
+.loader-k .network-edge,.loader-k .network-node,.loader-k .ambient-dot{animation-delay:var(--delay,0s),calc(1.05s + var(--delay,0s))}
+.loader-k .network-node{animation-delay:var(--delay,0s)}
+.loader-k .ambient-dot{animation-delay:var(--delay,0s),calc(1.05s + var(--delay,0s))}
+.loader-progress{width:220px;max-width:68vw;margin-top:38px}
+.loader-track{height:1px;background:rgba(127,110,93,.26);overflow:hidden}
+.loader-fill{display:block;width:var(--loader-progress);height:100%;background:var(--loader-fg);transition:width .12s linear}
+.loader-meta{display:flex;align-items:center;justify-content:space-between;margin-top:13px;color:var(--loader-muted);font:12px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase}
+@keyframes draw-edge{0%{stroke-dashoffset:1;opacity:.08}100%{stroke-dashoffset:0;opacity:1}}
+@keyframes edge-pulse{from{opacity:.55}to{opacity:1}}
+@keyframes node-in{0%{opacity:0;transform:scale(.2)}70%{opacity:1}100%{opacity:1;transform:scale(1)}}
+@keyframes star-in{from{opacity:0;transform:scale(.35)}to{opacity:.55;transform:scale(1)}}
+@keyframes star-twinkle{from{opacity:.25}50%{opacity:.85}to{opacity:.35}}
+@keyframes blip-ring{0%{opacity:0;transform:scale(.6)}18%{opacity:.55}100%{opacity:0;transform:scale(1.65)}}
+@keyframes loader-halo{from{transform:scale(.96);opacity:.52}to{transform:scale(1.06);opacity:.9}}
+@media(max-width:600px){.loader-network{width:min(290px,74vw)}.loader-progress{width:180px;margin-top:28px}.loader-meta{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.page-loader,.loader-fill{transition:none}.loader-halo,.loader-k .network-edge,.loader-k .network-node,.loader-k .ambient-dot,.loader-k .node-blip{animation:none}.loader-k .network-edge{opacity:1;stroke-dashoffset:0}.loader-k .network-node,.loader-k .ambient-dot{opacity:1;transform:none}.loader-k .node-blip{opacity:0}}
 
 
 /* ============================================================
@@ -1703,3 +1725,123 @@ body.is-loading{overflow:hidden}
   .iot-coming-status{animation:iot-arrive .9s .16s cubic-bezier(.22,1,.36,1) both;}
   @keyframes iot-arrive{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 }
+
+/* Project globe: actual project names, readable in both themes. */
+.project-globe-label--project{
+  max-width:clamp(140px,17vw,210px);
+  white-space:normal;
+  line-height:1.19;
+  text-wrap:balance;
+  font-size:clamp(12px,1.05vw,14px);
+  font-weight:680;
+  text-shadow:0 2px 10px #101820,0 0 18px #101820;
+}
+@media (max-width:650px){
+  .project-globe-label--project{max-width:148px;font-size:12px;}
+}
+
+/* Native playback for the two original TRI-STAR MP4 tests. */
+.tri-native-video{
+  display:block;width:100%;height:clamp(280px,28vw,430px);
+  object-fit:cover;border-radius:16px;background:#211d19;
+  color-scheme:dark;
+}
+@media(max-width:760px){.tri-native-video{height:290px}}
+
+
+/* Visual consistency: one card silhouette throughout the portfolio.
+   The layout may vary, but photo/video frames and content cards use the same
+   corner language. Portraits and technical diagrams keep their natural crop. */
+:root{--portfolio-card-radius:28px;--portfolio-media-radius:18px;--portfolio-cover-ratio:16 / 10}
+
+/* Main bento and feature surfaces: consistently rounded, never mixed corners. */
+.about-tile,
+.editorial-case .ed-media-card,
+.editorial-case .ed-new-hero-visual.ed-media-card,
+.editorial-case--data-engineering .nesso-pair article,
+.editorial-case--data-engineering .nesso-role > .nesso-section-heading,
+.editorial-case--data-engineering .nesso-role-copy,
+.editorial-case--engineering-exploration .tri-intro-copy,
+.editorial-case--engineering-exploration .tri-image-tile,
+.editorial-case--engineering-exploration .tri-mechanism,
+.tri-process-card,
+.tri-demo-card,
+.tri-role-main,
+.tri-role-circuit,
+.tri-original-sketch-sheet,
+.editorial-case--data-engineering .nesso-clean-flow,
+.editorial-case--data-engineering .nesso-image-card,
+.editorial-case--data-engineering .nesso-outcome-photo,
+.photo-comparison .portrait-frame,
+.detail-cover{border-radius:var(--portfolio-card-radius)}
+
+/* Matching inner photo/video windows across distinct page compositions. */
+.editorial-case .ed-new-hero-open,
+.editorial-case .ed-engineering-sheet .ed-engineering-main,
+.editorial-case .ed-data-photo-wrap .ed-data-photo,
+.editorial-case .ed-data-photo-wrap .ed-data-media-aside,
+.editorial-case .ed-iot-media .ed-media,
+.editorial-case .ed-data-feature-img .ed-image-open,
+.editorial-case .ed-eng-mechanism figure .ed-image-open,
+.editorial-case .ed-iot-gallery figure .ed-image-open,
+.tri-curb-photo .ed-image-open,
+.tri-process-sketch .ed-image-open,
+.tri-process-build .ed-image-open,
+.tri-process-drawings a,
+.tri-original-sketch-sheet img,
+.tri-demo-photo .ed-image-open,
+.tri-native-video,
+.nesso-results-gallery .ed-image-open,
+.nesso-outcome-photo .ed-image-open{border-radius:var(--portfolio-media-radius)}
+
+/* Every featured project thumbnail is the same format on desktop and mobile. */
+.featured-projects .project-cover,
+.own-projects .project-cover{aspect-ratio:var(--portfolio-cover-ratio);border-radius:var(--portfolio-media-radius);overflow:hidden}
+.featured-projects .project-cover img,
+.own-projects .project-cover img{width:100%;height:100%;object-fit:cover}
+
+/* Side-by-side demonstration videos share the same geometry as project photos. */
+.tri-demo-grid{align-items:stretch}
+.tri-video-card{display:flex;flex-direction:column;min-width:0}
+.tri-native-video{height:auto;aspect-ratio:var(--portfolio-cover-ratio);width:100%;object-fit:contain;background:#181613;overflow:hidden;flex:none}
+.tri-video-card .tri-video-caption{margin-top:auto}
+
+/* The photo and caption parts of a split card form one rounded inner unit. */
+.editorial-case .ed-data-photo-wrap .ed-data-photo{border-radius:var(--portfolio-media-radius) 0 0 var(--portfolio-media-radius)}
+.editorial-case .ed-data-photo-wrap .ed-data-media-aside{border-radius:0 var(--portfolio-media-radius) var(--portfolio-media-radius) 0}
+
+@media(max-width:700px){
+ :root{--portfolio-card-radius:22px;--portfolio-media-radius:14px}
+ .about-tile,.editorial-case .ed-media-card,
+ .editorial-case .ed-new-hero-visual.ed-media-card,
+ .editorial-case--data-engineering .nesso-pair article,
+ .editorial-case--data-engineering .nesso-role>.nesso-section-heading,
+ .editorial-case--data-engineering .nesso-role-copy,
+ .editorial-case--engineering-exploration .tri-intro-copy,
+ .editorial-case--engineering-exploration .tri-image-tile,
+ .editorial-case--engineering-exploration .tri-mechanism,
+ .tri-process-card,.tri-demo-card,.tri-role-main,.tri-role-circuit,
+ .tri-original-sketch-sheet,.photo-comparison .portrait-frame{border-radius:var(--portfolio-card-radius)}
+ .editorial-case .ed-data-photo-wrap .ed-data-photo{border-radius:var(--portfolio-media-radius) var(--portfolio-media-radius) 0 0}
+ .editorial-case .ed-data-photo-wrap .ed-data-media-aside{border-radius:0 0 var(--portfolio-media-radius) var(--portfolio-media-radius)}
+ .tri-native-video{aspect-ratio:var(--portfolio-cover-ratio);height:auto}
+}
+
+
+/* Engineering: custom concept mechanism in the Solution card. The original hand drawings
+   remain in the separate Design Process gallery, not duplicated here. */
+.editorial-case--engineering-exploration .tri-mechanism--interactive{align-items:stretch}
+.tri-mechanism--interactive .tri-mechanism-left{justify-content:center}
+.tri-mechanism--interactive .tri-mechanism-art{min-height:380px;min-width:0;background:var(--inverted);border:1px solid var(--tri-border);border-radius:var(--portfolio-media-radius,18px);padding:clamp(16px,2.2vw,28px);color:var(--on-inverted);overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px}
+.tri-mechanism--interactive .tri-mechanism-art svg{width:min(100%,470px);max-height:430px;overflow:visible;color:var(--on-inverted)}
+.tri-mechanism--interactive .tri-rotate-button{margin-top:clamp(25px,3vw,42px);color:var(--fg);border-color:var(--tri-border)}
+.tri-mechanism--interactive .tri-rotate-button:hover{border-color:var(--fg)}
+.tri-mechanism--interactive .tri-diagram-caption{width:100%;max-width:420px;color:var(--on-inverted);border-color:rgba(255,255,255,.2)}
+.tri-mechanism--interactive .tri-diagram-small{font:700 10px/1.4 'TikTok Sans',Arial,sans-serif;letter-spacing:2px;opacity:.68}
+.tri-mechanism--interactive .tri-wheel-orbit{transform-origin:200px 242px;transform-box:view-box;animation:tri-wheel-spin 12s linear infinite}
+.tri-mechanism--interactive.tri-is-paused .tri-wheel-orbit{animation-play-state:paused}
+.tri-mechanism--interactive .tri-live-dot{background:#d8d1c2;opacity:1}
+.tri-circuit-mark iconify-icon{display:grid;place-items:center;width:1em;height:1em;font-size:inherit;line-height:1}
+.tri-circuit-mark iconify-icon svg{width:1em;height:1em;display:block}
+@media(max-width:760px){.tri-mechanism--interactive .tri-mechanism-art{min-height:290px;padding:18px}.tri-mechanism--interactive .tri-mechanism-art svg{max-width:330px}}
+@media(prefers-reduced-motion:reduce){.tri-mechanism--interactive .tri-wheel-orbit{animation:none!important}}
