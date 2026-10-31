@@ -27,9 +27,18 @@ if(loader){
     }
     if(value===100){
       clearTimeout(fallback);
-      loader.classList.add('is-complete');
-      document.body.classList.remove('is-loading');
-      setTimeout(()=>loader.remove(),motion.matches?0:700);
+      const finishLoader=()=>{
+        loader.remove();
+        document.body.classList.remove('is-loading');
+      };
+      if(motion.matches){finishLoader();return;}
+      setTimeout(()=>{
+        loader.addEventListener('transitionend',event=>{
+          if(event.target===loader&&event.propertyName==='transform')finishLoader();
+        });
+        loader.classList.add('is-complete');
+        setTimeout(finishLoader,1000);
+      },120);
     }else requestAnimationFrame(updateLoader);
   }
   requestAnimationFrame(updateLoader);
@@ -127,22 +136,35 @@ motion.addEventListener('change',startWeatherCycle);
 
 
 const projectData=[
-  {slug:'data-engineering',category:'Data engineering',title:'Data Engineering Project',name:'Data Engineering Project',image:'assets/project-data.jpg',summary:'A wearable sensor system that detects falls, slips and near-misses on construction sites.',mapLabel:'Data Engineering Project',mapPosition:[24,55],topics:['sensors','ble','realtime','python']},
-  {slug:'engineering-exploration',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.',mapLabel:'Engineering Exploration Project',mapPosition:[58,42],topics:['accessibility','mechanical']},
-  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Living',name:'IoT System for Sustainable Living',image:'assets/project-iot.png',summary:'Coming soon.',mapLabel:'IoT System for Sustainable Living',mapPosition:[77,61],topics:['sensors','ble','connected','energy']}
+  {slug:'data-engineering',category:'Data engineering',title:'Data Engineering Project',name:'Data Engineering Project',image:'assets/project-data.jpg',summary:'A wearable sensor system that detects falls, slips and near-misses on construction sites.',mapLabel:'Data Engineering Project',mapPosition:[24,55],topics:['sensors','ble','realtime','python','pandas','mysql','powerbi','preprocessing','wearables']},
+  {slug:'engineering-exploration',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.',mapLabel:'Engineering Exploration Project',mapPosition:[58,42],topics:['accessibility','mechanical','arduino','motors','circuit','prototype','sketch','testing']},
+  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Living',name:'IoT System for Sustainable Living',image:'assets/project-iot.png',summary:'Coming soon.',mapLabel:'IoT System for Sustainable Living',mapPosition:[77,61],topics:['sensors','ble','connected','energy','automation','embedded','sustainability']}
 ];
 const projectMapTopics=[
-  {id:'sensors',label:'Sensors',position:[12,24]},
-  {id:'ble',label:'BLE',position:[37,29]},
-  {id:'realtime',label:'Real-time data',position:[19,83]},
-  {id:'python',label:'Python',position:[43,78]},
-  {id:'accessibility',label:'Accessibility',position:[54,13]},
-  {id:'mechanical',label:'Mechanical design',position:[77,21]},
-  {id:'connected',label:'Connected devices',position:[88,39]},
-  {id:'energy',label:'Energy saving',position:[84,85]}
+  {id:'python',label:'Python',coords:[5,-30]},
+  {id:'pandas',label:'Pandas',coords:[-25,-7]},
+  {id:'mysql',label:'MySQL',coords:[-39,-48]},
+  {id:'powerbi',label:'Power BI',coords:[-8,8]},
+  {id:'preprocessing',label:'Data processing',coords:[-55,-22]},
+  {id:'wearables',label:'Wearable sensors',coords:[-8,-78]},
+  {id:'realtime',label:'Real-time data',coords:[15,-67]},
+  {id:'accessibility',label:'Accessibility',coords:[64,-43]},
+  {id:'mechanical',label:'Mechanical design',coords:[54,43]},
+  {id:'arduino',label:'Arduino Uno',coords:[33,-17]},
+  {id:'motors',label:'DC motors',coords:[43,22]},
+  {id:'circuit',label:'Circuit building',coords:[30,-46]},
+  {id:'prototype',label:'Prototyping',coords:[24,7]},
+  {id:'sketch',label:'3D sketching',coords:[45,-77]},
+  {id:'testing',label:'Prototype testing',coords:[-38,-83]},
+  {id:'connected',label:'Connected devices',coords:[18,85]},
+  {id:'energy',label:'Energy saving',coords:[-40,68]},
+  {id:'automation',label:'Home automation',coords:[-24,112]},
+  {id:'embedded',label:'Embedded systems',coords:[-3,108]},
+  {id:'sustainability',label:'Sustainable living',coords:[-57,39]},
+  {id:'sensors',label:'Sensors',coords:[27,61]},
+  {id:'ble',label:'Bluetooth LE',coords:[7,34]}
 ];
-// Three-dimensional constellation. Project and skill nodes live on a sphere,
-// so movement always changes their perspective rather than sliding a flat map.
+// A rotating constellation of project hubs and their related skills.
 const mapStage=document.getElementById('project-map-stage');
 const mapCanvas=document.getElementById('project-globe-canvas');
 const mapNodes=document.getElementById('project-map-nodes');
@@ -151,17 +173,20 @@ if(mapStage && mapCanvas && mapNodes){
   const rad=Math.PI/180;
   const sph=(lat,lon)=>({x:Math.cos(lat*rad)*Math.sin(lon*rad),y:-Math.sin(lat*rad),z:Math.cos(lat*rad)*Math.cos(lon*rad)});
   const geo={
-    'data-engineering':[-12,-55], 'engineering-exploration':[23,8], 'iot-sustainable-living':[-23,71],
-    sensors:[42,-75],ble:[39,-25],realtime:[-42,-92],python:[-42,-20],
-    accessibility:[56,42],mechanical:[5,74],connected:[24,132],energy:[-49,115]
+    'data-engineering':[-14,-39],
+    'engineering-exploration':[52,-5],
+    'iot-sustainable-living':[-7,62]
   };
   const globeNodes=[
     ...projectData.map(project=>({id:project.slug,label:project.mapLabel,project,coords:sph(...geo[project.slug])})),
-    ...projectMapTopics.map(topic=>({id:topic.id,label:topic.label,coords:sph(...geo[topic.id])}))
+    ...projectMapTopics.map(topic=>({id:topic.id,label:topic.label,coords:sph(...topic.coords)}))
   ];
   const byId=new Map(globeNodes.map(node=>[node.id,node]));
   const edges=projectData.flatMap(project=>(project.topics||[]).filter(t=>byId.has(t)).map(topic=>[byId.get(project.slug),byId.get(topic)]));
-  const labels=new Map();
+  for(let i=0;i<projectData.length;i++){
+    edges.push([byId.get(projectData[i].slug),byId.get(projectData[(i+1)%projectData.length].slug)]);
+  }
+  const labels=new Map(),labelSizes=new Map();
   globeNodes.forEach(node=>{
     const element=document.createElement(node.project?'a':'span');
     element.className='project-globe-label '+(node.project?'project-globe-label--project':'project-globe-label--topic');
@@ -170,18 +195,10 @@ if(mapStage && mapCanvas && mapNodes){
     else element.setAttribute('aria-hidden','true');
     mapNodes.append(element);labels.set(node.id,element);
   });
-  // A light background star field sits behind an evenly distributed 3D dot sphere.
-  const stars=Array.from({length:32},(_,i)=>({
-    x:((i*47.41+17.3)%100)/100, y:((i*29.73+8.8)%100)/100,
-    r:i%9===0?1.05:.50, a:.07+(i%5)*.02
+  const stars=Array.from({length:145},(_,i)=>({
+    x:((i*47.41+17.3)%100)/100,y:((i*29.73+8.8)%100)/100,
+    r:i%11===0?1.2:i%4===0?.85:.45,a:.10+(i%7)*.045
   }));
-  const dust=Array.from({length:260},(_,i)=>{
-    // Fibonacci sphere: no gaps at the poles and no clustering as it rotates.
-    const y=1-2*(i+.5)/260;
-    const ring=Math.sqrt(Math.max(0,1-y*y));
-    const theta=i*Math.PI*(3-Math.sqrt(5));
-    return {x:Math.cos(theta)*ring,y,z:Math.sin(theta)*ring};
-  });
   let width=0,height=0,radius=0,cx=0,cy=0,dpr=1;
   let yaw=-.08,pitch=-.04,velocity=.0022,pitchVelocity=0;
   let hovering=false,overLabel=false,dragging=false,moved=false,gesture=null;
@@ -199,119 +216,74 @@ if(mapStage && mapCanvas && mapNodes){
     return {x:cx+q.x*radius*scale,y:cy+q.y*radius*scale,z:q.z,scale};
   };
   function sizeGlobe(){
+    labelSizes.clear();
     const r=mapStage.getBoundingClientRect();
     width=Math.max(100,r.width);height=Math.max(200,r.height);
     dpr=Math.min(devicePixelRatio||1,2);
     mapCanvas.width=Math.round(width*dpr);mapCanvas.height=Math.round(height*dpr);
     mapCanvas.style.width=width+'px';mapCanvas.style.height=height+'px';
     context.setTransform(dpr,0,0,dpr,0,0);
-    radius=Math.min(width*.345,height*.435,283);
+    radius=Math.min(width*.35,height*.43,310);
     if(width<620)radius=Math.min(width*.40,height*.42,170);
     cx=width*.5;cy=height*.5;
     draw();
   }
   function circle(x,y,r,color){context.beginPath();context.arc(x,y,r,0,Math.PI*2);context.fillStyle=color;context.fill();}
-  // A sphere arc is sampled in 3D, including its rear hemisphere, so curves
-  // become faint / disappear naturally as the globe turns.
+  // Sample links in 3D so their arcs retain depth as the constellation rotates.
   function sphericalCurve(a,b,alpha){
     const dot=Math.max(-1,Math.min(1,a.x*b.x+a.y*b.y+a.z*b.z));
     const omega=Math.acos(dot),denom=Math.sin(omega)||1;
-    const steps=25;
-    for(let i=0;i<steps;i++){
-      const start=i/steps,end=(i+1)/steps;
-      const at=t=>{
-        const s0=omega<.0001?1-t:Math.sin((1-t)*omega)/denom;
-        const s1=omega<.0001?t:Math.sin(t*omega)/denom;
-        return proj({x:a.x*s0+b.x*s1,y:a.y*s0+b.y*s1,z:a.z*s0+b.z*s1});
-      };
-      const p=at(start),q=at(end);
-      const front=Math.max(0,Math.min(1,((p.z+q.z)*.5+.25)/.7));
-      if(front<=.025)continue;
+    const at=t=>{
+      const s0=omega<.0001?1-t:Math.sin((1-t)*omega)/denom;
+      const s1=omega<.0001?t:Math.sin(t*omega)/denom;
+      return proj({x:a.x*s0+b.x*s1,y:a.y*s0+b.y*s1,z:a.z*s0+b.z*s1});
+    };
+    for(let i=0;i<28;i++){
+      const p=at(i/28),q=at((i+1)/28);
+      const depth=Math.max(.12,Math.min(1,((p.z+q.z)*.5+1)/1.8));
       context.beginPath();context.moveTo(p.x,p.y);context.lineTo(q.x,q.y);
-      context.strokeStyle='rgba(220,231,236,'+(alpha*front).toFixed(3)+')';
-      context.lineWidth=.9;context.stroke();
+      context.strokeStyle='rgba(210,210,210,'+(alpha*depth).toFixed(3)+')';
+      context.lineWidth=.7;context.stroke();
     }
   }
   function draw(){
     if(!context||!width)return;
     context.clearRect(0,0,width,height);
-    for(const star of stars)circle(star.x*width,star.y*height,star.r,'rgba(213,224,231,'+star.a+')');
-    const aura=context.createRadialGradient(cx,cy,radius*.3,cx,cy,radius*1.16);
-    aura.addColorStop(0,'rgba(126,165,185,.032)');
-    aura.addColorStop(.7,'rgba(126,165,185,.014)');
-    aura.addColorStop(1,'rgba(126,165,185,0)');
-    circle(cx,cy,radius*1.15,aura);
-
-    // Rear surface first: only tiny dim dots, with neither labels nor lines.
-    // This is the actual hidden side of the same sphere, not random screen noise.
-    for(const point of dust){
-      const p=proj(point);
-      if(p.z>=0)continue;
-      const fade=.10+(.17*(1+p.z));
-      circle(p.x,p.y,.7+(1+p.z)*.27,'rgba(198,219,232,'+fade.toFixed(3)+')');
-    }
-    for(const node of globeNodes){
-      const p=proj(node.coords);
-      if(p.z>=0)continue;
-      circle(p.x,p.y,node.project?1.8:1.1,'rgba(210,228,240,'+(node.project?.33:.21)+')');
-    }
-
-    // Subtle 3D latitude/longitude guides and links appear only at the front.
-    context.lineWidth=.7;
-    for(const longitude of [-120,-60,0,60,120,180]){
-      const points=Array.from({length:69},(_,i)=>proj(sph(-90+i*180/68,longitude)));
-      drawRing(points,.043);
-    }
-    for(const latitude of [-65,-32,0,32,65]){
-      const points=Array.from({length:129},(_,i)=>proj(sph(latitude,-180+i*360/128)));
-      drawRing(points,.036);
-    }
-    for(const [a,b] of edges)sphericalCurve(a.coords,b.coords,.19);
-
-    // Foreground dots have more contrast, which makes the rotation readable.
-    for(const point of dust){
-      const p=proj(point);
-      if(p.z<0)continue;
-      circle(p.x,p.y,1.04+.33*p.z,'rgba(230,239,245,'+(.33+.28*p.z).toFixed(3)+')');
-    }
-    for(const node of globeNodes){
-      const p=proj(node.coords);
-      const isFront=p.z>=.035;
-      if(p.z>=0){
-        if(node.project){
-          circle(p.x,p.y,7,'rgba(214,233,244,'+(.08+.1*p.z).toFixed(3)+')');
-          circle(p.x,p.y,4.3,'rgba(244,249,252,'+(.6+.4*p.z).toFixed(3)+')');
-        }else circle(p.x,p.y,2.4,'rgba(234,242,249,'+(.38+.5*p.z).toFixed(3)+')');
-      }
-      const label=labels.get(node.id);
-      // Do not show names on the back of the sphere; only the dots above.
-      const shown=isFront;
-      label.style.top=p.y+'px';
-      const onRight=p.x>cx;
+    for(const star of stars)circle(star.x*width,star.y*height,star.r,'rgba(220,220,220,'+star.a+')');
+    for(const [a,b] of edges)sphericalCurve(a.coords,b.coords,(a.project&&b.project)? .23:.30);
+    const projected=globeNodes.map(node=>({node,p:proj(node.coords)}));
+    for(const {node,p} of [...projected].sort((a,b)=>a.p.z-b.p.z)){
+      const depth=Math.max(.12,(p.z+1)/2);
       if(node.project){
-        // The full project names must stay inside the globe panel, even on phones.
-        const labelWidth=label.offsetWidth||155;
-        const preferred=onRight?p.x+13:p.x-labelWidth-13;
-        label.style.left=Math.min(width-labelWidth-8,Math.max(8,preferred))+'px';
-        label.style.transform='translateY(-50%)';
-      }else{
-        label.style.left=p.x+'px';
-        label.style.transform=(width<650&&p.x>width*.62)
-          ?'translate(calc(-100% - 10px),-50%)':'translate(10px,-50%)';
-      }
-      label.style.opacity=shown?String(Math.min(1,Math.max(.22,(p.z)*2.1))):'0';
+        circle(p.x,p.y,7,'rgba(230,230,230,'+(.03+.04*depth).toFixed(3)+')');
+        circle(p.x,p.y,4.2+1.2*depth,'rgba(245,245,245,'+(.25+.75*depth).toFixed(3)+')');
+      }else circle(p.x,p.y,1.7+1.1*depth,'rgba(220,220,220,'+(.18+.62*depth).toFixed(3)+')');
+    }
+    // Place project names first, then fit supporting labels around them.
+    // The remaining dots and links stay visible when a label needs more room.
+    const occupied=[];
+    projected.sort((a,b)=>Number(!!b.node.project)-Number(!!a.node.project)||b.p.z-a.p.z);
+    for(const {node,p} of projected){
+      const label=labels.get(node.id);
+      if(!labelSizes.has(node.id))labelSizes.set(node.id,{w:label.offsetWidth||130,h:label.offsetHeight||18});
+      const {w,h}=labelSizes.get(node.id);
+      let shown=!!node.project||p.z>-.15;
+      const clampX=x=>Math.max(8,Math.min(width-w-8,x));
+      const clampY=y=>Math.max(8,Math.min(height-h-8,y));
+      const positions=[
+        {x:clampX(p.x-w/2),y:clampY(p.y+11)},
+        {x:clampX(p.x-w/2),y:clampY(p.y-h-11)},
+        {x:clampX(p.x+12),y:clampY(p.y-h/2)},
+        {x:clampX(p.x-w-12),y:clampY(p.y-h/2)}
+      ];
+      const free=positions.find(box=>!occupied.some(other=>box.x<other.x+other.w+6&&box.x+w+6>other.x&&box.y<other.y+other.h+5&&box.y+h+5>other.y));
+      const box=free||positions[0];
+      if(!node.project&&!free)shown=false;
+      if(shown)occupied.push({...box,w,h});
+      label.style.left=box.x+'px';label.style.top=box.y+'px';label.style.transform='none';
+      label.style.opacity=shown?String(Math.min(1,.32+(p.z+1)*.34)):'0';
       label.style.visibility=shown?'visible':'hidden';
       if(node.project){label.tabIndex=shown?0:-1;label.style.zIndex=String(Math.round((p.z+1)*10));}
-    }
-  }
-  function drawRing(points,alpha){
-    for(let i=1;i<points.length;i++){
-      const a=points[i-1],b=points[i];
-      const visibility=Math.max(0,((a.z+b.z)*.5+.08));
-      if(visibility<=0)continue;
-      context.beginPath();context.moveTo(a.x,a.y);context.lineTo(b.x,b.y);
-      context.strokeStyle='rgba(195,220,230,'+(alpha*visibility).toFixed(3)+')';
-      context.stroke();
     }
   }
   function animate(time){
@@ -379,6 +351,7 @@ if(mapStage && mapCanvas && mapNodes){
   mapStage.tabIndex=0;
   mapStage.setAttribute('aria-label','Interactive project globe. Drag to rotate, use arrow keys to turn, or open a visible project name.');
   new ResizeObserver(sizeGlobe).observe(mapStage);
+  document.fonts?.ready.then(sizeGlobe);
   new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible)restart();else if(frameId){cancelAnimationFrame(frameId);frameId=0;}},{threshold:0}).observe(mapStage);
   motion.addEventListener('change',()=>{if(calm()&&frameId){cancelAnimationFrame(frameId);frameId=0;draw();}else restart();});
   sizeGlobe();restart();
