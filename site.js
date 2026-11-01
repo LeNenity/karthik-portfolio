@@ -138,7 +138,8 @@ motion.addEventListener('change',startWeatherCycle);
 const projectData=[
   {slug:'data-engineering',category:'Data engineering',title:'Data Engineering Project',name:'Data Engineering Project',image:'assets/project-data.jpg',summary:'A wearable sensor system that detects falls, slips and near-misses on construction sites.',mapLabel:'Data Engineering Project',mapPosition:[24,55],topics:['sensors','ble','realtime','python','pandas','mysql','powerbi','preprocessing','wearables']},
   {slug:'engineering-exploration',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.',mapLabel:'Engineering Exploration Project',mapPosition:[58,42],topics:['accessibility','mechanical','arduino','motors','circuit','prototype','sketch','testing']},
-  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Living',name:'IoT System for Sustainable Living',image:'assets/project-iot.png',summary:'Coming soon.',mapLabel:'IoT System for Sustainable Living',mapPosition:[77,61],topics:['sensors','ble','connected','energy','automation','embedded','sustainability']}
+  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Household Living',name:'IoT System for Sustainable Household Living',image:'assets/iot-hardware-workbench.webp',summary:'We used sensors to help with four things at home: temperature, lights, plants and the front door.',mapLabel:'IoT System for Sustainable Household Living',mapPosition:[77,61],topics:['sensors','connected','energy','automation','embedded','sustainability','arduino']},
+  {slug:'cloud-computing',category:'Cloud Computing',title:'Cloud Computing Development Project',name:'Cloud Computing Development Project',image:'assets/cloud-storefront-1.webp',summary:'I built a small music-store website on AWS, then worked out how to keep it running and within budget.',mapLabel:'Cloud Computing Development Project',mapPosition:[77,-43],topics:['aws','ec2','rds','s3','monitoring','python','mysql']}
 ];
 const projectMapTopics=[
   {id:'python',label:'Python',coords:[5,-30]},
@@ -162,6 +163,11 @@ const projectMapTopics=[
   {id:'embedded',label:'Embedded systems',coords:[-3,108]},
   {id:'sustainability',label:'Sustainable living',coords:[-57,39]},
   {id:'sensors',label:'Sensors',coords:[27,61]},
+  {id:'aws',label:'AWS Cloud',coords:[-28,-124]},
+  {id:'ec2',label:'EC2 & Scaling',coords:[29,-128]},
+  {id:'rds',label:'RDS Multi-AZ',coords:[-48,-134]},
+  {id:'s3',label:'S3 Storage',coords:[50,-111]},
+  {id:'monitoring',label:'CloudWatch',coords:[-4,-149]},
   {id:'ble',label:'Bluetooth LE',coords:[7,34]}
 ];
 // A rotating constellation of project hubs and their related skills.
@@ -175,7 +181,8 @@ if(mapStage && mapCanvas && mapNodes){
   const geo={
     'data-engineering':[-14,-39],
     'engineering-exploration':[52,-5],
-    'iot-sustainable-living':[-7,62]
+    'iot-sustainable-living':[-7,62],
+    'cloud-computing':[2,-122]
   };
   const globeNodes=[
     ...projectData.map(project=>({id:project.slug,label:project.mapLabel,project,coords:sph(...geo[project.slug])})),
@@ -267,18 +274,24 @@ if(mapStage && mapCanvas && mapNodes){
       const label=labels.get(node.id);
       if(!labelSizes.has(node.id))labelSizes.set(node.id,{w:label.offsetWidth||130,h:label.offsetHeight||18});
       const {w,h}=labelSizes.get(node.id);
-      let shown=!!node.project||p.z>-.15;
+      let shown=node.project?p.z>-.12:p.z>-.15;
       const clampX=x=>Math.max(8,Math.min(width-w-8,x));
       const clampY=y=>Math.max(8,Math.min(height-h-8,y));
       const positions=[
-        {x:clampX(p.x-w/2),y:clampY(p.y+11)},
-        {x:clampX(p.x-w/2),y:clampY(p.y-h-11)},
-        {x:clampX(p.x+12),y:clampY(p.y-h/2)},
-        {x:clampX(p.x-w-12),y:clampY(p.y-h/2)}
+        {x:clampX(p.x-w/2),y:clampY(p.y+13)},
+        {x:clampX(p.x-w/2),y:clampY(p.y-h-13)},
+        {x:clampX(p.x+14),y:clampY(p.y-h/2)},
+        {x:clampX(p.x-w-14),y:clampY(p.y-h/2)},
+        {x:clampX(p.x+16),y:clampY(p.y+13)},
+        {x:clampX(p.x-w-16),y:clampY(p.y+13)},
+        {x:clampX(p.x+16),y:clampY(p.y-h-13)},
+        {x:clampX(p.x-w-16),y:clampY(p.y-h-13)}
       ];
-      const free=positions.find(box=>!occupied.some(other=>box.x<other.x+other.w+6&&box.x+w+6>other.x&&box.y<other.y+other.h+5&&box.y+h+5>other.y));
+      const free=positions.find(box=>!occupied.some(other=>box.x<other.x+other.w+9&&box.x+w+9>other.x&&box.y<other.y+other.h+8&&box.y+h+8>other.y));
       const box=free||positions[0];
-      if(!node.project&&!free)shown=false;
+      // Never stack labels on each other: hide crowded/back-facing names
+      // until rotation gives them enough room again.
+      if(!free)shown=false;
       if(shown)occupied.push({...box,w,h});
       label.style.left=box.x+'px';label.style.top=box.y+'px';label.style.transform='none';
       label.style.opacity=shown?String(Math.min(1,.32+(p.z+1)*.34)):'0';
@@ -356,19 +369,19 @@ if(mapStage && mapCanvas && mapNodes){
   motion.addEventListener('change',()=>{if(calm()&&frameId){cancelAnimationFrame(frameId);frameId=0;draw();}else restart();});
   sizeGlobe();restart();
 }
-// The cards are generated from projectData, so new entries join the rolling rail.
-// Add a unique slug, category, title, name, image and summary above for each new project.
+// A fixed three-card project gallery. The cards never leave their columns:
+// their photographs are revealed in place, inspired by editorial image transitions.
 const projectRail=document.getElementById('project-rail');
-const projectPosition=document.getElementById('project-position');
 const projectSection=document.getElementById('projects');
+const galleryMotion=matchMedia('(prefers-reduced-motion: reduce)');
+const galleryPreloads=projectData.map(project=>{const image=new Image();image.src=project.image;image.decode?.().catch(()=>{});return image;});
 function makeProjectCard(project,index){
   const card=document.createElement('a');
-  card.id='open-'+project.slug;
   card.className='project-card';
   card.href='#project-'+project.slug;
   card.setAttribute('aria-label','Open '+project.name);
   const cover=document.createElement('div');cover.className='project-cover';
-  const image=document.createElement('img');image.src=project.image;image.alt=project.name;image.loading='lazy';image.width=800;image.height=600;image.dataset.cover=project.slug;
+  const image=document.createElement('img');image.src=project.image;image.alt=project.name;image.loading='eager';image.width=800;image.height=600;image.dataset.cover=project.slug;
   const imageCta=document.createElement('span');imageCta.className='project-image-cta';imageCta.setAttribute('aria-hidden','true');imageCta.textContent='View project ↗';
   cover.append(image,imageCta);
   const copy=document.createElement('div');copy.className='project-card-copy';
@@ -382,39 +395,110 @@ function makeProjectCard(project,index){
   copy.append(meta,title,summary,link);card.append(cover,copy);
   return card;
 }
-projectRail.replaceChildren(...projectData.map(makeProjectCard));
-let projectRollTimer;
-let projectPaused=false;
-function projectStep(){return (projectRail.querySelector('.project-card')?.getBoundingClientRect().width||projectRail.clientWidth)+(parseFloat(getComputedStyle(projectRail).gap)||0);}
-function projectIndex(){return Math.min(projectData.length-1,Math.round(projectRail.scrollLeft/projectStep()));}
-function updateProjectPosition(){projectPosition.textContent=String(projectIndex()+1).padStart(2,'0')+' / '+String(projectData.length).padStart(2,'0');}
-const projectControls=document.querySelector('.project-controls');
-function updateProjectControls(){projectControls.hidden=projectRail.scrollWidth<=projectRail.clientWidth+2;updateProjectPosition();}
-new ResizeObserver(updateProjectControls).observe(projectRail);
-requestAnimationFrame(updateProjectControls);
-function moveProjects(direction){
-  const end=projectRail.scrollWidth-projectRail.clientWidth;
-  const target=direction>0&&projectRail.scrollLeft>=end-3?0:direction<0&&projectRail.scrollLeft<=3?end:projectRail.scrollLeft+direction*projectStep();
-  projectRail.scrollTo({left:Math.max(0,Math.min(end,target)),behavior:motion.matches?'instant':'smooth'});
+const galleryCount=Math.min(3,projectData.length);
+const galleryCards=Array.from({length:galleryCount},(_,i)=>makeProjectCard(projectData[i],i));
+projectRail.replaceChildren(...galleryCards);
+projectRail.setAttribute('aria-roledescription','rotating gallery');
+let galleryIndex=0, galleryBusy=false, galleryVisible=false, galleryHovered=false, galleryFocused=false;
+let galleryLoopTimer=null, galleryTransitionToken=0;
+function setGalleryCardData(card,project,index,updateImage=true){
+  card.href='#project-'+project.slug;
+  card.setAttribute('aria-label','Open '+project.name);
+  const image=card.querySelector('.project-cover img:not(.project-cover-reveal)');
+  if(updateImage){image.src=project.image;image.alt=project.name;image.dataset.cover=project.slug;}
+  card.querySelector('.project-meta span:first-child').textContent=String(index+1).padStart(2,'0');
+  card.querySelector('.project-meta span:last-child').textContent=project.category;
+  card.querySelector('.project-card-copy h3').textContent=project.title;
+  card.querySelector('.project-card-copy p').textContent=project.summary;
 }
-document.getElementById('project-next').addEventListener('click',()=>moveProjects(1));
-document.getElementById('project-previous').addEventListener('click',()=>moveProjects(-1));
-projectRail.addEventListener('scroll',updateProjectPosition,{passive:true});
-projectRail.addEventListener('keydown',event=>{
-  if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();moveProjects(event.key==='ArrowRight'?1:-1);}
-});
-projectSection.addEventListener('pointerenter',()=>{projectPaused=true;});
-projectSection.addEventListener('pointerleave',()=>{projectPaused=false;});
-projectSection.addEventListener('focusin',()=>{projectPaused=true;});
-projectSection.addEventListener('focusout',event=>{if(!projectSection.contains(event.relatedTarget))projectPaused=false;});
-projectSection.addEventListener('touchstart',()=>{projectPaused=true;},{passive:true});
-projectSection.addEventListener('touchend',()=>{setTimeout(()=>{projectPaused=false;},3000);},{passive:true});
-projectRollTimer=setInterval(()=>{
-  if(projectPaused||document.hidden||motion.matches||projectRail.scrollWidth<=projectRail.clientWidth+2||!projectSection.getBoundingClientRect().height)return;
-  const bounds=projectSection.getBoundingClientRect();
-  if(bounds.top<innerHeight*.85&&bounds.bottom>innerHeight*.15)moveProjects(1);
-},5500);
-updateProjectPosition();
+function advanceGallery(direction=1){
+  if(galleryBusy||projectData.length<=galleryCount)return;
+  galleryBusy=true;
+  const token=++galleryTransitionToken;
+  galleryIndex=(galleryIndex+direction+projectData.length)%projectData.length;
+  let settled=0;
+  galleryCards.forEach((card,slot)=>{
+    const nextIndex=(galleryIndex+slot)%projectData.length;
+    const nextProject=projectData[nextIndex];
+    const cover=card.querySelector('.project-cover');
+    const copy=card.querySelector('.project-card-copy');
+    const delay=galleryMotion.matches?0:slot*90;
+    setTimeout(()=>{
+      if(token!==galleryTransitionToken)return;
+      if(galleryMotion.matches){setGalleryCardData(card,nextProject,nextIndex);settled++;if(settled===galleryCount)galleryBusy=false;return;}
+      card.classList.add('gallery-is-transitioning');
+      copy.classList.add('gallery-copy-exit');
+      const incoming=document.createElement('img');
+      incoming.className='project-cover-reveal';
+      incoming.src=nextProject.image; incoming.alt='';incoming.setAttribute('aria-hidden','true');
+      incoming.width=800;incoming.height=600;
+      cover.append(incoming);
+      // Images are predecoded before cycling; no network wait or layout measurement.
+      incoming.classList.add('is-unveiling');
+      setTimeout(()=>{
+        if(token!==galleryTransitionToken)return;
+        setGalleryCardData(card,nextProject,nextIndex,false);
+        copy.classList.remove('gallery-copy-exit');
+        copy.classList.add('gallery-copy-enter');
+        setTimeout(()=>copy.classList.remove('gallery-copy-enter'),600);
+      },190);
+      setTimeout(()=>{
+        if(token!==galleryTransitionToken)return;
+        setGalleryCardData(card,nextProject,nextIndex,true);
+        incoming.remove();
+        card.classList.remove('gallery-is-transitioning');
+        settled++;
+        if(settled===galleryCount)galleryBusy=false;
+      },920);
+    },delay);
+  });
+}
+function pauseGalleryLoop(){
+  if(galleryLoopTimer!==null){clearInterval(galleryLoopTimer);galleryLoopTimer=null;}
+}
+function startGalleryLoop(){
+  if(galleryLoopTimer!==null||galleryMotion.matches||!galleryVisible||galleryHovered||galleryFocused||document.hidden)return;
+  galleryLoopTimer=setInterval(()=>{
+    if(!galleryBusy&&!galleryHovered&&!galleryFocused&&!document.hidden&&galleryVisible)advanceGallery();
+  },4300);
+}
+projectRail.addEventListener('pointerenter',()=>{galleryHovered=true;pauseGalleryLoop();});
+projectRail.addEventListener('pointerleave',()=>{galleryHovered=false;startGalleryLoop();});
+projectRail.addEventListener('focusin',()=>{galleryFocused=true;pauseGalleryLoop();});
+projectRail.addEventListener('focusout',e=>{if(!projectRail.contains(e.relatedTarget)){galleryFocused=false;startGalleryLoop();}});
+projectRail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+  e.preventDefault();advanceGallery(e.key==='ArrowRight'?1:-1);
+}});
+// Trackpad horizontal scrolling / Shift+wheel rotates through the fixed project
+// positions. Normal vertical scrolling still scrolls the page.
+let galleryLastGesture=0;
+projectRail.addEventListener('wheel',e=>{
+  const horizontal=Math.abs(e.deltaX)>Math.abs(e.deltaY)*1.1;
+  if(!horizontal&&!e.shiftKey)return;
+  e.preventDefault();
+  if(performance.now()-galleryLastGesture<1050)return;
+  const delta=horizontal?e.deltaX:e.deltaY;
+  if(Math.abs(delta)<8)return;
+  galleryLastGesture=performance.now();
+  advanceGallery(delta>0?1:-1);
+},{passive:false});
+let galleryTouchStart=null;
+projectRail.addEventListener('touchstart',e=>{
+  if(e.touches.length!==1)return;
+  galleryTouchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};
+},{passive:true});
+projectRail.addEventListener('touchend',e=>{
+  if(!galleryTouchStart||!e.changedTouches.length)return;
+  const dx=e.changedTouches[0].clientX-galleryTouchStart.x;
+  const dy=e.changedTouches[0].clientY-galleryTouchStart.y;
+  galleryTouchStart=null;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.3){
+    advanceGallery(dx<0?1:-1);
+  }
+},{passive:true});
+new IntersectionObserver(([entry])=>{galleryVisible=entry.isIntersecting;if(galleryVisible)startGalleryLoop();else pauseGalleryLoop();},{threshold:.05}).observe(projectRail);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGalleryLoop();else startGalleryLoop();});
+galleryMotion.addEventListener('change',()=>{if(galleryMotion.matches)pauseGalleryLoop();else startGalleryLoop();});
 const sectionNames=['home','about','projects','contact'];
 const main=document.getElementById('main-content'),detail=document.getElementById('project-detail');
 let activeSection='home',isDetail=false,previousMainScroll=0,initialNavigation=true,heldTriggered=false;
@@ -436,7 +520,10 @@ const projectRailSections={
     ['Prototype test','.tri-demo'],['My contribution','.tri-role'],['Outcome','.tri-finale']
   ],
   'iot-sustainable-living':[
-    ['Coming soon','.iot-coming-section']
+    ['Overview','.ed-project-hero'],['The challenge','.iot-home-intro'],['Four systems','.iot-features'],['Actual hardware','.iot-evidence'],['My contribution','.iot-contribution'],['Outcome','.iot-conclusion']
+  ],
+  'cloud-computing':[
+    ['Overview','.ed-project-hero'],['The challenge','.cloud-intro'],['Architecture','.cloud-architecture'],['The storefront','.cloud-storefront'],['Operations','.cloud-operations'],['Outcome','.cloud-finale']
   ]
 };
 function paintRail(activeIndex){
@@ -689,7 +776,84 @@ const caseStudyContent={
       <div class="tri-finale-aside"><span class="tri-eyebrow">SKILLS &amp; TECHNOLOGIES</span><div class="ed-tags"><span>Engineering design</span><span>Arduino Uno</span><span>DC motor</span><span>Circuit building</span><span>Prototyping</span><span>3D sketching</span><span>Testing</span></div><p class="tri-future">NEXT STEP / The team proposed further research, materials and unit testing.</p></div>
     </section>
   `,
-  'iot-sustainable-living':``
+  'iot-sustainable-living':`
+  <section class="iot-home-intro case-reveal-parent" aria-label="Project challenges">
+    <div class="iot-intro-type"><span class="ed-label">THE PROBLEM</span><h2>We started with everyday problems.</h2><p>Our group wanted to make a few things around the house easier: keeping a room cool, switching off lights when there’s enough daylight, checking plant soil and knowing when someone is near the door.</p></div>
+    <div class="iot-intro-index"><span>01 — COMFORT</span><span>02 — ENERGY</span><span>03 — PLANT CARE</span><span>04 — SECURITY</span></div>
+  </section>
+  <section class="iot-features" aria-label="Four connected home systems">
+    <div class="iot-heading"><span class="ed-label">THE SOLUTION</span><h2>We gave each problem<br>its own sensor.</h2><p>Then we connected everything through an Arduino so the system could respond on its own.</p></div>
+    <div class="iot-feature-grid">
+      <article class="iot-feature-tile"><span class="iot-feature-id">01 / TEMPERATURE</span><div class="iot-feature-icon"><iconify-icon icon="lucide:thermometer-sun"></iconify-icon></div><h3>When it gets too warm.</h3><p>At 29°C or above, the DHT11 tells the Arduino to switch on the ventilation relay.</p><div class="iot-rule"><span>29°C+</span><span>VENTILATION ON</span></div></article>
+      <article class="iot-feature-tile"><span class="iot-feature-id">02 / LIGHT</span><div class="iot-feature-icon"><iconify-icon icon="lucide:sun"></iconify-icon></div><h3>When there’s enough daylight.</h3><p>The light sensor checks how bright it is outside. If there’s enough light, the relay switches the indoor lights off.</p><div class="iot-rule"><span>LDR</span><span>LIGHT CONTROL</span></div></article>
+      <article class="iot-feature-tile"><span class="iot-feature-id">03 / PLANTS</span><div class="iot-feature-icon"><iconify-icon icon="lucide:sprout"></iconify-icon></div><h3>When the plants need water.</h3><p>The NeoPixel shows red for dry soil, green for moist and blue for wet, so it’s easy to see when to water.</p><div class="iot-soil-dots" aria-label="Red dry, green moist, blue wet"><i title="Dry"></i><i title="Moist"></i><i title="Wet"></i><small>DRY · MOIST · WET</small></div></article>
+      <article class="iot-feature-tile"><span class="iot-feature-id">04 / DOORWAY</span><div class="iot-feature-icon"><iconify-icon icon="lucide:radio"></iconify-icon></div><h3>When someone’s at the door.</h3><p>If someone stays within 150 cm of the door for three seconds, the ultrasonic sensor triggers an MP3 alert.</p><div class="iot-rule"><span>≤150 CM</span><span>3-SECOND CHECK</span></div></article>
+    </div>
+  </section>
+  <section class="iot-connection" aria-label="Connecting hardware and cloud">
+    <div class="iot-connect-copy"><span class="ed-label">SYSTEM FLOW</span><h2>Getting the readings online.</h2><p>The Arduino handled the sensors and their responses. We then used a Raspberry Pi, ZigBee and Python to send readings to ThingSpeak, where we could follow them on a dashboard.</p><div class="ed-tags"><span>Arduino Nano</span><span>Raspberry Pi</span><span>ZigBee</span><span>Python</span><span>ThingSpeak</span></div></div>
+    <div class="iot-wire" role="img" aria-label="Sensor readings into Arduino Nano, through Raspberry Pi and Python, then to ThingSpeak dashboards"><div><iconify-icon icon="lucide:radio-tower"></iconify-icon><strong>Sensors</strong><small>4 household uses</small></div><b aria-hidden="true">→</b><div><iconify-icon icon="lucide:cpu"></iconify-icon><strong>Arduino Nano</strong><small>Read &amp; respond</small></div><b aria-hidden="true">→</b><div><iconify-icon icon="lucide:database"></iconify-icon><strong>ThingSpeak</strong><small>Live data charts</small></div></div>
+  </section>
+  <section class="iot-evidence" aria-label="Original report photographs and ThingSpeak dashboards">
+    <div class="iot-heading"><span class="ed-label">ACTUAL PROJECT MEDIA</span><h2>What we actually built.</h2><p>Here’s our setup during testing, along with the ThingSpeak charts and indicators we used to check the readings.</p></div>
+    <div class="iot-evidence-grid">
+      <figure class="iot-evidence-photo iot-evidence-main"><button class="ed-image-open" type="button" data-photo="assets/iot-hardware-workbench.webp" data-alt="Complete IoT sensor prototype connected on a workbench" aria-label="Enlarge actual IoT project hardware photograph"><img src="assets/iot-hardware-workbench.webp" loading="lazy" alt="The team's connected sensors, Arduino and Raspberry Pi on a workbench"></button><figcaption>01 / INTEGRATED HARDWARE</figcaption></figure>
+      <figure class="iot-evidence-photo"><button class="ed-image-open" type="button" data-photo="assets/iot-dashboard.webp" data-alt="ThingSpeak sensor charts for ultrasonic, temperature, light and moisture readings" aria-label="Enlarge original ThingSpeak dashboard"><img src="assets/iot-dashboard.webp" loading="lazy" alt="Original ThingSpeak monitoring dashboard with four sensor charts"></button><figcaption>02 / THINGSPEAK DASHBOARD</figcaption></figure>
+      <figure class="iot-evidence-photo"><button class="ed-image-open" type="button" data-photo="assets/iot-indicators.webp" data-alt="ThingSpeak indicator widgets including ventilation, moisture and temperature" aria-label="Enlarge original ThingSpeak indicator widgets"><img src="assets/iot-indicators.webp" loading="lazy" alt="Original ThingSpeak color-coded indicators and temperature widgets"></button><figcaption>03 / STATUS INDICATORS</figcaption></figure>
+    </div>
+  </section>
+  <section class="iot-contribution" aria-label="My contribution to the IoT project">
+    <div><span class="ed-label">MY CONTRIBUTION</span><h2>The parts I worked on.</h2></div>
+    <div class="iot-role-text"><p>I wrote the Arduino code for the <strong>DHT11 and ventilation relay</strong>, as well as the <strong>ultrasonic sensor and MP3 alert</strong>.</p><p>I also brought the group’s code together, worked on the Python upload to ThingSpeak through MobaXterm and helped set up the dashboard. Getting the MP3 player and all four data fields working together took some trial and error.</p></div>
+  </section>
+  <section class="iot-conclusion" aria-label="Project outcome">
+    <span class="ed-label">THE OUTCOME</span><h2>We got the whole setup working together.</h2><p>By the end, we could demonstrate all four features and see the readings on ThingSpeak. It was a school prototype, not something installed in a real home, but I learned a lot about getting sensors, code and cloud services to work together.</p>
+    <div class="ed-tags"><span>C / C++</span><span>Arduino</span><span>Raspberry Pi</span><span>Python</span><span>Relay</span><span>NeoPixel</span><span>ThingSpeak</span></div>
+  </section>
+`,
+  'cloud-computing':`
+  <section class="cloud-intro" aria-label="The cloud computing challenge">
+    <span class="ed-label">THE CHALLENGE</span>
+    <div><h2>It had to be more than a website that looked finished.</h2><p>The assignment was to get a nine-product music store running on AWS. I had to connect the servers, database and image storage, plan for more traffic and work within a <strong>$50 budget</strong>.</p></div>
+    <div class="cloud-stats"><div><strong>09</strong><span>PRODUCTS</span></div><div><strong>02</strong><span>AVAILABILITY ZONES</span></div><div><strong>$50</strong><span>BUDGET LIMIT</span></div></div>
+  </section>
+  <section class="cloud-architecture" aria-label="Interactive cloud architecture diagram">
+    <div class="cloud-heading"><div><span class="ed-label">ARCHITECTURE</span><h2>How I put it<br>all together.</h2></div><p>Visitors reach the load balancer first. It sends requests to my EC2 servers, which get the product details from MySQL and the images from S3. Hover over each service to explore the setup.</p></div>
+    <div class="cloud-topology" role="group" aria-label="AWS application flow from visitors to load balancer, EC2 autoscaling, RDS database and S3 storage, with CloudWatch monitoring">
+      <div class="cloud-topology-head"><span><i></i> AWS · US-EAST-1</span><span>VPC · 10.0.0.0/16</span></div>
+      <div class="cloud-topology-row cloud-topology-entry"><div class="cloud-node cloud-node--entry" tabindex="0"><iconify-icon icon="lucide:users"></iconify-icon><b>Visitors</b><small>Internet requests</small></div></div>
+      <div class="cloud-topology-down" aria-hidden="true">↓</div>
+      <div class="cloud-topology-row"><div class="cloud-node cloud-node--balancer" tabindex="0"><iconify-icon icon="lucide:network"></iconify-icon><b>Application Load Balancer</b><small>Distributes HTTP requests</small></div></div>
+      <div class="cloud-topology-down" aria-hidden="true">↓</div>
+      <div class="cloud-topology-core"><span>WEB APPLICATION / AUTO SCALING GROUP</span><div class="cloud-ec2-pair"><div class="cloud-node" tabindex="0"><iconify-icon icon="lucide:server"></iconify-icon><b>EC2 capacity</b><small>Public subnet / AZ A</small></div><div class="cloud-node" tabindex="0"><iconify-icon icon="lucide:server"></iconify-icon><b>EC2 capacity</b><small>Public subnet / AZ B</small></div></div></div>
+      <div class="cloud-topology-down" aria-hidden="true">↓</div>
+      <div class="cloud-topology-services"><div class="cloud-node" tabindex="0"><iconify-icon icon="lucide:database"></iconify-icon><b>RDS MySQL</b><small>Product information · Multi-AZ</small></div><div class="cloud-node" tabindex="0"><iconify-icon icon="lucide:images"></iconify-icon><b>Amazon S3</b><small>Product images</small></div></div>
+      <div class="cloud-topology-foot"><span><iconify-icon icon="lucide:activity"></iconify-icon> CloudWatch · Monitoring</span><span><iconify-icon icon="lucide:bell-ring"></iconify-icon> SNS · Alerts</span><span><iconify-icon icon="lucide:wallet"></iconify-icon> AWS Budgets</span></div>
+    </div>
+  </section>
+  <section class="cloud-storefront" aria-label="Actual music-store storefront screenshots">
+    <div class="cloud-heading"><div><span class="ed-label">THE APPLICATION</span><h2>The website people<br>would actually see.</h2></div><p>I built a simple page to display nine musical instruments. MySQL held their names, prices and descriptions, while their photos came from S3. These are screenshots from the project.</p></div>
+    <div class="cloud-storefront-gallery">
+      <figure><button class="ed-image-open" type="button" data-photo="assets/cloud-storefront-1.webp" data-alt="Storefront screenshot showing drum, flute and guitar product cards" aria-label="Expand storefront products 1 to 3"><img src="assets/cloud-storefront-1.webp" loading="lazy" alt="Storefront product cards showing drums, flute and guitar"></button><figcaption>01 — DRUM / FLUTE / GUITAR</figcaption></figure>
+      <figure><button class="ed-image-open" type="button" data-photo="assets/cloud-storefront-2.webp" data-alt="Storefront screenshot showing guqin, harmonica and harp product cards" aria-label="Expand storefront products 4 to 6"><img src="assets/cloud-storefront-2.webp" loading="lazy" alt="Storefront product cards showing guqin, harmonica and harp"></button><figcaption>02 — GUQIN / HARMONICA / HARP</figcaption></figure>
+      <figure><button class="ed-image-open" type="button" data-photo="assets/cloud-storefront-3.webp" data-alt="Storefront screenshot showing piano, trumpet and violin product cards" aria-label="Expand storefront products 7 to 9"><img src="assets/cloud-storefront-3.webp" loading="lazy" alt="Storefront product cards showing piano, trumpet and violin"></button><figcaption>03 — PIANO / TRUMPET / VIOLIN</figcaption></figure>
+    </div>
+  </section>
+  <section class="cloud-operations" aria-label="Performance and monitoring decisions">
+    <div class="cloud-operations-title"><span class="ed-label">RELIABILITY &amp; OPERATIONS</span><h2>I also had to think<br>about what could go wrong.</h2></div>
+    <div class="cloud-operations-cards">
+      <article><span>01 / SCALABILITY</span><iconify-icon icon="lucide:layers"></iconify-icon><h3>More people visiting?</h3><p>Auto Scaling can add or remove EC2 instances behind the load balancer as demand changes.</p></article>
+      <article><span>02 / RESILIENCE</span><iconify-icon icon="lucide:database-zap"></iconify-icon><h3>What if the database fails?</h3><p>I set up Multi-AZ RDS, with a standby database in another availability zone.</p></article>
+      <article><span>03 / VISIBILITY</span><iconify-icon icon="lucide:chart-no-axes-combined"></iconify-icon><h3>How would I spot a problem?</h3><p>I used CloudWatch to watch resource usage and SNS to send an email if an instance failed its health check.</p></article>
+      <article><span>04 / COSTS</span><iconify-icon icon="lucide:wallet"></iconify-icon><h3>How much would it cost?</h3><p>I set a $50 budget with an alert at 80%, then compared two EC2 sizes. The smaller t3.micro was enough for this project.</p></article>
+    </div>
+    <figure class="cloud-monitor-image"><button class="ed-image-open" type="button" data-photo="assets/cloud-monitoring.webp" data-alt="Original CloudWatch graphs showing EC2 and RDS CPU utilization and network traffic" aria-label="Open CloudWatch monitoring dashboard"><img src="assets/cloud-monitoring.webp" loading="lazy" alt="CloudWatch dashboard showing EC2 and database CPU usage and network traffic"></button><figcaption>CLOUDWATCH DASHBOARD FROM MY PROJECT</figcaption></figure>
+  </section>
+  <section class="cloud-finale" aria-label="My contribution and project outcome">
+    <div class="cloud-finale-main"><span class="ed-label">MY CONTRIBUTION</span><h2>I put the AWS setup together from end to end.</h2><p>I set up the VPC, web servers, load balancer, Auto Scaling, MySQL database and S3 storage. I also tested two EC2 sizes with ApacheBench, set up CloudWatch and budget alerts, and wrote a Python boto3 script to check the Auto Scaling Group’s health.</p></div>
+    <div class="cloud-finale-result"><span class="ed-label">THE OUTCOME</span><h3>The store worked, and so did the services behind it.</h3><p>In the end, I had a nine-product catalogue running on AWS, with the database and images stored separately. This was a school project, not a real online shop, but it helped me understand how the different cloud services depend on each other.</p><div class="ed-tags"><span>Amazon EC2</span><span>ALB</span><span>Auto Scaling</span><span>RDS MySQL</span><span>S3</span><span>CloudWatch</span><span>SNS</span><span>Python · boto3</span></div></div>
+  </section>
+`
 };
 function initCaseInteractives(){
   const lightbox=detail.querySelector('#case-lightbox');
@@ -719,7 +883,7 @@ function initCaseMotion(){
   if(motion.matches||!('IntersectionObserver' in window))return;
   const root=detail.querySelector('.editorial-case');
   if(!root)return;
-  const targets=[...root.querySelectorAll('.nesso-fact-strip,.nesso-pair>article,.nesso-section-heading,.nesso-clean-flow,.nesso-results-gallery>figure,.nesso-role-file,.nesso-role-copy p,.nesso-outcome-photo,.nesso-outcome-copy,.tri-reveal,.tri-process-card,.tri-demo-card,.tri-role-main,.tri-role-circuit,.ed-eng-pair>article,.ed-eng-mechanism,.ed-eng-contribution,.ed-eng-close>div,.ed-iot-intro>div,.ed-iot-gallery figure,.ed-iot-contribution,.ed-iot-ending>div')];
+  const targets=[...root.querySelectorAll('.nesso-fact-strip,.nesso-pair>article,.nesso-section-heading,.nesso-clean-flow,.nesso-results-gallery>figure,.nesso-role-file,.nesso-role-copy p,.nesso-outcome-photo,.nesso-outcome-copy,.tri-reveal,.tri-process-card,.tri-demo-card,.tri-role-main,.tri-role-circuit,.ed-eng-pair>article,.ed-eng-mechanism,.ed-eng-contribution,.ed-eng-close>div,.ed-iot-intro>div,.ed-iot-gallery figure,.ed-iot-contribution,.ed-iot-ending>div,.iot-home-intro,.iot-feature-tile,.iot-connection,.iot-evidence-photo,.iot-contribution,.iot-conclusion,.cloud-intro,.cloud-architecture,.cloud-storefront-gallery figure,.cloud-operations-cards article,.cloud-finale')];
   targets.forEach((el,i)=>{
     el.classList.add('case-reveal');
     el.style.setProperty('--reveal-delay',(i%3)*85+'ms');
@@ -749,42 +913,36 @@ function initCaseMotion(){
 }
 
 function makeDetail(p){
- if(p.slug==='iot-sustainable-living'){
-   return `<div class="frame detail-shell case-shell editorial-case editorial-case--coming-soon">
-     <section class="iot-coming-section" aria-labelledby="case-page-heading">
-       <span class="iot-coming-eyebrow">INTERNET OF THINGS</span>
-       <h1 id="case-page-heading">IoT System for<br>Sustainable Living.</h1>
-       <div class="iot-coming-rule" aria-hidden="true"></div>
-       <p class="iot-coming-status">Coming soon<span aria-hidden="true">.</span></p>
-     </section>
-   </div>`;
- }
  const next=projectData[(projectData.indexOf(p)+1)%projectData.length];
  const headline={
   'data-engineering':'Data Engineering Project',
   'engineering-exploration':'Engineering Exploration Project',
-  'iot-sustainable-living':'IoT System for Sustainable Living'
+  'iot-sustainable-living':'IoT System for Sustainable Household Living',
+  'cloud-computing':'Cloud Computing Development Project'
  }[p.slug];
  const subtitle={
   'data-engineering':'A wearable sensor system that identifies possible falls, slips and near-misses on construction sites.',
   'engineering-exploration':'TRI-STAR: a motorised wheel concept designed to help wheelchair users overcome curbs.',
-  'iot-sustainable-living':'Connecting sensors for a more responsive and sustainable home.'
+  'iot-sustainable-living':'For this school project, we built a small smart-home setup to manage temperature, lights, plant care and doorstep alerts.',
+  'cloud-computing':'I built a music-store website on AWS and connected the servers, database and storage behind it.'
  }[p.slug];
  const category={
   'data-engineering':'DATA ENGINEERING',
   'engineering-exploration':'ENGINEERING EXPLORATION',
-  'iot-sustainable-living':'INTERNET OF THINGS'
+  'iot-sustainable-living':'INTERNET OF THINGS',
+  'cloud-computing':'CLOUD COMPUTING'
  }[p.slug];
  const imageAlt={
   'data-engineering':'Original Data Engineering sensor project photo',
   'engineering-exploration':'Original wheelchair tri-star wheel design sketch',
-  'iot-sustainable-living':'Original IoT system hardware and sensors on a workbench'
+  'iot-sustainable-living':'Original IoT system hardware and sensors on a workbench',
+  'cloud-computing':'Music-store product catalogue from the AWS cloud computing project'
  }[p.slug];
  return `<div class="frame detail-shell case-shell editorial-case editorial-case--${p.slug}">
     <header class="ed-project-hero ed-project-hero--split" aria-labelledby="case-page-heading">
       <div class="ed-new-hero-copy">
         <span class="ed-new-hero-label">${category}</span>
-        <h1 id="case-page-heading">${headline}</h1>
+        <h1 id="case-page-heading" data-text="${headline}">${headline}</h1>
         <p>${subtitle}</p>
       </div>
       <figure class="ed-new-hero-visual ed-media-card">
@@ -794,7 +952,14 @@ function makeDetail(p){
       </figure>
     </header>
     ${caseStudyContent[p.slug]||''}
-    <div class="ed-more-projects"><span class="ed-label">CONTINUE EXPLORING</span><a id="detail-next" href="#project-${next.slug}" class="ed-next-link"><span>Next project<br><strong>${next.name}</strong></span><iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></a></div>
+    <section class="ed-more-projects" aria-label="Continue to the next project">
+      <span class="ed-more-kicker">Finished reading?</span>
+      <a id="detail-next" href="#project-${next.slug}" class="ed-more-link" aria-label="Next project: ${next.name}">
+        <span class="ed-more-next-label">Up next</span>
+        <strong>${next.name}</strong>
+        <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon>
+      </a>
+    </section>
     <dialog id="case-lightbox" class="ed-lightbox" aria-label="Project image enlarged"><button type="button" class="ed-lightbox-close" aria-label="Close image"><iconify-icon icon="lucide:x" aria-hidden="true"></iconify-icon></button><img src="" alt=""></dialog>
   </div>`;
 }
@@ -810,39 +975,141 @@ let scrollTick=false;addEventListener('scroll',()=>{if(scrollTick)return;scrollT
 addEventListener('resize',()=>{if(isDetail)updateProjectRailPosition();},{passive:true});
 
 
-// Real projects preview on hover, focus and pointer movement.
+// Navigation preview: the left list NEVER scrolls automatically. Visitors can
+// scroll all four shortcuts themselves; only the image/title on the right cycles.
 const previewTrigger=document.getElementById('nav-projects');
 const navPreview=document.getElementById('nav-preview');
 const navHeader=document.querySelector('.floating-header');
-const previewItems=[...document.querySelectorAll('.nav-preview-item')];
+const previewRotator=document.getElementById('nav-preview-rotator');
+const previewTrack=document.getElementById('nav-preview-track');
+const previewImageLayers=[document.getElementById('nav-preview-image'),document.getElementById('nav-preview-next-image')];
+const previewCaptionLayers=[document.getElementById('nav-caption-first'),document.getElementById('nav-caption-second')];
 const previewData=[
-  {image:'assets/project-data.jpg',category:'DATA ENGINEERING',title:'Data Engineering Project',desc:'Wearable sensors for construction-site safety.'},
-  {image:'assets/project-engineering.jpg',category:'ENGINEERING EXPLORATION',title:'Engineering Exploration Project',desc:'A motorised tri-star wheel attachment.'},
-  {image:'assets/project-iot.png',category:'INTERNET OF THINGS',title:'IoT System for Sustainable Living',desc:'Coming soon.'}
+  {href:'#project-data-engineering',image:'assets/project-data.jpg',title:'Data Engineering Project',summary:'Wearable sensors · Worker safety'},
+  {href:'#project-engineering-exploration',image:'assets/project-engineering.jpg',title:'Engineering Exploration Project',summary:'Tri-star wheels · Easier curb climbing'},
+  {href:'#project-iot-sustainable-living',image:'assets/iot-hardware-workbench.webp',title:'IoT System for Sustainable Household Living',summary:'Connected sensors · Smarter home'},
+  {href:'#project-cloud-computing',image:'assets/cloud-storefront-1.webp',title:'Cloud Computing Development Project',summary:'AWS cloud · Online music store'}
 ];
-function setPreviewProject(i){
-  const p=previewData[i];if(!p)return;
-  document.getElementById('nav-preview-image').src=p.image;
-  document.getElementById('nav-preview-image').alt=p.category+' project visual';
-  document.getElementById('nav-preview-category').textContent=p.category;
-  document.getElementById('nav-preview-title').textContent=p.title;
-  document.getElementById('nav-preview-desc').textContent=p.desc;
-  previewItems.forEach((el,j)=>el.classList.toggle('is-selected',j===i));
+const previewMotion=matchMedia('(prefers-reduced-motion: reduce)');
+const previewPreloads=previewData.map(p=>{const im=new Image();im.src=p.image;im.decode?.().catch(()=>{});return im;});
+let previewSelectedIndex=0,previewActiveLayer=0;
+let previewCycleTimer=null,previewVisualToken=0,previewVisualTimer=null;
+let previewInteracting=false;
+function stopPreviewCycle(){
+  if(previewCycleTimer!==null){clearInterval(previewCycleTimer);previewCycleTimer=null;}
+}
+function startPreviewCycle(){
+  stopPreviewCycle();
+  if(!navPreview||navPreview.hidden||document.hidden||previewInteracting||previewMotion.matches)return;
+  previewCycleTimer=setInterval(()=>selectPreview((previewSelectedIndex+1)%previewData.length),3600);
+}
+function createPreviewRow(item,index){
+  const row=document.createElement('a');
+  row.className='nav-preview-item';
+  row.dataset.previewIndex=String(index);
+  row.href=item.href;
+  row.setAttribute('aria-label','Open '+item.title);
+  const heading=document.createElement('strong');heading.textContent=item.title;
+  const icon=document.createElement('iconify-icon');
+  icon.setAttribute('icon','lucide:arrow-up-right');icon.setAttribute('aria-hidden','true');
+  row.append(heading,icon);
+  row.addEventListener('pointerenter',()=>{previewInteracting=true;stopPreviewCycle();selectPreview(index);});
+  row.addEventListener('focus',()=>{previewInteracting=true;stopPreviewCycle();selectPreview(index);});
+  row.addEventListener('click',()=>setPreviewOpen(false));
+  return row;
+}
+const previewRows=previewData.map(createPreviewRow);
+previewTrack.replaceChildren(...previewRows);
+function highlightPreviewRows(){
+  previewRows.forEach((row,index)=>{
+    const selected=index===previewSelectedIndex;
+    row.classList.toggle('is-selected',selected);
+    if(selected)row.setAttribute('aria-current','true');else row.removeAttribute('aria-current');
+  });
+}
+function updatePreviewCaption(layer,index){
+  layer.querySelector('strong').textContent=previewData[index].summary;
+}
+function showPreviewVisual(index){
+  if(index<0||index>=previewData.length)return;
+  const token=++previewVisualToken;
+  if(previewVisualTimer!==null){clearTimeout(previewVisualTimer);previewVisualTimer=null;}
+  const current=previewActiveLayer,next=1-current;
+  const oldImage=previewImageLayers[current],image=previewImageLayers[next];
+  const oldCaption=previewCaptionLayers[current],caption=previewCaptionLayers[next];
+  image.classList.remove('is-revealing','is-active');
+  caption.classList.remove('is-revealing','is-active');
+  image.src=previewData[index].image;
+  image.alt=previewData[index].title+' preview';
+  updatePreviewCaption(caption,index);
+  if(navPreview.hidden||previewMotion.matches){
+    image.classList.add('is-active');caption.classList.add('is-active');
+    oldImage.classList.remove('is-revealing','is-active');
+    oldCaption.classList.remove('is-revealing','is-active');
+    previewActiveLayer=next;
+    return;
+  }
+  const reveal=()=>{
+    if(token!==previewVisualToken||navPreview.hidden)return;
+    // Stable stacked layers: no layout shifts or synchronous image decoding.
+    oldImage.style.zIndex='0';image.style.zIndex='2';
+    oldCaption.style.zIndex='2';caption.style.zIndex='3';
+    image.classList.add('is-revealing');caption.classList.add('is-revealing');
+    previewVisualTimer=setTimeout(()=>{
+      if(token!==previewVisualToken)return;
+      image.classList.remove('is-revealing');caption.classList.remove('is-revealing');
+      image.classList.add('is-active');caption.classList.add('is-active');
+      oldImage.classList.remove('is-revealing','is-active');
+      oldCaption.classList.remove('is-revealing','is-active');
+      previewActiveLayer=next;
+      previewVisualTimer=null;
+    },900);
+  };
+  const preload=previewPreloads[index];
+  if(preload.complete&&preload.naturalWidth)requestAnimationFrame(reveal);
+  else if(preload.decode)preload.decode().then(()=>requestAnimationFrame(reveal)).catch(()=>requestAnimationFrame(reveal));
+  else requestAnimationFrame(reveal);
+}
+function selectPreview(index){
+  if(index===previewSelectedIndex)return;
+  previewSelectedIndex=index;
+  highlightPreviewRows();
+  showPreviewVisual(index);
+  // Intentionally NEVER call scrollIntoView/scrollBy/scrollTop here.
 }
 function setPreviewOpen(open){
   if(!navPreview)return;
   if(matchMedia('(max-width:900px)').matches)open=false;
-  navPreview.hidden=!open;previewTrigger.setAttribute('aria-expanded',String(open));
+  if(navPreview.hidden===!open)return;
+  navPreview.hidden=!open;
+  previewTrigger?.setAttribute('aria-expanded',String(open));
+  if(open){
+    previewInteracting=false;
+    // A fresh opening starts at the top; subsequent rotations do not touch it.
+    previewRotator.scrollTop=0;
+    startPreviewCycle();
+  }else{previewInteracting=false;stopPreviewCycle();}
 }
+highlightPreviewRows();
 previewTrigger?.addEventListener('pointerenter',()=>setPreviewOpen(true));
 previewTrigger?.addEventListener('focus',()=>setPreviewOpen(true));
 navHeader?.querySelectorAll('.nav-item:not(#nav-projects),#theme-toggle,#header-contact').forEach(el=>el.addEventListener('pointerenter',()=>setPreviewOpen(false)));
 navHeader?.addEventListener('pointerleave',()=>setPreviewOpen(false));
 navHeader?.addEventListener('focusout',e=>{if(!navHeader.contains(e.relatedTarget))setPreviewOpen(false);});
-previewItems.forEach((a,i)=>{a.addEventListener('pointerenter',()=>setPreviewProject(i));a.addEventListener('focus',()=>setPreviewProject(i));});
-navPreview?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setPreviewOpen(false)));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!navPreview.hidden)setPreviewOpen(false);});
+previewRotator?.addEventListener('pointerleave',()=>{previewInteracting=false;startPreviewCycle();});
+previewRotator?.addEventListener('focusout',e=>{if(!previewRotator.contains(e.relatedTarget)){previewInteracting=false;startPreviewCycle();}});
+previewRotator?.addEventListener('wheel',()=>{previewInteracting=true;stopPreviewCycle();},{passive:true});
+previewRotator?.addEventListener('touchstart',()=>{previewInteracting=true;stopPreviewCycle();},{passive:true});
+previewRotator?.addEventListener('keydown',event=>{
+  if(event.key==='ArrowDown'||event.key==='ArrowUp'){
+    previewInteracting=true;stopPreviewCycle();
+    // Native keyboard scrolling; the list does not wrap or jump.
+  }
+});
+navPreview?.querySelector('.nav-preview-all')?.addEventListener('click',()=>setPreviewOpen(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&navPreview&&!navPreview.hidden)setPreviewOpen(false);});
 window.addEventListener('resize',()=>{if(innerWidth<=900)setPreviewOpen(false);});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPreviewCycle();else startPreviewCycle();});
 
 // The homepage introduction is always visible; no click-to-expand controls.
 const roles=['AI & Data|Engineering Student','Internet of Things|Enthusiast','Background in|Electronics'];let roleIndex=0;const role=document.getElementById('rotating-role');function putRole(text){role.replaceChildren();text.split('|').forEach((line,n)=>{if(n)role.append(document.createElement('br'));line.split(' ').forEach((word,j)=>{if(j)role.append(document.createTextNode(' '));const group=document.createElement('span');group.className='role-word';for(const char of word){const span=document.createElement('span');span.className='role-character';span.textContent=char;group.append(span);}role.append(group);});});}putRole(roles[0]);setInterval(async()=>{if(motion.matches||document.hidden||isDetail||activeSection!=='home')return;const chars=[...role.querySelectorAll('.role-character')];await Promise.all(chars.map((c,i)=>c.animate([{opacity:1,transform:'translateY(0)',filter:'blur(0)'},{opacity:0,transform:'translateY(-10px)',filter:'blur(4px)'}],{duration:220,delay:i*3,fill:'forwards'}).finished));roleIndex=(roleIndex+1)%roles.length;putRole(roles[roleIndex]);role.querySelectorAll('.role-character').forEach((c,i)=>c.animate([{opacity:0,transform:'translateY(14px)',filter:'blur(5px)'},{opacity:1,transform:'translateY(0)',filter:'blur(0)'}],{duration:550,delay:i*12,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'}));},5200);
@@ -932,8 +1199,9 @@ function portfolioReply(raw){
   if(/\b(awards?|prizes?|merit|director.s list|achievements?|honou?rs?|sinda|recognition|aeis)\b/.test(q))return {message:'My achievements include the Director’s List at NYP, two Director’s List awards at ITE, the ITE Certificate of Merit, the SINDA Excellence Awards 2025 and the AEIS Book Prize from ITE.',link:{label:'My achievements',href:'#about'}};
   if(/\b(tri[- ]?star|wheelchair|curb|engineering exploration|mobility|wheel attachment)\b/.test(q))return {message:'For my Engineering Exploration Project, my team explored a motorised tri-star wheel attachment to help wheelchair users overcome curbs. I worked on the switch, Arduino Uno and DC motor circuit, and took part in brainstorming and testing. We tested the concept with a small-scale prototype.',link:{label:'My engineering project',href:'#project-engineering-exploration'}};
   if(/\b(construction|fall detection|fall|slip|near[- ]?miss|safety|wearable|vest|data engineering project)\b/.test(q))return {message:'For my Data Engineering Project, my team built a wearable-sensor prototype to collect movement data and highlight potential slips, falls and near-misses. I developed the Main.py launcher that starts our Python data collection and processing scripts.',link:{label:'My data project',href:'#project-data-engineering'}};
-  if(/\b(sustainable|smart home|plant care|thing speak|thingspeak|zigbee|home automation|energy saving)\b/.test(q))return {message:'My IoT System for Sustainable Living project focuses on connected sensors and home automation. I’m still preparing the detailed write-up, so this page is marked Coming Soon.',link:{label:'My IoT project',href:'#project-iot-sustainable-living'}};
-  if(/\b(projects?|portfolio|built|build|work on|made|case stud)\b/.test(q))return {message:'I’m featuring three projects here: a wearable construction-safety system, a tri-star wheelchair mobility concept, and an IoT system for sustainable living. The first two have detailed project pages, and the IoT write-up is coming soon.',link:{label:'Explore my projects',href:'#projects'}};
+  if(/\b(aws|cloud computing|ec2|s3 bucket|auto scaling|load balancer|rds|boto3)\b/.test(q))return {message:'In my Cloud Computing Development Project, I built an AWS-hosted music-store catalogue using EC2, an Application Load Balancer, Auto Scaling, RDS MySQL and S3. I also configured monitoring, budget alerts and Python health checks.',link:{label:'My Cloud project',href:'#project-cloud-computing'}};
+  if(/\b(sustainable|smart home|plant care|thing speak|thingspeak|zigbee|home automation|energy saving)\b/.test(q))return {message:'I built the DHT11 ventilation and ultrasonic alert logic, helped integrate the Arduino code, and sent readings to ThingSpeak using Python. Our school prototype also included lighting and soil-moisture monitoring.',link:{label:'My IoT project',href:'#project-iot-sustainable-living'}};
+  if(/\b(projects?|portfolio|built|build|work on|made|case stud)\b/.test(q))return {message:'I’m featuring four projects: NESSO construction-safety monitoring, the TRI-STAR wheelchair concept, a connected IoT household prototype, and an AWS-hosted music-store application. Each has its own project page.',link:{label:'Explore my projects',href:'#projects'}};
   if(/\b(higher nitec|ite|electronics|education|degree|diploma|nyp|polytechnic|stud(y|ies|ying)|school|course|qualification|graduate|secondary)\b/.test(q))return {message:'I’m studying for a Diploma in AI & Data Engineering at Nanyang Polytechnic. Before that, I completed Higher Nitec in Electronics Engineering at ITE, and I attended Christ Church Secondary School.',link:{label:'My education timeline',href:'#about'}};
   if(/\b(python|power bi|powerbi|mysql|sql|pandas|numpy|matplotlib|aws|machine learning|code|programming|skills?|tools?|technology|stack|arduino|raspberry|sensor|iot|ble|cloud|deep learning|nlp|computer vision)\b/.test(q))return {message:'I work with Python, Pandas, NumPy, Matplotlib, Power BI, Scikit-learn, Arduino (C/C++), Raspberry Pi, M5Stack, BLE, AWS Cloud and MySQL. I’m also learning more about Deep Learning, NLP and Computer Vision.',link:{label:'My skills & tools',href:'#about'}};
   if(/\b(interest|passion|motivat|why ai|artificial intelligence|data science|future|goal|aspir)\b/.test(q))return {message:'I enjoy exploring how AI, data and connected devices can turn practical ideas into useful things. That’s why I like learning by building projects.',link:{label:'More about me',href:'#about'}};
@@ -959,6 +1227,67 @@ document.getElementById('chat-reset').addEventListener('click',()=>{
   chatQuickQuestions.hidden=false;chatQuestion.value='';updateComposer();chatQuestion.focus({preventScroll:true});
 });
 updateComposer();
+
+
+// Direct AJAX form delivery for the static portfolio. FormSubmit requires a one-time
+// activation email to the owner's inbox before it starts forwarding submissions.
+const portfolioContactForm=document.getElementById('portfolio-contact-form');
+const contactFormStatus=document.getElementById('contact-form-status');
+let contactSending=false;
+portfolioContactForm?.addEventListener('submit',async event=>{
+  event.preventDefault();
+  if(contactSending || !portfolioContactForm.reportValidity()) return;
+  const values=new FormData(portfolioContactForm);
+  const name=String(values.get('name')||'').trim();
+  const sender=String(values.get('email')||'').trim();
+  const subject=String(values.get('subject')||'').trim();
+  const message=String(values.get('message')||'').trim();
+  if(!name||!sender||!subject||!message)return;
+  const shell=portfolioContactForm.closest('.contact-form-shell');
+  const button=portfolioContactForm.querySelector('.contact-submit');
+  const buttonContents=button.innerHTML;
+  const payload={name,email:sender,subject,message,_replyto:sender,
+    _subject:'Portfolio contact: '+subject,_template:'table',_captcha:'false',
+    _honey:String(values.get('_honey')||'')};
+  contactSending=true;
+  button.disabled=true;
+  button.textContent='Sending…';
+  contactFormStatus.classList.remove('is-error','is-success');
+  contactFormStatus.textContent='Sending your message securely…';
+  shell?.classList.remove('is-launching');
+  try {
+    const response=await fetch(portfolioContactForm.action,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(payload),
+    });
+    const result=await response.json();
+    // The service may return HTTP 200 with success: "false": do not coerce strings.
+    if(!response.ok || !(result?.success===true || result?.success==='true')) {
+      const details=typeof result?.message==='string' ? result.message : '';
+      if(/activat|confirm|verif/i.test(details)) {
+        throw new Error('The contact form is awaiting one-time email verification. Please try again once it has been activated.');
+      }
+      throw new Error('The message could not be submitted. Please try again shortly.');
+    }
+    portfolioContactForm.reset();
+    contactFormStatus.classList.add('is-success');
+    contactFormStatus.textContent='Message submitted! Thank you for reaching out.';
+    // Only launch after the sending service confirms the submission was accepted.
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      void shell?.offsetWidth;
+      shell?.classList.add('is-launching');
+      window.setTimeout(()=>shell?.classList.remove('is-launching'),2350);
+    }
+  } catch(error) {
+    contactFormStatus.classList.add('is-error');
+    contactFormStatus.textContent=(error instanceof Error)?error.message:'Network error. Please check your connection and try again.';
+  } finally {
+    contactSending=false;
+    button.disabled=false;
+    button.innerHTML=buttonContents;
+  }
+});
 
 document.getElementById('copy-email').addEventListener('click',async()=>{const status=document.getElementById('copy-status');try{await navigator.clipboard.writeText('alagu.karthik17@gmail.com');status.textContent='Email address copied.';}catch{status.textContent='You can select the email address above or click it to open your email app.';}});
 
@@ -992,7 +1321,82 @@ if(metricsCard){
   },{threshold:.2});
   metricsObserver.observe(metricsCard);
 }
-document.querySelectorAll('.footer-column a').forEach(a=>{const label=a.textContent;a.setAttribute('aria-label',label);a.innerHTML='<span aria-hidden="true">'+label+'</span>';let timer;a.addEventListener('mouseenter',()=>{if(motion.matches)return;clearInterval(timer);let progress=0;const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';timer=setInterval(()=>{progress+=.75;a.firstElementChild.textContent=[...label].map((c,i)=>i<progress?c:chars[Math.floor(Math.random()*chars.length)]).join('');if(progress>=label.length){clearInterval(timer);a.firstElementChild.textContent=label;}},25);});a.addEventListener('mouseleave',()=>{clearInterval(timer);a.firstElementChild.textContent=label;});});
 
 const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let width=0,height=0,stars=[],last=0;let pointer={x:0,y:0};function resize(){const rect=canvas.parentElement.getBoundingClientRect();width=rect.width;height=rect.height;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=width*dpr;canvas.height=height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:width<760?40:85},()=>({x:Math.random()*width,y:Math.random()*height,r:.5+Math.random()*1.6,v:.08+Math.random()*.18,a:.15+Math.random()*.55}));}new ResizeObserver(resize).observe(canvas.parentElement);resize();document.getElementById('home').addEventListener('pointermove',event=>{pointer.x=(event.clientX/innerWidth-.5)*8;pointer.y=(event.clientY/innerHeight-.5)*8;});function draw(time){if(!motion.matches&&!document.hidden&&!isDetail&&activeSection==='home'&&time-last>28){last=time;ctx.clearRect(0,0,width,height);const rgb=root.dataset.theme==='dark'?'235,235,235':'30,30,30';stars.forEach(s=>{s.y+=s.v;if(s.y>height)s.y=0;ctx.beginPath();ctx.fillStyle=`rgba(${rgb},${s.a})`;ctx.arc(s.x+pointer.x*s.r,s.y+pointer.y*s.r,s.r,0,Math.PI*2);ctx.fill();});}requestAnimationFrame(draw);}requestAnimationFrame(draw);
+})();
+
+
+// Decorative Contact particles: same understated dots as the landing hero,
+// but each dot gently fades in and out. Draw only while Contact is visible.
+(() => {
+  const section = document.getElementById('contact');
+  const canvas = document.getElementById('contact-particles');
+  if (!section || !canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let width = 0, height = 0, dots = [], visible = false, frame = 0, previous = 0;
+
+  function resizeDots() {
+    const rect = section.getBoundingClientRect();
+    width = Math.max(1, rect.width);
+    height = Math.max(1, rect.height);
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.ceil(width * pixelRatio);
+    canvas.height = Math.ceil(height * pixelRatio);
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    const count = width < 620 ? 36 : Math.min(94, Math.round(width * height / 16000));
+    dots = Array.from({length: count}, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: 1.7 + Math.random() * 2.1,
+      strength: .30 + Math.random() * .40,
+      phase: Math.random() * Math.PI * 2,
+      speed: .65 + Math.random() * .9,
+      drift: 1.5 + Math.random() * 5
+    }));
+  }
+
+  function draw(now) {
+    frame = 0;
+    if (!visible || document.hidden || reducedMotion.matches) return;
+    if (now - previous >= 32) { // ~30 fps, no layout work in animation loop
+      previous = now;
+      ctx.clearRect(0, 0, width, height);
+      const t = now / 1000;
+      const rgb = document.documentElement.dataset.theme === 'dark' ? '235,235,235' : '48,42,36';
+      for (const dot of dots) {
+        const pulse = Math.max(0, Math.sin(t * dot.speed + dot.phase));
+        const alpha = pulse * pulse * dot.strength;
+        if (alpha < .012) continue;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${rgb},${alpha.toFixed(3)})`;
+        ctx.arc(dot.x + Math.sin(t * .28 + dot.phase) * dot.drift,
+                dot.y + Math.cos(t * .2 + dot.phase) * dot.drift,
+                dot.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    frame = window.requestAnimationFrame(draw);
+  }
+
+  function syncAnimation() {
+    if (visible && !document.hidden && !reducedMotion.matches) {
+      if (!frame) frame = window.requestAnimationFrame(draw);
+    } else {
+      if (frame) window.cancelAnimationFrame(frame);
+      frame = 0;
+      ctx.clearRect(0, 0, width, height);
+    }
+  }
+
+  new ResizeObserver(resizeDots).observe(section);
+  resizeDots();
+  const observer = new IntersectionObserver(entries => {
+    visible = entries[0].isIntersecting;
+    syncAnimation();
+  }, { threshold: 0, rootMargin: '80px 0px' });
+  observer.observe(section);
+  document.addEventListener('visibilitychange', syncAnimation);
+  reducedMotion.addEventListener('change', syncAnimation);
 })();

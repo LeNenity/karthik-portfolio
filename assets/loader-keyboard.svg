@@ -1,4 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="loader-keyboard" viewBox="0 0 450 260" fill="none" stroke="currentColor" stroke-width=".85" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+<style>
+  /* Keyboard motion: keep the original keypress pattern inside the SVG asset. */
+  svg { color: #777d85; }
+  .key:nth-of-type(9n + 3) { animation: key-press 2.8s ease-in-out infinite; }
+  .key:nth-of-type(9n + 6) { animation: key-press 2.8s ease-in-out .9s infinite; }
+  .key:nth-of-type(9n) { animation: key-press 2.8s ease-in-out 1.8s infinite; }
+  @keyframes key-press {
+    0%, 20%, 55%, 100% { stroke: currentColor; transform: translateY(0); }
+    34% { stroke: #e6e8eb; transform: translateY(1px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .key { animation: none; } }
+</style>
 <path d="M13.67,67.64 L343.53,232.56 Q348,234.8 352.32,232.28 L407.88,199.87 Q412.2,197.35 412.2,199.35 L412.2,203.35 Q412.2,205.35 407.88,207.87 L352.32,240.28 Q348,242.8 343.53,240.56 L13.67,75.64 Q9.2,73.4 9.2,71.4 L9.2,67.4 Q9.2,65.4 13.67,67.64 Z" fill="#0a0a0a"/>
 <path d="M77.87,30.19 L407.73,195.11 Q412.2,197.35 407.88,199.87 L352.32,232.28 Q348,234.8 343.53,232.56 L13.67,67.64 Q9.2,65.4 13.52,62.88 L69.08,30.47 Q73.4,27.95 77.87,30.19 Z" fill="#0a0a0a"/>
 <g class="key"><path d="M79.39,24.15 L89.93,29.41 Q90.82,29.86 91.25,30.76 L95.49,39.56 Q95.92,40.46 95.06,40.96 L86.46,45.98 Q85.6,46.48 84.71,46.03 L67.57,37.47 Q66.68,37.02 67.16,36.14 L71.3,28.5 Q71.78,27.62 72.64,27.12 L77.64,24.2 Q78.5,23.7 79.39,24.15 Z" fill="#0a0a0a"/><path d="M79.39,24.15 L89.93,29.41 Q90.82,29.86 89.96,30.36 L84.96,33.28 Q84.1,33.78 83.21,33.33 L72.67,28.07 Q71.78,27.62 72.64,27.12 L77.64,24.2 Q78.5,23.7 79.39,24.15 Z" fill="#0a0a0a"/><path d="M84.1,33.78 L85.6,46.48" opacity=".45"/></g>

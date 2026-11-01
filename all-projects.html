@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e8dfd2">
+<meta name="description" content="Explore all four of Karthik's projects in data engineering, engineering, IoT and cloud computing. Search and filter the portfolio.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<title>All Projects · Karthik Portfolio</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="all-projects.css">
+<script src="icons.js" defer></script>
+<script src="all-projects.js" defer></script>
+<script src="all-projects-chat.js" defer></script>
+<script src="footer.js" defer></script>
+</head>
+<body class="all-projects-page">
+<a class="skip" href="#all-projects-main">Skip to projects</a>
+<a class="ap-back ap-back-fixed" href="index.html#projects" aria-label="Back to portfolio projects"><iconify-icon icon="lucide:arrow-left" aria-hidden="true"></iconify-icon><span>Back to portfolio</span></a>
+<header class="floating-header" aria-label="Main header">
+  <nav class="dock glass" aria-label="Main navigation">
+    <a class="nav-item" href="index.html#home" aria-label="Home"><iconify-icon icon="lucide:house" aria-hidden="true"></iconify-icon><span class="nav-label">Home</span></a>
+    <a class="nav-item" href="index.html#about" aria-label="About"><iconify-icon icon="lucide:user-round" aria-hidden="true"></iconify-icon><span class="nav-label">About</span></a>
+    <a class="nav-item" href="all-projects.html" aria-label="Projects" aria-current="page"><iconify-icon icon="lucide:briefcase-business" aria-hidden="true"></iconify-icon><span class="nav-label">Projects</span></a>
+    <a class="nav-item" href="index.html#contact" aria-label="Contact"><iconify-icon icon="lucide:mail" aria-hidden="true"></iconify-icon><span class="nav-label">Contact</span></a>
+  </nav>
+  <button id="all-theme-toggle" class="theme-toggle glass" type="button" aria-label="Switch to dark mode"><iconify-icon id="all-theme-icon" icon="lucide:moon" aria-hidden="true"></iconify-icon></button>
+  <a class="contact-pill" href="index.html#contact"><span class="disc"><iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span>Contact me</a>
+</header>
+<main id="all-projects-main" class="ap-main">
+  <canvas id="ap-ambient-dots" class="ap-ambient-dots" aria-hidden="true"></canvas>
+  <div class="ap-shell">
+    <section class="ap-browser" aria-labelledby="ap-browser-title">
+      <div class="ap-browser-heading"><h1 id="ap-browser-title">All projects<span class="ap-period">.</span></h1><span id="ap-results" role="status" aria-live="polite">Showing 4 projects</span></div>
+      <div class="ap-controls">
+        <label class="ap-search" for="ap-search-input">
+          <iconify-icon icon="lucide:search" aria-hidden="true"></iconify-icon>
+          <input id="ap-search-input" type="search" autocomplete="off" placeholder="Search projects or skills..." aria-label="Search projects">
+          <span class="ap-search-shortcut" aria-hidden="true">/</span>
+        </label>
+        <div class="ap-filters" role="group" aria-label="Filter projects by category">
+          <button type="button" class="ap-filter is-active" data-filter="all" aria-pressed="true">All <span>04</span></button>
+          <button type="button" class="ap-filter" data-filter="data" aria-pressed="false">Data &amp; AI</button>
+          <button type="button" class="ap-filter" data-filter="engineering" aria-pressed="false">Engineering</button>
+          <button type="button" class="ap-filter" data-filter="iot" aria-pressed="false">IoT</button>
+          <button type="button" class="ap-filter" data-filter="cloud" aria-pressed="false">Cloud</button>
+        </div>
+      </div>
+      <div class="ap-scroll-head"><span>Browse my projects</span></div>
+      <div class="ap-scroll-region" role="region" aria-label="Scrollable project gallery" tabindex="0"><div class="ap-grid" id="ap-grid">
+        <article class="ap-card" data-category="data" data-search="data data &amp; ai data engineering project a wearable system for tracking movement and spotting safety incidents. python ble mysql power bi construction safety wearable sensor slips falls near misses">
+          <a class="ap-card-link" href="index.html#project-data-engineering" aria-label="Open Data Engineering Project">
+            <span class="ap-card-thumbnail"><img src="assets/project-data.jpg" alt="Wearable motion-sensing device from my Data Engineering project" width="600" height="420" loading="lazy"><span class="ap-image-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></span>
+            <span class="ap-card-content"><span class="ap-card-category">Data & AI</span><strong class="ap-card-title">Data Engineering Project</strong><span class="ap-card-summary">A wearable system for tracking movement and spotting safety incidents.</span><span class="ap-card-cta">View project <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span></span>
+          </a>
+        </article>
+        <article class="ap-card" data-category="engineering" data-search="engineering engineering engineering exploration project our team explored a wheel design that helps wheelchairs climb curbs. 3d design arduino prototyping wheelchair caster tri-star design">
+          <a class="ap-card-link" href="index.html#project-engineering-exploration" aria-label="Open Engineering Exploration Project">
+            <span class="ap-card-thumbnail"><img src="assets/project-engineering.jpg" alt="Original 3D wheelchair design with tri-star wheels" width="600" height="420" loading="lazy"><span class="ap-image-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></span>
+            <span class="ap-card-content"><span class="ap-card-category">Engineering</span><strong class="ap-card-title">Engineering Exploration Project</strong><span class="ap-card-summary">Our team explored a wheel design that helps wheelchairs climb curbs.</span><span class="ap-card-cta">View project <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span></span>
+          </a>
+        </article>
+        <article class="ap-card" data-category="iot" data-search="iot iot iot system for sustainable household living sensors for lights, ventilation, plants and doorway alerts. arduino nano raspberry pi sensors thingspeak smart household">
+          <a class="ap-card-link" href="index.html#project-iot-sustainable-living" aria-label="Open IoT System for Sustainable Household Living">
+            <span class="ap-card-thumbnail"><img src="assets/iot-hardware-workbench.webp" alt="Original sensor hardware laid out on a workbench" width="600" height="420" loading="lazy"><span class="ap-image-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></span>
+            <span class="ap-card-content"><span class="ap-card-category">IoT</span><strong class="ap-card-title">IoT System for Sustainable Household Living</strong><span class="ap-card-summary">Sensors for lights, ventilation, plants and doorway alerts.</span><span class="ap-card-cta">View project <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span></span>
+          </a>
+        </article>
+        <article class="ap-card" data-category="cloud" data-search="cloud cloud cloud computing development project a small music store i built on aws, from hosting to monitoring. aws ec2 rds mysql s3 cloudwatch load balancer auto scaling">
+          <a class="ap-card-link" href="index.html#project-cloud-computing" aria-label="Open Cloud Computing Development Project">
+            <span class="ap-card-thumbnail"><img src="assets/cloud-storefront-1.webp" alt="Nine-product music store from my cloud computing project" width="600" height="420" loading="lazy"><span class="ap-image-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></span>
+            <span class="ap-card-content"><span class="ap-card-category">Cloud</span><strong class="ap-card-title">Cloud Computing Development Project</strong><span class="ap-card-summary">A small music store I built on AWS, from hosting to monitoring.</span><span class="ap-card-cta">View project <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span></span>
+          </a>
+        </article>
+      </div></div>
+      <div class="ap-empty" id="ap-empty" hidden><iconify-icon icon="lucide:search" aria-hidden="true"></iconify-icon><h3>No projects found.</h3><p>Try a different search or category.</p><button id="ap-reset" type="button">Clear filters <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button></div>
+    </section>
+  </div>
+</main>
+<footer class="site-footer footer-compact" aria-label="Portfolio footer">
+  <div class="frame footer-minimal">
+    <a class="footer-wordmark" href="index.html#home" aria-label="Karthik — home" data-footer-scramble><span class="footer-scramble-text" aria-hidden="true">Karthik.</span></a>
+    <p class="footer-credit">Palaniappan Alagu Karthik · Portfolio 2026</p>
+    <button id="footer-back-to-top" type="button" class="footer-back-to-top" aria-label="Back to top" data-footer-scramble>
+      <span class="footer-scramble-text" aria-hidden="true">Back to top</span>
+      <iconify-icon icon="lucide:arrow-up" aria-hidden="true"></iconify-icon>
+    </button>
+  </div>
+</footer>
+<button type="button" id="chat-toggle" class="chat-launcher" aria-label="Ask Karthik" aria-expanded="false" aria-controls="portfolio-chat"><iconify-icon icon="lucide:message-circle" aria-hidden="true"></iconify-icon><span class="chat-hover-label" aria-hidden="true">Ask Karthik</span></button>
+<aside id="portfolio-chat" class="chat-panel" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
+  <div class="chat-header">
+    <div class="chat-avatar" aria-hidden="true"><img src="assets/chat-smiley.png" alt=""><span class="chat-avatar-dot"></span></div>
+    <div class="chat-heading"><h2 id="chat-title">Karthik <span class="chat-beta">PORTFOLIO ASSISTANT</span></h2><p>My projects, in my words <span aria-hidden="true">·</span> Online</p></div>
+    <button id="chat-reset" class="chat-icon-button" type="button" aria-label="Start a new chat" title="New chat"><iconify-icon icon="lucide:plus" aria-hidden="true"></iconify-icon></button>
+    <button id="chat-close" class="chat-icon-button" type="button" aria-label="Close chat"><iconify-icon icon="lucide:x" aria-hidden="true"></iconify-icon></button>
+  </div>
+  <div class="chat-messages" id="chat-messages" role="log" aria-label="Chat messages" aria-live="polite" aria-relevant="additions" aria-atomic="false">
+    <div class="chat-line chat-line--bot"><span class="chat-message-avatar" aria-hidden="true"><img src="assets/chat-smiley.png" alt=""></span><div class="chat-bubble">Hey! I’m <strong>Karthik</strong> ✦ Well, my prewritten portfolio assistant. Ask about the projects I built, my internship, skills, achievements or studies!</div></div>
+    <div class="chat-quick-questions" id="chat-quick-questions" aria-label="Suggested questions">
+      <button type="button" data-chat-question="What projects have you worked on?">My projects <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
+      <button type="button" data-chat-question="What did you do during your internship?">My internship <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
+      <button type="button" data-chat-question="What are your skills?">My skills <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
+      <button type="button" data-chat-question="What awards have you received?">My achievements <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
+    </div>
+  </div>
+  <div class="chat-bottom">
+    <form class="chat-composer" id="question-form">
+      <label class="sr-only" for="question">Write a question about Karthik</label>
+      <textarea id="question" name="question" rows="1" placeholder="Ask me something..." autocomplete="off" maxlength="350"></textarea>
+      <button id="chat-send" class="chat-send" type="submit" aria-label="Send message" disabled><iconify-icon icon="lucide:arrow-up" aria-hidden="true"></iconify-icon></button>
+    </form>
+    <p class="chat-footnote">Prewritten answers in my voice, not a live conversation or AI.</p>
+  </div>
+</aside>
+</body>
+</html>

@@ -1,24 +1,28 @@
-Palaniappan Alagu Karthik · Portfolio 2026
+Karthik's Portfolio
+===================
 
-Open index.html to view the portfolio.
+Hey! This is the code for my portfolio website. I made it to share a bit about myself, what I've learnt, and the projects I've worked on.
 
-Updated:
-- One shared warm neutral palette across all three project title sections, dark and light.
-- Removed oversized duplicate hardware-photo section and redundant All projects button.
-- Data Engineering: compact factual stats, bento-style problem/solution and software-contribution cards; actual slide media in an asymmetrical gallery.
-- Readable HTML/CSS flowchart with animated data-transfer line.
-- Project sections reveal gently on scroll, images shift slightly with mouse and cards have subtle hover states. Respects reduced-motion settings.
-- Karthik's personal Main.py work is attributed accurately (team members developed other components).
-- Original homepage, interactive 3D connection globe and other project content preserved.
+Getting started
+---------------
+Open index.html in a browser to look around the site.
 
-Latest revision: Removed the flowchart footer status, the workflow note, and the original-diagram link.
+If you're putting it online with GitHub and Render, upload everything in this ZIP to your repository. Keep the files and the assets folder in the same places, then deploy the latest version on Render.
 
-TRI-STAR update: Engineering Exploration rebuilt using source slides and original Wix portfolio text. Original presentation photos saved as assets/tri-*.jpg. Interactive rotating tri-star wheel is a concept diagram, not footage of a full-size wheelchair.
+What's on the site?
+-------------------
+- Home and About: an introduction, education, awards, skills and my latest resume.
+- Projects: four projects covering data engineering, wheelchair design, home IoT and AWS cloud computing.
+- All Projects: a page where you can search and filter the projects.
+- Contact: links to my socials and a message form.
 
-ENGINEERING PROJECT MEDIA NOTE (Oct 31, 2026)
-The authentic hand-drawn sketch is linked from the user's own Wix portfolio and therefore requires internet access.
-The original two prototype demonstration MP4s were not available as downloadable files in the presentation;
-the two video-cover cards now open the original Wix project instead of falsely treating stills as video playback.
-To embed the actual videos offline, the two original MP4 uploads are required.
+You can open each project to see the work in more detail, including pictures and videos. There's also a little portfolio chatbot if you want to explore the site that way.
 
-MEDIA FOLLOW-UP: I could not independently fetch the original hosted video files. The Before/After cards link to the two real demonstrations on the original Wix Engineering page. To play them inline without visiting Wix, please upload the source MP4 files. The hand-drawn sketch is hotlinked from Wix and may be blocked by hosting settings; the page shows a locally bundled CAD concept image as a fallback.
+A couple of useful things
+-------------------------
+- My latest resume is at assets/karthik-resume.pdf. The preview on the homepage is assets/resume-preview.webp.
+- The contact form uses FormSubmit to send messages without opening an email app. After the site is live, send a test message and confirm the activation email in my Gmail inbox. The form won't deliver messages until that one-time setup is finished.
+- If you change any photos or project content, keep an eye on the file paths so nothing goes missing.
+- Check the site on both desktop and mobile before publishing changes.
+
+That's it. Thanks for checking out my work!

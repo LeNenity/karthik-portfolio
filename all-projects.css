@@ -1,0 +1,157 @@
+/* All projects / searchable index — reuses the existing color system. */
+.all-projects-page{min-height:100vh}
+.all-projects-page .floating-header{left:50%}
+.ap-main{padding:132px 0 0}
+.ap-shell{max-width:1320px;width:calc(100% - 96px);margin:auto}
+.ap-topline{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--faint)}
+.ap-back{display:inline-flex;align-items:center;gap:10px;letter-spacing:0;font-size:13px;color:var(--muted);font-weight:600}
+.ap-back iconify-icon{transform:rotate(-135deg);font-size:16px;transition:transform .3s}
+.ap-back:hover{color:var(--fg)}.ap-back:hover iconify-icon{transform:rotate(-135deg) translateY(3px)}
+.ap-intro{padding:91px 0 82px;position:relative}
+.ap-kicker{font-size:12px;font-weight:700;letter-spacing:.19em;color:var(--faint)}
+.ap-kicker span{padding:0 8px}
+.ap-intro h1{font-size:clamp(64px,9.9vw,146px);font-weight:720;line-height:.94;letter-spacing:-.09em;margin:29px 0 36px;max-width:1000px}
+.ap-intro h1 em{font-weight:400;font-style:normal;color:var(--muted)}
+.ap-intro>p{max-width:565px;color:var(--muted);font-size:clamp(16px,1.45vw,19px);line-height:1.75}
+.ap-browser{border-top:1px solid var(--line);padding-top:33px}
+.ap-browser-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:28px}
+.ap-browser-heading h2{font-size:clamp(27px,3.2vw,44px);font-weight:650;letter-spacing:-.055em}
+.ap-period{color:var(--faint)}
+.ap-browser-heading>span{font-size:13px;color:var(--muted);font-weight:600}
+.ap-controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px;margin-bottom:30px}
+.ap-search{flex:1 1 320px;display:flex;align-items:center;gap:12px;max-width:580px;min-height:56px;padding:10px 16px;border-radius:18px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 56%,var(--bg));transition:border-color .25s,background .25s}
+.ap-search:focus-within{border-color:var(--muted);background:var(--surface)}
+.ap-search iconify-icon{font-size:21px;color:var(--muted)}
+.ap-search input{border:0;outline:0;flex:1 1 auto;min-width:0;background:transparent;font-size:14px;color:var(--fg)}
+.ap-search input:focus-visible{outline:none}
+.ap-search input::placeholder{color:var(--faint);opacity:1}
+.ap-search-shortcut{border:1px solid var(--line);border-radius:5px;font-size:12px;padding:2px 7px;color:var(--faint)}
+.ap-filters{display:flex;flex-wrap:wrap;align-items:center;gap:7px}
+.ap-filter{border:1px solid var(--line);border-radius:100px;padding:12px 17px;font-size:13px;font-weight:650;color:var(--muted);transition:background .2s,border-color .2s,color .2s,transform .2s;white-space:nowrap}
+.ap-filter>span{font-size:11px;opacity:.65;margin-left:3px}
+.ap-filter:hover{color:var(--fg);border-color:var(--faint);transform:translateY(-1px)}
+.ap-filter.is-active{background:var(--inverted);color:var(--on-inverted);border-color:var(--inverted)}
+.ap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;row-gap:36px;padding-bottom:83px}
+.ap-card{min-width:0;background:color-mix(in srgb,var(--surface) 39%,var(--bg));border:1px solid var(--line);border-radius:28px;padding:15px;display:flex;flex-direction:column;animation:ap-appear .45s var(--ease) both;transition:border-color .25s,box-shadow .25s}
+.ap-card[hidden]{display:none!important}
+.ap-card:hover{border-color:color-mix(in srgb,var(--faint) 48%,transparent);box-shadow:0 20px 40px rgba(33,25,18,.07)}
+.ap-image-link{display:block;position:relative;aspect-ratio:1.66/1;border-radius:18px;overflow:hidden;background:var(--surface)}
+.ap-image-link img{height:100%;width:100%;object-fit:cover;transition:transform .8s var(--ease),filter .8s}
+.ap-card:hover .ap-image-link img{transform:scale(1.045);filter:saturate(1.04)}
+.ap-image-arrow{position:absolute;right:17px;top:17px;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--bg);color:var(--fg);font-size:22px;box-shadow:0 3px 15px rgba(0,0,0,.16);transition:transform .3s}
+.ap-card:hover .ap-image-arrow{transform:rotate(45deg)}
+.ap-card-body{padding:25px 17px 15px;flex:1;display:flex;flex-direction:column}
+.ap-card-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--faint);font-size:10px;letter-spacing:.15em;font-weight:700}
+.ap-title-link{margin-top:23px}
+.ap-title-link h2{font-size:clamp(24px,2.55vw,37px);font-weight:680;line-height:1.19;letter-spacing:-.055em;max-width:560px;transition:color .25s}
+.ap-title-link:hover h2{color:var(--muted)}
+.ap-card-body>p{color:var(--muted);margin-top:15px;font-size:15px;line-height:1.65;max-width:510px}
+.ap-card-bottom{display:flex;gap:16px;justify-content:space-between;align-items:end;flex-wrap:wrap;margin-top:auto;padding-top:32px}
+.ap-tags{display:flex;gap:7px;flex-wrap:wrap;max-width:70%}
+.ap-tags span{border-radius:999px;border:1px solid var(--line);font-size:11px;padding:6px 10px;color:var(--muted)}
+.ap-view{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:680;white-space:nowrap;border-bottom:1px solid var(--faint);padding-bottom:6px;transition:gap .25s}
+.ap-view:hover{gap:13px}
+.ap-empty[hidden]{display:none!important}
+.ap-empty{padding:80px 25px 110px;border-radius:28px;background:var(--surface);display:grid;justify-items:center;text-align:center}
+.ap-empty>iconify-icon{font-size:37px;color:var(--faint)}
+.ap-empty h3{font-size:30px;font-weight:650;margin-top:19px}
+.ap-empty p{color:var(--muted);margin-top:6px}
+.ap-empty button{background:var(--inverted);color:var(--on-inverted);border-radius:999px;padding:12px 17px;margin-top:20px;display:flex;align-items:center;gap:8px}
+.ap-end{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:38px 0 80px;border-top:1px solid var(--line)}
+.ap-end span{letter-spacing:.15em;font-size:11px;font-weight:700;color:var(--faint)}
+.ap-end a{font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px}
+.ap-footer{border-top:1px solid var(--line);padding:24px max(48px,calc((100vw - 1320px)/2));display:flex;justify-content:space-between;gap:16px;color:var(--faint);font-size:12px}
+.ap-footer a{display:flex;align-items:center;gap:7px;color:var(--fg)}
+@keyframes ap-appear{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:980px){.ap-shell{width:calc(100% - 48px)}.ap-controls{display:block}.ap-search{max-width:none}.ap-filters{margin-top:15px}.ap-grid{gap:16px}.ap-card{border-radius:23px;padding:11px}.ap-card-body{padding:20px 8px 12px}}
+@media(max-width:640px){.ap-main{padding-top:104px}.ap-shell{width:calc(100% - 32px)}.ap-topline>span{display:none}.ap-intro{padding:67px 0 60px}.ap-intro h1{font-size:clamp(57px,12vw,85px);margin:19px 0 23px}.ap-intro>p{font-size:15px}.ap-browser-heading{align-items:start}.ap-browser-heading h2{font-size:29px}.ap-browser-heading>span{font-size:11px;margin-top:9px;white-space:nowrap}.ap-search{min-height:52px}.ap-search-shortcut{display:none}.ap-filters{gap:7px}.ap-filter{font-size:12px;padding:10px 13px}.ap-grid{grid-template-columns:1fr;row-gap:18px;padding-bottom:55px}.ap-card{padding:11px;border-radius:23px}.ap-image-link{aspect-ratio:1.55/1}.ap-card-body{padding:21px 8px 12px}.ap-title-link h2{font-size:29px}.ap-card-body>p{font-size:14px}.ap-tags{max-width:100%}.ap-card-bottom{gap:24px}.ap-end{padding:25px 0 50px}.ap-footer{padding:24px 16px;flex-wrap:wrap}.all-projects-page .contact-pill{padding-left:14px}}
+@media(prefers-reduced-motion:reduce){.ap-card{animation:none}.ap-card:hover .ap-image-link img{transform:none}.ap-card:hover .ap-image-arrow{transform:none}}
+
+/* Compact all-projects index — no oversized splash/intro. */
+.all-projects-page .ap-main{padding-top:124px}
+.all-projects-page .ap-browser{border-top:0;padding-top:0}
+.all-projects-page .ap-browser-heading{margin-bottom:23px}
+.all-projects-page .ap-browser-heading h1{font-size:clamp(30px,3.2vw,45px);font-weight:680;line-height:1.2;letter-spacing:-.055em}
+.all-projects-page .ap-back-fixed{position:fixed;top:27px;left:clamp(16px,3vw,56px);z-index:45;padding:12px 17px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:999px;display:inline-flex;align-items:center;gap:9px;color:var(--fg);box-shadow:0 5px 20px rgba(21,17,14,.06);font-size:13px;font-weight:650;letter-spacing:0;transition:background .2s,transform .2s,box-shadow .2s}
+.all-projects-page .ap-back-fixed iconify-icon{transform:none;font-size:17px;transition:transform .2s}
+.all-projects-page .ap-back-fixed:hover{transform:translateY(-2px);background:var(--surface);box-shadow:0 10px 20px rgba(21,17,14,.11)}
+.all-projects-page .ap-back-fixed:hover iconify-icon{transform:translateX(-3px)}
+@media(max-width:1100px) and (min-width:761px){.all-projects-page .floating-header{left:auto;right:22px;transform:none}}
+@media(max-width:760px){.all-projects-page .ap-main{padding-top:126px}.all-projects-page .ap-back-fixed{top:17px;left:16px;padding:11px 13px;font-size:12px;min-height:46px}.all-projects-page .floating-header{top:17px;left:auto;right:16px;transform:none;justify-content:flex-end;width:auto}.all-projects-page .floating-header .contact-pill{display:none}.all-projects-page .ap-browser-heading h1{font-size:32px}}
+@media(prefers-reduced-motion:reduce){.all-projects-page .ap-back-fixed{transition:none}}
+
+
+/* Compact, future-ready project index. The search and filters stay visible above
+   a dedicated scrollable gallery, so adding projects does not grow the page. */
+.all-projects-page .ap-main{padding-top:105px}
+.all-projects-page .ap-browser-heading{margin-bottom:18px}
+.all-projects-page .ap-controls{margin-bottom:18px;gap:12px}
+.all-projects-page .ap-search{min-height:46px;border-radius:14px;padding:8px 14px}
+.all-projects-page .ap-filter{padding:9px 13px;font-size:12px}
+.ap-scroll-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:4px 6px 12px;color:var(--muted);font-size:12px;font-weight:600}
+.ap-scroll-hint{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.03em;color:var(--faint)}
+.ap-scroll-hint iconify-icon{font-size:15px}
+.ap-scroll-region{height:clamp(235px,36vh,320px);overflow-y:scroll;overflow-x:hidden;overscroll-behavior-y:contain;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--faint) transparent;border:1px solid var(--line);border-radius:24px;padding:14px 8px 14px 14px;background:color-mix(in srgb,var(--surface) 22%,var(--bg));}
+.ap-scroll-region::-webkit-scrollbar{width:9px}
+.ap-scroll-region::-webkit-scrollbar-track{background:transparent;border-radius:20px}
+.ap-scroll-region::-webkit-scrollbar-thumb{background:var(--faint);border:2px solid transparent;background-clip:padding-box;border-radius:30px}
+.ap-scroll-region:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.all-projects-page .ap-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-bottom:0;align-content:start}
+.all-projects-page .ap-card{padding:0;border-radius:17px;background:color-mix(in srgb,var(--surface) 70%,var(--bg));box-shadow:none;animation:ap-appear .3s ease both;overflow:hidden;transition:border-color .2s,background .2s}
+.all-projects-page .ap-card:hover{box-shadow:none;background:var(--surface);border-color:var(--faint)}
+.ap-card-link{display:grid;grid-template-columns:42% minmax(0,1fr);width:100%;height:168px;color:inherit;overflow:hidden;align-items:stretch}
+.ap-card-link:focus-visible{outline:3px solid var(--fg);outline-offset:-3px}
+.ap-card-thumbnail{display:block;position:relative;overflow:hidden;background:var(--surface);height:100%}
+.ap-card-thumbnail img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .65s cubic-bezier(.22,1,.36,1)}
+.ap-card:hover .ap-card-thumbnail img{transform:scale(1.05)}
+.ap-card-thumbnail .ap-image-arrow{width:29px;height:29px;top:10px;right:10px;font-size:17px}
+.ap-card-content{display:flex;flex-direction:column;min-width:0;gap:8px;padding:14px 14px 12px}
+.ap-card-category{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:750}
+.ap-card-title{font-size:clamp(15px,1.38vw,20px);line-height:1.21;letter-spacing:-.035em;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ap-card-summary{color:var(--muted);font-size:12px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ap-card-cta{display:inline-flex;align-items:center;gap:5px;margin-top:auto;font-size:11px;font-weight:700;color:var(--fg);white-space:nowrap}
+.ap-card-cta iconify-icon{transition:transform .2s}
+.ap-card:hover .ap-card-cta iconify-icon{transform:translate(2px,-2px)}
+.all-projects-page .ap-empty{margin-top:12px;padding:24px}
+.all-projects-page .ap-empty h3{font-size:22px;margin-top:8px}
+@media(max-width:1050px){.all-projects-page .ap-grid{grid-template-columns:1fr}.ap-card-link{height:148px;grid-template-columns:35% minmax(0,1fr)}.ap-card-title{font-size:19px}}
+@media(max-width:640px){.all-projects-page .ap-main{padding-top:111px}.all-projects-page .ap-browser-heading{margin-bottom:14px}.all-projects-page .ap-controls{margin-bottom:12px}.all-projects-page .ap-browser-heading h1{font-size:30px}.all-projects-page .ap-filter{padding:8px 12px}.ap-scroll-region{height:min(40dvh,325px);min-height:220px;padding:9px 4px 9px 9px;border-radius:18px}.all-projects-page .ap-grid{gap:9px}.ap-card-link{height:135px;grid-template-columns:38% minmax(0,1fr)}.ap-card-content{gap:6px;padding:11px}.ap-card-title{font-size:16px}.ap-card-summary{font-size:11px}.ap-card-cta{font-size:10px}.ap-scroll-hint{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.all-projects-page .ap-card{animation:none}.ap-card-thumbnail img,.ap-card-cta iconify-icon{transition:none}}
+
+.ap-scroll-region[hidden]{display:none!important}
+
+/* Gallery polish: a more generous preview area with the filters on their own row. */
+.all-projects-page .ap-main{position:relative;isolation:isolate;min-height:calc(100svh - 100px)}
+.all-projects-page .ap-shell{position:relative;z-index:1}
+.all-projects-page .ap-ambient-dots{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;pointer-events:none;opacity:.88}
+.all-projects-page .ap-controls{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:13px;margin-bottom:18px}
+.all-projects-page .ap-search{flex:0 0 auto;width:min(100%,620px);max-width:620px;min-height:52px}
+.all-projects-page .ap-filters{display:flex;gap:8px;width:100%;max-width:none;margin:0}
+.all-projects-page .ap-filter{padding:10px 15px;font-size:12px}
+.all-projects-page .ap-scroll-head{margin:2px 6px 12px}
+.all-projects-page .ap-scroll-region{height:clamp(430px,56vh,670px);min-height:430px;padding:15px 9px 15px 15px}
+.all-projects-page .ap-grid{gap:15px}
+.all-projects-page .ap-card-link{height:clamp(190px,17vw,235px);grid-template-columns:41% minmax(0,1fr)}
+.all-projects-page .ap-card-content{padding:20px 19px 17px;gap:10px}
+.all-projects-page .ap-card-title{font-size:clamp(18px,1.5vw,23px);line-height:1.2}
+.all-projects-page .ap-card-summary{font-size:13px;line-height:1.55}
+.all-projects-page .ap-card-cta{font-size:12px}
+@media(max-width:1050px){
+  .all-projects-page .ap-scroll-region{height:clamp(430px,57vh,700px)}
+  .all-projects-page .ap-card-link{height:185px;grid-template-columns:38% minmax(0,1fr)}
+}
+@media(max-width:640px){
+  .all-projects-page .ap-main{min-height:calc(100svh - 85px)}
+  .all-projects-page .ap-controls{gap:11px}
+  .all-projects-page .ap-search{width:100%;min-height:48px}
+  .all-projects-page .ap-filters{gap:7px}
+  .all-projects-page .ap-filter{padding:9px 12px;font-size:12px}
+  .all-projects-page .ap-scroll-region{height:clamp(385px,57dvh,650px);min-height:385px;padding:10px 5px 10px 10px}
+  .all-projects-page .ap-grid{gap:10px}
+  .all-projects-page .ap-card-link{height:160px;grid-template-columns:37% minmax(0,1fr)}
+  .all-projects-page .ap-card-content{gap:7px;padding:12px 13px}
+  .all-projects-page .ap-card-title{font-size:16px}
+  .all-projects-page .ap-card-summary{font-size:11px}
+  .all-projects-page .ap-card-cta{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){.all-projects-page .ap-ambient-dots{display:none}}
