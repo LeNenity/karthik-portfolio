@@ -25,6 +25,7 @@ A few useful things
 - I removed the contact form for now. Visitors can reach me using the email or social links instead.
 - The little chatbot uses a simple K avatar. It gives prepared answers about my projects and experience.
 - The site uses solid surfaces and simple borders. The shared minimal.css file is loaded last on every page.
+- The homepage has dots of different sizes that fade independently. About cards retain hover motion and animated borders on the internship and achievements cards, without glass or blur.
 - If you change any photos or project content, keep an eye on the file paths so nothing goes missing.
 - Check the site on both desktop and mobile before publishing changes.
 
