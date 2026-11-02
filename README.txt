@@ -14,14 +14,17 @@ What's on the site?
 - Home and About: an introduction, education, awards, skills and my latest resume.
 - Projects: projects covering data engineering, wheelchair design, home IoT, AWS cloud computing and road-safety analysis.
 - All Projects: a page where you can search and filter the projects.
-- Contact: links to my socials and a message form.
+- Internship: work experience at iWOW Connections, with original report photographs.
+- Contact: my email and links to LinkedIn, GitHub and Discord.
 
 You can open each project to see the work in more detail, including pictures and videos. There's also a little portfolio chatbot if you want to explore the site that way.
 
-A couple of useful things
+A few useful things
 -------------------------
 - My latest resume is at assets/karthik-resume.pdf. The preview on the homepage is assets/resume-preview.webp.
-- The contact form uses FormSubmit to send messages without opening an email app. After the site is live, send a test message and confirm the activation email in my Gmail inbox. The form won't deliver messages until that one-time setup is finished.
+- I removed the contact form for now. Visitors can reach me using the email or social links instead.
+- The little chatbot uses a simple K avatar. It gives prepared answers about my projects and experience.
+- The site uses solid surfaces and simple borders. The shared minimal.css file is loaded last on every page.
 - If you change any photos or project content, keep an eye on the file paths so nothing goes missing.
 - Check the site on both desktop and mobile before publishing changes.
 

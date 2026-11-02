@@ -34,11 +34,11 @@
 .ap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;row-gap:36px;padding-bottom:83px}
 .ap-card{min-width:0;background:color-mix(in srgb,var(--surface) 39%,var(--bg));border:1px solid var(--line);border-radius:28px;padding:15px;display:flex;flex-direction:column;animation:ap-appear .45s var(--ease) both;transition:border-color .25s,box-shadow .25s}
 .ap-card[hidden]{display:none!important}
-.ap-card:hover{border-color:color-mix(in srgb,var(--faint) 48%,transparent);box-shadow:0 20px 40px rgba(33,25,18,.07)}
+.ap-card:hover{border-color:color-mix(in srgb,var(--faint) 48%,transparent);box-shadow:none}
 .ap-image-link{display:block;position:relative;aspect-ratio:1.66/1;border-radius:18px;overflow:hidden;background:var(--surface)}
 .ap-image-link img{height:100%;width:100%;object-fit:cover;transition:transform .8s var(--ease),filter .8s}
 .ap-card:hover .ap-image-link img{transform:scale(1.045);filter:saturate(1.04)}
-.ap-image-arrow{position:absolute;right:17px;top:17px;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--bg);color:var(--fg);font-size:22px;box-shadow:0 3px 15px rgba(0,0,0,.16);transition:transform .3s}
+.ap-image-arrow{position:absolute;right:17px;top:17px;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--bg);color:var(--fg);font-size:22px;box-shadow:none;transition:transform .3s}
 .ap-card:hover .ap-image-arrow{transform:rotate(45deg)}
 .ap-card-body{padding:25px 17px 15px;flex:1;display:flex;flex-direction:column}
 .ap-card-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--faint);font-size:10px;letter-spacing:.15em;font-weight:700}
@@ -72,9 +72,9 @@
 .all-projects-page .ap-browser{border-top:0;padding-top:0}
 .all-projects-page .ap-browser-heading{margin-bottom:23px}
 .all-projects-page .ap-browser-heading h1{font-size:clamp(30px,3.2vw,45px);font-weight:680;line-height:1.2;letter-spacing:-.055em}
-.all-projects-page .ap-back-fixed{position:fixed;top:27px;left:clamp(16px,3vw,56px);z-index:45;padding:12px 17px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:999px;display:inline-flex;align-items:center;gap:9px;color:var(--fg);box-shadow:0 5px 20px rgba(21,17,14,.06);font-size:13px;font-weight:650;letter-spacing:0;transition:background .2s,transform .2s,box-shadow .2s}
+.all-projects-page .ap-back-fixed{position:fixed;top:27px;left:clamp(16px,3vw,56px);z-index:45;padding:12px 17px;border:1px solid var(--line);background:var(--glass);backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:999px;display:inline-flex;align-items:center;gap:9px;color:var(--fg);box-shadow:none;font-size:13px;font-weight:650;letter-spacing:0;transition:background .2s,transform .2s,box-shadow .2s}
 .all-projects-page .ap-back-fixed iconify-icon{transform:none;font-size:17px;transition:transform .2s}
-.all-projects-page .ap-back-fixed:hover{transform:translateY(-2px);background:var(--surface);box-shadow:0 10px 20px rgba(21,17,14,.11)}
+.all-projects-page .ap-back-fixed:hover{transform:translateY(-2px);background:var(--surface);box-shadow:none}
 .all-projects-page .ap-back-fixed:hover iconify-icon{transform:translateX(-3px)}
 @media(max-width:1100px) and (min-width:761px){.all-projects-page .floating-header{left:auto;right:22px;transform:none}}
 @media(max-width:760px){.all-projects-page .ap-main{padding-top:126px}.all-projects-page .ap-back-fixed{top:17px;left:16px;padding:11px 13px;font-size:12px;min-height:46px}.all-projects-page .floating-header{top:17px;left:auto;right:16px;transform:none;justify-content:flex-end;width:auto}.all-projects-page .floating-header .contact-pill{display:none}.all-projects-page .ap-browser-heading h1{font-size:32px}}
@@ -155,3 +155,21 @@
   .all-projects-page .ap-card-cta{font-size:11px}
 }
 @media(prefers-reduced-motion:reduce){.all-projects-page .ap-ambient-dots{display:none}}
+
+/* Browse the project evidence directly, with normal page scrolling. */
+.all-projects-page .ap-main{padding-bottom:60px;}
+.all-projects-page .ap-scroll-region{height:auto;min-height:0;overflow:visible;overscroll-behavior:auto;scrollbar-gutter:auto;padding:0;border:0;border-radius:0;background:transparent;}
+.all-projects-page .ap-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;}
+.all-projects-page .ap-card{border-radius:18px;}
+.all-projects-page .ap-card-link{display:flex;flex-direction:column;height:100%;}
+.all-projects-page .ap-card-thumbnail{height:auto;aspect-ratio:16/10;flex:none;}
+.all-projects-page .ap-card-thumbnail img{object-fit:contain;}
+.all-projects-page .ap-card-content{flex:1;padding:22px;gap:12px;}
+.all-projects-page .ap-card-title{display:block;overflow:visible;font-size:clamp(21px,2vw,27px);line-height:1.25;-webkit-line-clamp:unset;}
+.all-projects-page .ap-card-summary{display:block;overflow:visible;font-size:14px;line-height:1.65;-webkit-line-clamp:unset;}
+.all-projects-page .ap-card-cta{padding-top:8px;font-size:13px;}
+@media(max-width:700px){
+  .all-projects-page .ap-grid{grid-template-columns:1fr;gap:20px;}
+  .all-projects-page .ap-card-content{padding:18px;gap:10px;}
+  .all-projects-page .ap-card-title{font-size:22px;}
+}

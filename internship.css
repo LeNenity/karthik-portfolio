@@ -1,0 +1,62 @@
+.internship-page .intern-main{padding-top:142px;padding-bottom:0;max-width:1200px;}
+.intern-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(30px,5vw,72px);align-items:center;}
+.intern-kicker{font-size:11px;font-weight:650;letter-spacing:.1em;color:var(--muted);margin-bottom:24px;}
+.intern-hero h1{font-size:clamp(40px,4.8vw,66px);font-weight:700;line-height:1.08;letter-spacing:-.055em;margin:0 0 26px;}
+.intern-hero h1 span{font-weight:450;color:var(--muted);}
+.internship-page .intern-lead{font-size:19px;line-height:1.65;color:var(--fg);margin-bottom:18px;}
+.intern-hero-copy>p:last-child,.intern-copy p{font-size:16px;line-height:1.8;color:var(--muted);}
+.intern-photo{margin:0;min-width:0;}
+.intern-photo .ed-image-open{display:block;width:100%;height:320px;border:1px solid var(--line);border-radius:18px;background:var(--surface);}
+.intern-photo .ed-image-open img{display:block;position:static;width:100%;height:100%;max-height:none;object-fit:contain;object-position:center;}
+.intern-photo .ed-image-open:focus-visible{outline:2px solid var(--fg);outline-offset:4px;}
+.intern-hero-photo .ed-image-open{height:clamp(280px,29vw,390px);}
+.intern-photo figcaption{padding:10px 2px 0;color:var(--muted);font-size:12px;line-height:1.6;}
+.intern-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:40px 0 60px;padding:23px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.intern-stats>div{min-width:0;padding:0 24px;}
+.intern-stats>div:first-child{padding-left:0;}
+.intern-stats>div+div{border-left:1px solid var(--line);}
+.intern-stats strong{display:block;font-size:clamp(32px,3.5vw,46px);line-height:1.15;font-weight:650;letter-spacing:-.04em;color:var(--fg);}
+.intern-stats span{display:block;margin-top:8px;font-size:13px;line-height:1.6;color:var(--muted);}
+.intern-section{padding:38px 0 44px;border-top:1px solid var(--line);scroll-margin-top:110px;}
+.intern-section-heading{display:flex;gap:14px;align-items:center;margin-bottom:25px;}
+.intern-number{display:inline-flex;flex:none;align-items:center;justify-content:center;min-width:32px;height:26px;border:1px solid var(--line);border-radius:6px;font-size:11px;font-weight:650;color:var(--fg);font-variant-numeric:tabular-nums;}
+.intern-section-heading h2{font-size:clamp(26px,2.8vw,36px);line-height:1.2;letter-spacing:-.04em;font-weight:650;}
+.intern-work-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"copy photo";gap:40px;align-items:center;}
+.intern-copy{grid-area:copy;min-width:0;}
+.intern-work-grid>.intern-photo{grid-area:photo;}
+.intern-section--reverse .intern-work-grid{grid-template-areas:"photo copy";}
+.intern-copy p{margin-bottom:18px;}
+.intern-copy p:last-child{margin-bottom:0;}
+.intern-copy ul{padding-left:21px;list-style:disc;margin:0 0 20px;}
+.intern-copy li{display:list-item;color:var(--muted);font-size:15px;line-height:1.8;margin:0 0 11px;padding-left:2px;overflow-wrap:anywhere;}
+.intern-copy strong{color:var(--fg);font-weight:700;}
+.intern-learning{padding:clamp(26px,4vw,44px);margin:30px 0 38px;border-radius:20px;background:var(--inverted);color:var(--on-inverted);scroll-margin-top:110px;}
+.intern-learning .intern-number{color:inherit;border-color:color-mix(in srgb,var(--on-inverted) 30%,transparent);}
+.intern-learning p{max-width:90ch;color:color-mix(in srgb,var(--on-inverted) 84%,transparent);font-size:16px;line-height:1.8;margin-bottom:18px;}
+.intern-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;}
+.intern-tools span{padding:7px 11px;font-size:12px;line-height:1.4;border:1px solid color-mix(in srgb,var(--on-inverted) 25%,transparent);border-radius:6px;}
+.internship-link:focus-visible{outline:2px solid var(--fg);outline-offset:4px;}
+@media(max-width:900px){
+ .intern-hero{grid-template-columns:1fr;gap:28px;}
+ .intern-hero-copy{max-width:750px;}
+ .intern-hero-photo .ed-image-open{height:320px;}
+ .intern-work-grid{grid-template-columns:1fr;grid-template-areas:"copy" "photo";gap:24px;}
+ .intern-section--reverse .intern-work-grid{grid-template-areas:"copy" "photo";}
+}
+@media(max-width:640px){
+ .internship-page .intern-main{padding-top:114px;}
+ .internship-page .ap-back span{display:none;}
+ .internship-page .ap-back-fixed{min-width:44px;min-height:44px;padding:10px;justify-content:center;}
+ .intern-hero h1{font-size:clamp(37px,9vw,50px);}
+ .intern-kicker{font-size:10px;line-height:1.7;margin-bottom:18px;}
+ .internship-page .intern-lead{font-size:17px;}
+ .intern-photo .ed-image-open,.intern-hero-photo .ed-image-open{height:260px;}
+ .intern-stats{margin:28px 0 38px;padding:20px 0;}
+ .intern-stats>div{padding:0 10px;}
+ .intern-stats strong{font-size:clamp(22px,6vw,31px);}
+ .intern-stats span{font-size:11px;line-height:1.6;}
+ .intern-section{padding:28px 0 32px;}
+ .intern-section-heading{gap:11px;}
+ .intern-section-heading h2{font-size:27px;}
+ .intern-learning p,.intern-copy p{font-size:15px;}
+}

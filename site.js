@@ -136,11 +136,11 @@ motion.addEventListener('change',startWeatherCycle);
 
 
 const projectData=[
-  {slug:'data-engineering',category:'Data engineering',title:'Data Engineering Project',name:'Data Engineering Project',image:'assets/project-data.jpg',summary:'A wearable sensor system that detects falls, slips and near-misses on construction sites.',mapLabel:'Data Engineering Project',mapPosition:[24,55],topics:['sensors','ble','python','mysql','powerbi']},
-  {slug:'engineering-exploration',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.',mapLabel:'Engineering Exploration Project',mapPosition:[58,42],topics:['accessibility','mechanical','arduino','prototype']},
-  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Household Living',name:'IoT System for Sustainable Household Living',image:'assets/iot-hardware-workbench.webp',summary:'We used sensors to help with four things at home: temperature, lights, plants and the front door.',mapLabel:'IoT Sustainable Home',mapPosition:[77,61],topics:['sensors','automation','sustainability','arduino']},
-  {slug:'cloud-computing',category:'Cloud Computing',title:'Cloud Computing Development Project',name:'Cloud Computing Development Project',image:'assets/cloud-storefront-1.webp',summary:'I built a small music-store website on AWS, then worked out how to keep it running and within budget.',mapLabel:'Cloud Computing Project',mapPosition:[77,-43],topics:['aws','ec2','rds','monitoring']},
-  {slug:'road-safety',number:'06',category:'Data & analytics',title:'Road Safety & Infrastructure Analysis',name:'Road Safety & Infrastructure Analysis',image:'assets/road-safety-cover.webp',summary:'I compared Singapore’s road infrastructure growth with accident, injury and death trends.',mapLabel:'Road Safety Analysis',mapPosition:[-58,18],topics:['roads','accidents','infrastructure','powerbi']}
+  {slug:'data-engineering',category:'Data engineering',title:'NESSO Safety Monitoring System',name:'NESSO Safety Monitoring System',image:'assets/project-data.jpg',summary:'We used four NESSO devices to collect movement readings and flag possible safety incidents.',mapPosition:[24,55],topics:['sensors','ble','python','mysql','powerbi']},
+  {slug:'engineering-exploration',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'Our small-scale tri-star wheel prototype, with an Arduino-controlled motor circuit.',mapPosition:[58,42],topics:['accessibility','mechanical','arduino','prototype']},
+  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Household Living',name:'IoT System for Sustainable Household Living',image:'assets/iot-hardware-workbench.webp',summary:'Four sensor functions for ventilation, lighting, soil moisture and doorway alerts.',mapPosition:[77,61],topics:['sensors','automation','sustainability','arduino']},
+  {slug:'cloud-computing',category:'Cloud Computing',title:'AWS Music Store Web Application',name:'AWS Music Store Web Application',image:'assets/cloud-storefront-1.webp',summary:'A nine-instrument catalogue on AWS, with MySQL product data and S3 images.',mapPosition:[77,-43],topics:['aws','ec2','rds','monitoring']},
+  {slug:'road-safety',number:'06',category:'Data & analytics',title:'Road Safety & Infrastructure Analysis',name:'Road Safety & Infrastructure Analysis',image:'assets/road-safety-cover.webp',summary:'My Power BI analysis of Singapore road infrastructure, accidents, injuries and deaths.',mapPosition:[-58,18],topics:['roads','accidents','infrastructure','powerbi']}
 ];
 const projectMapTopics=[
   {id:'roads',label:'Road safety',coords:[-69,15]},
@@ -194,7 +194,7 @@ if(mapStage && mapCanvas && mapNodes){
   const activeTopicIds=new Set(globeProjects.flatMap(project=>project.topics||[]));
   const globeTopics=projectMapTopics.filter(topic=>activeTopicIds.has(topic.id));
   const globeNodes=[
-    ...globeProjects.map(project=>({id:project.slug,label:project.mapLabel,project,coords:sph(...geo[project.slug])})),
+    ...globeProjects.map(project=>({id:project.slug,label:project.title,project,coords:sph(...geo[project.slug])})),
     ...globeTopics.map(topic=>({id:topic.id,label:topic.label,coords:sph(...topic.coords)}))
   ];
   const byId=new Map(globeNodes.map(node=>[node.id,node]));
@@ -518,27 +518,135 @@ const sectionRail=document.querySelector('.section-rail');
 const homeRailHTML=sectionRail?.innerHTML||'';
 let detailRailTargets=[];
 const projectRailSections={
-  'road-safety':[
-    ['Overview','.ed-project-hero'],['The question','.road-question'],
-    ['What I did','.road-method'],['The charts','.road-dashboard'],
-    ['What stood out','.road-findings'],['My takeaway','.road-takeaway']
+  "data-engineering": [
+    [
+      "Overview",
+      ".project-summary"
+    ],
+    [
+      "The problem",
+      "[data-detail-section=\"1\"]"
+    ],
+    [
+      "The solution",
+      "[data-detail-section=\"2\"]"
+    ],
+    [
+      "What I worked on",
+      "[data-detail-section=\"3\"]"
+    ],
+    [
+      "Technologies",
+      "[data-detail-section=\"4\"]"
+    ],
+    [
+      "Outcome",
+      "[data-detail-section=\"5\"]"
+    ]
   ],
-
-  'data-engineering':[
-    ['Overview','.ed-project-hero'],['Problem & solution','.nesso-pair'],
-    ['How it works','.nesso-system'],['Results','.nesso-results-media'],
-    ['My contribution','.nesso-role'],['Outcome','.nesso-outcome']
+  "engineering-exploration": [
+    [
+      "Overview",
+      ".project-summary"
+    ],
+    [
+      "The problem",
+      "[data-detail-section=\"1\"]"
+    ],
+    [
+      "The solution",
+      "[data-detail-section=\"2\"]"
+    ],
+    [
+      "What I worked on",
+      "[data-detail-section=\"3\"]"
+    ],
+    [
+      "Technologies",
+      "[data-detail-section=\"4\"]"
+    ],
+    [
+      "Outcome",
+      "[data-detail-section=\"5\"]"
+    ]
   ],
-  'engineering-exploration':[
-    ['Overview','.ed-project-hero'],['The problem','.tri-intro'],
-    ['The solution','.tri-mechanism'],['Design process','.tri-process'],
-    ['Prototype test','.tri-demo'],['My contribution','.tri-role'],['Outcome','.tri-finale']
+  "iot-sustainable-living": [
+    [
+      "Overview",
+      ".project-summary"
+    ],
+    [
+      "The problem",
+      "[data-detail-section=\"1\"]"
+    ],
+    [
+      "The solution",
+      "[data-detail-section=\"2\"]"
+    ],
+    [
+      "What I worked on",
+      "[data-detail-section=\"3\"]"
+    ],
+    [
+      "Technologies",
+      "[data-detail-section=\"4\"]"
+    ],
+    [
+      "Outcome",
+      "[data-detail-section=\"5\"]"
+    ]
   ],
-  'iot-sustainable-living':[
-    ['Overview','.ed-project-hero'],['The challenge','.iot-home-intro'],['Four systems','.iot-features'],['Actual hardware','.iot-evidence'],['My contribution','.iot-contribution'],['Outcome','.iot-conclusion']
+  "cloud-computing": [
+    [
+      "Overview",
+      ".project-summary"
+    ],
+    [
+      "The problem",
+      "[data-detail-section=\"1\"]"
+    ],
+    [
+      "The solution",
+      "[data-detail-section=\"2\"]"
+    ],
+    [
+      "What I worked on",
+      "[data-detail-section=\"3\"]"
+    ],
+    [
+      "Technologies",
+      "[data-detail-section=\"4\"]"
+    ],
+    [
+      "Outcome",
+      "[data-detail-section=\"5\"]"
+    ]
   ],
-  'cloud-computing':[
-    ['Overview','.ed-project-hero'],['The challenge','.cloud-intro'],['Architecture','.cloud-architecture'],['The storefront','.cloud-storefront'],['Operations','.cloud-operations'],['Outcome','.cloud-finale']
+  "road-safety": [
+    [
+      "Overview",
+      ".project-summary"
+    ],
+    [
+      "The problem",
+      "[data-detail-section=\"1\"]"
+    ],
+    [
+      "The solution",
+      "[data-detail-section=\"2\"]"
+    ],
+    [
+      "What I worked on",
+      "[data-detail-section=\"3\"]"
+    ],
+    [
+      "Technologies",
+      "[data-detail-section=\"4\"]"
+    ],
+    [
+      "Outcome",
+      "[data-detail-section=\"5\"]"
+    ]
   ]
 };
 function paintRail(activeIndex){
@@ -553,12 +661,16 @@ function paintRail(activeIndex){
 }
 function showHomeRail(){
   if(!sectionRail)return;
+  sectionRail.hidden=false;
+  delete sectionRail.dataset.railMode;
   sectionRail.innerHTML=homeRailHTML;
   sectionRail.setAttribute('aria-label','Section shortcuts');
   detailRailTargets=[];
 }
 function showProjectRail(project){
   if(!sectionRail)return;
+  sectionRail.hidden=true;
+  sectionRail.dataset.railMode='project';
   const sections=projectRailSections[project.slug]||[];
   detailRailTargets=sections.map(([label,selector],index)=>{
     const target=detail.querySelector(selector);
@@ -568,8 +680,8 @@ function showProjectRail(project){
     return {id,label,target};
   }).filter(Boolean);
   sectionRail.setAttribute('aria-label',`${project.name} sections`);
-  sectionRail.innerHTML=detailRailTargets.map(({id,label})=>
-    `<a href="#${id}" data-detail-rail="${id}" aria-label="${label}"><span class="rail-stroke"></span><span class="rail-name">${label}</span></a>`
+  sectionRail.innerHTML=detailRailTargets.map(({id,label},index)=>
+    `<a href="#${id}" data-detail-rail="${id}" aria-label="${index===0?'Overview':String(index).padStart(2,'0')+' '+label}"><span class="rail-number" aria-hidden="true">${String(index).padStart(2,'0')}</span><span class="rail-stroke" aria-hidden="true"></span><span class="rail-name">${label}</span></a>`
   ).join('');
   paintRail(0);
 }
@@ -609,75 +721,12 @@ function setActive(name){
 // Project-specific layouts use only the existing project descriptions and original photos.
 // Detail views are crops of the same photos, not additional project photographs.
 const caseStudyContent={
-  'road-safety':`
-    <div class="road-project-wrap">
-      <div class="road-context road-reveal">
-        <div><span class="ed-label">TEAM DATA MINING PROJECT · MY FOCUS: INFRASTRUCTURE</span><p>We analysed historical traffic accident data in Singapore. I focused on one question: <strong>as road infrastructure grew, did road safety improve too?</strong></p></div>
-        
-      </div>
-      <section class="road-question road-section" aria-label="What I wanted to find out">
-        <div class="road-eyebrow">01 — THE QUESTION</div>
-        <div class="road-question-grid"><h2>More roads and traffic lights. <em>Safer journeys?</em></h2><div><p>Our group looked at accident patterns from several angles. My part was about road infrastructure: traffic lights, ERP gantries, flyovers, bridges and underpasses.</p><p>I wanted to compare how these changed over time with the numbers for deaths, injuries and accidents linked to road conditions.</p></div></div>
-      </section>
-      <section class="road-numbers" aria-label="A few findings from my analysis">
-        <article><span>2006 → 2016</span><strong>4.7 <i>→</i> 2.2</strong><p>Road traffic death rate</p></article>
-        <article><span>2013 → 2016 onwards</span><strong>16 <i>→</i> ≤5</strong><p>Reported accidents linked to road conditions</p></article>
-        <article><span>2017</span><strong>84.3%</strong><p>Of the infrastructure counted was traffic lights</p></article>
-      </section>
-      <section class="road-method road-section" aria-label="How I approached the data">
-        <div class="road-eyebrow">02 — WHAT I DID</div>
-        <div class="road-method-grid"><div><h2>First, make the data easier to compare.</h2><p>The datasets didn't all look the same. They covered different years and had different structures, so our team cleaned and reorganised them before analysing anything.</p></div><div class="road-steps">
-          <article><span>01</span><div><h3>Prepare</h3><p>We used Python and Pandas to standardise the datasets. Missing values stayed missing instead of being treated as zero.</p></div></article>
-          <article><span>02</span><div><h3>Connect</h3><p>In Power BI, I linked the relevant tables and created measures for total infrastructure, injuries per 1,000 vehicles and accidents attributed to road conditions.</p></div></article>
-          <article><span>03</span><div><h3>Compare</h3><p>I made charts to see whether infrastructure growth and safety trends moved together over time.</p></div></article>
-        </div></div>
-      </section>
-      <section class="road-dashboard road-section" aria-label="Original Power BI visualisations from my road safety analysis">
-        <div class="road-section-top"><div><div class="road-eyebrow">03 — THE CHARTS</div><h2>What the numbers showed.</h2></div><p>Three supporting charts from my Power BI work. Select one to see the full details.</p></div>
-        <div class="road-chart-grid">
-          <figure class="road-chart"><button class="ed-image-open" type="button" data-photo="assets/road-death-comparison.webp" data-alt="Original Power BI chart comparing total infrastructure count with road traffic death rate" aria-label="Expand infrastructure and death rate chart"><img src="assets/road-death-comparison.webp" loading="lazy" alt="Total infrastructure compared with death rate"></button><figcaption><span>01 / DEATH RATE</span><strong>Fewer deaths over the period.</strong><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></figcaption></figure>
-          <figure class="road-chart"><button class="ed-image-open" type="button" data-photo="assets/road-injury-comparison.webp" data-alt="Original Power BI chart comparing total infrastructure count with injury rate" aria-label="Expand infrastructure and injury rate chart"><img src="assets/road-injury-comparison.webp" loading="lazy" alt="Total infrastructure compared with injury rate"></button><figcaption><span>02 / INJURIES</span><strong>Injury rates improved more slowly.</strong><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></figcaption></figure>
-          <figure class="road-chart road-chart--accidents"><button class="ed-image-open" type="button" data-photo="assets/road-condition-accidents.webp" data-alt="Original Power BI bar chart of accidents related to road conditions, 2012 to 2024" aria-label="Expand road condition accidents chart"><img src="assets/road-condition-accidents.webp" loading="lazy" alt="Annual road condition related accidents from 2012 to 2024"></button><figcaption><span>03 / ROAD CONDITIONS</span><strong>Road-condition accidents stayed relatively low in later years.</strong><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></figcaption></figure>
-        </div>
-      </section>
-      <section class="road-findings road-section" aria-label="What the charts told me">
-        <div class="road-eyebrow">04 — WHAT STOOD OUT</div>
-        <div class="road-findings-grid"><div><h2>Progress is visible, but it's not the whole story.</h2><p>From 2006 to 2016, the death rate fell from 4.7 to 2.2 while infrastructure counts rose. Injuries fell more slowly, from 12.2 to 10.3 between 2008 and 2016.</p><p>That doesn't prove the new infrastructure caused the improvement by itself. It does give us a useful pattern to investigate, especially when we consider driver behaviour and other changes over the years.</p></div>
-          <figure class="road-chart road-share-chart"><button class="ed-image-open" type="button" data-photo="assets/road-facilities-share.webp" data-alt="Power BI pie chart: traffic lights make up 84.3 percent of recorded road infrastructure in 2017" aria-label="Expand 2017 infrastructure distribution chart"><img src="assets/road-facilities-share.webp" alt="Pie chart showing traffic lights made up 84.3 percent of counted infrastructure in 2017" loading="lazy"></button><figcaption><span>THE MIX</span><strong>Traffic lights made up most of the counted facilities.</strong><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></figcaption></figure>
-        </div>
-      </section>
-      <section class="road-takeaway road-section" aria-label="My contribution and conclusion">
-        <div class="road-eyebrow">05 — MY TAKEAWAY</div><div class="road-takeaway-grid"><div><h2>Safer roads need more than just more infrastructure.</h2><p>I handled the infrastructure effectiveness theme and wrote up my findings for our group report. If I were taking this further, I'd look at smarter traffic lights, safer crossings and barriers, alongside road-safety education.</p><p>This project was a good reminder that a chart can show a pattern, but understanding <em>why</em> it happened takes more work.</p></div><div class="road-tech"><span>TOOLS &amp; DATA</span><div><span>Python</span><span>Pandas</span><span>Power BI</span><span>DAX measures</span><span>data.gov.sg</span></div><small>Group project — I worked on infrastructure effectiveness (Theme 4).</small></div></div>
-      </section>
-    </div>
-  `,
-
   'data-engineering':`
-    <div class="nesso-fact-strip" aria-label="Project at a glance">
-      <div><strong>04</strong><span>NESSO devices tested</span></div>
-      <div><strong>0.1<span>s</span></strong><span>Motion reading interval</span></div>
-      <div><strong>60<span>s</span></strong><span>Data processing cycle</span></div>
-    </div>
-    <section class="nesso-story nesso-pair" aria-label="The problem and solution">
-      <article class="nesso-story-problem"><span class="nesso-card-ornament" aria-hidden="true">✳</span>
-        <span class="ed-label">THE PROBLEM</span>
-        <h2>On a construction site, an accident can go unnoticed.</h2>
-        <p>Falls, slips, trips and near-misses can happen in seconds. Supervisors need a clearer way to monitor worker safety.</p>
-      </article>
-      <article class="nesso-story-solution"><div class="nesso-solution-motif" aria-hidden="true"><span></span><span></span><span></span></div>
-        <span class="ed-label">THE SOLUTION</span>
-        <h2>Turn movement into useful safety data.</h2>
-        <p>We built a wearable NESSO system that collects movement readings, identifies possible incidents and shows them in Power BI.</p>
-      </article>
-    </section>
 
-    <section class="nesso-story nesso-system" aria-label="How our NESSO safety monitoring pipeline works">
-      <div class="nesso-section-heading flow-intro">
-        <span class="ed-label">HOW IT WORKS</span>
-        <h2>One flow.<br>From sensor to insight.</h2>
-        <p>From four wearable NESSO devices to a worker-safety dashboard, with Python running the data pipeline.</p>
-      </div>
-      <div class="nesso-clean-flow" data-flow-animated="true" role="img" aria-label="Main.py starts and monitors the collection and processing programs in parallel. DataCollection.py receives BLE readings from four NESSO devices every 0.1 seconds and writes complete CSV files to a queue every 60 seconds. Preprocessing and Upload.py processes those files, classifies incidents, saves data to MySQL, and Power BI displays the results.">
+
+<div class="project-notes"><p>For our group Data Engineering Project, we built a worker-safety prototype using <strong>four Arduino NESSO N1 devices</strong>. The aim was to collect movement readings from several workers and flag possible slips, trips, falls and near-misses in one system.</p>
+<p>The devices sent accelerometer and gyroscope readings over <strong>Bluetooth Low Energy at 0.1-second intervals</strong>. Python collected timestamped CSV files and passed completed files for processing every 60 seconds. The processing program used acceleration magnitude and fixed thresholds to classify events, then stored records in <strong>MySQL</strong>. Power BI read the database through ODBC and required a manual refresh to show the latest data.</p>
+<p>My software contribution was <mark class="project-highlight">Main.py</mark>, the launcher that accepted worker and BLE device names and started the collection and processing programs together. I worked on making startup and shutdown easier to manage. We tested the system with four devices and simulated events at school, rather than deploying it on a construction site.</p><section class="andrea-feature andrea-architecture" data-architecture><p class="andrea-eyebrow">CLICKABLE ARCHITECTURE</p><h2>Follow a sensor reading.</h2><p>Select a component to see its part in the project.</p><div class="andrea-architecture-layout"><div class="andrea-architecture-steps" role="group" aria-label="Architecture components"><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="Wearable sensors" data-step-description="Four NESSO wearables collect movement readings at 0.1-second intervals." aria-pressed="true"><span class="andrea-step-number">01</span><span><strong>Wearable sensors</strong><small>4 NESSO devices</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="BLE collection" data-step-description="Readings are sent over Bluetooth Low Energy. The collection program passes completed CSV files to processing every 60 seconds." aria-pressed="false"><span class="andrea-step-number">02</span><span><strong>BLE collection</strong><small>DataCollection.py</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="Python processing" data-step-description="The processing program organises the sensor data and applies thresholds to flag possible safety incidents." aria-pressed="false"><span class="andrea-step-number">03</span><span><strong>Python processing</strong><small>Threshold-based classification</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="MySQL database" data-step-description="Processed readings and incident records are stored in MySQL, with one table per worker." aria-pressed="false"><span class="andrea-step-number">04</span><span><strong>MySQL database</strong><small>Worker records</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="Power BI dashboard" data-step-description="Power BI reads MySQL through ODBC to show movement and incident records. A manual dashboard refresh is needed to retrieve the latest data." aria-pressed="false"><span class="andrea-step-number">05</span><span><strong>Power BI dashboard</strong><small>Charts and incident summaries</small></span><span aria-hidden="true">→</span></button></div><div class="andrea-architecture-description" aria-live="polite" aria-atomic="true"><span class="andrea-eyebrow">SELECTED COMPONENT</span><h3 data-step-title>Wearable sensors</h3><p data-step-copy>Four NESSO wearables collect movement readings at 0.1-second intervals.</p></div></div><details class="project-ideas"><summary>View the complete diagram</summary><div class="nesso-clean-flow" data-flow-animated="true" role="img" aria-label="Main.py starts and monitors the collection and processing programs in parallel. DataCollection.py receives BLE readings from four NESSO devices every 0.1 seconds and writes complete CSV files to a queue every 60 seconds. Preprocessing and Upload.py processes those files, classifies incidents, saves data to MySQL, and Power BI displays the results.">
         <div class="nf-launcher">
           <span class="nf-eyebrow">THE LAUNCHER</span>
           <strong>Main.py</strong>
@@ -709,51 +758,16 @@ const caseStudyContent={
           <div class="nf-output-arrow" aria-hidden="true"><span>→</span><small>ODBC</small></div>
           <div class="nf-output-node"><span class="nf-eyebrow">04 / VISUALISE</span><strong>Power BI</strong><small>Movement &amp; incident dashboards</small></div>
         </div>
-      </div>
-    </section>
+      </div></details></section><section class="andrea-feature "><h2>Dashboard and testing</h2><p>These images show our school test, database records and Power BI charts.</p><div class="project-photo-grid project-photo-grid--nesso"><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/nesso-field-test.png" data-alt="School test with the four NESSO devices" aria-label="Enlarge School test with the four NESSO devices"><img src="assets/nesso-field-test.png" alt="School test with the four NESSO devices" loading="lazy"></button><figcaption>Our school testing session.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/nesso-database.png" data-alt="MySQL worker sensor records" aria-label="Enlarge MySQL worker sensor records"><img src="assets/nesso-database.png" alt="MySQL worker sensor records" loading="lazy"></button><figcaption>Individual worker readings stored in MySQL.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/nesso-acceleration-chart.png" data-alt="Power BI acceleration chart" aria-label="Enlarge Power BI acceleration chart"><img src="assets/nesso-acceleration-chart.png" alt="Power BI acceleration chart" loading="lazy"></button><figcaption>Acceleration spikes helped us inspect possible incidents.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/nesso-incidents-chart.png" data-alt="Power BI incident breakdown" aria-label="Enlarge Power BI incident breakdown"><img src="assets/nesso-incidents-chart.png" alt="Power BI incident breakdown" loading="lazy"></button><figcaption>Incident categories recorded during testing.</figcaption></figure></div></section><div class="andrea-detail-list"><section class="andrea-detail-section" data-detail-section="1"><span class="andrea-section-number">01</span><div><h2>The problem</h2><p>Movement readings are difficult to review on their own. Our group needed a way to collect data from several workers, flag possible incidents and inspect the results together.</p></div></section><section class="andrea-detail-section" data-detail-section="2"><span class="andrea-section-number">02</span><div><h2>The solution</h2><p>We connected <strong>four NESSO devices</strong> to a Python collection and processing pipeline. The processed records were stored in <strong>MySQL</strong> and displayed in <strong>Power BI</strong>.</p></div></section><section class="andrea-detail-section" data-detail-section="3"><span class="andrea-section-number">03</span><div><h2>What I worked on</h2><ul><li>Built <strong>Main.py</strong> to accept BLE device names and worker names before a session.</li><li>Used <strong>subprocess</strong> to launch DataCollection.py and Preprocessing &amp; Upload.py together.</li><li>Managed startup and shutdown from one launcher so the team did not have to start the programs separately.</li><li>Explained the project objectives, data pipeline and Main.py launcher in the group presentation.</li></ul><p>The collection and processing scripts were presented by another teammate, and the Power BI analysis was handled by the data and analysis role.</p></div></section><section class="andrea-detail-section" data-detail-section="4"><span class="andrea-section-number">04</span><div><h2>Technologies</h2><div class="andrea-tech"><span>Python</span><span>Bluetooth LE</span><span>Arduino NESSO</span><span>Pandas</span><span>MySQL</span><span>Power BI</span><span>ODBC</span></div></div></section><section class="andrea-detail-section" data-detail-section="5"><span class="andrea-section-number">05</span><div><h2>Outcome</h2><p>Our school test collected readings from <strong>four devices at the same time</strong> and recorded simulated slips, trips, falls and near-misses. Near-miss false positives were a known issue.</p><ul><li>Collection produced readings at <strong>0.1-second intervals</strong>, with completed CSV files passed for processing every <strong>60 seconds</strong>.</li><li><strong>Power BI required a manual refresh</strong> to show the latest MySQL records.</li><li>The devices were held in our hands or placed in pockets during testing. Gyroscope readings were unreliable, so classification relied on acceleration magnitude.</li><li>Hardcoded thresholds, device startup, BLE range and battery life still needed improvement. The school simulations did not establish accuracy on a construction site.</li></ul></div></section></div></div>
 
-    <section class="nesso-story nesso-results-media" aria-label="Database and original Power BI results">
-      <div class="nesso-section-heading"><span class="ed-label">ACTUAL PROJECT RESULTS</span><h2>Here's what<br>we built.</h2><p>Original visuals from our MySQL database and Power BI dashboard.</p></div>
-      <div class="nesso-results-gallery">
-        <figure class="nesso-image-card nesso-gallery-main"><button class="ed-image-open" type="button" data-photo="assets/nesso-dashboard-overview.png" data-alt="Power BI original dashboard overview with acceleration, incidents, severity and movement charts" aria-label="Open Power BI dashboard image"><img src="assets/nesso-dashboard-overview.png" loading="lazy" alt="Original Power BI overview of worker movement and incident data"></button><figcaption>Power BI · Worker safety overview <span aria-hidden="true">↗</span></figcaption></figure>
-        <figure class="nesso-image-card"><button class="ed-image-open" type="button" data-photo="assets/nesso-database.png" data-alt="Original MySQL worker safety database table" aria-label="Open original MySQL database screenshot"><img src="assets/nesso-database.png" loading="lazy" alt="MySQL records from wearable NESSO sensors"></button><figcaption>MySQL · Individual worker readings <span aria-hidden="true">↗</span></figcaption></figure>
-        <figure class="nesso-image-card"><button class="ed-image-open" type="button" data-photo="assets/nesso-acceleration-chart.png" data-alt="Actual acceleration magnitude chart from Power BI" aria-label="Open acceleration chart"><img src="assets/nesso-acceleration-chart.png" loading="lazy" alt="Power BI acceleration magnitude trend with spikes"></button><figcaption>Acceleration · Possible incidents appear as spikes <span aria-hidden="true">↗</span></figcaption></figure>
-        <figure class="nesso-image-card"><button class="ed-image-open" type="button" data-photo="assets/nesso-incidents-chart.png" data-alt="Actual accident distribution chart with near misses, slips trips falls and falls from height" aria-label="Open incident breakdown"><img src="assets/nesso-incidents-chart.png" loading="lazy" alt="Power BI accident distribution chart showing near misses and other incidents"></button><figcaption>Incident types · Near-misses were most common <span aria-hidden="true">↗</span></figcaption></figure>
-      </div>
-    </section>
 
-    <section class="nesso-story nesso-role" aria-label="My contribution">
-      <div class="nesso-section-heading"><span class="ed-label">MY CONTRIBUTION</span><h2>Making the<br>pieces work together.</h2><span class="nesso-code-mark" aria-hidden="true">&lt;/&gt;</span></div>
-      <div class="nesso-role-copy"><div class="nesso-role-file"><span class="nesso-role-file-dot" aria-hidden="true"></span> MAIN.PY <span class="nesso-role-file-meta">SOFTWARE / LAUNCHER</span></div><p>I developed <strong>Main.py</strong>, the launcher that takes worker and BLE device names, then starts the data collection and processing scripts together.</p><p>It made startup and shutdown simpler and helped the team run both parts of the pipeline side by side.</p></div>
-    </section>
-
-    <section class="nesso-story nesso-outcome" aria-label="Outcome, testing and technologies">
-      <div class="nesso-outcome-photo nesso-image-card"><button class="ed-image-open" type="button" data-photo="assets/nesso-field-test.png" data-alt="Original school field testing photograph of the team testing four NESSO devices" aria-label="View original field testing photo"><img src="assets/nesso-field-test.png" loading="lazy" alt="In-school field test with the group using NESSO devices"></button><span class="nesso-photo-caption">In-school field testing · Original presentation</span></div>
-      <div class="nesso-outcome-copy"><span class="ed-label">THE OUTCOME</span><h2>Four sensors.<br>A working prototype.</h2><p>In our school test, all four NESSO devices collected data and the system recorded simulated near-misses, slips/trips and fall events. Data moved through the pipeline to the dashboard within about a minute.</p><p class="nesso-outcome-note">Still a prototype: fixed thresholds can produce false flags, and Bluetooth range and battery life need improving before real-world deployment.</p><div class="ed-tags"><span>Python</span><span>BLE</span><span>Arduino NESSO</span><span>Pandas</span><span>MySQL</span><span>Power BI</span></div></div>
-    </section>
-  `,
+`,
   'engineering-exploration':`
 
-    <section class="tri-intro tri-reveal" aria-label="The problem">
-      <div class="tri-intro-copy"><span class="tri-eyebrow">THE PROBLEM</span>
-        <h2>A small curb.<br><em>A big barrier.</em></h2>
-        <p>For many self-propelled wheelchair users, getting past a curb can mean taking a longer route or relying on a ramp. We wanted to explore another way forward.</p>
-        <span class="tri-sidenote">A mobility concept developed by our team</span>
-      </div>
-      <figure class="tri-image-tile tri-curb-photo">
-        <button class="ed-image-open" type="button" data-photo="assets/tri-curb.jpg" data-alt="Original curb photograph from the TRI-STAR presentation" aria-label="Enlarge photograph of the curb"><img src="assets/tri-curb.jpg" alt="A curb separating a footpath and road" loading="lazy"></button>
-        <figcaption>THE EVERYDAY OBSTACLE <span aria-hidden="true">↗</span></figcaption>
-      </figure>
-    </section>
 
-<section class="tri-mechanism tri-reveal tri-mechanism--authentic tri-mechanism--interactive" aria-label="TRI-STAR wheel concept and how the mechanism works">
-  <div class="tri-mechanism-left">
-    <span class="tri-eyebrow">THE SOLUTION</span>
-    <h2>Three wheels.<br>One idea.</h2>
-    <p>The front caster is replaced by three small wheels positioned around a motor-driven hub, designed to help a wheelchair move over raised curbs.</p>
-    <button class="tri-rotate-button" type="button" data-tri-toggle aria-pressed="true" aria-label="Pause wheel animation"><iconify-icon icon="lucide:pause" aria-hidden="true"></iconify-icon><span>Pause animation</span></button>
-  </div>
-  <div class="tri-mechanism-art" aria-label="Animated side view of three wheels revolving around a central hub, demonstrating the TRI-STAR design approaching a curb" role="img">
+<div class="project-notes"><p>Our group Engineering Exploration Project looked at a problem faced by self-propelled wheelchair users: getting past a curb when there is no nearby ramp. We explored a <strong>motorised tri-star wheel attachment</strong> as an alternative to the conventional front caster.</p>
+<p>The concept uses <strong>three small wheels around a rotating hub</strong>. As the assembly turns, a wheel can move onto a raised edge. We brainstormed different approaches through Crazy 8s, chose the tri-star arrangement and built a small-scale mechanism to test the idea. An <strong>Arduino Uno, slide switch and DC motor</strong> controlled the wheel assembly.</p>
+<p>I worked on the <mark class="project-highlight">circuit design and wiring</mark>, contributed ideas during brainstorming and helped check the connections during testing. The prototype demonstrated the rotating mechanism and motor circuit. It was not a full-size wheelchair tested with a person, so load capacity, materials and safety would still need further development.</p><section class="andrea-feature "><h2>Design &amp; development</h2><div class="project-mechanism"><div><p>A curb can force a wheelchair user to look for a ramp or take another route. This was the problem we chose for our engineering exploration project.</p><p>The diagram illustrates the rotating wheel idea. It is a concept view, not a full-size wheelchair test.</p><button class="tri-rotate-button" type="button" data-tri-toggle aria-pressed="true" aria-label="Pause wheel animation"><iconify-icon icon="lucide:pause" aria-hidden="true"></iconify-icon><span>Pause animation</span></button></div><div class="tri-mechanism-art" aria-label="Animated side view of three wheels revolving around a central hub, demonstrating the TRI-STAR design approaching a curb" role="img">
     <svg viewBox="0 0 420 420" aria-hidden="true" focusable="false">
       <defs>
         <pattern id="tri-grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="currentColor" stroke-opacity=".07" stroke-width=".8"/></pattern>
@@ -790,23 +804,9 @@ const caseStudyContent={
       <text class="tri-diagram-small" x="26" y="394" fill="currentColor">SIDE VIEW  /  NOT TO SCALE</text>
     </svg>
     <div class="tri-diagram-caption"><span>THREE-WHEEL MECHANISM</span><span class="tri-live-dot" aria-hidden="true"></span></div>
-  </div>
-</section>
-
-    <section class="tri-process tri-reveal" aria-label="The design process">
-      <div class="tri-section-head"><div><span class="tri-eyebrow">THE DESIGN PROCESS</span><h2>From sketches<br>to a prototype.</h2></div><p>We brainstormed, compared ideas and tested a scaled wheel mechanism.</p></div>
-      <div class="tri-process-grid">
-        <article class="tri-process-ideation tri-process-card"><span class="tri-card-label">EXPLORE / IDEATE</span><strong class="tri-card-number">08</strong><h3>Eight early concepts.</h3><p>We compared different ways to overcome curbs before choosing the tri-star idea.</p>
-          <details class="tri-ideas"><summary>See the eight concepts <span aria-hidden="true">+</span></summary><ul><li>Big wheels at the front</li><li>Curb-climber lever</li><li>Belt / tank wheelchair</li><li>Rear piston wheel</li><li>Tri-star front wheels</li><li>Front belt / tank wheels</li><li>Lower centre of gravity</li><li>Front piston wheel</li></ul></details>
-        </article>
-        <figure class="tri-process-sketch tri-process-card tri-process-drawings"><span class="tri-card-label">OUR HAND-DRAWN IDEAS</span><a href="https://static.wixstatic.com/media/a3abd1_c107b200cdaa4b649ca409b76e899055~mv2.png/v1/fill/w_980%2Ch_710%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_auto/dfdfdfadasasasa.png" target="_blank" rel="noopener noreferrer" aria-label="View the original hand-drawn designs on Wix"><img src="https://static.wixstatic.com/media/a3abd1_c107b200cdaa4b649ca409b76e899055~mv2.png/v1/fill/w_980%2Ch_710%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_auto/dfdfdfadasasasa.png" alt="Team's original wheelchair ideation drawings" loading="lazy"></a><figcaption>ORIGINAL SKETCH SHEET <span>↗</span></figcaption></figure>
-        <figure class="tri-process-build tri-process-card"><span class="tri-card-label">BUILD / TEST</span><button class="ed-image-open" type="button" data-photo="assets/tri-prototype-closeup.jpg" data-alt="Original photograph of the small TRI-STAR wheel prototype" aria-label="Expand original prototype photograph"><img src="assets/tri-prototype-closeup.jpg" alt="Close-up of the team's scaled prototype, with three wheels on the rotating assembly" loading="lazy"></button><figcaption>ACTUAL SCALED PROTOTYPE <span>↗</span></figcaption></figure>
-      </div>
-    </section>
-
-    <section class="tri-demo tri-reveal" aria-label="Original prototype demonstration videos">
-      <div class="tri-section-head tri-demo-head"><div><span class="tri-eyebrow">PROTOTYPE DEMONSTRATION</span><h2>See the difference.</h2></div><p>Watch the two original prototype tests right here.</p></div>
-      <div class="tri-demo-grid">
+  </div></div><p>We used <strong>Crazy 8s</strong> to sketch different ways of getting past a curb, then chose the tri-star arrangement for the prototype.</p>
+      <details class="project-ideas"><summary>View the eight ideas we considered</summary><ul><li>Larger front wheels</li><li>A curb-climber lever</li><li>A belt or tank-style wheelchair</li><li>A rear piston wheel</li><li>Tri-star front wheels</li><li>Front belt or tank wheels</li><li>A lower centre of gravity</li><li>A front piston wheel</li></ul></details>
+      <div class="project-photo-grid project-photo-grid--engineering"><figure class="project-photo project-photo--wide"><a href="https://static.wixstatic.com/media/a3abd1_c107b200cdaa4b649ca409b76e899055~mv2.png/v1/fill/w_980%2Ch_710%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_auto/dfdfdfadasasasa.png" target="_blank" rel="noopener noreferrer"><img class="project-idea-sketch" src="https://static.wixstatic.com/media/a3abd1_c107b200cdaa4b649ca409b76e899055~mv2.png/v1/fill/w_980%2Ch_710%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_auto/dfdfdfadasasasa.png" alt="Our team’s wheelchair concept sketches" loading="lazy"></a><figcaption>Our original concept sketches. Open to view the full sheet.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/tri-prototype-closeup.jpg" data-alt="Small-scale tri-star wheel prototype" aria-label="Enlarge Small-scale tri-star wheel prototype"><img src="assets/tri-prototype-closeup.jpg" alt="Small-scale tri-star wheel prototype" loading="lazy"></button><figcaption>The wheel assembly we built for testing.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/tri-curb.jpg" data-alt="Curb beside a footpath" aria-label="Enlarge Curb beside a footpath"><img src="assets/tri-curb.jpg" alt="Curb beside a footpath" loading="lazy"></button><figcaption>The type of obstacle we were considering.</figcaption></figure></div></section><section class="andrea-feature "><h2>Prototype demonstration</h2><p>Our normal caster and tri-star prototype tests.</p><div class="tri-demo-grid">
         <article class="tri-demo-card tri-video-card">
           <video class="tri-native-video" controls playsinline preload="metadata" poster="assets/tri-normal-caster.jpg" aria-label="Before: normal caster wheel prototype demonstration">
             <source src="assets/tri-normal-caster.mp4" type="video/mp4">
@@ -821,63 +821,25 @@ const caseStudyContent={
           </video>
           <div class="tri-video-caption"><span>VIDEO / TRI-STAR WHEELS</span><strong>After</strong></div>
         </article>
-      </div>
-    </section>
+      </div></section><div class="andrea-detail-list"><section class="andrea-detail-section" data-detail-section="1"><span class="andrea-section-number">01</span><div><h2>The problem</h2><p>Curbs can force self-propelled wheelchair users to look for a ramp or take another route. Our team explored a different front-wheel arrangement for getting over a raised edge.</p></div></section><section class="andrea-detail-section" data-detail-section="2"><span class="andrea-section-number">02</span><div><h2>The solution</h2><p>The tri-star concept uses <strong>three wheels around a motor-driven hub</strong> in place of a conventional front caster. A slide switch sends an input to an Arduino Uno, which activates the DC motor.</p></div></section><section class="andrea-detail-section" data-detail-section="3"><span class="andrea-section-number">03</span><div><h2>What I worked on</h2><ul><li><mark class="project-highlight">Designed and wired</mark> the <strong>slide switch, Arduino Uno and DC motor</strong> circuit.</li><li>Helped brainstorm the wheel concepts with the team.</li><li><strong>Checked the circuit connections</strong> and helped test the prototype.</li></ul><p>The switch sends an input to the Arduino, which activates the DC motor to turn the wheel assembly.</p></div></section><section class="andrea-detail-section" data-detail-section="4"><span class="andrea-section-number">04</span><div><h2>Technologies</h2><div class="andrea-tech"><span>Engineering design</span><span>Arduino Uno</span><span>DC motor</span><span>Circuit design</span><span>Prototyping</span><span>Testing</span></div></div></section><section class="andrea-detail-section" data-detail-section="5"><span class="andrea-section-number">05</span><div><h2>Outcome</h2><p>The circuit activated the motor and our <strong>small-scale prototype</strong> demonstrated the rotating mechanism. We did not test a full-size wheelchair carrying a person.</p><p>Suitable materials, load testing and further mechanical and safety testing would be needed before anyone used a full-size version.</p></div></section></div></div>
 
-    <section class="tri-role tri-reveal" aria-label="My contribution">
-      <article class="tri-role-main"><span class="tri-eyebrow">MY CONTRIBUTION</span><h2>I worked on the<br><em>circuit that drives it.</em></h2><p>I designed and wired the slide switch, Arduino Uno and DC motor setup. I also shared ideas during our Crazy 8s brainstorming and helped test the connections with the team.</p></article>
-      <article class="tri-role-circuit"><span class="tri-card-label">HOW THE CIRCUIT WORKS</span><div class="tri-circuit-stages" aria-label="Slide switch sends an input to the Arduino Uno, which activates the DC motor"><div><span class="tri-circuit-mark"><iconify-icon icon="lucide:toggle-right" aria-hidden="true"></iconify-icon></span><strong>Slide switch</strong><small>Input</small></div><span class="tri-circuit-line" aria-hidden="true"></span><div><span class="tri-circuit-mark"><iconify-icon icon="lucide:cpu" aria-hidden="true"></iconify-icon></span><strong>Arduino Uno</strong><small>Control</small></div><span class="tri-circuit-line" aria-hidden="true"></span><div><span class="tri-circuit-mark"><iconify-icon icon="lucide:settings" aria-hidden="true"></iconify-icon></span><strong>DC motor</strong><small>Output</small></div></div><p>Flick the switch, and the controller activates the motor that turns the tri-star wheels.</p></article>
-    </section>
 
-    <section class="tri-finale tri-reveal" aria-label="Outcome and skills">
-      <div class="tri-outcome"><span class="tri-eyebrow">THE OUTCOME</span><h2>From an idea<br>to a working test.</h2><p>Our team built a small prototype that demonstrated the rotating tri-star mechanism. The circuit successfully triggered the DC motor. Further material development, testing and safety refinement would be needed for a full-size wheelchair.</p></div>
-      <div class="tri-finale-aside"><span class="tri-eyebrow">SKILLS &amp; TECHNOLOGIES</span><div class="ed-tags"><span>Engineering design</span><span>Arduino Uno</span><span>DC motor</span><span>Circuit building</span><span>Prototyping</span><span>3D sketching</span><span>Testing</span></div><p class="tri-future">NEXT STEP / The team proposed further research, materials and unit testing.</p></div>
-    </section>
-  `,
+`,
   'iot-sustainable-living':`
-  <section class="iot-home-intro case-reveal-parent" aria-label="Project challenges">
-    <div class="iot-intro-type"><span class="ed-label">THE PROBLEM</span><h2>We started with everyday problems.</h2><p>Our group wanted to make a few things around the house easier: keeping a room cool, switching off lights when there’s enough daylight, checking plant soil and knowing when someone is near the door.</p></div>
-    <div class="iot-intro-index"><span>01 — COMFORT</span><span>02 — ENERGY</span><span>03 — PLANT CARE</span><span>04 — SECURITY</span></div>
-  </section>
-  <section class="iot-features" aria-label="Four connected home systems">
-    <div class="iot-heading"><span class="ed-label">THE SOLUTION</span><h2>We gave each problem<br>its own sensor.</h2><p>Then we connected everything through an Arduino so the system could respond on its own.</p></div>
-    <div class="iot-feature-grid">
-      <article class="iot-feature-tile"><span class="iot-feature-id">01 / TEMPERATURE</span><div class="iot-feature-icon"><iconify-icon icon="lucide:thermometer-sun"></iconify-icon></div><h3>When it gets too warm.</h3><p>At 29°C or above, the DHT11 tells the Arduino to switch on the ventilation relay.</p><div class="iot-rule"><span>29°C+</span><span>VENTILATION ON</span></div></article>
-      <article class="iot-feature-tile"><span class="iot-feature-id">02 / LIGHT</span><div class="iot-feature-icon"><iconify-icon icon="lucide:sun"></iconify-icon></div><h3>When there’s enough daylight.</h3><p>The light sensor checks how bright it is outside. If there’s enough light, the relay switches the indoor lights off.</p><div class="iot-rule"><span>LDR</span><span>LIGHT CONTROL</span></div></article>
-      <article class="iot-feature-tile"><span class="iot-feature-id">03 / PLANTS</span><div class="iot-feature-icon"><iconify-icon icon="lucide:sprout"></iconify-icon></div><h3>When the plants need water.</h3><p>The NeoPixel shows red for dry soil, green for moist and blue for wet, so it’s easy to see when to water.</p><div class="iot-soil-dots" aria-label="Red dry, green moist, blue wet"><i title="Dry"></i><i title="Moist"></i><i title="Wet"></i><small>DRY · MOIST · WET</small></div></article>
-      <article class="iot-feature-tile"><span class="iot-feature-id">04 / DOORWAY</span><div class="iot-feature-icon"><iconify-icon icon="lucide:radio"></iconify-icon></div><h3>When someone’s at the door.</h3><p>If someone stays within 150 cm of the door for three seconds, the ultrasonic sensor triggers an MP3 alert.</p><div class="iot-rule"><span>≤150 CM</span><span>3-SECOND CHECK</span></div></article>
-    </div>
-  </section>
-  <section class="iot-connection" aria-label="Connecting hardware and cloud">
-    <div class="iot-connect-copy"><span class="ed-label">SYSTEM FLOW</span><h2>Getting the readings online.</h2><p>The Arduino handled the sensors and their responses. We then used a Raspberry Pi, ZigBee and Python to send readings to ThingSpeak, where we could follow them on a dashboard.</p><div class="ed-tags"><span>Arduino Nano</span><span>Raspberry Pi</span><span>ZigBee</span><span>Python</span><span>ThingSpeak</span></div></div>
-    <div class="iot-wire" role="img" aria-label="Sensor readings into Arduino Nano, through Raspberry Pi and Python, then to ThingSpeak dashboards"><div><iconify-icon icon="lucide:radio-tower"></iconify-icon><strong>Sensors</strong><small>4 household uses</small></div><b aria-hidden="true">→</b><div><iconify-icon icon="lucide:cpu"></iconify-icon><strong>Arduino Nano</strong><small>Read &amp; respond</small></div><b aria-hidden="true">→</b><div><iconify-icon icon="lucide:database"></iconify-icon><strong>ThingSpeak</strong><small>Live data charts</small></div></div>
-  </section>
-  <section class="iot-evidence" aria-label="Original report photographs and ThingSpeak dashboards">
-    <div class="iot-heading"><span class="ed-label">ACTUAL PROJECT MEDIA</span><h2>What we actually built.</h2><p>Here’s our setup during testing, along with the ThingSpeak charts and indicators we used to check the readings.</p></div>
-    <div class="iot-evidence-grid">
-      <figure class="iot-evidence-photo iot-evidence-main"><button class="ed-image-open" type="button" data-photo="assets/iot-hardware-workbench.webp" data-alt="Complete IoT sensor prototype connected on a workbench" aria-label="Enlarge actual IoT project hardware photograph"><img src="assets/iot-hardware-workbench.webp" loading="lazy" alt="The team's connected sensors, Arduino and Raspberry Pi on a workbench"></button><figcaption>01 / INTEGRATED HARDWARE</figcaption></figure>
-      <figure class="iot-evidence-photo"><button class="ed-image-open" type="button" data-photo="assets/iot-dashboard.webp" data-alt="ThingSpeak sensor charts for ultrasonic, temperature, light and moisture readings" aria-label="Enlarge original ThingSpeak dashboard"><img src="assets/iot-dashboard.webp" loading="lazy" alt="Original ThingSpeak monitoring dashboard with four sensor charts"></button><figcaption>02 / THINGSPEAK DASHBOARD</figcaption></figure>
-      <figure class="iot-evidence-photo"><button class="ed-image-open" type="button" data-photo="assets/iot-indicators.webp" data-alt="ThingSpeak indicator widgets including ventilation, moisture and temperature" aria-label="Enlarge original ThingSpeak indicator widgets"><img src="assets/iot-indicators.webp" loading="lazy" alt="Original ThingSpeak color-coded indicators and temperature widgets"></button><figcaption>03 / STATUS INDICATORS</figcaption></figure>
-    </div>
-  </section>
-  <section class="iot-contribution" aria-label="My contribution to the IoT project">
-    <div><span class="ed-label">MY CONTRIBUTION</span><h2>The parts I worked on.</h2></div>
-    <div class="iot-role-text"><p>I wrote the Arduino code for the <strong>DHT11 and ventilation relay</strong>, as well as the <strong>ultrasonic sensor and MP3 alert</strong>.</p><p>I also brought the group’s code together, worked on the Python upload to ThingSpeak through MobaXterm and helped set up the dashboard. Getting the MP3 player and all four data fields working together took some trial and error.</p></div>
-  </section>
-  <section class="iot-conclusion" aria-label="Project outcome">
-    <span class="ed-label">THE OUTCOME</span><h2>We got the whole setup working together.</h2><p>By the end, we could demonstrate all four features and see the readings on ThingSpeak. It was a school prototype, not something installed in a real home, but I learned a lot about getting sensors, code and cloud services to work together.</p>
-    <div class="ed-tags"><span>C / C++</span><span>Arduino</span><span>Raspberry Pi</span><span>Python</span><span>Relay</span><span>NeoPixel</span><span>ThingSpeak</span></div>
-  </section>
+
+
+<div class="project-notes"><p>For our IoT Programming &amp; Cloud Services mini project, we built a <strong>household monitoring prototype with four sensor functions</strong>. It covered ventilation, switching lights off when there was enough daylight, checking plant soil moisture and detecting someone near the doorway.</p>
+<p>An <strong>Arduino Nano</strong> read the sensors and controlled the relay, NeoPixel and MP3 outputs. A Raspberry Pi, ZigBee and Python were used to upload readings to <strong>ThingSpeak</strong>. The dashboard charts and widgets let us check the sensor values and see whether each response was working during our demonstration.</p>
+<p>I wrote the code for the <strong>DHT11 and ventilation relay</strong>, as well as the ultrasonic sensor and MP3 alert. I also worked on <mark class="project-highlight">combining the group’s code</mark>, uploading all four data fields and setting up the dashboard. Troubleshooting the MP3 playback and ThingSpeak upload was a substantial part of my work. This was a school prototype, not a system we installed and tested in a home.</p><section class="andrea-feature andrea-architecture" data-architecture><p class="andrea-eyebrow">CLICKABLE ARCHITECTURE</p><h2>Follow a sensor reading.</h2><p>Select a component to see its part in the project.</p><div class="andrea-architecture-layout"><div class="andrea-architecture-steps" role="group" aria-label="Architecture components"><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="Household sensors" data-step-description="Four sensor functions cover room temperature, lighting, plant soil moisture and a doorway alert." aria-pressed="true"><span class="andrea-step-number">01</span><span><strong>Household sensors</strong><small>Temperature, light, moisture and distance</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="Arduino Nano" data-step-description="The Arduino reads the sensors and controls outputs such as the ventilation relay, light relay, NeoPixel and MP3 alert." aria-pressed="false"><span class="andrea-step-number">02</span><span><strong>Arduino Nano</strong><small>Sensor inputs and responses</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="Raspberry Pi and Python" data-step-description="The Raspberry Pi, ZigBee and Python upload process carry readings from the prototype to ThingSpeak." aria-pressed="false"><span class="andrea-step-number">03</span><span><strong>Raspberry Pi and Python</strong><small>ZigBee and data upload</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="ThingSpeak" data-step-description="The dashboard shows the four readings and indicators used to check sensor responses during testing." aria-pressed="false"><span class="andrea-step-number">04</span><span><strong>ThingSpeak</strong><small>Charts and status indicators</small></span><span aria-hidden="true">→</span></button></div><div class="andrea-architecture-description" aria-live="polite" aria-atomic="true"><span class="andrea-eyebrow">SELECTED COMPONENT</span><h3 data-step-title>Household sensors</h3><p data-step-copy>Four sensor functions cover room temperature, lighting, plant soil moisture and a doorway alert.</p></div></div></section><section class="andrea-feature "><h2>System functions and dashboard</h2><ul><li><strong>Temperature:</strong> a DHT11 reading of <strong>29°C or above</strong> switches on the ventilation relay.</li><li><strong>Lighting:</strong> the light sensor switches the indoor lights off when there is enough daylight.</li><li><strong>Soil moisture:</strong> a NeoPixel shows red for dry soil, green for moist soil and blue for wet soil.</li><li><strong>Doorway alert:</strong> the ultrasonic sensor triggers an MP3 alert when someone stays within <strong>150 cm</strong> for <strong>three seconds</strong>.</li></ul><p>ThingSpeak showed the readings as charts and status indicators so we could check how the sensors were responding.</p><div class="project-photo-grid project-photo-grid--iot"><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/iot-dashboard.webp" data-alt="ThingSpeak dashboard with four sensor charts" aria-label="Enlarge ThingSpeak dashboard with four sensor charts"><img src="assets/iot-dashboard.webp" alt="ThingSpeak dashboard with four sensor charts" loading="lazy"></button><figcaption>The four sensor readings on ThingSpeak.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/iot-indicators.webp" data-alt="ThingSpeak sensor status indicators" aria-label="Enlarge ThingSpeak sensor status indicators"><img src="assets/iot-indicators.webp" alt="ThingSpeak sensor status indicators" loading="lazy"></button><figcaption>Status indicators used to check the readings.</figcaption></figure></div></section><div class="andrea-detail-list"><section class="andrea-detail-section" data-detail-section="1"><span class="andrea-section-number">01</span><div><h2>The problem</h2><p>Our group chose four household tasks to work on: ventilation, switching lights off in daylight, checking plant soil and detecting someone near the door.</p></div></section><section class="andrea-detail-section" data-detail-section="2"><span class="andrea-section-number">02</span><div><h2>The solution</h2><p>We built an Arduino-based prototype with a sensor and response for each task. Readings were uploaded to <strong>ThingSpeak</strong> so we could inspect the charts and status indicators.</p></div></section><section class="andrea-detail-section" data-detail-section="3"><span class="andrea-section-number">03</span><div><h2>What I worked on</h2><ul><li>Wrote the Arduino code for the <strong>DHT11 and ventilation relay</strong>.</li><li>Wrote the <strong>ultrasonic sensor and MP3 alert</strong> code.</li><li><mark class="project-highlight">Combined the group’s code</mark> so all four sensor functions could run together.</li><li>Worked on the <strong>Python upload to ThingSpeak</strong> through MobaXterm and fixed the issue with uploading all four fields.</li><li>Helped set up the dashboard widgets and demonstrated the working prototype.</li></ul><p>I also troubleshot the MP3 alert and the three-second doorway check. The light-control and soil-moisture code came from my teammates.</p></div></section><section class="andrea-detail-section" data-detail-section="4"><span class="andrea-section-number">04</span><div><h2>Technologies</h2><div class="andrea-tech"><span>C / C++</span><span>Arduino Nano</span><span>Raspberry Pi</span><span>Python</span><span>ZigBee</span><span>DHT11</span><span>NeoPixel</span><span>ThingSpeak</span></div></div></section><section class="andrea-detail-section" data-detail-section="5"><span class="andrea-section-number">05</span><div><h2>Outcome</h2><p>We demonstrated the <strong>four sensor functions</strong> and checked their values on ThingSpeak. Fixing the MP3 alert involved checking the RX/TX connections and adjusting the code. The four-field upload needed further debugging and help from our lecturer.</p><p>This was a school prototype. It demonstrated the sensor responses, but did not measure household energy savings or prove that it could operate reliably in a home over time.</p></div></section></div></div>
+
+
 `,
   'cloud-computing':`
-  <section class="cloud-intro" aria-label="The cloud computing challenge">
-    <span class="ed-label">THE CHALLENGE</span>
-    <div><h2>It had to be more than a website that looked finished.</h2><p>The assignment was to get a nine-product music store running on AWS. I had to connect the servers, database and image storage, plan for more traffic and work within a <strong>$50 budget</strong>.</p></div>
-    <div class="cloud-stats"><div><strong>09</strong><span>PRODUCTS</span></div><div><strong>02</strong><span>AVAILABILITY ZONES</span></div><div><strong>$50</strong><span>BUDGET LIMIT</span></div></div>
-  </section>
-  <section class="cloud-architecture" aria-label="Interactive cloud architecture diagram">
-    <div class="cloud-heading"><div><span class="ed-label">ARCHITECTURE</span><h2>How I put it<br>all together.</h2></div><p>Visitors reach the load balancer first. It sends requests to my EC2 servers, which get the product details from MySQL and the images from S3. Hover over each service to explore the setup.</p></div>
-    <div class="cloud-topology" role="group" aria-label="AWS application flow from visitors to load balancer, EC2 autoscaling, RDS database and S3 storage, with CloudWatch monitoring">
+
+
+<div class="project-notes"><p>For the Cloud Computing Development Project, I built a <strong>music-store catalogue on AWS</strong>. The assignment required a page showing nine instruments, with product details held in a database and images stored separately. It also required attention to reliability, performance and a <strong>$50 budget</strong>.</p>
+<p>Requests passed through an <strong>Application Load Balancer</strong> to EC2 instances in an Auto Scaling Group across two availability zones. RDS MySQL held the product information, with Multi-AZ configured for a standby database, while S3 held the images. Security-group rules controlled access between the components.</p>
+<p>I worked on the <mark class="project-highlight">AWS configuration and application deployment</mark>, then checked resource usage with CloudWatch and set up SNS and budget alerts. I compared t3.micro and t3.small using ApacheBench and used a Python boto3 script to check the Auto Scaling Group’s health. The result was a working school catalogue, rather than a shop processing real customer orders.</p><section class="andrea-feature andrea-architecture" data-architecture><p class="andrea-eyebrow">CLICKABLE ARCHITECTURE</p><h2>Explore the cloud stack.</h2><p>Select a component to see its part in the project.</p><div class="andrea-architecture-layout"><div class="andrea-architecture-steps" role="group" aria-label="Architecture components"><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="Visitor" data-step-description="A visitor opens the instrument catalogue in a browser." aria-pressed="true"><span class="andrea-step-number">01</span><span><strong>Visitor</strong><small>Catalogue requests</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="VPC and load balancer" data-step-description="The VPC contains the cloud resources. The Application Load Balancer distributes requests to the web instances." aria-pressed="false"><span class="andrea-step-number">02</span><span><strong>VPC and load balancer</strong><small>Network and request routing</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="EC2 and Auto Scaling" data-step-description="EC2 instances host the website. The Auto Scaling Group can adjust capacity as demand changes." aria-pressed="false"><span class="andrea-step-number">03</span><span><strong>EC2 and Auto Scaling</strong><small>Web servers in two availability zones</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="RDS MySQL" data-step-description="RDS MySQL stores product names, prices and descriptions, with Multi-AZ configured for a standby database." aria-pressed="false"><span class="andrea-step-number">04</span><span><strong>RDS MySQL</strong><small>Product information</small></span><span aria-hidden="true">→</span></button><button type="button" class="andrea-architecture-step" data-architecture-step data-step-name="Amazon S3" data-step-description="S3 stores the product photographs separately from the web servers and database." aria-pressed="false"><span class="andrea-step-number">05</span><span><strong>Amazon S3</strong><small>Product images</small></span><span aria-hidden="true">→</span></button></div><div class="andrea-architecture-description" aria-live="polite" aria-atomic="true"><span class="andrea-eyebrow">SELECTED COMPONENT</span><h3 data-step-title>Visitor</h3><p data-step-copy>A visitor opens the instrument catalogue in a browser.</p></div></div><details class="project-ideas"><summary>View the complete diagram</summary><div class="cloud-topology" role="group" aria-label="AWS application flow from visitors to load balancer, EC2 autoscaling, RDS database and S3 storage, with CloudWatch monitoring">
       <div class="cloud-topology-head"><span><i></i> AWS · US-EAST-1</span><span>VPC · 10.0.0.0/16</span></div>
       <div class="cloud-topology-row cloud-topology-entry"><div class="cloud-node cloud-node--entry" tabindex="0"><iconify-icon icon="lucide:users"></iconify-icon><b>Visitors</b><small>Internet requests</small></div></div>
       <div class="cloud-topology-down" aria-hidden="true">↓</div>
@@ -887,46 +849,18 @@ const caseStudyContent={
       <div class="cloud-topology-down" aria-hidden="true">↓</div>
       <div class="cloud-topology-services"><div class="cloud-node" tabindex="0"><iconify-icon icon="lucide:database"></iconify-icon><b>RDS MySQL</b><small>Product information · Multi-AZ</small></div><div class="cloud-node" tabindex="0"><iconify-icon icon="lucide:images"></iconify-icon><b>Amazon S3</b><small>Product images</small></div></div>
       <div class="cloud-topology-foot"><span><iconify-icon icon="lucide:activity"></iconify-icon> CloudWatch · Monitoring</span><span><iconify-icon icon="lucide:bell-ring"></iconify-icon> SNS · Alerts</span><span><iconify-icon icon="lucide:wallet"></iconify-icon> AWS Budgets</span></div>
-    </div>
-  </section>
-  <section class="cloud-storefront" aria-label="Actual music-store storefront screenshots">
-    <div class="cloud-heading"><div><span class="ed-label">THE APPLICATION</span><h2>The website people<br>would actually see.</h2></div><p>I built a simple page to display nine musical instruments. MySQL held their names, prices and descriptions, while their photos came from S3. These are screenshots from the project.</p></div>
-    <div class="cloud-storefront-gallery">
-      <figure><button class="ed-image-open" type="button" data-photo="assets/cloud-storefront-1.webp" data-alt="Storefront screenshot showing drum, flute and guitar product cards" aria-label="Expand storefront products 1 to 3"><img src="assets/cloud-storefront-1.webp" loading="lazy" alt="Storefront product cards showing drums, flute and guitar"></button><figcaption>01 — DRUM / FLUTE / GUITAR</figcaption></figure>
-      <figure><button class="ed-image-open" type="button" data-photo="assets/cloud-storefront-2.webp" data-alt="Storefront screenshot showing guqin, harmonica and harp product cards" aria-label="Expand storefront products 4 to 6"><img src="assets/cloud-storefront-2.webp" loading="lazy" alt="Storefront product cards showing guqin, harmonica and harp"></button><figcaption>02 — GUQIN / HARMONICA / HARP</figcaption></figure>
-      <figure><button class="ed-image-open" type="button" data-photo="assets/cloud-storefront-3.webp" data-alt="Storefront screenshot showing piano, trumpet and violin product cards" aria-label="Expand storefront products 7 to 9"><img src="assets/cloud-storefront-3.webp" loading="lazy" alt="Storefront product cards showing piano, trumpet and violin"></button><figcaption>03 — PIANO / TRUMPET / VIOLIN</figcaption></figure>
-    </div>
-  </section>
-  <section class="cloud-operations" aria-label="Performance and monitoring decisions">
-    <div class="cloud-operations-title"><span class="ed-label">RELIABILITY &amp; OPERATIONS</span><h2>I also had to think<br>about what could go wrong.</h2></div>
-    <div class="cloud-operations-cards">
-      <article><span>01 / SCALABILITY</span><iconify-icon icon="lucide:layers"></iconify-icon><h3>More people visiting?</h3><p>Auto Scaling can add or remove EC2 instances behind the load balancer as demand changes.</p></article>
-      <article><span>02 / RESILIENCE</span><iconify-icon icon="lucide:database-zap"></iconify-icon><h3>What if the database fails?</h3><p>I set up Multi-AZ RDS, with a standby database in another availability zone.</p></article>
-      <article><span>03 / VISIBILITY</span><iconify-icon icon="lucide:chart-no-axes-combined"></iconify-icon><h3>How would I spot a problem?</h3><p>I used CloudWatch to watch resource usage and SNS to send an email if an instance failed its health check.</p></article>
-      <article><span>04 / COSTS</span><iconify-icon icon="lucide:wallet"></iconify-icon><h3>How much would it cost?</h3><p>I set a $50 budget with an alert at 80%, then compared two EC2 sizes. The smaller t3.micro was enough for this project.</p></article>
-    </div>
-    <div class="cloud-monitor-gallery" aria-label="Three screenshots from my CloudWatch dashboard">
-      <div class="cloud-monitor-heading"><span class="ed-label">CLOUDWATCH / MONITORING</span><p>Three views from my AWS project. Select a graph to see it more clearly.</p></div>
-      <div class="cloud-monitor-grid">
-        <figure class="cloud-monitor-chart">
-          <button class="ed-image-open" type="button" data-photo="assets/cloudwatch-ec2-cpu.webp" data-alt="Original CloudWatch chart of EC2 and load balancer CPU utilization" aria-label="Enlarge EC2 CPU utilization chart"><img src="assets/cloudwatch-ec2-cpu.webp" loading="lazy" alt="CloudWatch graph of CPU usage on AWS EC2 web servers"></button>
-          <figcaption><span>01 / EC2 &amp; LOAD BALANCER</span><strong>Server CPU usage <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></strong></figcaption>
-        </figure>
-        <figure class="cloud-monitor-chart">
-          <button class="ed-image-open" type="button" data-photo="assets/cloudwatch-rds-cpu.webp" data-alt="Original CloudWatch chart of RDS database CPU utilization" aria-label="Enlarge RDS CPU utilization chart"><img src="assets/cloudwatch-rds-cpu.webp" loading="lazy" alt="CloudWatch graph of RDS database CPU utilization"></button>
-          <figcaption><span>02 / DATABASE</span><strong>RDS CPU usage <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></strong></figcaption>
-        </figure>
-        <figure class="cloud-monitor-chart cloud-monitor-chart--wide">
-          <button class="ed-image-open" type="button" data-photo="assets/cloudwatch-network.webp" data-alt="Original CloudWatch chart of AWS network traffic in and out" aria-label="Enlarge network traffic chart"><img src="assets/cloudwatch-network.webp" loading="lazy" alt="CloudWatch graph showing traffic spikes and network throughput"></button>
-          <figcaption><span>03 / NETWORK</span><strong>Traffic in and out <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></strong></figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-  <section class="cloud-finale" aria-label="My contribution and project outcome">
-    <div class="cloud-finale-main"><span class="ed-label">MY CONTRIBUTION</span><h2>I put the AWS setup together from end to end.</h2><p>I set up the VPC, web servers, load balancer, Auto Scaling, MySQL database and S3 storage. I also tested two EC2 sizes with ApacheBench, set up CloudWatch and budget alerts, and wrote a Python boto3 script to check the Auto Scaling Group’s health.</p></div>
-    <div class="cloud-finale-result"><span class="ed-label">THE OUTCOME</span><h3>The store worked, and so did the services behind it.</h3><p>In the end, I had a nine-product catalogue running on AWS, with the database and images stored separately. This was a school project, not a real online shop, but it helped me understand how the different cloud services depend on each other.</p><div class="ed-tags"><span>Amazon EC2</span><span>ALB</span><span>Auto Scaling</span><span>RDS MySQL</span><span>S3</span><span>CloudWatch</span><span>SNS</span><span>Python · boto3</span></div></div>
-  </section>
+    </div></details></section><section class="andrea-feature "><h2>Application and monitoring</h2><p>The main image shows the first three products. These screenshots show the remaining six. Select an image to enlarge it.</p><div class="project-photo-grid project-photo-grid--storefront"><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/cloud-storefront-2.webp" data-alt="Music catalogue with guqin, harmonica and harp" aria-label="Enlarge Music catalogue with guqin, harmonica and harp"><img src="assets/cloud-storefront-2.webp" alt="Music catalogue with guqin, harmonica and harp" loading="lazy"></button><figcaption>Guqin, harmonica and harp products.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/cloud-storefront-3.webp" data-alt="Music catalogue with piano, trumpet and violin" aria-label="Enlarge Music catalogue with piano, trumpet and violin"><img src="assets/cloud-storefront-3.webp" alt="Music catalogue with piano, trumpet and violin" loading="lazy"></button><figcaption>Piano, trumpet and violin products.</figcaption></figure></div><p class="project-media-note">I used these <strong>CloudWatch charts</strong> to check server CPU usage, database CPU usage and network traffic.</p><div class="project-photo-grid project-photo-grid--monitoring"><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/cloudwatch-ec2-cpu.webp" data-alt="CloudWatch EC2 CPU chart" aria-label="Enlarge CloudWatch EC2 CPU chart"><img src="assets/cloudwatch-ec2-cpu.webp" alt="CloudWatch EC2 CPU chart" loading="lazy"></button><figcaption>EC2 CPU usage during monitoring.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/cloudwatch-rds-cpu.webp" data-alt="CloudWatch RDS CPU chart" aria-label="Enlarge CloudWatch RDS CPU chart"><img src="assets/cloudwatch-rds-cpu.webp" alt="CloudWatch RDS CPU chart" loading="lazy"></button><figcaption>RDS CPU usage.</figcaption></figure><figure class="project-photo project-photo--wide"><button class="ed-image-open" type="button" data-photo="assets/cloudwatch-network.webp" data-alt="CloudWatch network traffic chart" aria-label="Enlarge CloudWatch network traffic chart"><img src="assets/cloudwatch-network.webp" alt="CloudWatch network traffic chart" loading="lazy"></button><figcaption>Network traffic in and out.</figcaption></figure></div></section><div class="andrea-detail-list"><section class="andrea-detail-section" data-detail-section="1"><span class="andrea-section-number">01</span><div><h2>The problem</h2><p>The assignment required a <strong>nine-product music catalogue</strong> hosted on AWS, with separate product data and image storage. It also included scaling, monitoring and a <strong>$50 budget limit</strong>.</p></div></section><section class="andrea-detail-section" data-detail-section="2"><span class="andrea-section-number">02</span><div><h2>The solution</h2><p>I connected EC2 web servers, an Application Load Balancer, an Auto Scaling Group, RDS MySQL and S3. CloudWatch, SNS and budget alerts were used to monitor the setup.</p></div></section><section class="andrea-detail-section" data-detail-section="3"><span class="andrea-section-number">03</span><div><h2>What I worked on</h2><ul><li>Configured the <strong>VPC, load balancer, EC2 instances, Auto Scaling Group, RDS MySQL and S3</strong> for the catalogue.</li><li>Restricted HTTP access to the web instances so requests came through the <strong>load balancer’s security group</strong>. The database was accessed within the VPC.</li><li>Configured <strong>RDS Multi-AZ</strong> for a standby database in another availability zone.</li><li>Compared <strong>t3.micro and t3.small using ApacheBench</strong> under the same load. The report found comparable performance for this application.</li><li>Monitored CPU usage and network traffic with <strong>CloudWatch</strong>. Set a StatusCheckFailed alarm at Auto Scaling Group level and connected it to SNS email notifications.</li><li>Configured a <strong>$50 monthly budget</strong> with an alert at <strong>80%</strong>. Used a Python boto3 script to check Auto Scaling Group health.</li></ul></div></section><section class="andrea-detail-section" data-detail-section="4"><span class="andrea-section-number">04</span><div><h2>Technologies</h2><div class="andrea-tech"><span>Amazon VPC</span><span>EC2</span><span>Application Load Balancer</span><span>Auto Scaling</span><span>RDS MySQL</span><span>S3</span><span>CloudWatch</span><span>SNS</span><span>Python boto3</span><span>ApacheBench</span></div></div></section><section class="andrea-detail-section" data-detail-section="5"><span class="andrea-section-number">05</span><div><h2>Outcome</h2><p>The catalogue displayed <strong>nine musical instruments</strong>, with names, prices and descriptions in MySQL and product images in S3. The load balancer and Auto Scaling Group handled the web layer, with monitoring and spending alerts configured alongside it.</p><p>The instance comparison supported using <strong>t3.micro</strong> for this workload. This was a school application, not a shop taking real orders or evidence of production-scale performance.</p></div></section></div></div>
+
+
+`,
+  'road-safety':`
+
+
+<div class="project-notes"><p>Our group data visualisation project examined <strong>traffic accident patterns and road safety in Singapore</strong>. My part was <mark class="project-highlight">Theme 4: infrastructure effectiveness</mark>, which compared changes in traffic lights, ERP gantries, flyovers, vehicular bridges, underpasses and tunnels with safety trends.</p>
+<p>The team prepared the datasets using Python and Pandas. I connected the processed tables in <strong>Power BI</strong> and created the <strong>Total Infra Points</strong>, <strong>Injuries per 1000 Vehicles</strong> and <strong>Road Condition Accidents</strong> measures. I used these to build infrastructure-growth charts, comparisons with injury and death rates, distribution charts and a view of accidents linked to road conditions.</p>
+<p>I also wrote the infrastructure findings and recommendations for the group report. The charts showed infrastructure growth alongside lower death rates, with injuries declining more slowly. Those patterns were useful for discussion, but they did not prove that infrastructure alone caused the improvements. My contribution focused on this theme, rather than the other members’ analyses of driver behaviour, vehicle types or policy.</p><section class="andrea-feature "><h2>Analysis and charts</h2><ul><li>The reported road traffic death rate fell from <strong>4.7 in 2006 to 2.2 in 2016</strong>, while infrastructure counts increased.</li><li>The injury-rate measure fell more slowly, from <strong>12.2 in 2008 to 10.3 in 2016</strong>.</li><li>Reported road-condition accidents fell from 16 in 2013 to <strong>five or fewer per year</strong> from 2016 onward in the data reviewed.</li><li>Traffic lights made up <strong>about 84%</strong> of the infrastructure counted in 2017.</li></ul><div class="project-photo-grid"><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/road-death-comparison.webp" data-alt="Infrastructure count and road traffic death rate chart" aria-label="Enlarge Infrastructure count and road traffic death rate chart"><img src="assets/road-death-comparison.webp" alt="Infrastructure count and road traffic death rate chart" loading="lazy"></button><figcaption>Infrastructure count compared with the death-rate measure.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/road-injury-comparison.webp" data-alt="Infrastructure count and injury rate chart" aria-label="Enlarge Infrastructure count and injury rate chart"><img src="assets/road-injury-comparison.webp" alt="Infrastructure count and injury rate chart" loading="lazy"></button><figcaption>Infrastructure count compared with the injury-rate measure.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/road-condition-accidents.webp" data-alt="Road-condition accidents from 2012 to 2024" aria-label="Enlarge Road-condition accidents from 2012 to 2024"><img src="assets/road-condition-accidents.webp" alt="Road-condition accidents from 2012 to 2024" loading="lazy"></button><figcaption>Reported accidents attributed to road conditions.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/road-facilities-share.webp" data-alt="Distribution of counted infrastructure in 2017" aria-label="Enlarge Distribution of counted infrastructure in 2017"><img src="assets/road-facilities-share.webp" alt="Distribution of counted infrastructure in 2017" loading="lazy"></button><figcaption>Traffic lights were the largest category in the 2017 count.</figcaption></figure></div></section><div class="andrea-detail-list"><section class="andrea-detail-section" data-detail-section="1"><span class="andrea-section-number">01</span><div><h2>The problem</h2><p>Our group was analysing road safety in Singapore. My part was to examine whether growth in infrastructure, including traffic lights, ERP gantries, flyovers, bridges and underpasses, lined up with changes in safety measures.</p></div></section><section class="andrea-detail-section" data-detail-section="2"><span class="andrea-section-number">02</span><div><h2>The solution</h2><p>We cleaned the datasets with <strong>Python and Pandas</strong>. I linked the relevant tables in <strong>Power BI</strong> and compared infrastructure counts with accident, injury and death-rate trends.</p></div></section><section class="andrea-detail-section" data-detail-section="3"><span class="andrea-section-number">03</span><div><h2>What I worked on</h2><ul><li>Connected the processed traffic facilities, vehicular facilities, death-rate, accident-cause, casualty and vehicle-population tables in <strong>Power BI</strong>.</li><li>Created <strong>Total Infra Points</strong>, combining traffic lights, ERP gantries, flyovers, vehicular bridges, underpasses and tunnels.</li><li>Created the <strong>Injuries per 1000 Vehicles</strong> and <strong>Road Condition Accidents</strong> measures.</li><li>Built the infrastructure-growth chart, injury and death-rate comparisons, infrastructure-distribution charts and road-condition accident chart.</li><li>Wrote up the <strong>Theme 4 findings and recommendations</strong> for the group report.</li></ul></div></section><section class="andrea-detail-section" data-detail-section="4"><span class="andrea-section-number">04</span><div><h2>Technologies</h2><div class="andrea-tech"><span>Python</span><span>Pandas</span><span>Power BI</span><span>DAX</span><span>data.gov.sg</span></div></div></section><section class="andrea-detail-section" data-detail-section="5"><span class="andrea-section-number">05</span><div><h2>Outcome</h2><p>The charts showed infrastructure growth alongside a fall in the reported road traffic death rate from <strong>4.7 in 2006 to 2.2 in 2016</strong>. Injury rates fell more slowly.</p><p>These charts show trends over the same period. They <strong>do not prove</strong> that adding infrastructure caused the fall in deaths or injuries.</p><ul><li>The datasets cover different periods, so not every series can be compared over the same years.</li><li>Driver behaviour and other changes could also affect accident rates.</li><li>Counting facilities does not tell us their condition, location or individual effect on safety.</li></ul><p>If I continued this work, I would look more closely at specific crossings and traffic lights rather than relying on the total number of facilities.</p><p class="project-tools">Tools: Python, Pandas, Power BI and DAX. Data source: data.gov.sg. My focus was infrastructure effectiveness, Theme 4 of the group project.</p></div></section></div></div>
+
+
 `
 };
 function initCaseInteractives(){
@@ -934,15 +868,23 @@ function initCaseInteractives(){
   if(!lightbox)return;
   // External Wix drawings remain original. If unavailable offline, show a local
   // concept-art preview and keep the link to the real sketches on Wix.
-  detail.querySelectorAll('.tri-original-sketch-sheet img,.tri-process-drawings img').forEach(img=>{
+  detail.querySelectorAll('.tri-original-sketch-sheet img,.tri-process-drawings img,.project-idea-sketch').forEach(img=>{
     img.addEventListener('error',()=>{
       img.src='assets/tri-wheelchair-concept.jpg';
       img.alt='Original TRI-STAR digital concept-art preview. Open the link to see the hand-drawn sketches on Wix.';
       img.classList.add('tri-drawing-fallback');
     },{once:true});
   });
+  detail.querySelectorAll('[data-architecture]').forEach(panel=>{
+    const steps=[...panel.querySelectorAll('[data-architecture-step]')];
+    steps.forEach(step=>step.addEventListener('click',()=>{
+      steps.forEach(button=>button.setAttribute('aria-pressed',String(button===step)));
+      panel.querySelector('[data-step-title]').textContent=step.dataset.stepName;
+      panel.querySelector('[data-step-copy]').textContent=step.dataset.stepDescription;
+    }));
+  });
   const wheelToggle=detail.querySelector('[data-tri-toggle]');
-  if(wheelToggle){wheelToggle.addEventListener('click',()=>{const stage=detail.querySelector('.tri-mechanism');const paused=stage.classList.toggle('tri-is-paused');wheelToggle.setAttribute('aria-pressed',String(!paused));wheelToggle.setAttribute('aria-label',paused?'Play wheel animation':'Pause wheel animation');wheelToggle.querySelector('span').textContent=paused?'Play animation':'Pause animation';wheelToggle.querySelector('iconify-icon')?.setAttribute('icon',paused?'lucide:play':'lucide:pause');});}
+  if(wheelToggle){wheelToggle.addEventListener('click',()=>{const stage=detail.querySelector('.tri-mechanism,.project-mechanism');const paused=stage.classList.toggle('tri-is-paused');wheelToggle.setAttribute('aria-pressed',String(!paused));wheelToggle.setAttribute('aria-label',paused?'Play wheel animation':'Pause wheel animation');wheelToggle.querySelector('span').textContent=paused?'Play animation':'Pause animation';wheelToggle.querySelector('iconify-icon')?.setAttribute('icon',paused?'lucide:play':'lucide:pause');});}
   detail.querySelectorAll('.ed-image-open').forEach(button=>button.addEventListener('click',()=>{
     const image=lightbox.querySelector('img');image.src=button.dataset.photo;image.alt=button.dataset.alt||'';
     lightbox.showModal();
@@ -989,18 +931,18 @@ function initCaseMotion(){
 function makeDetail(p){
  const next=projectData[(projectData.indexOf(p)+1)%projectData.length];
  const headline={
-  'data-engineering':'Data Engineering Project',
+  'data-engineering':'NESSO Safety Monitoring System',
   'engineering-exploration':'Engineering Exploration Project',
   'iot-sustainable-living':'IoT System for Sustainable Household Living',
-  'cloud-computing':'Cloud Computing Development Project',
+  'cloud-computing':'AWS Music Store Web Application',
   'road-safety':'Road Safety & Infrastructure Analysis'
  }[p.slug];
  const subtitle={
-  'data-engineering':'A wearable sensor system that identifies possible falls, slips and near-misses on construction sites.',
-  'engineering-exploration':'TRI-STAR: a motorised wheel concept designed to help wheelchair users overcome curbs.',
-  'iot-sustainable-living':'For this school project, we built a small smart-home setup to manage temperature, lights, plant care and doorstep alerts.',
+  'data-engineering':'A group project using NESSO wearables, Python, MySQL and Power BI to track movement and flag possible safety incidents.',
+  'engineering-exploration':'Our team’s small-scale test of a motorised tri-star wheel attachment for climbing curbs.',
+  'iot-sustainable-living':'A school prototype for temperature control, lighting, soil moisture and doorway alerts.',
   'cloud-computing':'I built a music-store website on AWS and connected the servers, database and storage behind it.',
-  'road-safety':'I used real Singapore road data to explore how infrastructure growth lines up with accident, injury and death trends.'
+  'road-safety':'My infrastructure analysis for a group project using Singapore road-safety data.'
  }[p.slug];
  const category={
   'data-engineering':'DATA ENGINEERING',
@@ -1009,31 +951,31 @@ function makeDetail(p){
   'cloud-computing':'CLOUD COMPUTING',
   'road-safety':'DATA ANALYSIS'
  }[p.slug];
- const imageAlt={
-  'data-engineering':'Original Data Engineering sensor project photo',
-  'engineering-exploration':'Original wheelchair tri-star wheel design sketch',
-  'iot-sustainable-living':'Original IoT system hardware and sensors on a workbench',
-  'cloud-computing':'Music-store product catalogue from the AWS cloud computing project',
-  'road-safety':'Original road infrastructure growth chart from my road safety project'
+ const titleImage={
+  'data-engineering':{src:'assets/nesso-dashboard-overview.png',width:1060,height:593,alt:'Power BI dashboard from our NESSO worker safety project'},
+  'engineering-exploration':{src:'assets/project-engineering.jpg',width:1072,height:885,alt:'Our tri-star wheelchair concept design'},
+  'iot-sustainable-living':{src:'assets/iot-hardware-workbench.webp',width:1600,height:940,alt:'Our household sensor prototype with Arduino and Raspberry Pi'},
+  'cloud-computing':{src:'assets/cloud-storefront-1.webp',width:1435,height:849,alt:'Music-store product catalogue from my AWS project'},
+  'road-safety':{src:'assets/road-infrastructure-growth.webp',width:1050,height:455,alt:'Power BI chart of Singapore road infrastructure growth'}
  }[p.slug];
- const isRoadSafety=p.slug==='road-safety';
- const heroImage=isRoadSafety?'assets/road-infrastructure-growth.webp':p.image;
- return `<div class="frame detail-shell case-shell editorial-case editorial-case--${p.slug}" data-project-slug="${p.slug}">
-    <header class="ed-project-hero ed-project-hero--split" aria-labelledby="case-page-heading">
+ const article=(caseStudyContent[p.slug]||'').replace(/(<div class="project-notes">\s*)((?:<p>[\s\S]*?<\/p>\s*)+)/,(_match,opening,overview)=>`${opening}<div class="project-summary"><div class="project-summary-copy"><h2>Project overview</h2>${overview}</div></div>`);
+ return `<div class="frame detail-shell case-shell editorial-case project-notes-page andrea-method editorial-case--${p.slug}" data-project-slug="${p.slug}">
+    <header class="ed-project-hero ed-project-hero--split project-page-header" aria-labelledby="case-page-heading">
       <div class="ed-new-hero-copy">
-        <span class="ed-new-hero-label">${category}</span>
-        <h1 id="case-page-heading" data-text="${headline}">${headline}</h1>
+        <span class="project-category">${p.number||String(projectData.indexOf(p)+1).padStart(2,'0')} / ${category}</span>
+        <h1 id="case-page-heading">${headline}</h1>
         <p>${subtitle}</p>
       </div>
-      <figure class="ed-new-hero-visual ed-media-card">
-        <button class="ed-image-open ed-new-hero-open" type="button" data-photo="${heroImage}" data-alt="${imageAlt}" aria-label="Expand the original ${p.name} image">
-          <img src="${heroImage}" alt="${imageAlt}" data-detail-cover loading="eager" fetchpriority="high">
+      <figure class="project-title-image">
+        <button class="ed-image-open project-title-image-open" type="button" data-photo="${titleImage.src}" data-alt="${titleImage.alt}" aria-label="Expand the original ${p.name} image">
+          <img class="project-title-image-file" src="${titleImage.src}" alt="${titleImage.alt}" width="${titleImage.width}" height="${titleImage.height}" data-detail-cover loading="eager" decoding="async" fetchpriority="high">
         </button>
       </figure>
     </header>
-    ${caseStudyContent[p.slug]||''}
+    ${article}
     <section class="ed-more-projects" aria-label="Continue to the next project">
       <span class="ed-more-kicker">Finished reading?</span>
+      
       <a id="detail-next" href="#project-${next.slug}" class="ed-more-link" aria-label="Next project: ${next.name}">
         <span class="ed-more-next-label">Up next</span>
         <strong>${next.name}</strong>
@@ -1065,10 +1007,10 @@ const previewTrack=document.getElementById('nav-preview-track');
 const previewImageLayers=[document.getElementById('nav-preview-image'),document.getElementById('nav-preview-next-image')];
 const previewCaptionLayers=[document.getElementById('nav-caption-first'),document.getElementById('nav-caption-second')];
 const previewData=[
-  {href:'#project-data-engineering',image:'assets/project-data.jpg',title:'Data Engineering Project',summary:'Wearable sensors · Worker safety'},
+  {href:'#project-data-engineering',image:'assets/project-data.jpg',title:'NESSO Safety Monitoring System',summary:'Wearable sensors · Worker safety'},
   {href:'#project-engineering-exploration',image:'assets/project-engineering.jpg',title:'Engineering Exploration Project',summary:'Tri-star wheels · Easier curb climbing'},
   {href:'#project-iot-sustainable-living',image:'assets/iot-hardware-workbench.webp',title:'IoT System for Sustainable Household Living',summary:'Connected sensors · Smarter home'},
-  {href:'#project-cloud-computing',image:'assets/cloud-storefront-1.webp',title:'Cloud Computing Development Project',summary:'AWS cloud · Online music store'},
+  {href:'#project-cloud-computing',image:'assets/cloud-storefront-1.webp',title:'AWS Music Store Web Application',summary:'AWS cloud · Online music store'},
   {href:'#project-road-safety',image:'assets/road-safety-cover.webp',title:'Road Safety & Infrastructure Analysis',summary:'Road infrastructure · Power BI analysis'}
 ];
 const previewMotion=matchMedia('(prefers-reduced-motion: reduce)');
@@ -1193,7 +1135,7 @@ window.addEventListener('resize',()=>{if(innerWidth<=900)setPreviewOpen(false);}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPreviewCycle();else startPreviewCycle();});
 
 // The homepage introduction is always visible; no click-to-expand controls.
-const roles=['AI & Data|Engineering Student','Internet of Things|Enthusiast','Background in|Electronics'];let roleIndex=0;const role=document.getElementById('rotating-role');function putRole(text){role.replaceChildren();text.split('|').forEach((line,n)=>{if(n)role.append(document.createElement('br'));line.split(' ').forEach((word,j)=>{if(j)role.append(document.createTextNode(' '));const group=document.createElement('span');group.className='role-word';for(const char of word){const span=document.createElement('span');span.className='role-character';span.textContent=char;group.append(span);}role.append(group);});});}putRole(roles[0]);setInterval(async()=>{if(motion.matches||document.hidden||isDetail||activeSection!=='home')return;const chars=[...role.querySelectorAll('.role-character')];await Promise.all(chars.map((c,i)=>c.animate([{opacity:1,transform:'translateY(0)',filter:'blur(0)'},{opacity:0,transform:'translateY(-10px)',filter:'blur(4px)'}],{duration:220,delay:i*3,fill:'forwards'}).finished));roleIndex=(roleIndex+1)%roles.length;putRole(roles[roleIndex]);role.querySelectorAll('.role-character').forEach((c,i)=>c.animate([{opacity:0,transform:'translateY(14px)',filter:'blur(5px)'},{opacity:1,transform:'translateY(0)',filter:'blur(0)'}],{duration:550,delay:i*12,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'}));},5200);
+const roles=['AI & Data|Engineering Student','Internet of Things|Enthusiast','Background in|Electronics'];let roleIndex=0;const role=document.getElementById('rotating-role');function putRole(text){role.replaceChildren();text.split('|').forEach((line,n)=>{if(n)role.append(document.createElement('br'));line.split(' ').forEach((word,j)=>{if(j)role.append(document.createTextNode(' '));const group=document.createElement('span');group.className='role-word';for(const char of word){const span=document.createElement('span');span.className='role-character';span.textContent=char;group.append(span);}role.append(group);});});}putRole(roles[0]);setInterval(async()=>{if(motion.matches||document.hidden||isDetail||activeSection!=='home')return;const chars=[...role.querySelectorAll('.role-character')];await Promise.all(chars.map((c,i)=>c.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-10px)'}],{duration:220,delay:i*3,fill:'forwards'}).finished));roleIndex=(roleIndex+1)%roles.length;putRole(roles[roleIndex]);role.querySelectorAll('.role-character').forEach((c,i)=>c.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'translateY(0)'}],{duration:550,delay:i*12,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'}));},5200);
 
 
 
@@ -1234,7 +1176,7 @@ function addChatLine(who,message,link,reaction=false){
   const row=document.createElement('div');
   row.className='chat-line chat-line--'+who;
   if(who==='bot'){
-    const avatar=document.createElement('span');avatar.className='chat-message-avatar';avatar.setAttribute('aria-hidden','true');const avatarImg=document.createElement('img');avatarImg.src='assets/chat-smiley.png';avatarImg.alt='';avatar.append(avatarImg);row.append(avatar);
+    const avatar=document.createElement('span');avatar.className='chat-message-avatar';avatar.setAttribute('aria-hidden','true');avatar.textContent='K';row.append(avatar);
   }
   const bubble=document.createElement('div');bubble.className='chat-bubble';
   if(reaction){
@@ -1272,11 +1214,11 @@ function portfolioReply(raw){
   const redir=offTopicResponse(q);
   if(redir)return redir;
   if(/\b(are you (a|an) (ai|bot)|are you real|are you human|(?:r u|are u|u r|u a|you are).{0,22}\b(?:ai|bot|human|real)|chatgpt|ai chatbot|who are you|who r u|karthikgpt)\b/.test(q))return {message:'I’m the prewritten portfolio version of Karthik, not a live AI or a real-time conversation with him. I answer in his voice using information from the site.'};
-  if(/\b(hi|hey|hello|sup|yo|good morning|good evening)\b/.test(q)&&q.split(/\s+/).length<5)return {message:'Hey! I’m Karthik — well, my little prewritten portfolio assistant. Want to see my projects, skills, internship or achievements?'};
+  if(/\b(hi|hey|hello|sup|yo|good morning|good evening)\b/.test(q)&&q.split(/\s+/).length<5)return {message:'Hey! I’m Karthik, well, my little prewritten portfolio assistant. Want to see my projects, skills, internship or achievements?'};
   if(/\b(thanks|thank you|tysm|thx)\b/.test(q))return {message:'You’re welcome! Want to explore another part of my portfolio?'};
   if(/\b(contact|email|reach|message|linkedin|hire|connect|collab|talk to|social)\b/.test(q))return {message:`You can contact me at ${portfolioMail}, or connect with me on LinkedIn.`,link:{label:'Contact me',href:'#contact'}};
   if(/\b(resume|cv|curriculum vitae|download pdf|download (it|file))\b/.test(q))return {message:'You can view or download my resume. It includes my education, achievements, technical skills and internship experience.',link:{label:'Open my resume (PDF)',href:'assets/karthik-resume.pdf'}};
-  if(/\b(intern|internship|iwow|work experience|worked at|job|600|300|1200|lora|modbus|meter|esso)\b/.test(q))return {message:'I interned at iWOW Connections from April to August 2024. I configured 4G modems, IoT sensors and Modbus RTU devices, helped monitor meters over LoRa networks, and supported signal testing and documentation.',link:{label:'See my experience',href:'#about'}};
+  if(/\b(intern|internship|iwow|work experience|worked at|job|600|300|1200|lora|modbus|meter|esso)\b/.test(q))return {message:'I interned at iWOW Connections from April to August 2024. I configured 4G modems, IoT sensors and Modbus RTU devices, helped monitor meters over LoRa networks, and supported signal testing and documentation.',link:{label:'See my experience',href:'internship.html'}};
   if(/\b(awards?|prizes?|merit|director.s list|achievements?|honou?rs?|sinda|recognition|aeis)\b/.test(q))return {message:'My achievements include the Director’s List at NYP, two Director’s List awards at ITE, the ITE Certificate of Merit, the SINDA Excellence Awards 2025 and the AEIS Book Prize from ITE.',link:{label:'My achievements',href:'#about'}};
   if(/\b(tri[- ]?star|wheelchair|curb|engineering exploration|mobility|wheel attachment)\b/.test(q))return {message:'For my Engineering Exploration Project, my team explored a motorised tri-star wheel attachment to help wheelchair users overcome curbs. I worked on the switch, Arduino Uno and DC motor circuit, and took part in brainstorming and testing. We tested the concept with a small-scale prototype.',link:{label:'My engineering project',href:'#project-engineering-exploration'}};
   if(/\b(road safety|road accident|road infrastructure|traffic accidents?|traffic lights|fatalities|death rate|injury rate|road condition)\b/.test(q))return {message:'For my Road Safety & Infrastructure Analysis project, I used Singapore road data and Power BI to compare infrastructure growth with accident, injury and death trends. I focused on the infrastructure theme for our group.',link:{label:'My road safety project',href:'#project-road-safety'}};
@@ -1310,66 +1252,6 @@ document.getElementById('chat-reset').addEventListener('click',()=>{
 });
 updateComposer();
 
-
-// Direct AJAX form delivery for the static portfolio. FormSubmit requires a one-time
-// activation email to the owner's inbox before it starts forwarding submissions.
-const portfolioContactForm=document.getElementById('portfolio-contact-form');
-const contactFormStatus=document.getElementById('contact-form-status');
-let contactSending=false;
-portfolioContactForm?.addEventListener('submit',async event=>{
-  event.preventDefault();
-  if(contactSending || !portfolioContactForm.reportValidity()) return;
-  const values=new FormData(portfolioContactForm);
-  const name=String(values.get('name')||'').trim();
-  const sender=String(values.get('email')||'').trim();
-  const subject=String(values.get('subject')||'').trim();
-  const message=String(values.get('message')||'').trim();
-  if(!name||!sender||!subject||!message)return;
-  const shell=portfolioContactForm.closest('.contact-form-shell');
-  const button=portfolioContactForm.querySelector('.contact-submit');
-  const buttonContents=button.innerHTML;
-  const payload={name,email:sender,subject,message,_replyto:sender,
-    _subject:'Portfolio contact: '+subject,_template:'table',_captcha:'false',
-    _honey:String(values.get('_honey')||'')};
-  contactSending=true;
-  button.disabled=true;
-  button.textContent='Sending…';
-  contactFormStatus.classList.remove('is-error','is-success');
-  contactFormStatus.textContent='Sending your message securely…';
-  shell?.classList.remove('is-launching');
-  try {
-    const response=await fetch(portfolioContactForm.action,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify(payload),
-    });
-    const result=await response.json();
-    // The service may return HTTP 200 with success: "false": do not coerce strings.
-    if(!response.ok || !(result?.success===true || result?.success==='true')) {
-      const details=typeof result?.message==='string' ? result.message : '';
-      if(/activat|confirm|verif/i.test(details)) {
-        throw new Error('The contact form is awaiting one-time email verification. Please try again once it has been activated.');
-      }
-      throw new Error('The message could not be submitted. Please try again shortly.');
-    }
-    portfolioContactForm.reset();
-    contactFormStatus.classList.add('is-success');
-    contactFormStatus.textContent='Message submitted! Thank you for reaching out.';
-    // Only launch after the sending service confirms the submission was accepted.
-    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      void shell?.offsetWidth;
-      shell?.classList.add('is-launching');
-      window.setTimeout(()=>shell?.classList.remove('is-launching'),2150);
-    }
-  } catch(error) {
-    contactFormStatus.classList.add('is-error');
-    contactFormStatus.textContent=(error instanceof Error)?error.message:'Network error. Please check your connection and try again.';
-  } finally {
-    contactSending=false;
-    button.disabled=false;
-    button.innerHTML=buttonContents;
-  }
-});
 
 document.getElementById('copy-email').addEventListener('click',async()=>{const status=document.getElementById('copy-status');try{await navigator.clipboard.writeText('alagu.karthik17@gmail.com');status.textContent='Email address copied.';}catch{status.textContent='You can select the email address above or click it to open your email app.';}});
 
@@ -1483,7 +1365,7 @@ const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');le
   reducedMotion.addEventListener('change', syncAnimation);
 })();
 
-/* Internship and achievements details are planned, but not separate pages yet. */
+/* Achievements details remain available as a coming-soon notice. */
 (()=>{
   const notice=document.getElementById('coming-soon-notice');
   if(!notice)return;

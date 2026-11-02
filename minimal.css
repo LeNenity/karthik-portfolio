@@ -1,0 +1,58 @@
+/* Solid surfaces and simple borders, without glass or lighting effects. */
+:root,
+:root[data-theme="light"],
+:root[data-theme="dark"]{--glass:var(--bg);--rail-glass:var(--bg);}
+*,*::before,*::after{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  background-image:none!important;
+}
+.glass,
+.sidebar-shell,
+.nav-preview,
+.ap-back-fixed,
+.rail-name,
+.chat-hover-label{background:var(--bg)!important;border-color:var(--line)!important;}
+.glass{border:1px solid var(--line);}
+.chat-panel{background:var(--chat-bg,var(--bg))!important;}
+.chat-reaction{background:var(--chat-surface,#25221e)!important;}
+.question-form,
+.resume-preview-link{background:var(--surface)!important;}
+.project-globe-label--project{background:#111!important;}
+.project-globe-label--project:hover,
+.project-globe-label--project:focus-visible{background:#252525!important;}
+.case-hero-art figcaption,
+.editorial-case .ed-media figcaption{background:#211c18!important;}
+.season-overlay,
+.season-backdrop,
+.tile-orbit-trace{display:none!important;}
+.hero::before,
+.hero::after,
+.about-tile::before,
+.about-tile::after,
+.nav-item::before,
+.theme-toggle::before,
+.contact-pill::before,
+.hero-actions .pill-link::before,
+.hero-actions .pill-link::after,
+.sidebar-link::before,
+.sidebar-theme::before,
+.sidebar-cta::before,
+.editorial-case .ed-more-projects::before,
+.editorial-case h1::after,
+.contact-headline::after{content:none!important;animation:none!important;}
+.portrait-frame{transform:none!important;}
+.role-character,
+.scroll-reveal,
+.case-reveal{filter:none!important;}
+.nav-item:hover,
+.theme-toggle:hover,
+.contact-pill:hover,
+.pill-link:hover,
+.menu-toggle:hover,
+.about-tile:hover,
+.coming-soon-tile:hover{transform:none!important;}
+.contact-pill:hover .disc iconify-icon{transform:none!important;}
+.section-rail[hidden]{display:none!important;}
