@@ -136,13 +136,15 @@ motion.addEventListener('change',startWeatherCycle);
 
 
 const projectData=[
-  {slug:'data-engineering',category:'Data engineering',title:'NESSO Safety Monitoring System',name:'NESSO Safety Monitoring System',image:'assets/project-data.jpg',summary:'We used four NESSO devices to collect movement readings and flag possible safety incidents.',mapPosition:[24,55],topics:['sensors','ble','python','mysql','powerbi']},
-  {slug:'engineering-exploration',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'Our small-scale tri-star wheel prototype, with an Arduino-controlled motor circuit.',mapPosition:[58,42],topics:['mechanical','arduino','prototype']},
-  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Household Living',name:'IoT System for Sustainable Household Living',image:'assets/iot-hardware-workbench.webp',summary:'Four sensor functions for ventilation, lighting, soil moisture and doorway alerts.',mapPosition:[77,61],topics:['sensors','arduino']},
-  {slug:'cloud-computing',category:'Cloud Computing',title:'AWS Music Store Web Application',name:'AWS Music Store Web Application',image:'assets/cloud-storefront-1.webp',summary:'A nine-instrument catalogue on AWS, with MySQL product data and S3 images.',mapPosition:[77,-43],topics:['aws','ec2','rds','monitoring']},
-  {slug:'road-safety',number:'06',category:'Data & analytics',title:'Road Safety & Infrastructure Analysis',name:'Road Safety & Infrastructure Analysis',image:'assets/road-safety-cover.webp',summary:'My Power BI analysis of Singapore road infrastructure, accidents, injuries and deaths.',mapPosition:[-58,18],topics:['powerbi']}
+  {slug:'machine-learning',number:'06',pinned:true,category:'Machine learning',title:'Machine Learning Project',name:'Machine Learning Project',image:'assets/ml-model-comparison.png',summary:'I compared Decision Tree and AdaBoost models using Parkinson’s voice measurements.',mapPosition:[42,34],topics:['python','scikitlearn']},
+  {slug:'data-engineering',number:'01',category:'Data engineering',title:'NESSO Safety Monitoring System',name:'NESSO Safety Monitoring System',image:'assets/project-data.jpg',summary:'We used four NESSO devices to collect movement readings and flag possible safety incidents.',mapPosition:[24,55],topics:['sensors','ble','python','mysql','powerbi']},
+  {slug:'engineering-exploration',number:'02',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'Our small-scale tri-star wheel prototype, with an Arduino-controlled motor circuit.',mapPosition:[58,42],topics:['mechanical','arduino','prototype']},
+  {slug:'iot-sustainable-living',number:'03',category:'Internet of Things',title:'IoT System for Sustainable Household Living',name:'IoT System for Sustainable Household Living',image:'assets/iot-hardware-workbench.webp',summary:'Four sensor functions for ventilation, lighting, soil moisture and doorway alerts.',mapPosition:[77,61],topics:['sensors','arduino']},
+  {slug:'cloud-computing',number:'04',category:'Cloud Computing',title:'AWS Music Store Web Application',name:'AWS Music Store Web Application',image:'assets/cloud-storefront-1.webp',summary:'A nine-instrument catalogue on AWS, with MySQL product data and S3 images.',mapPosition:[77,-43],topics:['aws','ec2','rds','monitoring']},
+  {slug:'road-safety',number:'05',category:'Data & analytics',title:'Road Safety & Infrastructure Analysis',name:'Road Safety & Infrastructure Analysis',image:'assets/road-safety-cover.webp',summary:'My Power BI analysis of Singapore road infrastructure, accidents, injuries and deaths.',mapPosition:[-58,18],topics:['powerbi']}
 ];
 const projectMapTopics=[
+  {id:'scikitlearn',label:'Scikit-learn',coords:[22,-15]},
   {id:'python',label:'Python',coords:[5,-30]},
   {id:'mysql',label:'MySQL',coords:[-39,-48]},
   {id:'powerbi',label:'Power BI',coords:[-8,8]},
@@ -165,6 +167,7 @@ if(mapStage && mapCanvas && mapNodes){
   const rad=Math.PI/180;
   const sph=(lat,lon)=>({x:Math.cos(lat*rad)*Math.sin(lon*rad),y:-Math.sin(lat*rad),z:Math.cos(lat*rad)*Math.cos(lon*rad)});
   const geo={
+    'machine-learning':[28,-9],
     'data-engineering':[-14,-39],
     'engineering-exploration':[52,-5],
     'iot-sustainable-living':[-7,62],
@@ -199,9 +202,12 @@ if(mapStage && mapCanvas && mapNodes){
   let width=0,height=0,radius=0,cx=0,cy=0,dpr=1;
   let yaw=-.08,pitch=-.04,velocity=.0022,pitchVelocity=0;
   let hovering=false,overLabel=false,dragging=false,moved=false,gesture=null;
-  let targetPitch=-.04;
   let pointerX=0,pointerY=0,visible=true,frameId=0,lastTime=0;
   const calm=()=>motion.matches;
+  function turn(horizontal,vertical){
+    yaw=(yaw+horizontal)%(Math.PI*2);
+    pitch=(pitch+vertical)%(Math.PI*2);
+  }
   const norm=(p)=>{
     const ya=yaw,pi=pitch;
     const x=p.x*Math.cos(ya)+p.z*Math.sin(ya);
@@ -295,17 +301,15 @@ if(mapStage && mapCanvas && mapNodes){
     const dt=Math.min(2.5,Math.max(.1,(time-lastTime)/16.667||1));lastTime=time;
     if(!dragging){
       let target=.0022;
-      if(hovering&&!overLabel)target=((pointerX/width)-.5)*.021;
-      if(overLabel)target=0;
-      velocity+=(target-velocity)*.034*dt;
-      yaw+=velocity*dt;
+      let verticalTarget=0;
       if(hovering&&!overLabel){
-        targetPitch=Math.max(-.55,Math.min(.55,(.5-pointerY/height)*.52));
-        pitch+=(targetPitch-pitch)*.014*dt;
+        target=((pointerX/width)-.5)*.021;
+        verticalTarget=(.5-pointerY/height)*.021;
       }
-      pitch+=pitchVelocity*dt;
-      pitchVelocity*=Math.pow(.92,dt);
-      pitch=Math.max(-.95,Math.min(.95,pitch));
+      if(overLabel){target=0;verticalTarget=0;}
+      velocity+=(target-velocity)*.034*dt;
+      pitchVelocity+=(verticalTarget-pitchVelocity)*.034*dt;
+      turn(velocity*dt,pitchVelocity*dt);
     }
     draw();
     if(!calm())frameId=requestAnimationFrame(animate);
@@ -313,7 +317,7 @@ if(mapStage && mapCanvas && mapNodes){
   function restart(){if(!frameId&&!calm()&&visible&&!document.hidden){lastTime=performance.now();frameId=requestAnimationFrame(animate);}else if(calm())draw();}
   function point(event){const r=mapStage.getBoundingClientRect();return {x:event.clientX-r.left,y:event.clientY-r.top};}
   mapStage.addEventListener('pointerenter',e=>{hovering=true;const p=point(e);pointerX=p.x;pointerY=p.y;restart();});
-  mapStage.addEventListener('pointerleave',()=>{hovering=false;overLabel=false;if(!dragging)velocity=.0022;});
+  mapStage.addEventListener('pointerleave',()=>{hovering=false;overLabel=false;});
   mapStage.addEventListener('pointerdown',e=>{
     if(e.button!==0||e.target.closest('a,button'))return;
     const p=point(e);gesture={x:p.x,y:p.y,lastX:p.x,lastY:p.y};
@@ -327,9 +331,9 @@ if(mapStage && mapCanvas && mapNodes){
     const dx=p.x-gesture.lastX,dy=p.y-gesture.lastY;
     gesture.lastX=p.x;gesture.lastY=p.y;
     if(Math.hypot(p.x-gesture.x,p.y-gesture.y)>5)moved=true;
-    yaw+=dx*.0083;pitch=Math.max(-.95,Math.min(.95,pitch+dy*.006));
+    turn(dx*.0083,-dy*.0083);
     velocity=Math.max(-.055,Math.min(.055,dx*.004));
-    pitchVelocity=Math.max(-.018,Math.min(.018,dy*.0018));
+    pitchVelocity=Math.max(-.055,Math.min(.055,-dy*.004));
     draw();restart();
   });
   const stopDrag=()=>{if(!dragging)return;dragging=false;gesture=null;mapStage.classList.remove('is-dragging');restart();};
@@ -339,16 +343,17 @@ if(mapStage && mapCanvas && mapNodes){
   mapStage.addEventListener('click',e=>{
     if(moved){e.preventDefault();e.stopPropagation();moved=false;}
   },true);
-  mapNodes.addEventListener('pointerover',e=>{if(e.target.closest('a')){overLabel=true;velocity=0;}});
+  mapNodes.addEventListener('pointerover',e=>{if(e.target.closest('a')){overLabel=true;velocity=0;pitchVelocity=0;}});
   mapNodes.addEventListener('pointerout',e=>{if(e.target.closest('a'))overLabel=false;});
   mapNodes.addEventListener('focusin',()=>{overLabel=true;});
   mapNodes.addEventListener('focusout',()=>{overLabel=false;});
   mapStage.addEventListener('keydown',e=>{
     if(e.target!==mapStage)return;
     if(e.key==='ArrowLeft'||e.key==='ArrowRight'||e.key==='ArrowUp'||e.key==='ArrowDown'){
-      e.preventDefault();yaw+=(e.key==='ArrowLeft'?.18:e.key==='ArrowRight'?-.18:0);
-      pitch+=e.key==='ArrowUp'?.12:e.key==='ArrowDown'?-.12:0;
-      pitch=Math.max(-.95,Math.min(.95,pitch));draw();restart();
+      e.preventDefault();
+      turn(e.key==='ArrowLeft'?-.18:e.key==='ArrowRight'?.18:0,
+        e.key==='ArrowUp'?.18:e.key==='ArrowDown'?-.18:0);
+      draw();restart();
     }
   });
   mapStage.tabIndex=0;
@@ -368,12 +373,14 @@ const galleryPreloads=projectData.map(project=>{const image=new Image();image.sr
 function makeProjectCard(project,index){
   const card=document.createElement('a');
   card.className='project-card';
+  card.dataset.pinned=String(!!project.pinned);
   card.href='#project-'+project.slug;
   card.setAttribute('aria-label','Open '+project.name);
   const cover=document.createElement('div');cover.className='project-cover';
   const image=document.createElement('img');image.src=project.image;image.alt=project.name;image.loading='eager';image.width=800;image.height=600;image.dataset.cover=project.slug;
   const imageCta=document.createElement('span');imageCta.className='project-image-cta';imageCta.setAttribute('aria-hidden','true');imageCta.textContent='View project ↗';
   cover.append(image,imageCta);
+  if(project.pinned){const badge=document.createElement('span');badge.className='project-card-pin';badge.textContent='Pinned';cover.append(badge);}
   const copy=document.createElement('div');copy.className='project-card-copy';
   const meta=document.createElement('div');meta.className='project-meta';
   const number=document.createElement('span');number.textContent=project.number||String(index+1).padStart(2,'0');
@@ -386,6 +393,8 @@ function makeProjectCard(project,index){
   return card;
 }
 const galleryCount=Math.min(3,projectData.length);
+const galleryPinnedCount=Math.min(galleryCount,projectData.filter(project=>project.pinned).length);
+const galleryRotatingProjects=projectData.filter(project=>!project.pinned);
 const galleryCards=Array.from({length:galleryCount},(_,i)=>makeProjectCard(projectData[i],i));
 projectRail.replaceChildren(...galleryCards);
 projectRail.setAttribute('aria-roledescription','rotating gallery');
@@ -405,17 +414,18 @@ function advanceGallery(direction=1){
   if(galleryBusy||projectData.length<=galleryCount)return;
   galleryBusy=true;
   const token=++galleryTransitionToken;
-  galleryIndex=(galleryIndex+direction+projectData.length)%projectData.length;
+  galleryIndex=(galleryIndex+direction+galleryRotatingProjects.length)%galleryRotatingProjects.length;
   let settled=0;
-  galleryCards.forEach((card,slot)=>{
-    const nextIndex=(galleryIndex+slot)%projectData.length;
-    const nextProject=projectData[nextIndex];
+  const changingCards=galleryCards.slice(galleryPinnedCount);
+  changingCards.forEach((card,slot)=>{
+    const nextProject=galleryRotatingProjects[(galleryIndex+slot)%galleryRotatingProjects.length];
+    const nextIndex=projectData.indexOf(nextProject);
     const cover=card.querySelector('.project-cover');
     const copy=card.querySelector('.project-card-copy');
     const delay=galleryMotion.matches?0:slot*90;
     setTimeout(()=>{
       if(token!==galleryTransitionToken)return;
-      if(galleryMotion.matches){setGalleryCardData(card,nextProject,nextIndex);settled++;if(settled===galleryCount)galleryBusy=false;return;}
+      if(galleryMotion.matches){setGalleryCardData(card,nextProject,nextIndex);settled++;if(settled===changingCards.length)galleryBusy=false;return;}
       card.classList.add('gallery-is-transitioning');
       copy.classList.add('gallery-copy-exit');
       const incoming=document.createElement('img');
@@ -438,7 +448,7 @@ function advanceGallery(direction=1){
         incoming.remove();
         card.classList.remove('gallery-is-transitioning');
         settled++;
-        if(settled===galleryCount)galleryBusy=false;
+        if(settled===changingCards.length)galleryBusy=false;
       },920);
     },delay);
   });
@@ -499,6 +509,14 @@ const sectionRail=document.querySelector('.section-rail');
 const homeRailHTML=sectionRail?.innerHTML||'';
 let detailRailTargets=[];
 const projectRailSections={
+  "machine-learning": [
+    ["Overview", ".project-summary"],
+    ["The problem", "[data-detail-section=\"1\"]"],
+    ["The solution", "[data-detail-section=\"2\"]"],
+    ["What I worked on", "[data-detail-section=\"3\"]"],
+    ["Technologies", "[data-detail-section=\"4\"]"],
+    ["Outcome", "[data-detail-section=\"5\"]"]
+  ],
   "data-engineering": [
     [
       "Overview",
@@ -702,6 +720,17 @@ function setActive(name){
 // Project-specific layouts use only the existing project descriptions and original photos.
 // Detail views are crops of the same photos, not additional project photographs.
 const caseStudyContent={
+  'machine-learning':`
+<div class="project-notes"><p>For my Machine Learning Project, I compared a <strong>Decision Tree and AdaBoost</strong> using voice measurements labelled by Parkinson’s status. The assignment dataset contained <strong>195 recordings and 25 columns</strong>. I removed the name and DCAT columns, leaving 22 numerical inputs and the status label.</p>
+<p>I used a <strong>stratified 80/20 split</strong>, with 156 records for training and 39 for testing. Missing numerical values were filled using medians calculated from the training set. I trained a baseline for each model, then used <strong>GridSearchCV with five-fold cross-validation</strong> to tune their settings.</p>
+<p>The tuned AdaBoost model scored <mark class="project-highlight">94.87% test accuracy</mark>, compared with 84.62% for the tuned Decision Tree. I also checked F1 scores, ROC-AUC and confusion matrices to understand the errors. The results below are the saved outputs from my notebook and describe this particular test split.</p><section class="andrea-feature ml-comparison" aria-labelledby="ml-comparison-title"><h2 id="ml-comparison-title">How the models compared</h2><p>All four runs used the same 39-record test set. Tuning improved AdaBoost’s test accuracy; the Decision Tree’s test accuracy stayed the same.</p>
+<div class="ml-table-scroll" role="region" aria-label="Model comparison results" tabindex="0"><table class="ml-results-table"><caption>Saved notebook results. F1 is for the Parkinson’s-labelled class.</caption><thead><tr><th scope="col">Model</th><th scope="col">Training accuracy</th><th scope="col">Test accuracy</th><th scope="col">Test F1</th></tr></thead><tbody>
+<tr><th scope="row">Original Decision Tree</th><td>100.00%</td><td>84.62%</td><td>0.90</td></tr>
+<tr><th scope="row">Tuned Decision Tree</th><td>98.08%</td><td>84.62%</td><td>0.90</td></tr>
+<tr><th scope="row">Original AdaBoost</th><td>100.00%</td><td>79.49%</td><td>0.86</td></tr>
+<tr class="ml-best-result"><th scope="row">Tuned AdaBoost</th><td>100.00%</td><td><strong>94.87%</strong></td><td><strong>0.97</strong></td></tr>
+</tbody></table></div></section><section class="andrea-feature"><h2>From the notebook</h2><p>Select a chart to view the original output.</p><div class="project-photo-grid"><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/ml-class-distribution.png" data-alt="Class distribution of the assignment dataset" aria-label="Enlarge Class distribution of the assignment dataset"><img src="assets/ml-class-distribution.png" alt="Class distribution of the assignment dataset" loading="lazy"></button><figcaption>The dataset had more Parkinson’s-labelled recordings, which is why I also checked class-specific scores.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/ml-decision-tree.png" data-alt="Tuned Decision Tree structure" aria-label="Enlarge Tuned Decision Tree structure"><img src="assets/ml-decision-tree.png" alt="Tuned Decision Tree structure" loading="lazy"></button><figcaption>The tuned tree used a maximum depth of four. Open the image to inspect its decisions.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/ml-adaboost-confusion.png" data-alt="Confusion matrix for tuned AdaBoost" aria-label="Enlarge Confusion matrix for tuned AdaBoost"><img src="assets/ml-adaboost-confusion.png" alt="Confusion matrix for tuned AdaBoost" loading="lazy"></button><figcaption>AdaBoost correctly classified 37 of 39 test records, with one error in each class.</figcaption></figure><figure class="project-photo"><button class="ed-image-open" type="button" data-photo="assets/ml-adaboost-roc.png" data-alt="ROC curve for tuned AdaBoost" aria-label="Enlarge ROC curve for tuned AdaBoost"><img src="assets/ml-adaboost-roc.png" alt="ROC curve for tuned AdaBoost" loading="lazy"></button><figcaption>The tuned AdaBoost model recorded a test ROC-AUC of 0.9828.</figcaption></figure></div></section><div class="andrea-detail-list"><section class="andrea-detail-section" data-detail-section="1"><span class="andrea-section-number">01</span><div><h2>The problem</h2><p>I wanted to compare how a single tree and an ensemble handled the same voice measurements. The dataset was small and the classes were uneven, so I needed to check <strong>overfitting and class-level errors</strong> alongside accuracy.</p></div></section><section class="andrea-detail-section" data-detail-section="2"><span class="andrea-section-number">02</span><div><h2>The solution</h2><p>I built both models in <strong>Scikit-learn</strong>, kept the test split fixed and tuned each model using training data. I compared their accuracy, F1 scores and ROC-AUC, then used confusion matrices to count the mistakes.</p></div></section><section class="andrea-detail-section" data-detail-section="3"><span class="andrea-section-number">03</span><div><h2>What I worked on</h2><ul><li>Checked the dataset’s shape, types, missing values, duplicate rows and class distribution with <strong>Pandas</strong>.</li><li>Separated the target from the <strong>22 numerical features</strong> and created a stratified train/test split with random state 42.</li><li>Filled missing values in both splits using <strong>training-set medians</strong>.</li><li>Built baseline Decision Tree and AdaBoost classifiers and compared their training and testing scores.</li><li>Used <strong>five-fold GridSearchCV</strong> to tune tree depth, pruning and sample limits, plus AdaBoost’s learning rate and estimator count.</li><li>Plotted confusion matrices, ROC curves, the tuned tree and feature importance to inspect the results.</li></ul></div></section><section class="andrea-detail-section" data-detail-section="4"><span class="andrea-section-number">04</span><div><h2>Technologies</h2><div class="andrea-tech"><span>Python</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Seaborn</span><span>Jupyter Notebook</span></div></div></section><section class="andrea-detail-section" data-detail-section="5"><span class="andrea-section-number">05</span><div><h2>Outcome</h2><p><strong>Tuned AdaBoost made two errors on the 39-record test set</strong>, compared with six for the tuned Decision Tree. Its Parkinson’s-class F1 score was <strong>0.97</strong> and ROC-AUC was <strong>0.9828</strong>.</p><ul><li>The selected AdaBoost settings were <strong>200 estimators</strong>, a learning rate of <strong>0.5</strong> and base-tree depth of <strong>2</strong>.</li><li>Tree tuning lowered training accuracy from 100% to 98.08%, but its test accuracy stayed at <strong>84.62%</strong>.</li><li>AdaBoost still scored 100% on the training set, so its higher test score does not remove the need to check overfitting.</li></ul><p>The split was by recording rather than by person. A stronger follow-up would keep each person’s recordings in one split and fit median filling inside each cross-validation fold. I would also test across more splits before drawing a broader conclusion.</p></div></section></div></div>
+`,
   'data-engineering':`
 
 
@@ -912,6 +941,7 @@ function initCaseMotion(){
 function makeDetail(p){
  const next=projectData[(projectData.indexOf(p)+1)%projectData.length];
  const headline={
+  'machine-learning':'Machine Learning Project',
   'data-engineering':'NESSO Safety Monitoring System',
   'engineering-exploration':'Engineering Exploration Project',
   'iot-sustainable-living':'IoT System for Sustainable Household Living',
@@ -919,6 +949,7 @@ function makeDetail(p){
   'road-safety':'Road Safety & Infrastructure Analysis'
  }[p.slug];
  const subtitle={
+  'machine-learning':'Comparing Decision Tree and AdaBoost classifiers using Parkinson’s voice measurements.',
   'data-engineering':'A group project using NESSO wearables, Python, MySQL and Power BI to track movement and flag possible safety incidents.',
   'engineering-exploration':'Our team’s small-scale test of a motorised tri-star wheel attachment for climbing curbs.',
   'iot-sustainable-living':'A school prototype for temperature control, lighting, soil moisture and doorway alerts.',
@@ -926,6 +957,7 @@ function makeDetail(p){
   'road-safety':'My infrastructure analysis for a group project using Singapore road-safety data.'
  }[p.slug];
  const category={
+  'machine-learning':'MACHINE LEARNING',
   'data-engineering':'DATA ENGINEERING',
   'engineering-exploration':'ENGINEERING EXPLORATION',
   'iot-sustainable-living':'INTERNET OF THINGS',
@@ -933,6 +965,7 @@ function makeDetail(p){
   'road-safety':'DATA ANALYSIS'
  }[p.slug];
  const titleImage={
+  'machine-learning':{src:'assets/ml-model-comparison.png',width:1160,height:466,alt:'Original notebook confusion matrices comparing tuned Decision Tree and AdaBoost models'},
   'data-engineering':{src:'assets/project-data-closeup.webp',width:1810,height:1130,alt:'NESSO wearable sensor showing movement readings and BLE connection status'},
   'engineering-exploration':{src:'assets/project-engineering.jpg',width:1072,height:885,alt:'Our tri-star wheelchair concept design'},
   'iot-sustainable-living':{src:'assets/iot-hardware-workbench.webp',width:1600,height:940,alt:'Our household sensor prototype with Arduino and Raspberry Pi'},
@@ -989,6 +1022,7 @@ const previewTrack=document.getElementById('nav-preview-track');
 const previewImageLayers=[document.getElementById('nav-preview-image'),document.getElementById('nav-preview-next-image')];
 const previewCaptionLayers=[document.getElementById('nav-caption-first'),document.getElementById('nav-caption-second')];
 const previewData=[
+  {href:'#project-machine-learning',image:'assets/ml-model-comparison.png',title:'Machine Learning Project',summary:'Decision Tree and AdaBoost · Voice classification'},
   {href:'#project-data-engineering',image:'assets/project-data.jpg',title:'NESSO Safety Monitoring System',summary:'Wearable sensors · Worker safety'},
   {href:'#project-engineering-exploration',image:'assets/project-engineering.jpg',title:'Engineering Exploration Project',summary:'Tri-star wheels · Easier curb climbing'},
   {href:'#project-iot-sustainable-living',image:'assets/iot-hardware-workbench.webp',title:'IoT System for Sustainable Household Living',summary:'Connected sensors · Smarter home'},
@@ -1082,13 +1116,42 @@ function selectPreview(index){
   showPreviewVisual(index);
   // Intentionally NEVER call scrollIntoView/scrollBy/scrollTop here.
 }
+let previewCloseTimer=null;
+let previewOpenTimer=null;
+function cancelPreviewOpen(){
+  if(previewOpenTimer!==null){clearTimeout(previewOpenTimer);previewOpenTimer=null;}
+}
+function schedulePreviewOpen(event){
+  // A header sliding beneath a stationary cursor must not open the dropdown.
+  if(!navPreview?.hidden||previewOpenTimer!==null||
+    event.pointerType==='touch'||Math.abs(event.movementX||0)+Math.abs(event.movementY||0)<1)return;
+  previewOpenTimer=setTimeout(()=>{
+    previewOpenTimer=null;
+    if(previewTrigger?.matches(':hover'))setPreviewOpen(true);
+  },160);
+}
+function cancelPreviewClose(){
+  if(previewCloseTimer!==null){clearTimeout(previewCloseTimer);previewCloseTimer=null;}
+}
+function schedulePreviewClose(){
+  cancelPreviewClose();
+  previewCloseTimer=setTimeout(()=>{
+    previewCloseTimer=null;
+    if(navHeader?.matches(':hover')||navHeader?.querySelector(':focus-visible'))return;
+    setPreviewOpen(false);
+  },220);
+}
 function setPreviewOpen(open){
+  cancelPreviewOpen();
+  cancelPreviewClose();
   if(!navPreview)return;
   if(matchMedia('(max-width:900px)').matches)open=false;
+  navHeader?.classList.toggle('projects-preview-open',open);
   if(navPreview.hidden===!open)return;
   navPreview.hidden=!open;
   previewTrigger?.setAttribute('aria-expanded',String(open));
   if(open){
+    navHeader?.classList.remove('is-scroll-hidden');
     previewInteracting=false;
     // A fresh opening starts at the top; subsequent rotations do not touch it.
     previewRotator.scrollTop=0;
@@ -1096,10 +1159,30 @@ function setPreviewOpen(open){
   }else{previewInteracting=false;stopPreviewCycle();}
 }
 highlightPreviewRows();
-previewTrigger?.addEventListener('pointerenter',()=>setPreviewOpen(true));
-previewTrigger?.addEventListener('focus',()=>setPreviewOpen(true));
+previewTrigger?.addEventListener('pointermove',schedulePreviewOpen);
+previewTrigger?.addEventListener('pointerleave',cancelPreviewOpen);
+previewTrigger?.addEventListener('click',event=>{
+  if(matchMedia('(max-width:900px)').matches)return;
+  if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();event.stopPropagation();
+  setPreviewOpen(navPreview.hidden);
+});
+previewTrigger?.addEventListener('keydown',event=>{
+  if(matchMedia('(max-width:900px)').matches)return;
+  if(event.key==='ArrowDown'||event.key===' '){
+    event.preventDefault();setPreviewOpen(true);
+    previewRows[0]?.focus({preventScroll:true});
+  }
+});
 navHeader?.querySelectorAll('.nav-item:not(#nav-projects),#theme-toggle,#header-contact').forEach(el=>el.addEventListener('pointerenter',()=>setPreviewOpen(false)));
-navHeader?.addEventListener('pointerleave',()=>setPreviewOpen(false));
+navHeader?.addEventListener('pointerenter',cancelPreviewClose);
+navHeader?.addEventListener('pointerleave',schedulePreviewClose);
+navPreview?.addEventListener('pointerenter',()=>{
+  cancelPreviewClose();previewInteracting=true;stopPreviewCycle();
+});
+navPreview?.addEventListener('pointerleave',()=>{
+  previewInteracting=false;schedulePreviewClose();
+});
 navHeader?.addEventListener('focusout',e=>{if(!navHeader.contains(e.relatedTarget))setPreviewOpen(false);});
 previewRotator?.addEventListener('pointerleave',()=>{previewInteracting=false;startPreviewCycle();});
 previewRotator?.addEventListener('focusout',e=>{if(!previewRotator.contains(e.relatedTarget)){previewInteracting=false;startPreviewCycle();}});
@@ -1112,127 +1195,22 @@ previewRotator?.addEventListener('keydown',event=>{
   }
 });
 navPreview?.querySelector('.nav-preview-all')?.addEventListener('click',()=>setPreviewOpen(false));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&navPreview&&!navPreview.hidden)setPreviewOpen(false);});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&navPreview&&!navPreview.hidden){
+    const focusWasInside=navPreview.contains(document.activeElement);
+    setPreviewOpen(false);
+    if(focusWasInside)previewTrigger?.focus({preventScroll:true});
+  }
+});
+document.addEventListener('pointerdown',event=>{
+  if(navPreview&&!navPreview.hidden&&!navHeader?.contains(event.target))setPreviewOpen(false);
+});
 window.addEventListener('resize',()=>{if(innerWidth<=900)setPreviewOpen(false);});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPreviewCycle();else startPreviewCycle();});
 
 // The homepage introduction is always visible; no click-to-expand controls.
 const roles=['AI & Data|Engineering Student','Internet of Things|Enthusiast','Background in|Electronics'];let roleIndex=0;const role=document.getElementById('rotating-role');function putRole(text){role.replaceChildren();text.split('|').forEach((line,n)=>{if(n)role.append(document.createElement('br'));line.split(' ').forEach((word,j)=>{if(j)role.append(document.createTextNode(' '));const group=document.createElement('span');group.className='role-word';for(const char of word){const span=document.createElement('span');span.className='role-character';span.textContent=char;group.append(span);}role.append(group);});});}putRole(roles[0]);setInterval(async()=>{if(motion.matches||document.hidden||isDetail||activeSection!=='home')return;const chars=[...role.querySelectorAll('.role-character')];await Promise.all(chars.map((c,i)=>c.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-10px)'}],{duration:220,delay:i*3,fill:'forwards'}).finished));roleIndex=(roleIndex+1)%roles.length;putRole(roles[roleIndex]);role.querySelectorAll('.role-character').forEach((c,i)=>c.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'translateY(0)'}],{duration:550,delay:i*12,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'}));},5200);
 
-
-
-// Portfolio assistant: private, browser-only replies grounded in this website.
-const chatToggle=document.getElementById('chat-toggle');
-const chatPanel=document.getElementById('portfolio-chat');
-const chatMessages=document.getElementById('chat-messages');
-const chatQuestion=document.getElementById('question');
-const chatSend=document.getElementById('chat-send');
-const chatQuickQuestions=document.getElementById('chat-quick-questions');
-const chatWelcome=chatMessages.firstElementChild.cloneNode(true);
-const portfolioMail='alagu.karthik17@gmail.com';
-
-function openChat(){
-  chatPanel.hidden=false;
-  chatToggle.setAttribute('aria-expanded','true');
-  chatQuestion.focus({preventScroll:true});
-  chatMessages.scrollTop=chatMessages.scrollHeight;
-}
-function closeChat(){
-  chatPanel.hidden=true;
-  chatToggle.setAttribute('aria-expanded','false');
-  chatToggle.focus({preventScroll:true});
-}
-chatToggle.addEventListener('click',()=>chatPanel.hidden?openChat():closeChat());
-document.getElementById('chat-close').addEventListener('click',closeChat);
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!chatPanel.hidden)closeChat();});
-function updateComposer(){
-  chatSend.disabled=!chatQuestion.value.trim();
-  chatQuestion.style.height='auto';
-  chatQuestion.style.height=Math.min(chatQuestion.scrollHeight,120)+'px';
-}
-chatQuestion.addEventListener('input',updateComposer);
-chatQuestion.addEventListener('keydown',event=>{
-  if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();submitChat();}
-});
-function addChatLine(who,message,link,reaction=false){
-  const row=document.createElement('div');
-  row.className='chat-line chat-line--'+who;
-  if(who==='bot'){
-    const avatar=document.createElement('span');avatar.className='chat-message-avatar';avatar.setAttribute('aria-hidden','true');avatar.textContent='K';row.append(avatar);
-  }
-  const bubble=document.createElement('div');bubble.className='chat-bubble';
-  if(reaction){
-    const sticker=document.createElement('div');sticker.className='chat-reaction';sticker.setAttribute('aria-label','Karthik says nope');
-    const emoji=document.createElement('span');emoji.className='chat-reaction-emoji';emoji.textContent='🙃';
-    const words=document.createElement('span');words.className='chat-reaction-words';words.textContent='NAH, WE GOOD';
-    sticker.append(emoji,words);bubble.append(sticker);
-  }
-  const body=document.createElement('span');body.textContent=message;bubble.append(body);
-  if(link){
-    const action=document.createElement('a');action.className='chat-action';action.href=link.href;
-    action.textContent=link.label+' ↗';
-    if(link.href.startsWith('https://')){action.target='_blank';action.rel='noopener noreferrer';}
-    bubble.append(action);
-  }
-  row.append(bubble);chatMessages.append(row);
-  chatMessages.scrollTop=chatMessages.scrollHeight;
-}
-// Prewritten, self-contained portfolio knowledge. No external model or API key.
-
-function offTopicResponse(q){
-  if(/\b(suicide|self[- ]harm|hurt myself|kill myself|want to die)\b/i.test(q)){
-    return {message:'If this is about your safety or someone else’s, please talk with a trusted person or local emergency service right now. This is only my prewritten portfolio assistant.'};
-  }
-  if(/\b(porn|nudes?|explicit sex|sexual content|rape|racial slur|hate speech|make (a )?bomb|explosives?|hack (an? |the )?(account|password|computer)|steal (data|passwords?|money)|make malware|doxx?|home address)\b/i.test(q)){
-    return {message:'I keep this little portfolio chat focused on my projects, skills and engineering work. Try asking about one of those instead!',reaction:true};
-  }
-  if(/\b(fuck|shit|bitch|bastard|asshole|dumbass|idiot|stupid|loser|shut up|screw you|hate you|you suck|karthik sucks)\b/i.test(q)){
-    return {message:'Let’s keep it friendly 😅 Ask me about what I’ve built or what I’m learning.',reaction:true};
-  }
-  return null;
-}
-function portfolioReply(raw){
-  const q=raw.toLowerCase().replace(/[’]/g,"'").trim();
-  const redir=offTopicResponse(q);
-  if(redir)return redir;
-  if(/\b(are you (a|an) (ai|bot)|are you real|are you human|(?:r u|are u|u r|u a|you are).{0,22}\b(?:ai|bot|human|real)|chatgpt|ai chatbot|who are you|who r u|karthikgpt)\b/.test(q))return {message:'I’m the prewritten portfolio version of Karthik, not a live AI or a real-time conversation with him. I answer in his voice using information from the site.'};
-  if(/\b(hi|hey|hello|sup|yo|good morning|good evening)\b/.test(q)&&q.split(/\s+/).length<5)return {message:'Hey! I’m Karthik, well, my little prewritten portfolio assistant. Want to see my projects, skills, internship or achievements?'};
-  if(/\b(thanks|thank you|tysm|thx)\b/.test(q))return {message:'You’re welcome! Want to explore another part of my portfolio?'};
-  if(/\b(contact|email|reach|message|linkedin|hire|connect|collab|talk to|social)\b/.test(q))return {message:`You can contact me at ${portfolioMail}, or connect with me on LinkedIn.`,link:{label:'Contact me',href:'#contact'}};
-  if(/\b(resume|cv|curriculum vitae|download pdf|download (it|file))\b/.test(q))return {message:'You can view or download my resume. It includes my education, achievements, technical skills and internship experience.',link:{label:'Open my resume (PDF)',href:'assets/karthik-resume.pdf'}};
-  if(/\b(intern|internship|iwow|work experience|worked at|job|600|300|1200|lora|modbus|meter|esso)\b/.test(q))return {message:'I interned at iWOW Connections from April to August 2024. I configured 4G modems, IoT sensors and Modbus RTU devices, helped monitor meters over LoRa networks, and supported signal testing and documentation.',link:{label:'See my experience',href:'internship.html'}};
-  if(/\b(awards?|prizes?|merit|director.s list|achievements?|honou?rs?|sinda|recognition|aeis)\b/.test(q))return {message:'My achievements include the Director’s List at NYP, two Director’s List awards at ITE, the ITE Certificate of Merit, the SINDA Excellence Awards 2025 and the AEIS Book Prize from ITE.',link:{label:'My achievements',href:'#about'}};
-  if(/\b(tri[- ]?star|wheelchair|curb|engineering exploration|mobility|wheel attachment)\b/.test(q))return {message:'For my Engineering Exploration Project, my team explored a motorised tri-star wheel attachment to help wheelchair users overcome curbs. I worked on the switch, Arduino Uno and DC motor circuit, and took part in brainstorming and testing. We tested the concept with a small-scale prototype.',link:{label:'My engineering project',href:'#project-engineering-exploration'}};
-  if(/\b(road safety|road accident|road infrastructure|traffic accidents?|traffic lights|fatalities|death rate|injury rate|road condition)\b/.test(q))return {message:'For my Road Safety & Infrastructure Analysis project, I used Singapore road data and Power BI to compare infrastructure growth with accident, injury and death trends. I focused on the infrastructure theme for our group.',link:{label:'My road safety project',href:'#project-road-safety'}};
-  if(/\b(construction|fall detection|fall|slip|near[- ]?miss|safety|wearable|vest|data engineering project)\b/.test(q))return {message:'For my Data Engineering Project, my team built a wearable-sensor prototype to collect movement data and highlight potential slips, falls and near-misses. I developed the Main.py launcher that starts our Python data collection and processing scripts.',link:{label:'My data project',href:'#project-data-engineering'}};
-  if(/\b(aws|cloud computing|ec2|s3 bucket|auto scaling|load balancer|rds|boto3)\b/.test(q))return {message:'In my Cloud Computing Development Project, I built an AWS-hosted music-store catalogue using EC2, an Application Load Balancer, Auto Scaling, RDS MySQL and S3. I also configured monitoring, budget alerts and Python health checks.',link:{label:'My Cloud project',href:'#project-cloud-computing'}};
-  if(/\b(sustainable|smart home|plant care|thing speak|thingspeak|zigbee|home automation|energy saving)\b/.test(q))return {message:'I built the DHT11 ventilation and ultrasonic alert logic, helped integrate the Arduino code, and sent readings to ThingSpeak using Python. Our school prototype also included lighting and soil-moisture monitoring.',link:{label:'My IoT project',href:'#project-iot-sustainable-living'}};
-  if(/\b(projects?|portfolio|built|build|work on|made|case stud)\b/.test(q))return {message:'I’m featuring five published projects: NESSO construction-safety monitoring, the TRI-STAR wheelchair concept, a connected IoT household prototype, an AWS-hosted music store, and my road safety analysis. Project 05 is reserved for later. Each has its own project page.',link:{label:'Explore my projects',href:'#projects'}};
-  if(/\b(higher nitec|ite|electronics|education|degree|diploma|nyp|polytechnic|stud(y|ies|ying)|school|course|qualification|graduate|secondary)\b/.test(q))return {message:'I’m studying for a Diploma in AI & Data Engineering at Nanyang Polytechnic. Before that, I completed Higher Nitec in Electronics Engineering at ITE, and I attended Christ Church Secondary School.',link:{label:'My education timeline',href:'#about'}};
-  if(/\b(python|power bi|powerbi|mysql|sql|pandas|numpy|matplotlib|aws|machine learning|code|programming|skills?|tools?|technology|stack|arduino|raspberry|sensor|iot|ble|cloud|deep learning|nlp|computer vision)\b/.test(q))return {message:'I work with Python, Pandas, NumPy, Matplotlib, Power BI, Scikit-learn, Arduino (C/C++), Raspberry Pi, M5Stack, BLE, AWS Cloud and MySQL. I’m also learning more about Deep Learning, NLP and Computer Vision.',link:{label:'My skills & tools',href:'#about'}};
-  if(/\b(interest|passion|motivat|why ai|artificial intelligence|data science|future|goal|aspir)\b/.test(q))return {message:'I enjoy exploring how AI, data and connected devices can turn practical ideas into useful things. That’s why I like learning by building projects.',link:{label:'More about me',href:'#about'}};
-  if(/\b(hobb|free time|outside|fun|video games?|games?|books?|reading|shows?|movies?|spare time)\b/.test(q))return {message:'Outside of technology, I enjoy reading, watching shows and playing video games.'};
-  if(/\b(name|karthik|who is he|about him|background|tell me about|about you|who you are)\b/.test(q))return {message:'I’m Palaniappan Alagu Karthik, an AI & Data Engineering student at Nanyang Polytechnic. I previously studied Electronics Engineering at ITE, and I enjoy AI, IoT and hands-on engineering projects.',link:{label:'More about me',href:'#about'}};
-  return {message:'I don’t have a reliable answer to that in my portfolio notes yet. Try asking about my internship, projects, education, achievements or skills.',link:{label:'Explore my projects',href:'#projects'}};
-}
-
-function submitChat(value){
-  const text=(typeof value==='string'?value:chatQuestion.value).trim().slice(0,350);
-  if(!text)return;
-  addChatLine('user',text);
-  if(chatQuickQuestions)chatQuickQuestions.hidden=true;
-  chatQuestion.value='';updateComposer();
-  const response=portfolioReply(text);
-  addChatLine('bot',response.message,response.link,response.reaction);
-  chatQuestion.focus({preventScroll:true});
-}
-document.getElementById('question-form').addEventListener('submit',event=>{event.preventDefault();submitChat();});
-chatQuickQuestions.querySelectorAll('[data-chat-question]').forEach(button=>button.addEventListener('click',()=>submitChat(button.dataset.chatQuestion)));
-document.getElementById('chat-reset').addEventListener('click',()=>{
-  chatMessages.replaceChildren(chatWelcome,chatQuickQuestions);
-  chatQuickQuestions.hidden=false;chatQuestion.value='';updateComposer();chatQuestion.focus({preventScroll:true});
-});
-updateComposer();
 
 
 document.getElementById('copy-email').addEventListener('click',async()=>{const status=document.getElementById('copy-status');try{await navigator.clipboard.writeText('alagu.karthik17@gmail.com');status.textContent='Email address copied.';}catch{status.textContent='You can select the email address above or click it to open your email app.';}});

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#e8dfd2">
-<meta name="description" content="Explore Karthik's projects in data engineering, engineering, IoT and cloud computing. Search and filter the portfolio.">
+<meta name="description" content="Explore Karthik's projects in machine learning, data engineering, engineering, IoT and cloud computing. Search and filter the portfolio.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <title>All Projects · Karthik Portfolio</title>
 <link rel="stylesheet" href="fonts.css">
@@ -16,8 +16,8 @@
 <link rel="stylesheet" href="minimal.css">
 <script src="icons.js" defer></script>
 <script src="all-projects.js" defer></script>
-<script src="all-projects-chat.js" defer></script>
 <script src="footer.js" defer></script>
+<script src="navigation.js" defer></script>
 </head>
 <body class="all-projects-page">
 <a class="skip" href="#all-projects-main">Skip to projects</a>
@@ -27,7 +27,6 @@
     <a class="nav-item" href="index.html#home" aria-label="Home"><iconify-icon icon="lucide:house" aria-hidden="true"></iconify-icon><span class="nav-label">Home</span></a>
     <a class="nav-item" href="index.html#about" aria-label="About"><iconify-icon icon="lucide:user-round" aria-hidden="true"></iconify-icon><span class="nav-label">About</span></a>
     <a class="nav-item" href="all-projects.html" aria-label="Projects" aria-current="page"><iconify-icon icon="lucide:briefcase-business" aria-hidden="true"></iconify-icon><span class="nav-label">Projects</span></a>
-    <a class="nav-item" href="index.html#contact" aria-label="Contact"><iconify-icon icon="lucide:mail" aria-hidden="true"></iconify-icon><span class="nav-label">Contact</span></a>
   </nav>
   <button id="all-theme-toggle" class="theme-toggle glass" type="button" aria-label="Switch to dark mode"><iconify-icon id="all-theme-icon" icon="lucide:moon" aria-hidden="true"></iconify-icon></button>
   <a class="contact-pill" href="index.html#contact"><span class="disc"><iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span>Contact me</a>
@@ -36,7 +35,7 @@
   <canvas id="ap-ambient-dots" class="ap-ambient-dots" aria-hidden="true"></canvas>
   <div class="ap-shell">
     <section class="ap-browser" aria-labelledby="ap-browser-title">
-      <div class="ap-browser-heading"><h1 id="ap-browser-title">All projects<span class="ap-period">.</span></h1><span id="ap-results" role="status" aria-live="polite">Showing 5 projects</span></div>
+      <div class="ap-browser-heading"><h1 id="ap-browser-title">All projects<span class="ap-period">.</span></h1><span id="ap-results" role="status" aria-live="polite">Showing 6 projects</span></div>
       <div class="ap-controls">
         <label class="ap-search" for="ap-search-input">
           <iconify-icon icon="lucide:search" aria-hidden="true"></iconify-icon>
@@ -44,7 +43,7 @@
           <span class="ap-search-shortcut" aria-hidden="true">/</span>
         </label>
         <div class="ap-filters" role="group" aria-label="Filter projects by category">
-          <button type="button" class="ap-filter is-active" data-filter="all" aria-pressed="true">All <span>05</span></button>
+          <button type="button" class="ap-filter is-active" data-filter="all" aria-pressed="true">All <span>06</span></button>
           <button type="button" class="ap-filter" data-filter="data" aria-pressed="false">Data &amp; AI</button>
           <button type="button" class="ap-filter" data-filter="engineering" aria-pressed="false">Engineering</button>
           <button type="button" class="ap-filter" data-filter="iot" aria-pressed="false">IoT</button>
@@ -52,6 +51,12 @@
         </div>
       </div>
       <div class="ap-scroll-region" role="region" aria-label="Project gallery"><div class="ap-grid" id="ap-grid">
+        <article class="ap-card" data-category="data" data-pinned="true" data-search="machine learning project parkinsons voice classification decision tree adaboost python scikit-learn sklearn pandas numpy matplotlib seaborn gridsearchcv cross validation f1 roc auc">
+          <a class="ap-card-link" href="index.html#project-machine-learning" aria-label="Open Machine Learning Project, pinned project">
+            <span class="ap-card-thumbnail"><img src="assets/ml-model-comparison.png" alt="Confusion matrices from my Decision Tree and AdaBoost comparison" width="1160" height="466" loading="eager"><span class="project-card-pin">Pinned</span><span class="ap-image-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></span>
+            <span class="ap-card-content"><span class="ap-card-category">Machine learning</span><strong class="ap-card-title">Machine Learning Project</strong><span class="ap-card-summary">I compared Decision Tree and AdaBoost models using Parkinson’s voice measurements.</span><span class="ap-card-cta">View project <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span></span>
+          </a>
+        </article>
         <article class="ap-card" data-category="data" data-search="data data &amp; ai data engineering project a wearable system for tracking movement and spotting safety incidents. python ble mysql power bi construction safety wearable sensor slips falls near misses">
           <a class="ap-card-link" href="index.html#project-data-engineering" aria-label="Open NESSO Safety Monitoring System">
             <span class="ap-card-thumbnail"><img src="assets/project-data.jpg" alt="Wearable motion-sensing device from my Data Engineering project" width="600" height="420" loading="lazy"><span class="ap-image-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></span>
@@ -77,9 +82,9 @@
           </a>
         </article>
         <article class="ap-card" data-category="data" data-search="road safety infrastructure analysis traffic accidents singapore injury death rates road condition accidents power bi python pandas charts data visualisation analytics traffic lights flyovers bridges 1994 2017 2006 2016">
-          <a class="ap-card-link" href="index.html#project-road-safety" aria-label="Open Road Safety &amp; Infrastructure Analysis, project 06">
+          <a class="ap-card-link" href="index.html#project-road-safety" aria-label="Open Road Safety &amp; Infrastructure Analysis, project 05">
             <span class="ap-card-thumbnail"><img src="assets/road-safety-cover.webp" alt="Road infrastructure growth chart from my Power BI analysis" width="600" height="420" loading="lazy"><span class="ap-image-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></span>
-            <span class="ap-card-content"><span class="ap-card-category">DATA &amp; AI · PROJECT 06</span><strong class="ap-card-title">Road Safety &amp; Infrastructure Analysis</strong><span class="ap-card-summary">My Power BI analysis of Singapore road infrastructure, accidents, injuries and deaths.</span><span class="ap-card-cta">View project <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span></span>
+            <span class="ap-card-content"><span class="ap-card-category">DATA &amp; AI · PROJECT 05</span><strong class="ap-card-title">Road Safety &amp; Infrastructure Analysis</strong><span class="ap-card-summary">My Power BI analysis of Singapore road infrastructure, accidents, injuries and deaths.</span><span class="ap-card-cta">View project <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span></span>
           </a>
         </article>
       </div></div>
@@ -97,30 +102,6 @@
     </button>
   </div>
 </footer>
-<button type="button" id="chat-toggle" class="chat-launcher" aria-label="Ask Karthik" aria-expanded="false" aria-controls="portfolio-chat"><iconify-icon icon="lucide:message-circle" aria-hidden="true"></iconify-icon><span class="chat-hover-label" aria-hidden="true">Ask Karthik</span></button>
-<aside id="portfolio-chat" class="chat-panel" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
-  <div class="chat-header">
-    <div class="chat-avatar" aria-hidden="true">K<span class="chat-avatar-dot"></span></div>
-    <div class="chat-heading"><h2 id="chat-title">Karthik <span class="chat-beta">PORTFOLIO ASSISTANT</span></h2><p>My projects, in my words <span aria-hidden="true">·</span> Online</p></div>
-    <button id="chat-reset" class="chat-icon-button" type="button" aria-label="Start a new chat" title="New chat"><iconify-icon icon="lucide:plus" aria-hidden="true"></iconify-icon></button>
-    <button id="chat-close" class="chat-icon-button" type="button" aria-label="Close chat"><iconify-icon icon="lucide:x" aria-hidden="true"></iconify-icon></button>
-  </div>
-  <div class="chat-messages" id="chat-messages" role="log" aria-label="Chat messages" aria-live="polite" aria-relevant="additions" aria-atomic="false">
-    <div class="chat-line chat-line--bot"><span class="chat-message-avatar" aria-hidden="true">K</span><div class="chat-bubble">Hey! I’m <strong>Karthik</strong> ✦ Well, my prewritten portfolio assistant. Ask about the projects I built, my internship, skills, achievements or studies!</div></div>
-    <div class="chat-quick-questions" id="chat-quick-questions" aria-label="Suggested questions">
-      <button type="button" data-chat-question="What projects have you worked on?">My projects <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What did you do during your internship?">My internship <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What are your skills?">My skills <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What awards have you received?">My achievements <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-    </div>
-  </div>
-  <div class="chat-bottom">
-    <form class="chat-composer" id="question-form">
-      <label class="sr-only" for="question">Write a question about Karthik</label>
-      <textarea id="question" name="question" rows="1" placeholder="Ask me something..." autocomplete="off" maxlength="350"></textarea>
-      <button id="chat-send" class="chat-send" type="submit" aria-label="Send message" disabled><iconify-icon icon="lucide:arrow-up" aria-hidden="true"></iconify-icon></button>
-    </form>
-  </div>
-</aside>
+
 </body>
 </html>

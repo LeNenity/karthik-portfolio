@@ -17,8 +17,8 @@
 <link rel="stylesheet" href="minimal.css">
 <script src="icons.js" defer></script>
 <script src="internship.js" defer></script>
-<script src="all-projects-chat.js" defer></script>
 <script src="footer.js" defer></script>
+<script src="navigation.js" defer></script>
 </head>
 <body class="all-projects-page internship-page">
 <a class="skip" href="#internship-main">Skip to internship</a>
@@ -28,7 +28,6 @@
     <a class="nav-item" href="index.html#home" aria-label="Home"><iconify-icon icon="lucide:house" aria-hidden="true"></iconify-icon><span class="nav-label">Home</span></a>
     <a class="nav-item" href="index.html#about" aria-label="About"><iconify-icon icon="lucide:user-round" aria-hidden="true"></iconify-icon><span class="nav-label">About</span></a>
     <a class="nav-item" href="all-projects.html" aria-label="Projects"><iconify-icon icon="lucide:briefcase-business" aria-hidden="true"></iconify-icon><span class="nav-label">Projects</span></a>
-    <a class="nav-item" href="index.html#contact" aria-label="Contact"><iconify-icon icon="lucide:mail" aria-hidden="true"></iconify-icon><span class="nav-label">Contact</span></a>
   </nav>
   <button id="all-theme-toggle" class="theme-toggle glass" type="button" aria-label="Switch to dark mode"><iconify-icon id="all-theme-icon" icon="lucide:moon" aria-hidden="true"></iconify-icon></button>
   <a class="contact-pill" href="index.html#contact"><span class="disc"><iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span>Contact me</a>
@@ -132,30 +131,6 @@
       <iconify-icon icon="lucide:arrow-up" aria-hidden="true"></iconify-icon>
     </button>
   </div>
-</footer><button type="button" id="chat-toggle" class="chat-launcher" aria-label="Ask Karthik" aria-expanded="false" aria-controls="portfolio-chat"><iconify-icon icon="lucide:message-circle" aria-hidden="true"></iconify-icon><span class="chat-hover-label" aria-hidden="true">Ask Karthik</span></button>
-<aside id="portfolio-chat" class="chat-panel" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
-  <div class="chat-header">
-    <div class="chat-avatar" aria-hidden="true">K<span class="chat-avatar-dot"></span></div>
-    <div class="chat-heading"><h2 id="chat-title">Karthik <span class="chat-beta">PORTFOLIO ASSISTANT</span></h2><p>My projects, in my words <span aria-hidden="true">·</span> Online</p></div>
-    <button id="chat-reset" class="chat-icon-button" type="button" aria-label="Start a new chat" title="New chat"><iconify-icon icon="lucide:plus" aria-hidden="true"></iconify-icon></button>
-    <button id="chat-close" class="chat-icon-button" type="button" aria-label="Close chat"><iconify-icon icon="lucide:x" aria-hidden="true"></iconify-icon></button>
-  </div>
-  <div class="chat-messages" id="chat-messages" role="log" aria-label="Chat messages" aria-live="polite" aria-relevant="additions" aria-atomic="false">
-    <div class="chat-line chat-line--bot"><span class="chat-message-avatar" aria-hidden="true">K</span><div class="chat-bubble">Hey! I’m <strong>Karthik</strong> ✦ Well, my prewritten portfolio assistant. Ask about the projects I built, my internship, skills, achievements or studies!</div></div>
-    <div class="chat-quick-questions" id="chat-quick-questions" aria-label="Suggested questions">
-      <button type="button" data-chat-question="What projects have you worked on?">My projects <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What did you do during your internship?">My internship <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What are your skills?">My skills <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What awards have you received?">My achievements <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-    </div>
-  </div>
-  <div class="chat-bottom">
-    <form class="chat-composer" id="question-form">
-      <label class="sr-only" for="question">Write a question about Karthik</label>
-      <textarea id="question" name="question" rows="1" placeholder="Ask me something..." autocomplete="off" maxlength="350"></textarea>
-      <button id="chat-send" class="chat-send" type="submit" aria-label="Send message" disabled><iconify-icon icon="lucide:arrow-up" aria-hidden="true"></iconify-icon></button>
-    </form>
-  </div>
-</aside>
+</footer>
 </body>
 </html>

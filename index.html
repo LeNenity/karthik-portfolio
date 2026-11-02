@@ -17,6 +17,7 @@
 <script src="icons.js" defer></script>
 <script src="site.js" defer></script>
 <script src="footer.js" defer></script>
+<script src="navigation.js" defer></script>
 </head>
 <body>
 <div id="page-loader" class="page-loader" role="status" aria-label="Loading Karthik's portfolio">
@@ -49,19 +50,18 @@
     <a id="nav-home" class="nav-item" href="#home" aria-label="Home" aria-current="page"><iconify-icon icon="lucide:house" aria-hidden="true"></iconify-icon><span class="nav-label">Home</span></a>
     <a id="nav-about" class="nav-item" href="#about" aria-label="About"><iconify-icon icon="lucide:user-round" aria-hidden="true"></iconify-icon><span class="nav-label">About</span></a>
     <a id="nav-projects" class="nav-item" href="#projects" aria-label="Projects" aria-expanded="false" aria-controls="nav-preview"><iconify-icon icon="lucide:briefcase-business" aria-hidden="true"></iconify-icon><span class="nav-label">Projects</span></a>
-    <a id="nav-contact" class="nav-item" href="#contact" aria-label="Contact"><iconify-icon icon="lucide:mail" aria-hidden="true"></iconify-icon><span class="nav-label">Contact</span></a>
   </nav>
 
   <div id="nav-preview" class="nav-preview glass" aria-label="Projects preview" hidden>
     <div class="nav-preview-list">
       <span class="nav-preview-eyebrow">MY PROJECTS</span>
-      <div id="nav-preview-rotator" class="nav-preview-rotator" role="region" aria-label="Project shortcuts. Scroll manually to see all five published projects." tabindex="0"><div id="nav-preview-track" class="nav-preview-rotator-track"></div></div>
+      <div id="nav-preview-rotator" class="nav-preview-rotator" role="region" aria-label="Project shortcuts. Scroll manually to see all six published projects." tabindex="0"><div id="nav-preview-track" class="nav-preview-rotator-track"></div></div>
       <a class="nav-preview-all" href="all-projects.html">See all projects <iconify-icon icon="lucide:arrow-right" aria-hidden="true"></iconify-icon></a>
     </div>
     <div class="nav-preview-display">
-      <img id="nav-preview-image" class="is-active" src="assets/project-data.jpg" alt="NESSO Safety Monitoring System visual" width="800" height="600">
-      <img id="nav-preview-next-image" src="assets/project-data.jpg" alt="" aria-hidden="true" width="800" height="600">
-      <div class="nav-preview-caption is-active" id="nav-caption-first"><strong id="nav-preview-title">Wearable sensors · Worker safety</strong></div>
+      <img id="nav-preview-image" class="is-active" src="assets/ml-model-comparison.png" alt="Machine Learning Project model comparison" width="800" height="600">
+      <img id="nav-preview-next-image" src="assets/ml-model-comparison.png" alt="" aria-hidden="true" width="800" height="600">
+      <div class="nav-preview-caption is-active" id="nav-caption-first"><strong id="nav-preview-title">Decision Tree and AdaBoost · Voice classification</strong></div>
       <div class="nav-preview-caption" id="nav-caption-second" aria-hidden="true"><strong></strong></div>
     </div>
   </div>
@@ -201,7 +201,7 @@
     <div class="frame project-area">
       <div class="project-heading">
         <h2 id="projects-title">My Projects<span aria-hidden="true">.</span></h2>
-        <p class="project-intro">Coursework and group projects in data, IoT, cloud computing and engineering.</p>
+        <p class="project-intro">Coursework and group projects in machine learning, data, IoT, cloud computing and engineering.</p>
       </div>
       <div class="project-visual-grid">
       <div class="project-map" aria-labelledby="project-map-title">
@@ -221,7 +221,7 @@
         <p class="project-map-hint">Drag to spin · Move your mouse to steer · Select a visible project</p>
       </div>
       <div class="project-showcase">
-      <div class="project-gallery-heading"><span>THE PROJECTS</span><div class="project-gallery-actions"><p>Explore each build in detail.</p><a class="all-projects-link" href="all-projects.html" aria-label="See all five published projects"><span class="all-projects-link-label">See all projects</span><span class="all-projects-link-count" aria-hidden="true">05</span><span class="all-projects-link-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></a></div></div>
+      <div class="project-gallery-heading"><span>THE PROJECTS</span><div class="project-gallery-actions"><p>Explore each build in detail.</p><a class="all-projects-link" href="all-projects.html" aria-label="See all six published projects"><span class="all-projects-link-label">See all projects</span><span class="all-projects-link-count" aria-hidden="true">05</span><span class="all-projects-link-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></a></div></div>
       <div class="project-rail-wrap">
         <div id="project-rail" class="own-projects" role="region" aria-roledescription="rotating gallery" aria-label="My Projects. Scroll horizontally or swipe to browse more projects." tabindex="0">
           <a id="open-data-engineering" class="project-card" href="#project-data-engineering" aria-label="Open NESSO Safety Monitoring System"><div class="project-cover"><img src="assets/project-data.jpg" alt="NESSO Safety Monitoring System" loading="lazy" width="800" height="600" data-cover="data-engineering"><span class="project-image-cta" aria-hidden="true">View project ↗</span></div><div class="project-card-copy"><div class="project-meta"><span>01</span><span>DATA ENGINEERING</span></div><h3>NESSO Safety Monitoring System</h3><p>We used four NESSO devices to collect movement readings and flag possible safety incidents.</p><span class="project-open">View project <span aria-hidden="true">↗</span></span></div></a>
@@ -266,31 +266,7 @@
   </div>
 </footer>
 <div id="coming-soon-notice" class="coming-soon-notice" role="status" aria-live="polite" aria-atomic="true" hidden></div>
-<button type="button" id="chat-toggle" class="chat-launcher" aria-label="Ask Karthik" aria-expanded="false" aria-controls="portfolio-chat"><iconify-icon icon="lucide:message-circle" aria-hidden="true"></iconify-icon><span class="chat-hover-label" aria-hidden="true">Ask Karthik</span></button>
-<aside id="portfolio-chat" class="chat-panel" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
-  <div class="chat-header">
-    <div class="chat-avatar" aria-hidden="true">K<span class="chat-avatar-dot"></span></div>
-    <div class="chat-heading"><h2 id="chat-title">Karthik <span class="chat-beta">PORTFOLIO ASSISTANT</span></h2><p>My projects, in my words <span aria-hidden="true">·</span> Online</p></div>
-    <button id="chat-reset" class="chat-icon-button" type="button" aria-label="Start a new chat" title="New chat"><iconify-icon icon="lucide:plus" aria-hidden="true"></iconify-icon></button>
-    <button id="chat-close" class="chat-icon-button" type="button" aria-label="Close chat"><iconify-icon icon="lucide:x" aria-hidden="true"></iconify-icon></button>
-  </div>
-  <div class="chat-messages" id="chat-messages" role="log" aria-label="Chat messages" aria-live="polite" aria-relevant="additions" aria-atomic="false">
-    <div class="chat-line chat-line--bot"><span class="chat-message-avatar" aria-hidden="true">K</span><div class="chat-bubble">Hey! I’m <strong>Karthik</strong> ✦ Well, my prewritten portfolio assistant. Ask about the projects I built, my internship, skills, achievements or studies!</div></div>
-    <div class="chat-quick-questions" id="chat-quick-questions" aria-label="Suggested questions">
-      <button type="button" data-chat-question="What projects have you worked on?">My projects <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What did you do during your internship?">My internship <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What are your skills?">My skills <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-      <button type="button" data-chat-question="What awards have you received?">My achievements <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></button>
-    </div>
-  </div>
-  <div class="chat-bottom">
-    <form class="chat-composer" id="question-form">
-      <label class="sr-only" for="question">Write a question about Karthik</label>
-      <textarea id="question" name="question" rows="1" placeholder="Ask me something..." autocomplete="off" maxlength="350"></textarea>
-      <button id="chat-send" class="chat-send" type="submit" aria-label="Send message" disabled><iconify-icon icon="lucide:arrow-up" aria-hidden="true"></iconify-icon></button>
-    </form>
-  </div>
-</aside>
+
 
 </div>
 </body>
