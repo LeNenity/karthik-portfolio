@@ -136,12 +136,17 @@ motion.addEventListener('change',startWeatherCycle);
 
 
 const projectData=[
-  {slug:'data-engineering',category:'Data engineering',title:'Data Engineering Project',name:'Data Engineering Project',image:'assets/project-data.jpg',summary:'A wearable sensor system that detects falls, slips and near-misses on construction sites.',mapLabel:'Data Engineering Project',mapPosition:[24,55],topics:['sensors','ble','realtime','python','pandas','mysql','powerbi','preprocessing','wearables']},
-  {slug:'engineering-exploration',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.',mapLabel:'Engineering Exploration Project',mapPosition:[58,42],topics:['accessibility','mechanical','arduino','motors','circuit','prototype','sketch','testing']},
-  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Household Living',name:'IoT System for Sustainable Household Living',image:'assets/iot-hardware-workbench.webp',summary:'We used sensors to help with four things at home: temperature, lights, plants and the front door.',mapLabel:'IoT System for Sustainable Household Living',mapPosition:[77,61],topics:['sensors','connected','energy','automation','embedded','sustainability','arduino']},
-  {slug:'cloud-computing',category:'Cloud Computing',title:'Cloud Computing Development Project',name:'Cloud Computing Development Project',image:'assets/cloud-storefront-1.webp',summary:'I built a small music-store website on AWS, then worked out how to keep it running and within budget.',mapLabel:'Cloud Computing Development Project',mapPosition:[77,-43],topics:['aws','ec2','rds','s3','monitoring','python','mysql']}
+  {slug:'data-engineering',category:'Data engineering',title:'Data Engineering Project',name:'Data Engineering Project',image:'assets/project-data.jpg',summary:'A wearable sensor system that detects falls, slips and near-misses on construction sites.',mapLabel:'Data Engineering Project',mapPosition:[24,55],topics:['sensors','ble','python','mysql','powerbi']},
+  {slug:'engineering-exploration',category:'Engineering exploration',title:'Engineering Exploration Project',name:'Engineering Exploration Project',image:'assets/project-engineering.jpg',summary:'A motorised tri-star wheel attachment that helps self-propelled wheelchair users climb curbs.',mapLabel:'Engineering Exploration Project',mapPosition:[58,42],topics:['accessibility','mechanical','arduino','prototype']},
+  {slug:'iot-sustainable-living',category:'Internet of Things',title:'IoT System for Sustainable Household Living',name:'IoT System for Sustainable Household Living',image:'assets/iot-hardware-workbench.webp',summary:'We used sensors to help with four things at home: temperature, lights, plants and the front door.',mapLabel:'IoT Sustainable Home',mapPosition:[77,61],topics:['sensors','automation','sustainability','arduino']},
+  {slug:'cloud-computing',category:'Cloud Computing',title:'Cloud Computing Development Project',name:'Cloud Computing Development Project',image:'assets/cloud-storefront-1.webp',summary:'I built a small music-store website on AWS, then worked out how to keep it running and within budget.',mapLabel:'Cloud Computing Project',mapPosition:[77,-43],topics:['aws','ec2','rds','monitoring']},
+  {slug:'road-safety',number:'06',category:'Data & analytics',title:'Road Safety & Infrastructure Analysis',name:'Road Safety & Infrastructure Analysis',image:'assets/road-safety-cover.webp',summary:'I compared Singapore’s road infrastructure growth with accident, injury and death trends.',mapLabel:'Road Safety Analysis',mapPosition:[-58,18],topics:['roads','accidents','infrastructure','powerbi']}
 ];
 const projectMapTopics=[
+  {id:'roads',label:'Road safety',coords:[-69,15]},
+  {id:'accidents',label:'Accident trends',coords:[-40,21]},
+  {id:'infrastructure',label:'Infrastructure',coords:[-58,-9]},
+  {id:'trafficlights',label:'Traffic lights',coords:[-30,58]},
   {id:'python',label:'Python',coords:[5,-30]},
   {id:'pandas',label:'Pandas',coords:[-25,-7]},
   {id:'mysql',label:'MySQL',coords:[-39,-48]},
@@ -182,16 +187,20 @@ if(mapStage && mapCanvas && mapNodes){
     'data-engineering':[-14,-39],
     'engineering-exploration':[52,-5],
     'iot-sustainable-living':[-7,62],
-    'cloud-computing':[2,-122]
+    'cloud-computing':[2,-122],
+    'road-safety':[-28,112]
   };
+  const globeProjects=projectData.filter(project=>Array.isArray(geo[project.slug]));
+  const activeTopicIds=new Set(globeProjects.flatMap(project=>project.topics||[]));
+  const globeTopics=projectMapTopics.filter(topic=>activeTopicIds.has(topic.id));
   const globeNodes=[
-    ...projectData.map(project=>({id:project.slug,label:project.mapLabel,project,coords:sph(...geo[project.slug])})),
-    ...projectMapTopics.map(topic=>({id:topic.id,label:topic.label,coords:sph(...topic.coords)}))
+    ...globeProjects.map(project=>({id:project.slug,label:project.mapLabel,project,coords:sph(...geo[project.slug])})),
+    ...globeTopics.map(topic=>({id:topic.id,label:topic.label,coords:sph(...topic.coords)}))
   ];
   const byId=new Map(globeNodes.map(node=>[node.id,node]));
-  const edges=projectData.flatMap(project=>(project.topics||[]).filter(t=>byId.has(t)).map(topic=>[byId.get(project.slug),byId.get(topic)]));
-  for(let i=0;i<projectData.length;i++){
-    edges.push([byId.get(projectData[i].slug),byId.get(projectData[(i+1)%projectData.length].slug)]);
+  const edges=globeProjects.flatMap(project=>(project.topics||[]).filter(t=>byId.has(t)).map(topic=>[byId.get(project.slug),byId.get(topic)]));
+  for(let i=0;i<globeProjects.length;i++){
+    edges.push([byId.get(globeProjects[i].slug),byId.get(globeProjects[(i+1)%globeProjects.length].slug)]);
   }
   const labels=new Map(),labelSizes=new Map();
   globeNodes.forEach(node=>{
@@ -386,7 +395,7 @@ function makeProjectCard(project,index){
   cover.append(image,imageCta);
   const copy=document.createElement('div');copy.className='project-card-copy';
   const meta=document.createElement('div');meta.className='project-meta';
-  const number=document.createElement('span');number.textContent=String(index+1).padStart(2,'0');
+  const number=document.createElement('span');number.textContent=project.number||String(index+1).padStart(2,'0');
   const category=document.createElement('span');category.textContent=project.category;
   meta.append(number,category);
   const title=document.createElement('h3');title.textContent=project.title;
@@ -406,7 +415,7 @@ function setGalleryCardData(card,project,index,updateImage=true){
   card.setAttribute('aria-label','Open '+project.name);
   const image=card.querySelector('.project-cover img:not(.project-cover-reveal)');
   if(updateImage){image.src=project.image;image.alt=project.name;image.dataset.cover=project.slug;}
-  card.querySelector('.project-meta span:first-child').textContent=String(index+1).padStart(2,'0');
+  card.querySelector('.project-meta span:first-child').textContent=project.number||String(index+1).padStart(2,'0');
   card.querySelector('.project-meta span:last-child').textContent=project.category;
   card.querySelector('.project-card-copy h3').textContent=project.title;
   card.querySelector('.project-card-copy p').textContent=project.summary;
@@ -509,6 +518,12 @@ const sectionRail=document.querySelector('.section-rail');
 const homeRailHTML=sectionRail?.innerHTML||'';
 let detailRailTargets=[];
 const projectRailSections={
+  'road-safety':[
+    ['Overview','.ed-project-hero'],['The question','.road-question'],
+    ['What I did','.road-method'],['The charts','.road-dashboard'],
+    ['What stood out','.road-findings'],['My takeaway','.road-takeaway']
+  ],
+
   'data-engineering':[
     ['Overview','.ed-project-hero'],['Problem & solution','.nesso-pair'],
     ['How it works','.nesso-system'],['Results','.nesso-results-media'],
@@ -594,6 +609,49 @@ function setActive(name){
 // Project-specific layouts use only the existing project descriptions and original photos.
 // Detail views are crops of the same photos, not additional project photographs.
 const caseStudyContent={
+  'road-safety':`
+    <div class="road-project-wrap">
+      <div class="road-context road-reveal">
+        <div><span class="ed-label">TEAM DATA MINING PROJECT · MY FOCUS: INFRASTRUCTURE</span><p>We analysed historical traffic accident data in Singapore. I focused on one question: <strong>as road infrastructure grew, did road safety improve too?</strong></p></div>
+        
+      </div>
+      <section class="road-question road-section" aria-label="What I wanted to find out">
+        <div class="road-eyebrow">01 — THE QUESTION</div>
+        <div class="road-question-grid"><h2>More roads and traffic lights. <em>Safer journeys?</em></h2><div><p>Our group looked at accident patterns from several angles. My part was about road infrastructure: traffic lights, ERP gantries, flyovers, bridges and underpasses.</p><p>I wanted to compare how these changed over time with the numbers for deaths, injuries and accidents linked to road conditions.</p></div></div>
+      </section>
+      <section class="road-numbers" aria-label="A few findings from my analysis">
+        <article><span>2006 → 2016</span><strong>4.7 <i>→</i> 2.2</strong><p>Road traffic death rate</p></article>
+        <article><span>2013 → 2016 onwards</span><strong>16 <i>→</i> ≤5</strong><p>Reported accidents linked to road conditions</p></article>
+        <article><span>2017</span><strong>84.3%</strong><p>Of the infrastructure counted was traffic lights</p></article>
+      </section>
+      <section class="road-method road-section" aria-label="How I approached the data">
+        <div class="road-eyebrow">02 — WHAT I DID</div>
+        <div class="road-method-grid"><div><h2>First, make the data easier to compare.</h2><p>The datasets didn't all look the same. They covered different years and had different structures, so our team cleaned and reorganised them before analysing anything.</p></div><div class="road-steps">
+          <article><span>01</span><div><h3>Prepare</h3><p>We used Python and Pandas to standardise the datasets. Missing values stayed missing instead of being treated as zero.</p></div></article>
+          <article><span>02</span><div><h3>Connect</h3><p>In Power BI, I linked the relevant tables and created measures for total infrastructure, injuries per 1,000 vehicles and accidents attributed to road conditions.</p></div></article>
+          <article><span>03</span><div><h3>Compare</h3><p>I made charts to see whether infrastructure growth and safety trends moved together over time.</p></div></article>
+        </div></div>
+      </section>
+      <section class="road-dashboard road-section" aria-label="Original Power BI visualisations from my road safety analysis">
+        <div class="road-section-top"><div><div class="road-eyebrow">03 — THE CHARTS</div><h2>What the numbers showed.</h2></div><p>Three supporting charts from my Power BI work. Select one to see the full details.</p></div>
+        <div class="road-chart-grid">
+          <figure class="road-chart"><button class="ed-image-open" type="button" data-photo="assets/road-death-comparison.webp" data-alt="Original Power BI chart comparing total infrastructure count with road traffic death rate" aria-label="Expand infrastructure and death rate chart"><img src="assets/road-death-comparison.webp" loading="lazy" alt="Total infrastructure compared with death rate"></button><figcaption><span>01 / DEATH RATE</span><strong>Fewer deaths over the period.</strong><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></figcaption></figure>
+          <figure class="road-chart"><button class="ed-image-open" type="button" data-photo="assets/road-injury-comparison.webp" data-alt="Original Power BI chart comparing total infrastructure count with injury rate" aria-label="Expand infrastructure and injury rate chart"><img src="assets/road-injury-comparison.webp" loading="lazy" alt="Total infrastructure compared with injury rate"></button><figcaption><span>02 / INJURIES</span><strong>Injury rates improved more slowly.</strong><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></figcaption></figure>
+          <figure class="road-chart road-chart--accidents"><button class="ed-image-open" type="button" data-photo="assets/road-condition-accidents.webp" data-alt="Original Power BI bar chart of accidents related to road conditions, 2012 to 2024" aria-label="Expand road condition accidents chart"><img src="assets/road-condition-accidents.webp" loading="lazy" alt="Annual road condition related accidents from 2012 to 2024"></button><figcaption><span>03 / ROAD CONDITIONS</span><strong>Road-condition accidents stayed relatively low in later years.</strong><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></figcaption></figure>
+        </div>
+      </section>
+      <section class="road-findings road-section" aria-label="What the charts told me">
+        <div class="road-eyebrow">04 — WHAT STOOD OUT</div>
+        <div class="road-findings-grid"><div><h2>Progress is visible, but it's not the whole story.</h2><p>From 2006 to 2016, the death rate fell from 4.7 to 2.2 while infrastructure counts rose. Injuries fell more slowly, from 12.2 to 10.3 between 2008 and 2016.</p><p>That doesn't prove the new infrastructure caused the improvement by itself. It does give us a useful pattern to investigate, especially when we consider driver behaviour and other changes over the years.</p></div>
+          <figure class="road-chart road-share-chart"><button class="ed-image-open" type="button" data-photo="assets/road-facilities-share.webp" data-alt="Power BI pie chart: traffic lights make up 84.3 percent of recorded road infrastructure in 2017" aria-label="Expand 2017 infrastructure distribution chart"><img src="assets/road-facilities-share.webp" alt="Pie chart showing traffic lights made up 84.3 percent of counted infrastructure in 2017" loading="lazy"></button><figcaption><span>THE MIX</span><strong>Traffic lights made up most of the counted facilities.</strong><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></figcaption></figure>
+        </div>
+      </section>
+      <section class="road-takeaway road-section" aria-label="My contribution and conclusion">
+        <div class="road-eyebrow">05 — MY TAKEAWAY</div><div class="road-takeaway-grid"><div><h2>Safer roads need more than just more infrastructure.</h2><p>I handled the infrastructure effectiveness theme and wrote up my findings for our group report. If I were taking this further, I'd look at smarter traffic lights, safer crossings and barriers, alongside road-safety education.</p><p>This project was a good reminder that a chart can show a pattern, but understanding <em>why</em> it happened takes more work.</p></div><div class="road-tech"><span>TOOLS &amp; DATA</span><div><span>Python</span><span>Pandas</span><span>Power BI</span><span>DAX measures</span><span>data.gov.sg</span></div><small>Group project — I worked on infrastructure effectiveness (Theme 4).</small></div></div>
+      </section>
+    </div>
+  `,
+
   'data-engineering':`
     <div class="nesso-fact-strip" aria-label="Project at a glance">
       <div><strong>04</strong><span>NESSO devices tested</span></div>
@@ -847,7 +905,23 @@ const caseStudyContent={
       <article><span>03 / VISIBILITY</span><iconify-icon icon="lucide:chart-no-axes-combined"></iconify-icon><h3>How would I spot a problem?</h3><p>I used CloudWatch to watch resource usage and SNS to send an email if an instance failed its health check.</p></article>
       <article><span>04 / COSTS</span><iconify-icon icon="lucide:wallet"></iconify-icon><h3>How much would it cost?</h3><p>I set a $50 budget with an alert at 80%, then compared two EC2 sizes. The smaller t3.micro was enough for this project.</p></article>
     </div>
-    <figure class="cloud-monitor-image"><button class="ed-image-open" type="button" data-photo="assets/cloud-monitoring.webp" data-alt="Original CloudWatch graphs showing EC2 and RDS CPU utilization and network traffic" aria-label="Open CloudWatch monitoring dashboard"><img src="assets/cloud-monitoring.webp" loading="lazy" alt="CloudWatch dashboard showing EC2 and database CPU usage and network traffic"></button><figcaption>CLOUDWATCH DASHBOARD FROM MY PROJECT</figcaption></figure>
+    <div class="cloud-monitor-gallery" aria-label="Three screenshots from my CloudWatch dashboard">
+      <div class="cloud-monitor-heading"><span class="ed-label">CLOUDWATCH / MONITORING</span><p>Three views from my AWS project. Select a graph to see it more clearly.</p></div>
+      <div class="cloud-monitor-grid">
+        <figure class="cloud-monitor-chart">
+          <button class="ed-image-open" type="button" data-photo="assets/cloudwatch-ec2-cpu.webp" data-alt="Original CloudWatch chart of EC2 and load balancer CPU utilization" aria-label="Enlarge EC2 CPU utilization chart"><img src="assets/cloudwatch-ec2-cpu.webp" loading="lazy" alt="CloudWatch graph of CPU usage on AWS EC2 web servers"></button>
+          <figcaption><span>01 / EC2 &amp; LOAD BALANCER</span><strong>Server CPU usage <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></strong></figcaption>
+        </figure>
+        <figure class="cloud-monitor-chart">
+          <button class="ed-image-open" type="button" data-photo="assets/cloudwatch-rds-cpu.webp" data-alt="Original CloudWatch chart of RDS database CPU utilization" aria-label="Enlarge RDS CPU utilization chart"><img src="assets/cloudwatch-rds-cpu.webp" loading="lazy" alt="CloudWatch graph of RDS database CPU utilization"></button>
+          <figcaption><span>02 / DATABASE</span><strong>RDS CPU usage <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></strong></figcaption>
+        </figure>
+        <figure class="cloud-monitor-chart cloud-monitor-chart--wide">
+          <button class="ed-image-open" type="button" data-photo="assets/cloudwatch-network.webp" data-alt="Original CloudWatch chart of AWS network traffic in and out" aria-label="Enlarge network traffic chart"><img src="assets/cloudwatch-network.webp" loading="lazy" alt="CloudWatch graph showing traffic spikes and network throughput"></button>
+          <figcaption><span>03 / NETWORK</span><strong>Traffic in and out <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></strong></figcaption>
+        </figure>
+      </div>
+    </div>
   </section>
   <section class="cloud-finale" aria-label="My contribution and project outcome">
     <div class="cloud-finale-main"><span class="ed-label">MY CONTRIBUTION</span><h2>I put the AWS setup together from end to end.</h2><p>I set up the VPC, web servers, load balancer, Auto Scaling, MySQL database and S3 storage. I also tested two EC2 sizes with ApacheBench, set up CloudWatch and budget alerts, and wrote a Python boto3 script to check the Auto Scaling Group’s health.</p></div>
@@ -883,7 +957,7 @@ function initCaseMotion(){
   if(motion.matches||!('IntersectionObserver' in window))return;
   const root=detail.querySelector('.editorial-case');
   if(!root)return;
-  const targets=[...root.querySelectorAll('.nesso-fact-strip,.nesso-pair>article,.nesso-section-heading,.nesso-clean-flow,.nesso-results-gallery>figure,.nesso-role-file,.nesso-role-copy p,.nesso-outcome-photo,.nesso-outcome-copy,.tri-reveal,.tri-process-card,.tri-demo-card,.tri-role-main,.tri-role-circuit,.ed-eng-pair>article,.ed-eng-mechanism,.ed-eng-contribution,.ed-eng-close>div,.ed-iot-intro>div,.ed-iot-gallery figure,.ed-iot-contribution,.ed-iot-ending>div,.iot-home-intro,.iot-feature-tile,.iot-connection,.iot-evidence-photo,.iot-contribution,.iot-conclusion,.cloud-intro,.cloud-architecture,.cloud-storefront-gallery figure,.cloud-operations-cards article,.cloud-finale')];
+  const targets=[...root.querySelectorAll('.nesso-fact-strip,.nesso-pair>article,.nesso-section-heading,.nesso-clean-flow,.nesso-results-gallery>figure,.nesso-role-file,.nesso-role-copy p,.nesso-outcome-photo,.nesso-outcome-copy,.tri-reveal,.tri-process-card,.tri-demo-card,.tri-role-main,.tri-role-circuit,.ed-eng-pair>article,.ed-eng-mechanism,.ed-eng-contribution,.ed-eng-close>div,.ed-iot-intro>div,.ed-iot-gallery figure,.ed-iot-contribution,.ed-iot-ending>div,.iot-home-intro,.iot-feature-tile,.iot-connection,.iot-evidence-photo,.iot-contribution,.iot-conclusion,.cloud-intro,.cloud-architecture,.cloud-storefront-gallery figure,.cloud-operations-cards article,.cloud-finale,.road-reveal,.road-question,.road-numbers article,.road-method,.road-steps article,.road-chart,.road-findings,.road-takeaway')];
   targets.forEach((el,i)=>{
     el.classList.add('case-reveal');
     el.style.setProperty('--reveal-delay',(i%3)*85+'ms');
@@ -918,27 +992,33 @@ function makeDetail(p){
   'data-engineering':'Data Engineering Project',
   'engineering-exploration':'Engineering Exploration Project',
   'iot-sustainable-living':'IoT System for Sustainable Household Living',
-  'cloud-computing':'Cloud Computing Development Project'
+  'cloud-computing':'Cloud Computing Development Project',
+  'road-safety':'Road Safety & Infrastructure Analysis'
  }[p.slug];
  const subtitle={
   'data-engineering':'A wearable sensor system that identifies possible falls, slips and near-misses on construction sites.',
   'engineering-exploration':'TRI-STAR: a motorised wheel concept designed to help wheelchair users overcome curbs.',
   'iot-sustainable-living':'For this school project, we built a small smart-home setup to manage temperature, lights, plant care and doorstep alerts.',
-  'cloud-computing':'I built a music-store website on AWS and connected the servers, database and storage behind it.'
+  'cloud-computing':'I built a music-store website on AWS and connected the servers, database and storage behind it.',
+  'road-safety':'I used real Singapore road data to explore how infrastructure growth lines up with accident, injury and death trends.'
  }[p.slug];
  const category={
   'data-engineering':'DATA ENGINEERING',
   'engineering-exploration':'ENGINEERING EXPLORATION',
   'iot-sustainable-living':'INTERNET OF THINGS',
-  'cloud-computing':'CLOUD COMPUTING'
+  'cloud-computing':'CLOUD COMPUTING',
+  'road-safety':'DATA ANALYSIS'
  }[p.slug];
  const imageAlt={
   'data-engineering':'Original Data Engineering sensor project photo',
   'engineering-exploration':'Original wheelchair tri-star wheel design sketch',
   'iot-sustainable-living':'Original IoT system hardware and sensors on a workbench',
-  'cloud-computing':'Music-store product catalogue from the AWS cloud computing project'
+  'cloud-computing':'Music-store product catalogue from the AWS cloud computing project',
+  'road-safety':'Original road infrastructure growth chart from my road safety project'
  }[p.slug];
- return `<div class="frame detail-shell case-shell editorial-case editorial-case--${p.slug}">
+ const isRoadSafety=p.slug==='road-safety';
+ const heroImage=isRoadSafety?'assets/road-infrastructure-growth.webp':p.image;
+ return `<div class="frame detail-shell case-shell editorial-case editorial-case--${p.slug}" data-project-slug="${p.slug}">
     <header class="ed-project-hero ed-project-hero--split" aria-labelledby="case-page-heading">
       <div class="ed-new-hero-copy">
         <span class="ed-new-hero-label">${category}</span>
@@ -946,8 +1026,8 @@ function makeDetail(p){
         <p>${subtitle}</p>
       </div>
       <figure class="ed-new-hero-visual ed-media-card">
-        <button class="ed-image-open ed-new-hero-open" type="button" data-photo="${p.image}" data-alt="${imageAlt}" aria-label="Expand the original ${p.name} image">
-          <img src="${p.image}" alt="${imageAlt}" data-detail-cover loading="eager" fetchpriority="high">
+        <button class="ed-image-open ed-new-hero-open" type="button" data-photo="${heroImage}" data-alt="${imageAlt}" aria-label="Expand the original ${p.name} image">
+          <img src="${heroImage}" alt="${imageAlt}" data-detail-cover loading="eager" fetchpriority="high">
         </button>
       </figure>
     </header>
@@ -966,7 +1046,7 @@ function makeDetail(p){
 function scrollSection(name,instant){const el=document.getElementById(name);const y=el.getBoundingClientRect().top+scrollY-(name==='home'?0:84);scrollTo({top:Math.max(0,y),behavior:instant||motion.matches?'instant':'smooth'});setActive(name);}
 async function navigate(){const hash=location.hash.slice(1)||'home';if(hash==='main-content'){main.focus({preventScroll:true});return;}const project=projectData.find(p=>'project-'+p.slug===hash);let oldCover;
 if(project){if(!isDetail)previousMainScroll=scrollY;oldCover=isDetail?detail.querySelector('[data-detail-cover]'):document.querySelector('[data-cover="'+project.slug+'"]');if(oldCover)oldCover.style.viewTransitionName='project-cover';const render=()=>{main.hidden=true;detail.hidden=false;detail.innerHTML=makeDetail(project);initCaseInteractives();initCaseMotion();if(detail.querySelector('[data-detail-cover]'))detail.querySelector('[data-detail-cover]').style.viewTransitionName='project-cover';isDetail=true;showProjectRail(project);setActive('projects');scrollTo({top:0,behavior:'instant'});};if(!initialNavigation&&!motion.matches&&document.startViewTransition){const t=document.startViewTransition(render);try{await t.finished;}catch{}}else render();if(oldCover)oldCover.style.viewTransitionName='';detail.querySelector('[data-detail-cover]')?.style.removeProperty('view-transition-name');}
-else{const name=sectionNames.includes(hash)?hash:'home';if(isDetail){const current=projectData.find(p=>detail.querySelector('[data-detail-cover]')?.getAttribute('src')===p.image);oldCover=detail.querySelector('[data-detail-cover]');if(oldCover)oldCover.style.viewTransitionName='project-cover';const render=()=>{main.hidden=false;detail.hidden=true;isDetail=false;if(projectRevealObserver){projectRevealObserver.disconnect();projectRevealObserver=null;}showHomeRail();scrollSection(name,true);if(name==='projects'&&current){const c=document.querySelector('[data-cover="'+current.slug+'"]');if(c)c.style.viewTransitionName='project-cover';}};if(!motion.matches&&document.startViewTransition){const t=document.startViewTransition(render);try{await t.finished;}catch{}}else render();document.querySelectorAll('[data-cover]').forEach(e=>e.style.removeProperty('view-transition-name'));if(oldCover)oldCover.style.viewTransitionName='';}
+else{const name=sectionNames.includes(hash)?hash:'home';if(isDetail){const current=projectData.find(p=>p.slug===detail.querySelector('.editorial-case')?.dataset.projectSlug);oldCover=detail.querySelector('[data-detail-cover]');if(oldCover)oldCover.style.viewTransitionName='project-cover';const render=()=>{main.hidden=false;detail.hidden=true;isDetail=false;if(projectRevealObserver){projectRevealObserver.disconnect();projectRevealObserver=null;}showHomeRail();scrollSection(name,true);if(name==='projects'&&current){const c=document.querySelector('[data-cover="'+current.slug+'"]');if(c)c.style.viewTransitionName='project-cover';}};if(!motion.matches&&document.startViewTransition){const t=document.startViewTransition(render);try{await t.finished;}catch{}}else render();document.querySelectorAll('[data-cover]').forEach(e=>e.style.removeProperty('view-transition-name'));if(oldCover)oldCover.style.viewTransitionName='';}
 else if(!initialNavigation)scrollSection(name,false);else if(name!=='home')requestAnimationFrame(()=>scrollSection(name,true));}
 initialNavigation=false;}
 document.addEventListener('click',event=>{const a=event.target.closest('a[href^="#"]');if(!a)return;const hash=a.getAttribute('href');if(hash==='#main-content')return;if(!sectionNames.includes(hash.slice(1))&&!hash.startsWith('#project-'))return;event.preventDefault();setPreviewOpen(false);if(a.id==='hero-about'&&heldTriggered){heldTriggered=false;return;}if(document.body.classList.contains('menu-open'))setSidebarOpen(false);history.pushState(null,'',hash);navigate();});
@@ -988,7 +1068,8 @@ const previewData=[
   {href:'#project-data-engineering',image:'assets/project-data.jpg',title:'Data Engineering Project',summary:'Wearable sensors · Worker safety'},
   {href:'#project-engineering-exploration',image:'assets/project-engineering.jpg',title:'Engineering Exploration Project',summary:'Tri-star wheels · Easier curb climbing'},
   {href:'#project-iot-sustainable-living',image:'assets/iot-hardware-workbench.webp',title:'IoT System for Sustainable Household Living',summary:'Connected sensors · Smarter home'},
-  {href:'#project-cloud-computing',image:'assets/cloud-storefront-1.webp',title:'Cloud Computing Development Project',summary:'AWS cloud · Online music store'}
+  {href:'#project-cloud-computing',image:'assets/cloud-storefront-1.webp',title:'Cloud Computing Development Project',summary:'AWS cloud · Online music store'},
+  {href:'#project-road-safety',image:'assets/road-safety-cover.webp',title:'Road Safety & Infrastructure Analysis',summary:'Road infrastructure · Power BI analysis'}
 ];
 const previewMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const previewPreloads=previewData.map(p=>{const im=new Image();im.src=p.image;im.decode?.().catch(()=>{});return im;});
@@ -1198,10 +1279,11 @@ function portfolioReply(raw){
   if(/\b(intern|internship|iwow|work experience|worked at|job|600|300|1200|lora|modbus|meter|esso)\b/.test(q))return {message:'I interned at iWOW Connections from April to August 2024. I configured 4G modems, IoT sensors and Modbus RTU devices, helped monitor meters over LoRa networks, and supported signal testing and documentation.',link:{label:'See my experience',href:'#about'}};
   if(/\b(awards?|prizes?|merit|director.s list|achievements?|honou?rs?|sinda|recognition|aeis)\b/.test(q))return {message:'My achievements include the Director’s List at NYP, two Director’s List awards at ITE, the ITE Certificate of Merit, the SINDA Excellence Awards 2025 and the AEIS Book Prize from ITE.',link:{label:'My achievements',href:'#about'}};
   if(/\b(tri[- ]?star|wheelchair|curb|engineering exploration|mobility|wheel attachment)\b/.test(q))return {message:'For my Engineering Exploration Project, my team explored a motorised tri-star wheel attachment to help wheelchair users overcome curbs. I worked on the switch, Arduino Uno and DC motor circuit, and took part in brainstorming and testing. We tested the concept with a small-scale prototype.',link:{label:'My engineering project',href:'#project-engineering-exploration'}};
+  if(/\b(road safety|road accident|road infrastructure|traffic accidents?|traffic lights|fatalities|death rate|injury rate|road condition)\b/.test(q))return {message:'For my Road Safety & Infrastructure Analysis project, I used Singapore road data and Power BI to compare infrastructure growth with accident, injury and death trends. I focused on the infrastructure theme for our group.',link:{label:'My road safety project',href:'#project-road-safety'}};
   if(/\b(construction|fall detection|fall|slip|near[- ]?miss|safety|wearable|vest|data engineering project)\b/.test(q))return {message:'For my Data Engineering Project, my team built a wearable-sensor prototype to collect movement data and highlight potential slips, falls and near-misses. I developed the Main.py launcher that starts our Python data collection and processing scripts.',link:{label:'My data project',href:'#project-data-engineering'}};
   if(/\b(aws|cloud computing|ec2|s3 bucket|auto scaling|load balancer|rds|boto3)\b/.test(q))return {message:'In my Cloud Computing Development Project, I built an AWS-hosted music-store catalogue using EC2, an Application Load Balancer, Auto Scaling, RDS MySQL and S3. I also configured monitoring, budget alerts and Python health checks.',link:{label:'My Cloud project',href:'#project-cloud-computing'}};
   if(/\b(sustainable|smart home|plant care|thing speak|thingspeak|zigbee|home automation|energy saving)\b/.test(q))return {message:'I built the DHT11 ventilation and ultrasonic alert logic, helped integrate the Arduino code, and sent readings to ThingSpeak using Python. Our school prototype also included lighting and soil-moisture monitoring.',link:{label:'My IoT project',href:'#project-iot-sustainable-living'}};
-  if(/\b(projects?|portfolio|built|build|work on|made|case stud)\b/.test(q))return {message:'I’m featuring four projects: NESSO construction-safety monitoring, the TRI-STAR wheelchair concept, a connected IoT household prototype, and an AWS-hosted music-store application. Each has its own project page.',link:{label:'Explore my projects',href:'#projects'}};
+  if(/\b(projects?|portfolio|built|build|work on|made|case stud)\b/.test(q))return {message:'I’m featuring five published projects: NESSO construction-safety monitoring, the TRI-STAR wheelchair concept, a connected IoT household prototype, an AWS-hosted music store, and my road safety analysis. Project 05 is reserved for later. Each has its own project page.',link:{label:'Explore my projects',href:'#projects'}};
   if(/\b(higher nitec|ite|electronics|education|degree|diploma|nyp|polytechnic|stud(y|ies|ying)|school|course|qualification|graduate|secondary)\b/.test(q))return {message:'I’m studying for a Diploma in AI & Data Engineering at Nanyang Polytechnic. Before that, I completed Higher Nitec in Electronics Engineering at ITE, and I attended Christ Church Secondary School.',link:{label:'My education timeline',href:'#about'}};
   if(/\b(python|power bi|powerbi|mysql|sql|pandas|numpy|matplotlib|aws|machine learning|code|programming|skills?|tools?|technology|stack|arduino|raspberry|sensor|iot|ble|cloud|deep learning|nlp|computer vision)\b/.test(q))return {message:'I work with Python, Pandas, NumPy, Matplotlib, Power BI, Scikit-learn, Arduino (C/C++), Raspberry Pi, M5Stack, BLE, AWS Cloud and MySQL. I’m also learning more about Deep Learning, NLP and Computer Vision.',link:{label:'My skills & tools',href:'#about'}};
   if(/\b(interest|passion|motivat|why ai|artificial intelligence|data science|future|goal|aspir)\b/.test(q))return {message:'I enjoy exploring how AI, data and connected devices can turn practical ideas into useful things. That’s why I like learning by building projects.',link:{label:'More about me',href:'#about'}};
@@ -1277,7 +1359,7 @@ portfolioContactForm?.addEventListener('submit',async event=>{
     if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
       void shell?.offsetWidth;
       shell?.classList.add('is-launching');
-      window.setTimeout(()=>shell?.classList.remove('is-launching'),2350);
+      window.setTimeout(()=>shell?.classList.remove('is-launching'),2150);
     }
   } catch(error) {
     contactFormStatus.classList.add('is-error');
@@ -1399,4 +1481,28 @@ const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');le
   observer.observe(section);
   document.addEventListener('visibilitychange', syncAnimation);
   reducedMotion.addEventListener('change', syncAnimation);
+})();
+
+/* Internship and achievements details are planned, but not separate pages yet. */
+(()=>{
+  const notice=document.getElementById('coming-soon-notice');
+  if(!notice)return;
+  let hideTimer,resetTimer;
+  const show=label=>{
+    clearTimeout(hideTimer);clearTimeout(resetTimer);
+    notice.textContent=`${label} page coming soon`;
+    notice.hidden=false;
+    requestAnimationFrame(()=>notice.classList.add('is-visible'));
+    hideTimer=setTimeout(()=>{
+      notice.classList.remove('is-visible');
+      resetTimer=setTimeout(()=>{notice.hidden=true},220);
+    },2400);
+  };
+  document.querySelectorAll('[data-coming-soon]').forEach(card=>{
+    const activate=()=>show(card.dataset.comingSoon);
+    card.addEventListener('click',activate);
+    card.addEventListener('keydown',event=>{
+      if(event.key==='Enter'||event.key===' '){event.preventDefault();activate()}
+    });
+  });
 })();

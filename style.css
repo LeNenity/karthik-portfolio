@@ -698,9 +698,9 @@ body.menu-open .menu-bars span:nth-child(3){transform:translateY(-6.5px) rotate(
 .project-globe-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 .project-globe-halo{display:none}
 .project-map-nodes{position:absolute;inset:0;z-index:2;pointer-events:none}
-.project-globe-label{position:absolute;white-space:nowrap;color:#bcbcbc;font-size:11px;line-height:1.25;text-align:center;text-shadow:0 1px 5px #0a0a0a;pointer-events:none;transition:opacity .1s linear;will-change:top,left,opacity}
-.project-globe-label--project{color:#f2f2f2;font-size:14px;font-weight:550;letter-spacing:-.025em;padding:3px 5px;margin:0;border-radius:5px;pointer-events:auto;text-shadow:0 1px 6px #0a0a0a;transition:background .2s,color .2s,opacity .1s linear}
-.project-globe-label--project:hover,.project-globe-label--project:focus-visible{color:#fff;background:#232323;outline:1px solid #888;outline-offset:2px}
+.project-globe-label{position:absolute;white-space:nowrap;color:rgba(228,228,228,.82);font-size:11px;line-height:1.25;text-align:center;text-shadow:0 1px 8px rgba(0,0,0,.72);pointer-events:none;transition:opacity .1s linear;will-change:top,left,opacity}
+.project-globe-label--project{color:#fff;font-size:16px;font-weight:700;letter-spacing:-.025em;padding:6px 10px;margin:0;border-radius:999px;pointer-events:auto;background:rgba(11,11,11,.62);border:1px solid rgba(255,255,255,.14);box-shadow:0 8px 18px rgba(0,0,0,.22);text-shadow:0 1px 6px rgba(0,0,0,.78);transition:background .2s,color .2s,opacity .1s linear,transform .2s ease,border-color .2s ease}
+.project-globe-label--project:hover,.project-globe-label--project:focus-visible{color:#fff;background:rgba(24,24,24,.92);border-color:rgba(255,255,255,.38);transform:translateY(-1px);outline:1px solid rgba(255,255,255,.34);outline-offset:2px}
 .project-map-hint{margin:0;padding:0 36px 28px;color:#999;font-size:11px;letter-spacing:.06em;text-align:center}
 .project-map-nojs{position:absolute;inset:0;display:grid;place-items:center;color:#ddd;font-size:15px}
 .project-gallery-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:26px}
@@ -725,7 +725,7 @@ body.menu-open .menu-bars span:nth-child(3){transform:translateY(-6.5px) rotate(
 /* Globe dimensions override legacy map breakpoint rules while retaining the carousel. */
 @media(max-width:1000px){.project-map-stage{height:525px}}
 @media(max-width:800px){.project-map-window{overflow:hidden}.project-map-stage{width:100%;min-width:0;height:480px;touch-action:pan-y}.project-map-hint{display:block;padding:0 20px 23px}}
-@media(max-width:650px){.project-map{margin-bottom:45px;border-radius:21px}.project-map-intro{padding:23px 23px 0}.project-map-intro h3{font-size:27px}.project-map-intro p{font-size:12px}.project-map-stage{height:420px}.project-globe-label{font-size:10px}.project-globe-label--project{font-size:12px;max-width:128px;white-space:normal}.project-map-hint{font-size:10px;letter-spacing:0}}
+@media(max-width:650px){.project-map{margin-bottom:45px;border-radius:21px}.project-map-intro{padding:23px 23px 0}.project-map-intro h3{font-size:27px}.project-map-intro p{font-size:12px}.project-map-stage{height:420px}.project-globe-label{font-size:10px}.project-globe-label--project{font-size:12px;max-width:140px;white-space:normal;padding:5px 9px}.project-map-hint{font-size:10px;letter-spacing:0}}
 @media(prefers-reduced-motion:reduce){.project-globe-label{transition:none}}
 /* Monochrome keyboard opening screen with an upward reveal. */
 body.is-loading{overflow:hidden}
@@ -1670,13 +1670,13 @@ body.is-loading{overflow:hidden}
 
 /* Project globe: actual project names, readable in both themes. */
 .project-globe-label--project{
-  max-width:clamp(140px,17vw,210px);
+  max-width:clamp(150px,18vw,220px);
   white-space:normal;
-  line-height:1.19;
+  line-height:1.17;
   text-wrap:balance;
-  font-size:clamp(12px,1.05vw,14px);
-  font-weight:550;
-  text-shadow:0 1px 6px #0a0a0a;
+  font-size:clamp(13px,1.18vw,17px);
+  font-weight:700;
+  text-shadow:0 1px 6px rgba(0,0,0,.78);
 }
 @media (max-width:650px){
   .project-globe-label--project{max-width:148px;font-size:12px;}
@@ -1888,10 +1888,34 @@ body.is-loading{overflow:hidden}
 @media(max-width:650px){.editorial-case--iot-sustainable-living .ed-project-hero,.editorial-case--cloud-computing .ed-project-hero{margin-bottom:35px}.editorial-case--iot-sustainable-living h2,.editorial-case--cloud-computing h2{font-size:clamp(38px,9.8vw,56px)}.iot-home-intro,.iot-connection,.iot-contribution,.cloud-intro,.cloud-finale{border-radius:23px}.iot-home-intro{padding:28px 22px;min-height:0;margin:20px 0 54px}.iot-intro-type p{margin-top:18px}.iot-heading,.cloud-heading{display:block}.iot-heading h2,.cloud-heading h2{margin-bottom:18px}.iot-feature-grid,.cloud-operations-cards{grid-template-columns:1fr}.iot-feature-tile{min-height:290px;padding:24px;border-radius:23px}.iot-feature-icon{margin:18px 0 12px}.iot-features,.iot-evidence,.cloud-architecture,.cloud-storefront,.cloud-operations{margin:55px 0}.iot-connection{padding:28px 19px;margin:55px 0}.iot-wire{padding:20px 8px;min-height:195px}.iot-wire>div{gap:5px}.iot-wire strong{font-size:10px}.iot-wire small{font-size:9px}.iot-wire iconify-icon{font-size:24px}.iot-wire>b{font-size:15px}.iot-evidence-grid{display:block}.iot-evidence-photo{margin-bottom:14px;border-radius:23px}.iot-evidence-main img,.iot-evidence-photo img{min-height:unset;height:250px}.iot-evidence-photo .ed-image-open{flex:unset;min-height:0}.iot-contribution{gap:25px;padding:30px 24px;margin:55px 0 15px}.iot-conclusion{padding:30px 24px;margin:15px 0 65px}.cloud-intro{padding:30px 25px;margin:20px 0 55px}.cloud-stats{gap:8px;margin-top:18px;padding-top:24px}.cloud-stats strong{font-size:40px}.cloud-stats span{font-size:9px}.cloud-topology{padding:22px 14px;border-radius:23px}.cloud-topology-head{font-size:9px}.cloud-topology-core{padding:14px}.cloud-ec2-pair,.cloud-topology-services{gap:8px}.cloud-node{padding:12px 10px;grid-template-columns:1fr;justify-items:center;text-align:center;gap:5px;border-radius:13px}.cloud-node iconify-icon{grid-row:unset;font-size:21px}.cloud-node b{font-size:11px}.cloud-node small{font-size:9px}.cloud-topology-foot span{font-size:9px;padding:7px 10px}.cloud-storefront-gallery{grid-template-columns:1fr}.cloud-storefront-gallery figure{border-radius:23px}.cloud-storefront-gallery button{height:auto;aspect-ratio:1.6}.cloud-operations-cards article{border-radius:23px;min-height:210px;padding:24px}.cloud-finale{margin:55px 0 30px}.cloud-finale-main,.cloud-finale-result{padding:31px 24px}}
 @media(prefers-reduced-motion:reduce){.iot-feature-tile,.cloud-storefront-gallery figure,.cloud-node,.iot-wire>b,.cloud-topology-down{animation:none;transition:none}.cloud-storefront-gallery figure:hover,.iot-feature-tile:hover,.cloud-node:hover{transform:none}}
 
-.cloud-monitor-image{margin:18px 0 0;border-radius:28px;background:var(--surface);border:1px solid var(--line);padding:12px;overflow:hidden}
-.cloud-monitor-image button{width:100%;display:block;border-radius:19px;overflow:hidden;background:#eef0f1}
-.cloud-monitor-image img{width:100%;height:auto;display:block;max-height:450px;object-fit:contain}
-.cloud-monitor-image figcaption{font-size:10px;color:var(--faint);letter-spacing:.13em;font-weight:750;padding:14px 9px 7px}
+/* Edition 6: separate, readable CloudWatch graphs (the original composite is left in assets). */
+.cloud-monitor-gallery{margin:clamp(24px,3vw,42px) 0 0}
+.cloud-monitor-heading{display:flex;justify-content:space-between;align-items:baseline;gap:18px;margin-bottom:15px}
+.cloud-monitor-heading .ed-label{flex-shrink:0}
+.cloud-monitor-heading p{max-width:490px;font-size:14px;line-height:1.5;color:var(--muted)}
+.cloud-monitor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cloud-monitor-chart{min-width:0;margin:0;padding:10px;border:1px solid var(--line);border-radius:22px;background:var(--surface);overflow:hidden;transition:border-color .25s ease,transform .3s var(--ease)}
+.cloud-monitor-chart:hover{border-color:var(--muted);transform:translateY(-3px)}
+.cloud-monitor-chart .ed-image-open{display:block;width:100%;border:0;border-radius:13px;overflow:hidden;background:#f8fafc;cursor:zoom-in}
+.cloud-monitor-chart .ed-image-open img{width:100%;height:auto;aspect-ratio:2.25 / 1;object-fit:contain;display:block;transition:transform .35s var(--ease)}
+.cloud-monitor-chart:hover .ed-image-open img{transform:scale(1.025)}
+.cloud-monitor-chart figcaption{padding:14px 8px 7px;display:flex;flex-direction:column;gap:5px;line-height:1.4}
+.cloud-monitor-chart figcaption span{font-size:10px;font-weight:740;color:var(--faint);letter-spacing:.12em}
+.cloud-monitor-chart figcaption strong{font-size:16px;color:var(--fg);font-weight:680;display:flex;justify-content:space-between;align-items:center;gap:9px}
+.cloud-monitor-chart figcaption iconify-icon{font-size:17px}
+.cloud-monitor-chart--wide{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(200px,.7fr);align-items:center;gap:16px}
+.cloud-monitor-chart--wide .ed-image-open img{aspect-ratio:auto;object-fit:contain;max-height:380px}
+.cloud-monitor-chart--wide figcaption{padding:20px;gap:12px}
+.cloud-monitor-chart--wide figcaption strong{font-size:clamp(20px,2.1vw,28px)}
+@media(max-width:700px){
+  .cloud-monitor-grid{grid-template-columns:1fr;gap:12px}
+  .cloud-monitor-chart--wide{grid-column:auto;display:block}
+  .cloud-monitor-heading{flex-direction:column;gap:6px}
+  .cloud-monitor-chart .ed-image-open img,.cloud-monitor-chart--wide .ed-image-open img{aspect-ratio:auto;max-height:none}
+  .cloud-monitor-chart figcaption strong,.cloud-monitor-chart--wide figcaption strong{font-size:15px}
+  .cloud-monitor-chart--wide figcaption{padding:14px 8px 7px;gap:5px}
+}
+@media(prefers-reduced-motion:reduce){.cloud-monitor-chart,.cloud-monitor-chart .ed-image-open img{transform:none!important;transition:none!important}}
 
 /* Continuous project loop. Repeated sets scroll at constant speed, without snaps. */
 .featured-projects .own-projects{
@@ -2225,28 +2249,33 @@ body.is-loading{overflow:hidden}
 .contact-paper-sheet span{position:absolute;width:100%;height:1px;left:0;background:rgba(100,80,55,.16)}
 .contact-paper-sheet span:nth-child(1){top:27px}.contact-paper-sheet span:nth-child(2){top:48px}.contact-paper-sheet span:nth-child(3){top:69px}
 .contact-paper-plane{position:absolute;left:50%;top:46%;width:92px;height:80px;transform:translate(-50%,-50%) scale(.4) rotate(-18deg);opacity:0;filter:drop-shadow(0 6px 6px rgba(0,0,0,.19))}
-.contact-flight-trail{position:absolute;left:10%;top:65%;width:0;height:2px;border-radius:50%;background:linear-gradient(90deg,transparent,var(--fg));opacity:0;transform:rotate(-20deg)}
-.contact-flight-trail--two{top:70%;left:20%;transform:rotate(-32deg)}
+/* A small sheet folds into a paper airplane and glides off the right edge. */
+.contact-flight-trail{position:absolute;left:50%;top:47%;max-width:105px;height:1.5px;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(156,128,98,.75));opacity:0;transform:rotate(-25deg)}
+.contact-flight-trail--two{left:47%;top:52%;max-width:76px;transform:rotate(-22deg)}
 .contact-form-shell.is-launching .contact-paper-stage{opacity:1}
-.contact-form-shell.is-launching .contact-paper-sheet{animation:contact-paper-fold .65s cubic-bezier(.22,1,.36,1) both}
-.contact-form-shell.is-launching .contact-paper-plane{animation:contact-airplane-fly 1.55s cubic-bezier(.18,.78,.24,1) .50s both}
-.contact-form-shell.is-launching .contact-flight-trail{animation:contact-plane-trail .85s ease .72s both}
-.contact-form-shell.is-launching .contact-flight-trail--two{animation-delay:.8s}
+.contact-form-shell.is-launching .contact-paper-sheet{animation:contact-paper-fold .66s cubic-bezier(.22,1,.36,1) both}
+.contact-form-shell.is-launching .contact-paper-plane{animation:contact-airplane-glide 1.42s cubic-bezier(.35,.04,.18,1) .48s both;will-change:transform,opacity}
+.contact-form-shell.is-launching .contact-flight-trail{animation:contact-soft-trail 1.05s ease-in-out .62s both}
+.contact-form-shell.is-launching .contact-flight-trail--two{animation-delay:.72s}
 @keyframes contact-paper-fold{
  0%{opacity:0;transform:translate(-50%,-50%) scale(.76) rotate(8deg)}
  20%{opacity:1;transform:translate(-50%,-50%) scale(1)}
  52%{opacity:1;clip-path:polygon(0 0,100% 0,72% 55%,0 100%);transform:translate(-50%,-50%) scale(.84) rotate(10deg)}
  100%{opacity:0;clip-path:polygon(100% 0,100% 0,70% 100%,0 40%);transform:translate(-50%,-50%) scale(.35) rotate(-20deg)}
 }
-@keyframes contact-airplane-fly{
- 0%{opacity:0;transform:translate(-50%,-50%) translate(-30px,20px) scale(.36) rotate(-22deg)}
- 12%{opacity:1;transform:translate(-50%,-50%) translate(4px,-20px) scale(.86) rotate(-15deg)}
- 37%{opacity:1;transform:translate(-50%,-50%) translate(140px,-94px) scale(.95) rotate(14deg)}
- 64%{opacity:1;transform:translate(-50%,-50%) translate(-35px,24px) scale(1.2) rotate(-26deg)}
- 85%{opacity:1;transform:translate(-50%,-50%) translate(40px,8px) scale(3.4) rotate(12deg)}
- 100%{opacity:0;transform:translate(-50%,-50%) translate(15px,25px) scale(10) rotate(9deg)}
+@keyframes contact-airplane-glide{
+ 0%{opacity:0;transform:translate(-50%,-50%) translate(0,8px) scale(.52) rotate(-15deg)}
+ 12%{opacity:1;transform:translate(-50%,-50%) translate(16px,-11px) scale(.73) rotate(-15deg)}
+ 36%{opacity:1;transform:translate(-50%,-50%) translate(82px,-69px) scale(.79) rotate(-6deg)}
+ 58%{opacity:1;transform:translate(-50%,-50%) translate(145px,-82px) scale(.76) rotate(8deg)}
+ 76%{opacity:1;transform:translate(-50%,-50%) translate(238px,-127px) scale(.67) rotate(-12deg)}
+ 100%{opacity:0;transform:translate(-50%,-50%) translate(calc(min(50vw,550px) + 120px),-235px) scale(.48) rotate(-19deg)}
 }
-@keyframes contact-plane-trail{0%{opacity:0;width:0}40%{opacity:.4;width:45%}100%{opacity:0;width:70%}}
+@keyframes contact-soft-trail{
+ 0%,100%{opacity:0;width:0;transform:translate(0,0) rotate(-25deg)}
+ 26%{opacity:.25;width:48px;transform:translate(20px,-23px) rotate(-25deg)}
+ 62%{opacity:.21;width:88px;transform:translate(95px,-65px) rotate(-25deg)}
+}
 @media(max-width:960px){
  .contact-view.contact-editorial{grid-template-columns:1fr;min-height:0;gap:38px;padding:120px 15px 90px}
  .contact-editorial .contact-headline{font-size:clamp(45px,9vw,67px);margin:25px 0 20px}
@@ -2266,7 +2295,7 @@ body.is-loading{overflow:hidden}
  .editorial-case .ed-project-hero--editorial .ed-new-hero-open img{will-change:auto;transform:none}
 }
 
-/* Let the send animation leave the card and fly towards the viewer. */
+/* Let the small paper airplane leave the contact card without zooming. */
 .contact-editorial .contact-form-shell{overflow:visible}
 .contact-editorial .contact-paper-stage{overflow:visible}
 
@@ -2797,4 +2826,240 @@ html[data-theme="dark"] .contact-stacked .contact-socials a:hover .brand-icon-gi
   line-height:1.25!important;
   letter-spacing:-.012em!important;
   color:#28231e!important;
+}
+
+/* Details pages are not published yet. Keep the existing cards interactive. */
+.coming-soon-tile{cursor:pointer}
+.coming-soon-tile:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+.tile-coming-badge{display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border:1px solid var(--line);border-radius:50px;background:color-mix(in srgb,var(--surface) 85%,var(--bg));color:var(--fg);font-size:11px;font-weight:650;letter-spacing:.015em;white-space:nowrap}
+.tile-coming-badge iconify-icon{font-size:12px}
+.coming-soon-tile:hover .tile-coming-badge,.coming-soon-tile:focus-visible .tile-coming-badge{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.coming-soon-notice{position:fixed;left:50%;bottom:24px;z-index:99999;max-width:min(90vw,380px);transform:translate(-50%,12px);border:1px solid var(--line);background:var(--fg);color:var(--bg);border-radius:50px;padding:13px 22px;text-align:center;font-size:14px;font-weight:600;box-shadow:0 18px 46px rgba(0,0,0,.16);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+.coming-soon-notice.is-visible{transform:translate(-50%,0);opacity:1}
+@media(prefers-reduced-motion:reduce){.coming-soon-notice{transition:none}}
+
+
+/* Edition 8: a slow moving light traces the two clickable About cards.
+   A masked overlay keeps the animation on the border, never over card text. */
+@property --tile-orbit-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.coming-soon-tile {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.coming-soon-tile .tile-orbit-trace {
+  --tile-orbit-angle: 0deg;
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: block;
+  border: 3px solid transparent;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--tile-orbit-angle),
+    transparent 0deg 263deg,
+    rgba(255,255,255,.04) 281deg,
+    rgba(255,255,255,1) 309deg,
+    rgba(255,255,255,.75) 330deg,
+    transparent 357deg 360deg
+  ) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: tile-outline-orbit 8s linear infinite;
+  opacity: .92;
+  transition: opacity .3s ease;
+}
+@keyframes tile-outline-orbit {
+  to { --tile-orbit-angle: 360deg; }
+}
+.coming-soon-tile:hover .tile-orbit-trace,
+.coming-soon-tile:focus-visible .tile-orbit-trace {
+  opacity: 1;
+  animation-duration: 4.5s;
+}
+.coming-soon-tile:hover,
+.coming-soon-tile:focus-visible {
+  border-color: rgba(255,255,255,.48);
+  box-shadow: 0 20px 46px rgba(25,15,10,.14), inset 0 0 0 1px rgba(255,255,255,.14);
+}
+.coming-soon-tile .tile-coming-badge {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+  transition: background .28s ease, color .28s ease, border-color .28s ease, transform .28s ease;
+}
+.coming-soon-tile:hover .tile-coming-badge,
+.coming-soon-tile:focus-visible .tile-coming-badge {
+  transform: translate(2px,-2px);
+}
+.coming-soon-tile:active { transform: translateY(-1px) scale(.997); }
+@media (prefers-reduced-motion:reduce) {
+  .coming-soon-tile .tile-orbit-trace {
+    animation: none !important;
+    background: linear-gradient(135deg, rgba(255,255,255,.85),rgba(255,255,255,.08),rgba(255,255,255,.35)) border-box;
+  }
+  .coming-soon-tile:active { transform: none; }
+}
+
+/* ROAD SAFETY PROJECT 06 — restrained, editorial, uses the original Power BI charts. */
+.editorial-case--road-safety .ed-new-hero-visual{background:var(--surface)}
+.editorial-case--road-safety .ed-new-hero-visual img{object-fit:contain;background:var(--surface)}
+.road-project-wrap{color:var(--fg);margin-bottom:clamp(28px,5vw,80px)}
+.road-project-wrap .road-section{padding:clamp(48px,7vw,94px) 0;border-bottom:1px solid var(--line)}
+.road-eyebrow{font-weight:750;font-size:11px;letter-spacing:.17em;color:var(--muted);margin-bottom:30px}
+.road-project-wrap h2{font-size:clamp(32px,4.6vw,62px);font-weight:690;line-height:1.12;letter-spacing:-.053em}
+.road-project-wrap h2 em{font-style:normal;color:var(--muted)}
+.road-project-wrap p{font-size:clamp(15px,1.32vw,18px);color:var(--muted);line-height:1.72}
+.road-context{padding:30px 0;display:flex;align-items:end;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}
+.road-context>div{max-width:690px}.road-context p{margin-top:12px}.road-context strong{color:var(--fg);font-weight:650}
+.road-number{font-weight:750;font-size:clamp(46px,7vw,96px);line-height:1;white-space:nowrap;letter-spacing:-.08em}.road-number span{display:block;font-size:10px;letter-spacing:.15em;color:var(--muted);text-align:right;margin-top:10px}
+.road-question-grid,.road-method-grid,.road-findings-grid,.road-takeaway-grid{display:grid;grid-template-columns:1.03fr .97fr;gap:clamp(28px,6vw,95px);align-items:start}
+.road-question-grid p+p,.road-method-grid p+p,.road-findings-grid p+p,.road-takeaway-grid p+p{margin-top:17px}
+.road-numbers{padding:36px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;border-bottom:1px solid var(--line)}
+.road-numbers article{padding:clamp(20px,3vw,36px);border-radius:24px;background:var(--surface);min-height:210px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--line);transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
+.road-numbers article:hover{transform:translateY(-5px);box-shadow:0 18px 32px rgba(0,0,0,.06)}
+.road-numbers article>span{font-size:11px;letter-spacing:.1em;font-weight:750;color:var(--muted)}
+.road-numbers strong{font-size:clamp(32px,4vw,55px);font-weight:720;letter-spacing:-.07em;white-space:nowrap}.road-numbers i{font-size:.55em;font-style:normal;color:var(--muted)}
+.road-numbers p{font-size:13px;line-height:1.4}
+.road-steps{display:grid;gap:12px}.road-steps article{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}.road-steps article:first-child{padding-top:0}
+.road-steps article>span{font-size:13px;font-weight:780;color:var(--muted)}.road-steps h3{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:7px}.road-steps p{font-size:15px}
+/* Project 06 visuals use the same compact, framed gallery treatment as the other case studies. */
+.road-project-wrap .road-dashboard{padding:clamp(42px,5vw,66px) 0}
+.road-dashboard .road-section-top{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:24px}
+.road-dashboard .road-section-top>div{max-width:660px}
+.road-dashboard .road-section-top h2{font-size:clamp(30px,3.5vw,48px);line-height:1.12}
+.road-dashboard .road-section-top>p{max-width:260px;font-size:14px;line-height:1.55}
+.road-chart-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.5vw,20px);align-items:stretch}
+.road-chart{
+  min-width:0;margin:0;padding:clamp(9px,1.15vw,15px);
+  overflow:hidden;border:1px solid var(--line);border-radius:clamp(18px,1.8vw,24px);
+  background:var(--picture-card-bg);
+  display:flex;flex-direction:column;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s ease;
+}
+.road-chart:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--fg) 24%,var(--line));box-shadow:0 16px 28px rgba(0,0,0,.065)}
+.road-chart button{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;height:clamp(210px,21vw,270px);min-height:0;min-width:0;flex:none;
+  padding:0;margin:0;border:0;border-radius:clamp(11px,1.2vw,15px);
+  background:#fff;cursor:zoom-in;overflow:hidden;position:relative;
+}
+.road-chart button img{
+  display:block;width:100%;height:100%;max-height:none;min-height:0;
+  padding:clamp(8px,1vw,13px);
+  object-fit:contain;object-position:center;
+  transition:transform .5s var(--ease);
+}
+.road-chart button:hover img{transform:scale(1.015)}
+.road-chart--accidents button{height:clamp(230px,23vw,295px)}
+.road-chart figcaption{
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;
+  position:relative;padding:12px 4px 3px;min-height:0;
+}
+.road-chart figcaption>span{width:100%;font-size:10px;font-weight:750;letter-spacing:.12em;color:var(--muted)}
+.road-chart figcaption strong{font-weight:660;font-size:clamp(14px,1.18vw,17px);line-height:1.35;letter-spacing:-.02em;max-width:calc(100% - 28px)}
+.road-chart figcaption iconify-icon{position:absolute;right:2px;bottom:6px;font-size:16px;color:var(--muted)}
+.road-share-chart{max-width:100%}
+.road-share-chart button{height:clamp(210px,20vw,290px)}
+@media (min-width:701px) and (max-width:1099px){
+  .road-chart-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .road-chart--accidents{grid-column:1/-1}
+  .road-chart--accidents button{height:300px}
+}
+@media(max-width:700px){
+  .road-dashboard .road-section-top{display:block;margin-bottom:20px}
+  .road-dashboard .road-section-top>p{max-width:100%;margin-top:10px}
+  .road-chart-grid{grid-template-columns:1fr;gap:14px;max-width:620px;margin-inline:auto}
+  .road-chart button,.road-chart--accidents button{height:clamp(215px,50vw,340px)}
+  .road-chart figcaption{padding:12px 5px 4px}
+}
+@media(prefers-reduced-motion:reduce){
+  .road-chart,.road-chart button img{transition:none!important}
+  .road-chart:hover,.road-chart button:hover img{transform:none}
+}
+.road-tech{padding:clamp(24px,4vw,38px);border:1px solid var(--line);background:var(--surface);border-radius:26px}
+.road-tech>span{font-weight:750;font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.road-tech>div{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 36px}.road-tech>div>span{border:1px solid var(--line);border-radius:40px;padding:9px 13px;font-size:12px}
+.road-tech small{color:var(--muted);line-height:1.6;display:block}
+@media(max-width:800px){.road-question-grid,.road-method-grid,.road-findings-grid,.road-takeaway-grid{grid-template-columns:1fr;gap:24px}.road-numbers{grid-template-columns:1fr 1fr}.road-numbers article{min-height:185px}}
+@media(max-width:540px){.road-context{align-items:start;flex-direction:column}.road-number{font-size:38px}.road-number span{text-align:left}.road-project-wrap .road-section{padding:48px 0}.road-numbers{grid-template-columns:1fr}.road-numbers article{min-height:150px;padding:24px}}
+@media(prefers-reduced-motion:reduce){.road-numbers article{transition:none!important}.road-numbers article:hover{transform:none}}
+
+/* A dark, clearly visible orbit in light mode; a white orbit in dark mode. */
+:root[data-theme="light"] .coming-soon-tile,
+:root:not([data-theme]) .coming-soon-tile {
+  --tile-orbit-rgb:35,30,26;
+}
+:root[data-theme="dark"] .coming-soon-tile {
+  --tile-orbit-rgb:255,255,255;
+}
+.coming-soon-tile .tile-orbit-trace {
+  background: conic-gradient(
+    from var(--tile-orbit-angle),
+    transparent 0deg 247deg,
+    rgba(var(--tile-orbit-rgb),.12) 266deg,
+    rgba(var(--tile-orbit-rgb),.48) 290deg,
+    rgba(var(--tile-orbit-rgb),1) 312deg,
+    rgba(var(--tile-orbit-rgb),.74) 332deg,
+    transparent 354deg 360deg
+  ) border-box;
+}
+:root[data-theme="light"] .coming-soon-tile:hover,
+:root[data-theme="light"] .coming-soon-tile:focus-visible {
+  border-color:rgba(35,30,26,.44);
+  box-shadow:0 20px 46px rgba(25,15,10,.12),inset 0 0 0 1px rgba(35,30,26,.12);
+}
+@media(prefers-reduced-motion:reduce) {
+  .coming-soon-tile .tile-orbit-trace {
+    background:linear-gradient(135deg,rgba(var(--tile-orbit-rgb),.85),rgba(var(--tile-orbit-rgb),.08),rgba(var(--tile-orbit-rgb),.45)) border-box;
+  }
+}
+/* Project 06 uses the same neutral surface and type colours as the other case studies. */
+.editorial-case.editorial-case--road-safety {
+  --ed-hero-bg:var(--bg);
+  --ed-hero-stage:var(--surface);
+  --ed-hero-title:var(--fg);
+  --ed-hero-copy:var(--muted);
+  --ed-hero-line:var(--line);
+}
+
+
+/* Project 06: match the established split project template (copy left, picture right).
+   Keep the full Power BI chart legible in its original aspect ratio. */
+.editorial-case--road-safety .ed-project-hero--split h1 {
+  font-size:clamp(49px,5.6vw,98px);
+  line-height:1.035;
+  letter-spacing:-.07em;
+  max-width:760px;
+  text-wrap:balance;
+}
+.editorial-case--road-safety .ed-project-hero--split .ed-new-hero-visual.ed-media-card {
+  height:clamp(310px,29vw,460px);
+  padding:clamp(12px,1.5vw,24px);
+  background:var(--surface);
+}
+.editorial-case--road-safety .ed-project-hero--split .ed-new-hero-open {
+  width:100%;height:100%;
+  background:#fff;
+  overflow:hidden;
+  border-radius:var(--portfolio-media-radius,16px);
+}
+.editorial-case--road-safety .ed-project-hero--split .ed-new-hero-open img {
+  width:100%;height:100%;display:block;
+  object-fit:contain;object-position:center;
+  background:#fff;
+}
+@media(max-width:1000px){
+  .editorial-case--road-safety .ed-project-hero--split h1{font-size:clamp(46px,5.9vw,68px)}
+  .editorial-case--road-safety .ed-project-hero--split .ed-new-hero-visual.ed-media-card{height:clamp(270px,35vw,390px)}
+}
+@media(max-width:700px){
+  .editorial-case--road-safety .ed-project-hero--split h1{font-size:clamp(43px,10vw,66px)}
+  .editorial-case--road-safety .ed-project-hero--split .ed-new-hero-visual.ed-media-card{height:clamp(220px,56vw,360px)}
 }

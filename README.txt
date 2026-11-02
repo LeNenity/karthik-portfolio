@@ -12,7 +12,7 @@ If you're putting it online with GitHub and Render, upload everything in this ZI
 What's on the site?
 -------------------
 - Home and About: an introduction, education, awards, skills and my latest resume.
-- Projects: four projects covering data engineering, wheelchair design, home IoT and AWS cloud computing.
+- Projects: projects covering data engineering, wheelchair design, home IoT, AWS cloud computing and road-safety analysis.
 - All Projects: a page where you can search and filter the projects.
 - Contact: links to my socials and a message form.
 
@@ -26,3 +26,6 @@ A couple of useful things
 - Check the site on both desktop and mobile before publishing changes.
 
 That's it. Thanks for checking out my work!
+
+Project 06: Road Safety & Infrastructure Analysis
+I added my road-safety Power BI charts and a case study about the infrastructure part I worked on with my group. Project 05 is still open for a future project.
