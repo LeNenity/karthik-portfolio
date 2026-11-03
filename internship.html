@@ -19,18 +19,32 @@
 <script src="internship.js" defer></script>
 <script src="footer.js" defer></script>
 <script src="navigation.js" defer></script>
+<script src="about-preview.js" defer></script>
 </head>
 <body class="all-projects-page internship-page">
 <a class="skip" href="#internship-main">Skip to internship</a>
 <a class="ap-back ap-back-fixed" href="index.html#about" aria-label="Back to About me"><iconify-icon icon="lucide:arrow-left" aria-hidden="true"></iconify-icon><span>Back to portfolio</span></a>
 <header class="floating-header" aria-label="Main header">
   <nav class="dock glass" aria-label="Main navigation">
-    <a class="nav-item" href="index.html#home" aria-label="Home"><iconify-icon icon="lucide:house" aria-hidden="true"></iconify-icon><span class="nav-label">Home</span></a>
-    <a class="nav-item" href="index.html#about" aria-label="About"><iconify-icon icon="lucide:user-round" aria-hidden="true"></iconify-icon><span class="nav-label">About</span></a>
-    <a class="nav-item" href="all-projects.html" aria-label="Projects"><iconify-icon icon="lucide:briefcase-business" aria-hidden="true"></iconify-icon><span class="nav-label">Projects</span></a>
+    <a id="nav-home" class="nav-item" href="index.html#home" aria-label="Home"><iconify-icon icon="lucide:house" aria-hidden="true"></iconify-icon><span class="nav-label">Home</span></a>
+    <a id="nav-about" class="nav-item" href="index.html#about" aria-label="About" data-about-trigger aria-expanded="false" aria-controls="about-preview"><iconify-icon icon="lucide:user-round" aria-hidden="true"></iconify-icon><span class="nav-label">About</span></a>
+    <a id="nav-projects" class="nav-item" href="index.html#projects" aria-label="Projects"><iconify-icon icon="lucide:briefcase-business" aria-hidden="true"></iconify-icon><span class="nav-label">Projects</span></a>
   </nav>
   <button id="all-theme-toggle" class="theme-toggle glass" type="button" aria-label="Switch to dark mode"><iconify-icon id="all-theme-icon" icon="lucide:moon" aria-hidden="true"></iconify-icon></button>
   <a class="contact-pill" href="index.html#contact"><span class="disc"><iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span>Contact me</a>
+
+  <div id="about-preview" class="nav-preview about-preview glass" aria-label="Internship preview" hidden>
+    <div class="about-preview-copy">
+      <div class="about-preview-meta"><span>MY INTERNSHIP</span><span>APR to AUG 2024</span></div>
+      <h2>IoT Intern<br><em>at iWOW Connections.</em></h2>
+      <p>Connected-device setup, utility-meter monitoring and on-site signal tests.</p>
+      <a class="internship-cta about-preview-link" href="internship.html">View my internship <iconify-icon icon="lucide:arrow-right" aria-hidden="true"></iconify-icon></a>
+    </div>
+    <figure class="about-preview-photo">
+      <img src="assets/internship-s47-preparation.webp" alt="Utility meter connected to an IoT modem during my internship testing" width="1600" height="1200" loading="lazy" decoding="async">
+      <figcaption>Connected devices from my time at iWOW.</figcaption>
+    </figure>
+  </div>
 </header><main id="internship-main" class="intern-main frame">
   <header class="intern-hero" id="intern-overview">
     <div class="intern-hero-copy">

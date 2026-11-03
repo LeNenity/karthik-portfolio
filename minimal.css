@@ -84,6 +84,16 @@
 :root[data-theme="dark"] .about-tile .tile-orbit-trace{
   --tile-orbit-rgb:235,229,219;
 }
+.internship-link .tile-orbit-trace{
+  border-width:3px;opacity:1;
+  background-image:conic-gradient(from var(--tile-orbit-angle),
+    transparent 0deg 235deg,
+    rgba(var(--tile-orbit-rgb),.25) 260deg,
+    rgba(var(--tile-orbit-rgb),.8) 288deg,
+    rgba(var(--tile-orbit-rgb),1) 312deg,
+    rgba(var(--tile-orbit-rgb),.7) 334deg,
+    transparent 358deg 360deg)!important;
+}
 @media(hover:hover) and (prefers-reduced-motion:no-preference){
   .about-tile.in-view:hover,.about-tile:hover{
     transform:translateY(-5px)!important;
@@ -187,18 +197,79 @@
   overflow-wrap:anywhere;
 }
 
-/* Keep the dock's icon names expanded throughout the open dropdown. */
+/* Keep the dock's icon names expanded throughout either open dropdown. */
 @media(min-width:901px){
-  .floating-header.projects-preview-open .dock .nav-item{
+  .floating-header.projects-preview-open .dock .nav-item,
+  .floating-header.about-preview-open .dock .nav-item{
     min-width:0!important;padding:0 13px!important;
   }
-  .floating-header.projects-preview-open #nav-home{width:96px!important;}
-  .floating-header.projects-preview-open #nav-about{width:98px!important;}
-  .floating-header.projects-preview-open #nav-projects{width:119px!important;}
-  .floating-header.projects-preview-open .dock .nav-item .nav-label{
+  .floating-header.projects-preview-open #nav-home,
+  .floating-header.about-preview-open #nav-home{width:96px!important;}
+  .floating-header.projects-preview-open #nav-about,
+  .floating-header.about-preview-open #nav-about{width:98px!important;}
+  .floating-header.projects-preview-open #nav-projects,
+  .floating-header.about-preview-open #nav-projects{width:119px!important;}
+  .floating-header.projects-preview-open .dock .nav-item .nav-label,
+  .floating-header.about-preview-open .dock .nav-item .nav-label{
     max-width:85px!important;opacity:1!important;margin-left:0!important;
     pointer-events:auto!important;
   }
+}
+
+/* Make the internship page link easy to notice on the About card. */
+.internship-link{cursor:pointer;}
+.internship-link .tile-top{flex-wrap:wrap;gap:12px;}
+.internship-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:46px;padding:11px 17px;flex-shrink:0;
+  border:1px solid #2f5b4b;border-radius:999px;
+  background:#2f5b4b;color:#fffaf0;
+  font-size:16px;font-weight:700;line-height:1.35;letter-spacing:0;
+  white-space:nowrap;transition:background-color .2s ease,border-color .2s ease;
+}
+.internship-cta iconify-icon{font-size:19px;}
+.internship-link:hover .internship-cta,
+.internship-link:focus-visible .internship-cta{background:#234638;border-color:#234638;}
+:root[data-theme="dark"] .internship-cta{
+  background:#bfd8c7;color:#19382d;border-color:#bfd8c7;
+}
+:root[data-theme="dark"] .internship-link:hover .internship-cta,
+:root[data-theme="dark"] .internship-link:focus-visible .internship-cta{
+  background:#d4e6da;border-color:#d4e6da;
+}
+
+/* Internship preview in the About dropdown. */
+.about-preview-copy{
+  display:flex;flex-direction:column;align-items:flex-start;
+  min-width:0;min-height:0;padding:14px 12px 12px;
+  border-right:1px solid var(--line);overflow-y:auto;
+}
+.about-preview-meta{
+  display:flex;justify-content:space-between;gap:12px;width:100%;
+  font-size:10px;font-weight:650;line-height:1.4;letter-spacing:.1em;color:var(--muted);
+}
+.about-preview-copy h2{
+  margin:16px 0 12px;font-size:26px;font-weight:650;line-height:1.15;letter-spacing:-.04em;
+}
+.about-preview-copy h2 em{font-style:normal;font-weight:450;color:var(--muted);}
+.about-preview-copy p{margin:0 0 18px;font-size:14px;line-height:1.6;color:var(--muted);}
+.about-preview-link{flex-shrink:0;}
+.about-preview-link:hover,.about-preview-link:focus-visible{background:#234638;border-color:#234638;}
+:root[data-theme="dark"] .about-preview-link:hover,
+:root[data-theme="dark"] .about-preview-link:focus-visible{background:#d4e6da;border-color:#d4e6da;}
+.about-preview a:focus-visible{outline:2px solid var(--fg);outline-offset:4px;}
+.about-preview-photo{
+  display:grid;grid-template-rows:minmax(0,1fr) 44px;
+  min-width:0;min-height:0;margin:0 0 0 13px;
+  border-radius:22px;overflow:hidden;background:var(--surface);
+}
+.about-preview-photo img{
+  display:block;width:100%;height:100%;min-height:0;
+  object-fit:contain;object-position:center;
+}
+.about-preview-photo figcaption{
+  display:flex;align-items:center;padding:8px 14px;
+  font-size:12px;line-height:1.4;color:var(--muted);background:var(--surface);
 }
 @media(max-width:700px){
   .ml-results-table{font-size:14px;min-width:530px;}

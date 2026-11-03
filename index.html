@@ -18,6 +18,7 @@
 <script src="site.js" defer></script>
 <script src="footer.js" defer></script>
 <script src="navigation.js" defer></script>
+<script src="about-preview.js" defer></script>
 </head>
 <body>
 <div id="page-loader" class="page-loader" role="status" aria-label="Loading Karthik's portfolio">
@@ -48,7 +49,7 @@
   </button>
   <nav class="dock glass" aria-label="Main navigation">
     <a id="nav-home" class="nav-item" href="#home" aria-label="Home" aria-current="page"><iconify-icon icon="lucide:house" aria-hidden="true"></iconify-icon><span class="nav-label">Home</span></a>
-    <a id="nav-about" class="nav-item" href="#about" aria-label="About"><iconify-icon icon="lucide:user-round" aria-hidden="true"></iconify-icon><span class="nav-label">About</span></a>
+    <a id="nav-about" class="nav-item" href="#about" aria-label="About" data-about-trigger aria-expanded="false" aria-controls="about-preview"><iconify-icon icon="lucide:user-round" aria-hidden="true"></iconify-icon><span class="nav-label">About</span></a>
     <a id="nav-projects" class="nav-item" href="#projects" aria-label="Projects" aria-expanded="false" aria-controls="nav-preview"><iconify-icon icon="lucide:briefcase-business" aria-hidden="true"></iconify-icon><span class="nav-label">Projects</span></a>
   </nav>
 
@@ -67,6 +68,19 @@
   </div>
   <button id="theme-toggle" class="theme-toggle glass" type="button" aria-label="Switch to light mode"><iconify-icon id="theme-icon" icon="lucide:sun" aria-hidden="true"></iconify-icon></button>
   <a id="header-contact" class="contact-pill" href="#contact"><span class="disc"><iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span>Contact me</a>
+
+  <div id="about-preview" class="nav-preview about-preview glass" aria-label="Internship preview" hidden>
+    <div class="about-preview-copy">
+      <div class="about-preview-meta"><span>MY INTERNSHIP</span><span>APR to AUG 2024</span></div>
+      <h2>IoT Intern<br><em>at iWOW Connections.</em></h2>
+      <p>Connected-device setup, utility-meter monitoring and on-site signal tests.</p>
+      <a class="internship-cta about-preview-link" href="internship.html">View my internship <iconify-icon icon="lucide:arrow-right" aria-hidden="true"></iconify-icon></a>
+    </div>
+    <figure class="about-preview-photo">
+      <img src="assets/internship-s47-preparation.webp" alt="Utility meter connected to an IoT modem during my internship testing" width="1600" height="1200" loading="lazy" decoding="async">
+      <figcaption>Connected devices from my time at iWOW.</figcaption>
+    </figure>
+  </div>
 </header>
 <aside class="section-rail" aria-label="Section shortcuts">
   <a href="#home" data-rail="home" aria-label="Home"><span class="rail-stroke"></span><span class="rail-name">Home</span></a>
@@ -162,7 +176,7 @@
         <a class="about-tile tile-internship tile-animate internship-link" href="internship.html" aria-label="Read about my IoT internship at iWOW Connections" style="--tile-order:1">
           <span class="tile-orbit-trace" aria-hidden="true"></span>
           
-          <div class="tile-top"><span class="tile-label"><iconify-icon icon="lucide:briefcase-business" aria-hidden="true"></iconify-icon> REAL-WORLD EXPERIENCE</span><span class="tile-coming-badge">View experience <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span></div>
+          <div class="tile-top"><span class="tile-label"><iconify-icon icon="lucide:briefcase-business" aria-hidden="true"></iconify-icon> REAL-WORLD EXPERIENCE</span><span class="internship-cta">View my internship <iconify-icon icon="lucide:arrow-right" aria-hidden="true"></iconify-icon></span></div>
           <span class="tile-date">APR to AUG 2024</span>
           <h3>IoT Intern<br><em>at iWOW Connections.</em></h3>
           <p>Configured and supported connected devices, monitored utility meters, and helped with signal-strength tests and documentation.</p>
@@ -182,9 +196,8 @@
             <div class="skill-row"><span>Cloud &amp; databases</span><div><span>AWS Cloud</span><span>MySQL</span></div></div>
           </div>
         </article>
-        <article class="about-tile tile-awards tile-animate coming-soon-tile" tabindex="0" role="button" aria-label="Achievements details, coming soon" data-coming-soon="Achievements" style="--tile-order:3">
-          <span class="tile-orbit-trace" aria-hidden="true"></span>
-          <div class="tile-top"><span class="tile-label"><iconify-icon icon="lucide:award" aria-hidden="true"></iconify-icon> ACHIEVEMENTS</span><span class="tile-coming-badge">Coming soon <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span></div>
+        <article class="about-tile tile-awards tile-animate" style="--tile-order:3">
+          <div class="tile-top"><span class="tile-label"><iconify-icon icon="lucide:award" aria-hidden="true"></iconify-icon> ACHIEVEMENTS</span></div>
           <h3>My<br><em>achievements.</em></h3>
           <ul class="award-list">
             <li><iconify-icon icon="lucide:sparkles" aria-hidden="true"></iconify-icon><span>Director's List <small>Nanyang Polytechnic · Y1S2</small></span></li>
@@ -221,7 +234,7 @@
         <p class="project-map-hint">Drag to spin · Move your mouse to steer · Select a visible project</p>
       </div>
       <div class="project-showcase">
-      <div class="project-gallery-heading"><span>THE PROJECTS</span><div class="project-gallery-actions"><p>Explore each build in detail.</p><a class="all-projects-link" href="all-projects.html" aria-label="See all six published projects"><span class="all-projects-link-label">See all projects</span><span class="all-projects-link-count" aria-hidden="true">05</span><span class="all-projects-link-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></a></div></div>
+      <div class="project-gallery-heading"><span>THE PROJECTS</span><div class="project-gallery-actions"><p>Explore each build in detail.</p><a class="all-projects-link" href="all-projects.html" aria-label="See all six published projects"><span class="all-projects-link-label">See all projects</span><span class="all-projects-link-count" aria-hidden="true">06</span><span class="all-projects-link-arrow" aria-hidden="true"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span></a></div></div>
       <div class="project-rail-wrap">
         <div id="project-rail" class="own-projects" role="region" aria-roledescription="rotating gallery" aria-label="My Projects. Scroll horizontally or swipe to browse more projects." tabindex="0">
           <a id="open-data-engineering" class="project-card" href="#project-data-engineering" aria-label="Open NESSO Safety Monitoring System"><div class="project-cover"><img src="assets/project-data.jpg" alt="NESSO Safety Monitoring System" loading="lazy" width="800" height="600" data-cover="data-engineering"><span class="project-image-cta" aria-hidden="true">View project ↗</span></div><div class="project-card-copy"><div class="project-meta"><span>01</span><span>DATA ENGINEERING</span></div><h3>NESSO Safety Monitoring System</h3><p>We used four NESSO devices to collect movement readings and flag possible safety incidents.</p><span class="project-open">View project <span aria-hidden="true">↗</span></span></div></a>
@@ -265,7 +278,7 @@
     </button>
   </div>
 </footer>
-<div id="coming-soon-notice" class="coming-soon-notice" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
 
 
 </div>

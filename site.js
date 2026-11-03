@@ -1146,6 +1146,7 @@ function setPreviewOpen(open){
   cancelPreviewClose();
   if(!navPreview)return;
   if(matchMedia('(max-width:900px)').matches)open=false;
+  if(open)navHeader?.dispatchEvent(new CustomEvent('portfolio:preview-open',{detail:{id:navPreview.id}}));
   navHeader?.classList.toggle('projects-preview-open',open);
   if(navPreview.hidden===!open)return;
   navPreview.hidden=!open;
@@ -1159,14 +1160,13 @@ function setPreviewOpen(open){
   }else{previewInteracting=false;stopPreviewCycle();}
 }
 highlightPreviewRows();
+navHeader?.addEventListener('portfolio:preview-open',event=>{
+  if(event.detail?.id!==navPreview?.id)setPreviewOpen(false);
+});
 previewTrigger?.addEventListener('pointermove',schedulePreviewOpen);
 previewTrigger?.addEventListener('pointerleave',cancelPreviewOpen);
-previewTrigger?.addEventListener('click',event=>{
-  if(matchMedia('(max-width:900px)').matches)return;
-  if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
-  event.preventDefault();event.stopPropagation();
-  setPreviewOpen(navPreview.hidden);
-});
+// Clicking keeps the section link working; hover and ArrowDown open the preview.
+previewTrigger?.addEventListener('click',()=>setPreviewOpen(false));
 previewTrigger?.addEventListener('keydown',event=>{
   if(matchMedia('(max-width:900px)').matches)return;
   if(event.key==='ArrowDown'||event.key===' '){
@@ -1394,26 +1394,4 @@ if(metricsCard){
   reducedMotion.addEventListener('change', syncAnimation);
 })();
 
-/* Achievements details remain available as a coming-soon notice. */
-(()=>{
-  const notice=document.getElementById('coming-soon-notice');
-  if(!notice)return;
-  let hideTimer,resetTimer;
-  const show=label=>{
-    clearTimeout(hideTimer);clearTimeout(resetTimer);
-    notice.textContent=`${label} page coming soon`;
-    notice.hidden=false;
-    requestAnimationFrame(()=>notice.classList.add('is-visible'));
-    hideTimer=setTimeout(()=>{
-      notice.classList.remove('is-visible');
-      resetTimer=setTimeout(()=>{notice.hidden=true},220);
-    },2400);
-  };
-  document.querySelectorAll('[data-coming-soon]').forEach(card=>{
-    const activate=()=>show(card.dataset.comingSoon);
-    card.addEventListener('click',activate);
-    card.addEventListener('keydown',event=>{
-      if(event.key==='Enter'||event.key===' '){event.preventDefault();activate()}
-    });
-  });
-})();
+
