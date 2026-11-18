@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="A school prototype for temperature control, lighting, soil moisture and doorway alerts." name="description"/>
+<title>IoT System for Sustainable Household Living · Karthik</title>
+<script>
+(() => {
+  let saved;
+  try { saved=localStorage.getItem('karthik-beige-theme'); } catch {}
+  document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+})();
+
+</script>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link as="font" crossorigin="" href="assets/space-grotesk.woff2" rel="preload" type="font/woff2"/>
+<link rel="stylesheet" href="case-studies.bundle.css"><link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;display=swap" rel="stylesheet"/>
+<script defer src="case-studies.bundle.js"></script>
+
+
+
+
+
+
+
+
+</head>
+<body class="case-view unified-case-chrome refreshed-case-page" data-ambient-dots>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div aria-hidden="true" id="top"></div>
+<div id="site-chrome-header"></div>
+<main id="main-content" tabindex="-1">
+<article class="case-page tone-3">
+<header class="shell case-heading">
+<a class="back-link" href="all-projects.html"><iconify-icon aria-hidden="true" icon="lucide:arrow-left"></iconify-icon> All projects</a>
+<div class="case-title">
+<h1 data-title-reveal>IoT System for Sustainable Household Living<span class="wordmark-period">.</span></h1>
+<p class="lead">
+              A school prototype for temperature control, lighting, soil moisture and doorway alerts.
+            </p>
+</div>
+<figure class="case-cover">
+<a aria-label="Enlarge project cover" class="image-preview" data-alt="Original portfolio cover image for iot sustainable living" data-preview="case" data-title="IoT System for Sustainable Household Living" href="assets/iot-hardware-workbench.webp" rel="noopener noreferrer" target="_blank">
+<img alt="Our household sensor prototype with Arduino and Raspberry Pi" class="" decoding="async" fetchpriority="high" height="646" loading="eager" src="assets/iot-hardware-workbench.webp" width="1100"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+</figure>
+</header>
+<div class="shell case-body">
+<div class="case-story">
+<section class="case-overview" data-reveal="" id="overview">
+<div class="project-summary">
+<div class="project-summary-copy">
+<h2>Project overview</h2>
+<p>
+                    For our IoT Programming &amp; Cloud Services mini project, we built a
+                    <strong>household monitoring prototype with four sensor functions</strong>. It
+                    covered ventilation, switching lights off when there was enough daylight, checking
+                    plant soil moisture and detecting someone near the doorway.
+                  </p>
+<ul class="project-overview-points">
+<li>
+                      An <strong>Arduino Nano</strong> read the sensors and controlled the relay,
+                      NeoPixel and MP3 outputs.
+                    </li>
+<li>
+                      A Raspberry Pi, ZigBee and Python were used to upload readings to
+                      <strong>ThingSpeak</strong>.
+                    </li>
+<li>
+                      The dashboard charts and widgets let us check the sensor values and see whether
+                      each response was working during our demonstration.
+                    </li>
+</ul>
+<p>
+                    I wrote the code for the <strong>DHT11 and ventilation relay</strong>, as well as the
+                    ultrasonic sensor and MP3 alert. I also worked on
+                    <mark class="project-highlight">combining the group’s code</mark>, uploading all four
+                    data fields and setting up the dashboard. Troubleshooting the MP3 playback and
+                    ThingSpeak upload was a substantial part of my work. This was a school prototype, not
+                    a system we installed and tested in a home.
+                  </p>
+</div>
+<figure class="case-overview-visual" data-reveal=""><img alt="IoT system with connected sensors and wiring" decoding="async" loading="lazy" src="assets/iot-hardware-workbench.webp"/><figcaption>A closer look at the project</figcaption></figure></div>
+</section>
+<div class="case-question-grid"><section class="study-detail-section" data-detail-section="1" data-reveal="" id="problem">
+<div>
+<h2>The problem</h2>
+<p>
+                  Our group chose four household tasks to work on: ventilation, switching lights off in
+                  daylight, checking plant soil and detecting someone near the door.
+                </p>
+</div>
+</section><section class="study-detail-section" data-detail-section="2" data-reveal="" id="solution">
+<div>
+<h2>The solution</h2>
+<p>
+                  We built an Arduino-based prototype with a sensor and response for each task. Readings
+                  were uploaded to <strong>ThingSpeak</strong> so we could inspect the charts and status
+                  indicators.
+                </p>
+</div>
+</section></div>
+
+<div class="project-notes">
+<section class="study-feature study-architecture" data-architecture="" data-reveal="" id="workflow">
+<h2>Follow a sensor reading.</h2>
+<p>Select a component to see its part in the project.</p>
+<div class="study-architecture-layout">
+<div aria-label="Architecture components" class="study-architecture-steps" role="group">
+<button aria-pressed="true" class="study-architecture-step" data-architecture-step="" data-step-description="Four sensor functions cover room temperature, lighting, plant soil moisture and a doorway alert." data-step-name="Household sensors" type="button">
+<span class="study-step-number">01</span><span><strong>Household sensors</strong><small>Temperature, light, moisture and distance</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="The Arduino reads the sensors and controls outputs such as the ventilation relay, light relay, NeoPixel and MP3 alert." data-step-name="Arduino Nano" type="button">
+<span class="study-step-number">02</span><span><strong>Arduino Nano</strong><small>Sensor inputs and responses</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="The Raspberry Pi, ZigBee and Python upload process carry readings from the prototype to ThingSpeak." data-step-name="Raspberry Pi and Python" type="button">
+<span class="study-step-number">03</span><span><strong>Raspberry Pi and Python</strong><small>ZigBee and data upload</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="The dashboard shows the four readings and indicators used to check sensor responses during testing." data-step-name="ThingSpeak" type="button">
+<span class="study-step-number">04</span><span><strong>ThingSpeak</strong><small>Charts and status indicators</small></span><span aria-hidden="true">→</span>
+</button>
+</div>
+<div aria-atomic="true" aria-live="polite" class="study-architecture-description">
+<h3 data-step-title="">Household sensors</h3>
+<p data-step-copy="">
+                      Four sensor functions cover room temperature, lighting, plant soil moisture and a
+                      doorway alert.
+                    </p>
+</div>
+</div>
+<noscript><ol class="static-steps">
+<li>
+<strong>Household sensors</strong>
+<p>
+                        Four sensor functions cover room temperature, lighting, plant soil moisture and a
+                        doorway alert.
+                      </p>
+</li>
+<li>
+<strong>Arduino Nano</strong>
+<p>
+                        The Arduino reads the sensors and controls outputs such as the ventilation relay,
+                        light relay, NeoPixel and MP3 alert.
+                      </p>
+</li>
+<li>
+<strong>Raspberry Pi and Python</strong>
+<p>
+                        The Raspberry Pi, ZigBee and Python upload process carry readings from the
+                        prototype to ThingSpeak.
+                      </p>
+</li>
+<li>
+<strong>ThingSpeak</strong>
+<p>
+                        The dashboard shows the four readings and indicators used to check sensor
+                        responses during testing.
+                      </p>
+</li>
+</ol></noscript>
+<p class="diagram-source">
+<a class="text-link" data-alt="IoT prototype block diagram" data-preview="case" href="assets/iot-block-diagram.webp" rel="noopener noreferrer" target="_blank">View the original block diagram ↗</a>
+</p>
+</section>
+<section class="study-feature" data-reveal="" id="features">
+<h2>System functions and dashboard</h2>
+<ul>
+<li>
+<strong>Temperature:</strong> a DHT11 reading of
+                    <strong>29°C or above</strong> switches on the ventilation relay.
+                  </li>
+<li>
+<strong>Lighting:</strong> the light sensor switches the indoor lights off when there
+                    is enough daylight.
+                  </li>
+<li>
+<strong>Soil moisture:</strong> a NeoPixel shows red for dry soil, green for moist
+                    soil and blue for wet soil.
+                  </li>
+<li>
+<strong>Doorway alert:</strong> the ultrasonic sensor triggers an MP3 alert when
+                    someone stays within <strong>150 cm</strong> for <strong>three seconds</strong>.
+                  </li>
+</ul>
+<p>
+                  ThingSpeak showed the readings as charts and status indicators so we could check how
+                  the sensors were responding.
+                </p>
+<div class="feature-list">
+<figure class="project-photo">
+<a aria-label="Enlarge ThingSpeak dashboard with four sensor charts" class="image-preview" data-alt="ThingSpeak dashboard with four sensor charts" data-preview="case" data-title="ThingSpeak dashboard" href="assets/iot-dashboard.webp" rel="noopener noreferrer" target="_blank"><img alt="ThingSpeak dashboard with four sensor charts" decoding="async" height="875" loading="lazy" src="assets/iot-dashboard.webp" width="874"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">01</span>
+<h3>ThingSpeak dashboard</h3>
+<p>The four sensor readings on ThingSpeak.</p>
+</figcaption>
+</figure>
+<figure class="project-photo">
+<a aria-label="Enlarge ThingSpeak sensor status indicators" class="image-preview" data-alt="ThingSpeak sensor status indicators" data-preview="case" data-title="Status indicators" href="assets/iot-indicators.webp" rel="noopener noreferrer" target="_blank"><img alt="ThingSpeak sensor status indicators" decoding="async" height="864" loading="lazy" src="assets/iot-indicators.webp" width="872"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">02</span>
+<h3>Status indicators</h3>
+<p>Status indicators used to check the readings.</p>
+</figcaption>
+</figure>
+</div>
+</section>
+</div>
+<section class="study-detail-section" data-detail-section="3" data-reveal="" id="contributions">
+<div>
+<h2>What I worked on</h2>
+<ul>
+<li>Wrote the Arduino code for the <strong>DHT11 and ventilation relay</strong>.</li>
+<li>Wrote the <strong>ultrasonic sensor and MP3 alert</strong> code.</li>
+<li>
+<mark class="project-highlight">Combined the group’s code</mark> so all four sensor
+                    functions could run together.
+                  </li>
+<li>
+                    Worked on the <strong>Python upload to ThingSpeak</strong> through MobaXterm and
+                    fixed the issue with uploading all four fields.
+                  </li>
+<li>Helped set up the dashboard widgets and demonstrated the working prototype.</li>
+</ul>
+<p>
+                  I also troubleshot the MP3 alert and the three-second doorway check. The light-control
+                  and soil-moisture code came from my teammates.
+                </p>
+</div>
+</section>
+<section class="study-detail-section" data-detail-section="4" data-reveal="" id="technologies">
+<div>
+<h2>Technologies</h2>
+<div class="study-tech">
+<span>C / C++</span><span>Arduino Nano</span><span>Raspberry Pi</span><span>Python</span><span>ZigBee</span><span>DHT11</span><span>NeoPixel</span><span>ThingSpeak</span>
+</div>
+</div>
+</section>
+<section class="study-detail-section" data-detail-section="5" data-reveal="" id="outcome">
+<div>
+<h2>Outcome</h2>
+<p>
+                  We demonstrated the <strong>four sensor functions</strong> and checked their values on
+                  ThingSpeak. Fixing the MP3 alert involved checking the RX/TX connections and adjusting
+                  the code. The four-field upload needed further debugging and help from our lecturer.
+                </p>
+<p>
+                  This was a school prototype. It demonstrated the sensor responses, but did not measure
+                  household energy savings or prove that it could operate reliably in a home over time.
+                </p>
+</div>
+</section>
+</div>
+</div>
+</article>
+<nav aria-label="Project navigation" class="shell case-navigation">
+<div class="section-head">
+<h2>More projects</h2>
+<a class="text-link" href="all-projects.html">Back to projects<iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</div>
+<div>
+<a class="next-card tone-2" href="engineering-exploration.html">
+<img alt="" class="" decoding="async" height="800" loading="lazy" src="assets/project-engineering-display.webp" width="969"/><span><small>Previous project</small><strong>Tri-Star Wheel</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a><a class="next-card tone-4" href="cloud-computing.html">
+<img alt="" class="" decoding="async" height="651" loading="lazy" src="assets/cloud-storefront-1-display.webp" width="1100"/><span><small>Next project</small><strong>AWS Music Store</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</div>
+</nav>
+</main>
+<div id="site-chrome-footer"></div>
+<dialog aria-labelledby="media-dialog-title" class="media-dialog">
+<div class="media-dialog-inner">
+<header>
+<h2 id="media-dialog-title">Preview</h2>
+<button aria-label="Close preview" class="icon-button" data-close="" type="button">
+<iconify-icon aria-hidden="true" icon="lucide:x"></iconify-icon>
+</button>
+</header>
+<div class="dialog-image"></div>
+<footer>
+<span aria-live="polite" class="dialog-count"></span>
+<div class="dialog-arrows">
+<button aria-label="Previous image" class="icon-button" data-prev="" type="button">
+<iconify-icon aria-hidden="true" icon="lucide:arrow-left"></iconify-icon>
+</button>
+<button aria-label="Next image" class="icon-button" data-next="" type="button">
+<iconify-icon aria-hidden="true" icon="lucide:arrow-right"></iconify-icon>
+</button>
+</div>
+<a class="text-link dialog-original" rel="noopener noreferrer" target="_blank">Open original <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</footer>
+</div>
+</dialog>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <script>
+(() => {
+  let saved;
+  try { saved=localStorage.getItem('karthik-beige-theme'); } catch {}
+  document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+})();
+
+</script>
+  <meta content="#f4f5f8" name="theme-color"/>
+  <meta content="Palaniappan Alagu Karthik, AI &amp; Data Engineering student at Nanyang Polytechnic. Explore my interests in AI, data and connected systems." name="description"/>
+  <link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+  <title>Palaniappan Alagu Karthik · Portfolio 2026</title>
+  <link rel="stylesheet" href="home.bundle.css">
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;display=swap" rel="stylesheet"/>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer src="home.bundle.js"></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+</head>
+<body>
+<div class="min-h-screen relative" id="portfolio">
+<a class="skip" href="#main-content" id="skip-navigation">Skip to content</a>
+<header class="floating-header">
+<button aria-controls="mobile-sidebar" aria-expanded="false" aria-label="Open menu" class="menu-toggle glass" id="menu-toggle" type="button">
+<span aria-hidden="true" class="menu-bars"><span></span><span></span><span></span></span>
+</button>
+<nav aria-label="Main navigation" class="dock glass">
+<a aria-current="page" aria-label="Home" class="nav-item" href="#home" id="nav-home"><iconify-icon aria-hidden="true" icon="lucide:house"></iconify-icon><span class="nav-label">Home</span></a>
+<a aria-controls="about-preview" aria-expanded="false" aria-label="About" class="nav-item" data-about-trigger="" href="#about" id="nav-about"><iconify-icon aria-hidden="true" icon="lucide:user-round"></iconify-icon><span class="nav-label">About</span><iconify-icon class="nav-dropdown-caret" icon="lucide:chevron-down" aria-hidden="true"></iconify-icon></a>
+<a aria-label="Projects" class="nav-item" href="all-projects.html" id="nav-projects"><iconify-icon aria-hidden="true" icon="lucide:briefcase-business"></iconify-icon><span class="nav-label">Projects</span></a><a aria-label="Achievements and Certificates" class="nav-item" href="certificates.html" id="nav-awards"><iconify-icon aria-hidden="true" icon="lucide:award"></iconify-icon><span class="nav-label">Achievements</span></a>
+</nav>
+<button aria-label="Switch to light mode" class="theme-toggle glass" id="theme-toggle" type="button"><iconify-icon aria-hidden="true" icon="lucide:sun" id="theme-icon"></iconify-icon></button>
+<a class="contact-pill" href="#contact" id="header-contact"><span class="disc"><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></span>Contact me</a>
+<div aria-label="Internship preview" class="nav-preview about-preview glass" hidden="" id="about-preview">
+<div class="about-preview-copy">
+<div class="about-preview-meta"><span>MY INTERNSHIP</span><span>APR to AUG 2024</span></div>
+<h2>IoT Intern<br/><em>at iWOW Connections.</em></h2>
+<p>Connected-device setup, utility-meter monitoring and on-site signal tests.</p>
+<a class="internship-cta about-preview-link" href="internship.html">View my internship <iconify-icon aria-hidden="true" icon="lucide:arrow-right"></iconify-icon></a>
+</div>
+<figure class="about-preview-photo">
+<img alt="Utility meter connected to an IoT modem during my internship testing" decoding="async" height="1200" loading="lazy" src="assets/internship-s47-preparation.webp" width="1600"/>
+<figcaption>Connected devices from my time at iWOW.</figcaption>
+</figure>
+</div>
+</header>
+<aside aria-label="Section shortcuts" class="section-rail">
+<a aria-label="Home" data-rail="home" href="#home"><span class="rail-stroke"></span><span class="rail-name">Home</span></a>
+<a aria-label="About" data-rail="about" href="#about"><span class="rail-stroke"></span><span class="rail-name">About</span></a>
+<a aria-label="Projects" data-rail="projects" href="#projects"><span class="rail-stroke"></span><span class="rail-name">Projects</span></a>
+<a aria-label="Contact" data-rail="contact" href="#contact"><span class="rail-stroke"></span><span class="rail-name">Contact</span></a>
+</aside>
+<div class="sidebar-backdrop" hidden="" id="sidebar-backdrop"></div>
+<aside aria-label="Sidebar navigation" class="mobile-sidebar" hidden="" id="mobile-sidebar">
+<div class="sidebar-shell">
+<div class="sidebar-head">
+<div>
+<span class="sidebar-kicker">KARTHIK</span>
+<strong>Navigate the portfolio</strong>
+</div>
+<button aria-label="Close menu" class="sidebar-close" id="menu-close" type="button"><iconify-icon aria-hidden="true" icon="lucide:x"></iconify-icon></button>
+</div>
+<nav aria-label="Mobile navigation" class="sidebar-nav">
+<a class="sidebar-link" href="#home"><iconify-icon aria-hidden="true" icon="lucide:house"></iconify-icon><span>Home</span></a>
+<a class="sidebar-link" href="#about"><iconify-icon aria-hidden="true" icon="lucide:user-round"></iconify-icon><span>About</span></a>
+<a class="sidebar-link" href="internship.html"><iconify-icon aria-hidden="true" icon="lucide:briefcase-business"></iconify-icon><span>Internship</span></a>
+<a class="sidebar-link" href="certificates.html"><iconify-icon aria-hidden="true" icon="lucide:award"></iconify-icon><span>Achievements &amp; Certificates</span></a>
+<a class="sidebar-link" href="all-projects.html"><iconify-icon aria-hidden="true" icon="lucide:briefcase-business"></iconify-icon><span>Projects</span></a>
+<a class="sidebar-link" href="#contact"><iconify-icon aria-hidden="true" icon="lucide:mail"></iconify-icon><span>Contact</span></a>
+</nav>
+<div class="sidebar-actions">
+<button class="sidebar-theme" id="sidebar-theme-toggle" type="button"><iconify-icon aria-hidden="true" icon="lucide:sparkles"></iconify-icon><span>Switch theme</span></button>
+<a class="sidebar-cta" href="#contact">Contact me <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</div>
+</div>
+</aside>
+<main id="main-content" tabindex="-1">
+<section aria-label="Home" class="view" id="home">
+<div class="hero refresh-hero">
+<div aria-label="Interactive generative artwork: neural wave, black hole and data helix" class="neural-panel refresh-neural-bg">
+<img alt="" aria-hidden="true" decoding="async" fetchpriority="low" class="field-fallback" src="assets/neural-field-still.webp"/>
+<canvas aria-hidden="true" id="neural-field"></canvas>
+</div>
+<div class="frame refresh-hero-frame">
+<div class="refresh-hero-grid">
+<div class="refresh-hero-main reveal">
+<div class="refresh-hero-copy">
+<div class="refresh-intro-panel">
+<h2 class="refresh-hero-title">Hi, I'm <span>Karthik</span> <span class="refresh-smile">:3</span></h2>
+<div class="refresh-hero-bio">
+<p>I’m studying AI &amp; Data Engineering at Nanyang Polytechnic. Before this, I studied Electronics Engineering at ITE.</p>
+<p>Most of my projects involve data, sensors or electronics. Here’s what I’ve been building.</p>
+</div>
+<div class="hero-actions refresh-hero-actions">
+<a class="pill-link emphasis" href="#projects" id="hero-projects">Explore my projects <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+<a class="pill-link hold-link" href="#about" id="hero-about"><span class="hold-text">About me</span></a>
+</div>
+</div>
+<div class="refresh-rotating">
+
+<h1 class="role-heading"><span class="sr-only">Internet of Things enthusiast, AI and Data Engineering student, with a background in electronics</span><span aria-hidden="true" id="rotating-role">Internet of Things<br/>Enthusiast</span></h1>
+</div>
+</div>
+</div>
+<div class="refresh-portrait-wrap reveal">
+<a aria-label="Read Karthik's story" class="photo-comparison refresh-photo-link" href="#about">
+<figure class="portrait-frame refresh-photo-card" tabindex="0">
+<img alt="Portrait of Karthik in a black Nanyang Polytechnic shirt" fetchpriority="high" height="1386" id="selected-photo" src="assets/karthik-cutout-portrait-fast.webp" width="1135"/>
+<span aria-hidden="true" class="refresh-photo-shine"></span>
+<figcaption class="refresh-photo-caption">KARTHIK <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></figcaption>
+</figure>
+</a>
+
+</div>
+</div>
+</div>
+<div class="artwork-switcher" role="group" aria-label="Choose hero artwork" hidden>
+  <button type="button" data-artwork="0" aria-pressed="true" aria-label="Wave" title="Wave"></button>
+  <button type="button" data-artwork="1" aria-pressed="false" aria-label="Black hole" title="Black hole"></button>
+  <button type="button" data-artwork="2" aria-pressed="false" aria-label="Helix" title="Helix"></button>
+</div>
+</div>
+</section>
+<section aria-labelledby="about-title" class="view refresh-about continuous-about" id="about">
+<div class="frame refresh-about-inner scroll-reveal">
+<div class="refresh-about-left">
+<h2 class="about-feature-heading" id="about-title" data-title-reveal>About <span>me.</span></h2>
+<div class="about-resume-scene">
+<div aria-hidden="true" class="about-resume-backplate"></div>
+<a aria-label="View my full resume PDF in a new tab" class="about-resume-tilt" href="assets/karthik-resume.pdf" rel="noopener noreferrer" target="_blank">
+<span class="about-resume-page"><img alt="Preview of my resume, showing education, skills and experience" height="1054" loading="lazy" src="assets/resume-preview-current.webp" width="745"/></span>
+<span aria-hidden="true" class="about-resume-open"><iconify-icon icon="lucide:arrow-up-right"></iconify-icon></span>
+</a>
+<span aria-hidden="true" class="about-resume-handwritten"><span class="about-handwritten-scramble">my resume</span><span class="about-handwritten-arrow">↖</span></span>
+</div>
+</div>
+<div class="refresh-about-right">
+<span class="about-intro-tag">THE STORY SO FAR</span>
+<h3 class="about-journey-intro">I'm pursuing a Diploma in <span>AI &amp; Data Engineering</span> at Nanyang Polytechnic.</h3>
+<p class="about-journey-description">I enjoy combining technical skills with practical problem-solving. My projects range from engineering prototypes to data dashboards and AI.</p>
+<ol aria-label="My journey so far" class="about-journey-list">
+<li>
+<strong>BEFORE · ITE  /  2023–2025</strong>
+<p>I completed my Higher Nitec in Electronics Engineering, gaining hands-on experience in programming, circuitry, prototyping and IoT.</p>
+</li>
+<li>
+<strong>NOW · NYP  /  2025–2028</strong>
+<p>I'm building projects that connect hardware and data—from sensors and IoT systems to databases, data visualisation and AI.</p>
+</li>
+<li>
+<strong>NEXT</strong>
+<p>I'm keen to keep learning, collaborate with others and explore opportunities in AI, data and engineering.</p>
+</li>
+</ol>
+<div class="about-journey-actions">
+<a class="about-resume-button" href="internship.html">Internship <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+
+</div>
+<nav aria-label="More about my experience" class="about-journey-links">
+<a href="certificates.html">Achievements &amp; certificates <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</nav>
+</div>
+</div>
+
+<section class="skills-section" id="skills" aria-labelledby="skills-heading">
+  <div class="frame skills-frame">
+    <div class="skills-lead">
+      <h3 id="skills-heading" data-title-reveal>Skills <span>&amp; tools.</span></h3>
+    </div>
+    <div class="skills-browser" aria-label="Explore my technical skills">
+      <div class="skills-tabs" role="tablist" aria-label="Technical skills categories">
+        <button type="button" class="skills-tab is-active" role="tab" id="skill-tab-code" aria-controls="skills-details" aria-selected="true" data-skill="code"><iconify-icon icon="lucide:layers" aria-hidden="true"></iconify-icon> Programming</button>
+        <button type="button" class="skills-tab" role="tab" id="skill-tab-ai" aria-controls="skills-details" tabindex="-1" aria-selected="false" data-skill="ai"><iconify-icon icon="lucide:network" aria-hidden="true"></iconify-icon> AI &amp; data</button>
+        <button type="button" class="skills-tab" role="tab" id="skill-tab-hardware" aria-controls="skills-details" tabindex="-1" aria-selected="false" data-skill="hardware"><iconify-icon icon="lucide:cpu" aria-hidden="true"></iconify-icon> IoT &amp; hardware</button>
+        <button type="button" class="skills-tab" role="tab" id="skill-tab-cloud" aria-controls="skills-details" tabindex="-1" aria-selected="false" data-skill="cloud"><iconify-icon icon="lucide:server" aria-hidden="true"></iconify-icon> Cloud &amp; systems</button>
+      </div>
+      <div id="skills-details" class="skills-details" role="tabpanel" aria-labelledby="skill-tab-code" tabindex="0">
+        <div class="skills-content"><div class="skills-details-head"><h3 id="skills-topic">Programming</h3><p id="skills-description">Tools I use to build, clean and connect working applications.</p></div>
+        <div class="skills-chips" id="skills-chips"><span>Python</span><span>Pandas</span><span>NumPy</span><span>MySQL</span><span>Matplotlib</span></div>
+        <a href="#projects" class="skills-explore">See these skills in action <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+<section data-ambient-dots aria-labelledby="projects-title" class="view featured-projects" id="projects">
+<div class="frame project-area">
+<h2 class="project-split-title" id="projects-title">Explore my <span class="project-title-accent">projects.</span></h2>
+<div class="project-explorer project-unified-panel">
+<canvas id="project-space-field" aria-hidden="true"></canvas>
+<div class="project-split-layout">
+<section class="project-map-panel" aria-labelledby="project-map-heading">
+  <div class="project-explorer-heading">
+    <div>
+      <h3 id="project-map-heading">How my work connects.</h3>
+      <p id="project-globe-instructions">Drag to turn the globe or select a project to explore its connections.</p>
+    </div>
+  </div>
+  <div class="project-sphere" id="project-sphere" aria-label="Project globe" aria-describedby="project-globe-instructions project-globe-keyboard" role="group">
+    <canvas id="project-sphere-canvas" aria-hidden="true"></canvas>
+    <div class="project-sphere-gesture" aria-hidden="true"></div>
+    <div class="project-sphere-pins" id="project-sphere-pins"></div>
+  </div>
+  <span id="project-globe-keyboard" class="sr-only">Use the arrow keys to rotate or Space to pause or resume.</span>
+  <span id="project-globe-status" class="sr-only" role="status"></span>
+</section>
+<section class="project-carousel" id="project-carousel" aria-labelledby="project-carousel-title" aria-roledescription="carousel">
+  <div class="project-carousel-heading">
+    <h3 id="project-carousel-title">Featured projects</h3>
+    <a class="project-index-link" href="all-projects.html">See all projects <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></a>
+  </div>
+  <div class="project-carousel-deck" id="project-rail">
+    <article class="project-carousel-card" data-position="current" data-project="machine-learning">
+      <a class="project-carousel-card-link" href="machine-learning.html">
+        <img class="project-carousel-image" src="assets/ml-model-comparison-display.webp" width="800" height="450" alt="">
+        <div class="project-carousel-copy">
+          <p class="project-carousel-category">Machine learning</p>
+          <h4>Machine Learning Project</h4>
+          <p>I compared Decision Tree and AdaBoost models using Parkinson’s voice measurements.</p>
+          <span class="project-carousel-cta">View project <iconify-icon icon="lucide:arrow-up-right" aria-hidden="true"></iconify-icon></span>
+        </div>
+      </a>
+    </article>
+  </div>
+  <div class="project-carousel-controls" id="project-carousel-controls" hidden>
+    <div class="project-carousel-navigation" role="group" aria-label="Browse featured projects">
+      <button type="button" data-carousel-step="-1" aria-label="Previous project" title="Previous project"><iconify-icon icon="lucide:arrow-left" aria-hidden="true"></iconify-icon></button>
+      <span class="project-carousel-counter" aria-hidden="true"><span id="project-carousel-number">01</span> / 06</span>
+      <button type="button" data-carousel-step="1" aria-label="Next project" title="Next project"><iconify-icon icon="lucide:arrow-right" aria-hidden="true"></iconify-icon></button>
+    </div>
+    <span class="sr-only" id="project-carousel-announcement" role="status"></span>
+  </div>
+</section>
+</div><!-- /project-split-layout -->
+</div><!-- /project-unified-panel -->
+</div>
+</section>
+<section data-ambient-dots aria-label="Contact Karthik" class="view continuous-contact" id="contact">
+<div class="frame contact-view contact-editorial contact-stacked">
+<div class="contact-intro">
+<div class="contact-message">
+<h2 class="contact-headline" data-title-reveal>Let's <span>connect.</span></h2>
+<p>Have an idea, a question, or an opportunity? I'd love to hear about it.</p>
+</div>
+<div class="contact-connect">
+<span class="contact-connect-kicker">SAY HELLO</span>
+<div class="contact-email-row">
+<a class="email-link" href="mailto:alagu.karthik17@gmail.com" id="contact-email">alagu.karthik17@gmail.com <span aria-hidden="true">↗</span></a>
+<button aria-label="Copy email address" class="copy-button" id="copy-email" type="button"><iconify-icon aria-hidden="true" icon="lucide:copy"></iconify-icon></button>
+</div>
+<p aria-live="polite" class="copy-status" id="copy-status"></p>
+<div class="contact-link-label">OR FIND ME HERE</div>
+<nav aria-label="My social profiles" class="contact-socials">
+<a aria-label="Visit my LinkedIn profile" href="https://www.linkedin.com/in/alagu-karthik-palaniappan-1b786742b/" id="contact-linkedin" rel="noopener noreferrer" target="_blank"><img alt="" class="brand-icon" height="19" loading="lazy" src="assets/brand-linkedin.svg" width="19"/><span>LinkedIn</span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+<a aria-label="GitHub profile" href="https://github.com/LeNenity" rel="noopener noreferrer" target="_blank"><img alt="" class="brand-icon brand-icon-github" height="19" loading="lazy" src="https://cdn.simpleicons.org/github/181717" width="19"/><span>GitHub</span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+<a aria-label="Discord profile" href="https://discord.com/users/561393461430059022" rel="noopener noreferrer" target="_blank"><img alt="" class="brand-icon" height="19" loading="lazy" src="https://cdn.simpleicons.org/discord/5865F2" width="19"/><span>Discord</span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</nav>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer data-ambient-dots aria-label="Portfolio footer" class="site-footer footer-compact">
+<div class="frame footer-minimal">
+<a aria-label="Karthik, home" class="footer-wordmark" data-footer-scramble="" href="#home"><span aria-hidden="true" class="footer-scramble-text">Karthik.</span></a>
+<p class="footer-credit">Palaniappan Alagu Karthik · Portfolio 2026</p>
+<button aria-label="Back to top" class="footer-back-to-top" data-footer-scramble="" id="footer-back-to-top" type="button">
+<span aria-hidden="true" class="footer-scramble-text">Back to top</span>
+<iconify-icon aria-hidden="true" icon="lucide:arrow-up"></iconify-icon>
+</button>
+</div>
+</footer>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Comparing Decision Tree and AdaBoost classifiers using Parkinson’s voice measurements." name="description"/>
+<title>Machine Learning Project · Karthik</title>
+<script>
+(() => {
+  let saved;
+  try { saved=localStorage.getItem('karthik-beige-theme'); } catch {}
+  document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+})();
+
+</script>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link as="font" crossorigin="" href="assets/space-grotesk.woff2" rel="preload" type="font/woff2"/>
+<link rel="stylesheet" href="case-studies.bundle.css"><link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;display=swap" rel="stylesheet"/>
+<script defer src="case-studies.bundle.js"></script>
+
+
+
+
+
+
+
+
+</head>
+<body class="case-view unified-case-chrome refreshed-case-page" data-ambient-dots>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div aria-hidden="true" id="top"></div>
+<div id="site-chrome-header"></div>
+<main id="main-content" tabindex="-1">
+<article class="case-page tone-0">
+<header class="shell case-heading">
+<a class="back-link" href="all-projects.html"><iconify-icon aria-hidden="true" icon="lucide:arrow-left"></iconify-icon> All projects</a>
+<div class="case-title">
+<h1 data-title-reveal>Machine Learning Project<span class="wordmark-period">.</span></h1>
+<p class="lead">
+              Comparing Decision Tree and AdaBoost classifiers using Parkinson’s voice measurements.
+            </p>
+</div>
+<figure class="case-cover">
+<a aria-label="Enlarge project cover" class="image-preview" data-alt="Original portfolio cover image for machine learning" data-preview="case" data-title="Machine Learning Project" href="assets/ml-model-comparison.png" rel="noopener noreferrer" target="_blank">
+<img alt="Original notebook confusion matrices comparing tuned Decision Tree and AdaBoost models" class="" decoding="async" fetchpriority="high" height="442" loading="eager" src="assets/ml-model-comparison.png" width="1100"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+</figure>
+</header>
+<div class="shell case-body">
+<div class="case-story">
+<section class="case-overview" data-reveal="" id="overview">
+<div class="project-summary">
+<div class="project-summary-copy">
+<h2>Project overview</h2>
+<p>
+                    For my Machine Learning Project, I compared a
+                    <strong>Decision Tree and AdaBoost</strong> using voice measurements labelled by
+                    Parkinson’s status. The assignment dataset contained
+                    <strong>195 recordings and 25 columns</strong>. I removed the name and DCAT columns,
+                    leaving 22 numerical inputs and the status label.
+                  </p>
+<ul class="project-overview-points">
+<li>
+                      I used a <strong>stratified 80/20 split</strong>, with 156 records for training and
+                      39 for testing.
+                    </li>
+<li>
+                      Missing numerical values were filled using medians calculated from the training
+                      set.
+                    </li>
+<li>
+                      I trained a baseline for each model, then used
+                      <strong>GridSearchCV with five-fold cross-validation</strong> to tune their
+                      settings.
+                    </li>
+</ul>
+<p>
+                    The tuned AdaBoost model scored
+                    <mark class="project-highlight">94.87% test accuracy</mark>, compared with 84.62% for
+                    the tuned Decision Tree. I also checked F1 scores, ROC-AUC and confusion matrices to
+                    understand the errors. The results below are the saved outputs from my notebook and
+                    describe this particular test split.
+                  </p>
+</div>
+<figure class="case-overview-visual" data-reveal=""><img alt="Decision Tree and AdaBoost model results" decoding="async" loading="lazy" src="assets/ml-model-comparison.png"/><figcaption>A closer look at the project</figcaption></figure></div>
+</section>
+<div class="case-question-grid"><section class="study-detail-section" data-detail-section="1" data-reveal="" id="problem">
+<div>
+<h2>The problem</h2>
+<p>
+                  I wanted to compare how a single tree and an ensemble handled the same voice
+                  measurements. The dataset was small and the classes were uneven, so I needed to check
+                  <strong>overfitting and class-level errors</strong> alongside accuracy.
+                </p>
+</div>
+</section><section class="study-detail-section" data-detail-section="2" data-reveal="" id="solution">
+<div>
+<h2>The solution</h2>
+<p>
+                  I built both models in <strong>Scikit-learn</strong>, kept the test split fixed and
+                  tuned each model using training data. I compared their accuracy, F1 scores and ROC-AUC,
+                  then used confusion matrices to count the mistakes.
+                </p>
+</div>
+</section></div>
+
+<div class="project-notes">
+<section class="study-feature study-architecture" data-architecture="" data-reveal="" id="workflow">
+<h2>From voice measurements to model scores</h2>
+<p>Select a step to explore the workflow.</p>
+<div class="study-architecture-layout">
+<div aria-label="Workflow steps" class="study-architecture-steps" role="group">
+<button aria-pressed="true" class="study-architecture-step" data-architecture-step="" data-step-description="The assignment dataset contained 195 recordings and 25 columns. Removing the name and DCAT columns left 22 numeric inputs and the status label." data-step-name="Voice dataset" type="button">
+<span class="study-step-number">01</span><span><strong>Voice dataset</strong><small>195 recordings</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="156 records went to training and 39 went to testing. Missing values in both splits used medians calculated only from the training split." data-step-name="Prepare the splits" type="button">
+<span class="study-step-number">02</span><span><strong>Prepare the splits</strong><small>Stratified 80/20</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="I trained baselines for both classifiers and used GridSearchCV with five-fold cross-validation on the training data." data-step-name="Fit and tune" type="button">
+<span class="study-step-number">03</span><span><strong>Fit and tune</strong><small>Decision Tree and AdaBoost</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="Accuracy, Parkinson’s-class F1, ROC-AUC and confusion matrices showed how each model performed on the same test split." data-step-name="Compare the models" type="button">
+<span class="study-step-number">04</span><span><strong>Compare the models</strong><small>39 held-out records</small></span><span aria-hidden="true">→</span>
+</button>
+</div>
+<div aria-atomic="true" aria-live="polite" class="study-architecture-description">
+<h3 data-step-title="">Voice dataset</h3>
+<p data-step-copy="">
+                      The assignment dataset contained 195 recordings and 25 columns. Removing the name
+                      and DCAT columns left 22 numeric inputs and the status label.
+                    </p>
+</div>
+</div>
+<noscript><ol class="static-steps">
+<li>
+<strong>Voice dataset</strong>
+<p>
+                        The assignment dataset contained 195 recordings and 25 columns. Removing the name
+                        and DCAT columns left 22 numeric inputs and the status label.
+                      </p>
+</li>
+<li>
+<strong>Prepare the splits</strong>
+<p>
+                        156 records went to training and 39 went to testing. Missing values in both
+                        splits used medians calculated only from the training split.
+                      </p>
+</li>
+<li>
+<strong>Fit and tune</strong>
+<p>
+                        I trained baselines for both classifiers and used GridSearchCV with five-fold
+                        cross-validation on the training data.
+                      </p>
+</li>
+<li>
+<strong>Compare the models</strong>
+<p>
+                        Accuracy, Parkinson’s-class F1, ROC-AUC and confusion matrices showed how each
+                        model performed on the same test split.
+                      </p>
+</li>
+</ol></noscript>
+</section>
+<section aria-labelledby="ml-comparison-title" class="study-feature ml-comparison" data-reveal="">
+<h2 id="ml-comparison-title">How the models compared</h2>
+<p>
+                  All four runs used the same 39-record test set. Tuning improved AdaBoost’s test
+                  accuracy; the Decision Tree’s test accuracy stayed the same.
+                </p>
+<div aria-label="Model comparison results" class="ml-table-scroll" role="region" tabindex="0">
+<table class="ml-results-table">
+<caption>
+                      Saved notebook results. F1 is for the Parkinson’s-labelled class.
+                    </caption>
+<thead>
+<tr>
+<th scope="col">Model</th>
+<th scope="col">Training accuracy</th>
+<th scope="col">Test accuracy</th>
+<th scope="col">Test F1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Original Decision Tree</th>
+<td>100.00%</td>
+<td>84.62%</td>
+<td>0.90</td>
+</tr>
+<tr>
+<th scope="row">Tuned Decision Tree</th>
+<td>98.08%</td>
+<td>84.62%</td>
+<td>0.90</td>
+</tr>
+<tr>
+<th scope="row">Original AdaBoost</th>
+<td>100.00%</td>
+<td>79.49%</td>
+<td>0.86</td>
+</tr>
+<tr class="ml-best-result">
+<th scope="row">Tuned AdaBoost</th>
+<td>100.00%</td>
+<td><strong>94.87%</strong></td>
+<td><strong>0.97</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="study-feature" data-reveal="" id="features">
+<h2>From the notebook</h2>
+<p>Select a chart to view the original output.</p>
+<div class="feature-list">
+<figure class="project-photo">
+<a aria-label="Enlarge Class distribution of the assignment dataset" class="image-preview" data-alt="Class distribution of the assignment dataset" data-preview="case" data-title="Class distribution" href="assets/ml-class-distribution.png" rel="noopener noreferrer" target="_blank"><img alt="Class distribution of the assignment dataset" decoding="async" height="450" loading="lazy" src="assets/ml-class-distribution.png" width="571"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">01</span>
+<h3>Class distribution</h3>
+<p>
+                        The dataset had more Parkinson’s-labelled recordings, which is why I also checked
+                        class-specific scores.
+                      </p>
+</figcaption>
+</figure>
+<figure class="project-photo">
+<a aria-label="Enlarge Tuned Decision Tree structure" class="image-preview" data-alt="Tuned Decision Tree structure" data-preview="case" data-title="The tuned decision tree" href="assets/ml-decision-tree.png" rel="noopener noreferrer" target="_blank"><img alt="Tuned Decision Tree structure" decoding="async" height="790" loading="lazy" src="assets/ml-decision-tree.png" width="1415"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">02</span>
+<h3>The tuned decision tree</h3>
+<p>
+                        The tuned tree used a maximum depth of four. Open the image to inspect its
+                        decisions.
+                      </p>
+</figcaption>
+</figure>
+<figure class="project-photo">
+<a aria-label="Enlarge Confusion matrix for tuned AdaBoost" class="image-preview" data-alt="Confusion matrix for tuned AdaBoost" data-preview="case" data-title="AdaBoost confusion matrix" href="assets/ml-adaboost-confusion.png" rel="noopener noreferrer" target="_blank"><img alt="Confusion matrix for tuned AdaBoost" decoding="async" height="502" loading="lazy" src="assets/ml-adaboost-confusion.png" width="551"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">03</span>
+<h3>AdaBoost confusion matrix</h3>
+<p>
+                        AdaBoost correctly classified 37 of 39 test records, with one error in each
+                        class.
+                      </p>
+</figcaption>
+</figure>
+<figure class="project-photo">
+<a aria-label="Enlarge ROC curve for tuned AdaBoost" class="image-preview" data-alt="ROC curve for tuned AdaBoost" data-preview="case" data-title="ROC curve" href="assets/ml-adaboost-roc.png" rel="noopener noreferrer" target="_blank"><img alt="ROC curve for tuned AdaBoost" decoding="async" height="579" loading="lazy" src="assets/ml-adaboost-roc.png" width="723"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">04</span>
+<h3>ROC curve</h3>
+<p>The tuned AdaBoost model recorded a test ROC-AUC of 0.9828.</p>
+</figcaption>
+</figure>
+</div>
+</section>
+</div>
+<section class="study-detail-section" data-detail-section="3" data-reveal="" id="contributions">
+<div>
+<h2>What I worked on</h2>
+<ul>
+<li>
+                    Checked the dataset’s shape, types, missing values, duplicate rows and class
+                    distribution with <strong>Pandas</strong>.
+                  </li>
+<li>
+                    Separated the target from the <strong>22 numerical features</strong> and created a
+                    stratified train/test split with random state 42.
+                  </li>
+<li>
+                    Filled missing values in both splits using <strong>training-set medians</strong>.
+                  </li>
+<li>
+                    Built baseline Decision Tree and AdaBoost classifiers and compared their training and
+                    testing scores.
+                  </li>
+<li>
+                    Used <strong>five-fold GridSearchCV</strong> to tune tree depth, pruning and sample
+                    limits, plus AdaBoost’s learning rate and estimator count.
+                  </li>
+<li>
+                    Plotted confusion matrices, ROC curves, the tuned tree and feature importance to
+                    inspect the results.
+                  </li>
+</ul>
+</div>
+</section>
+<section class="study-detail-section" data-detail-section="4" data-reveal="" id="technologies">
+<div>
+<h2>Technologies</h2>
+<div class="study-tech">
+<span>Python</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Seaborn</span><span>Jupyter Notebook</span>
+</div>
+</div>
+</section>
+<section class="study-detail-section" data-detail-section="5" data-reveal="" id="outcome">
+<div>
+<h2>Outcome</h2>
+<p>
+<strong>Tuned AdaBoost made two errors on the 39-record test set</strong>, compared
+                  with six for the tuned Decision Tree. Its Parkinson’s-class F1 score was
+                  <strong>0.97</strong> and ROC-AUC was <strong>0.9828</strong>.
+                </p>
+<ul>
+<li>
+                    The selected AdaBoost settings were <strong>200 estimators</strong>, a learning rate
+                    of <strong>0.5</strong> and base-tree depth of <strong>2</strong>.
+                  </li>
+<li>
+                    Tree tuning lowered training accuracy from 100% to 98.08%, but its test accuracy
+                    stayed at <strong>84.62%</strong>.
+                  </li>
+<li>
+                    AdaBoost still scored 100% on the training set, so its higher test score does not
+                    remove the need to check overfitting.
+                  </li>
+</ul>
+<p>
+                  The split was by recording rather than by person. A stronger follow-up would keep each
+                  person’s recordings in one split and fit median filling inside each cross-validation
+                  fold. I would also test across more splits before drawing a broader conclusion.
+                </p>
+</div>
+</section>
+</div>
+</div>
+</article>
+<nav aria-label="Project navigation" class="shell case-navigation">
+<div class="section-head">
+<h2>More projects</h2>
+<a class="text-link" href="all-projects.html">Back to projects<iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</div>
+<div>
+<a class="next-card tone-5" href="road-safety.html">
+<img alt="" class="" decoding="async" height="770" loading="lazy" src="assets/road-safety-cover-display.webp" width="1100"/><span><small>Previous project</small><strong>Road Safety Analysis</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a><a class="next-card tone-1" href="data-engineering.html">
+<img alt="" class="" decoding="async" height="687" loading="lazy" src="assets/project-data-closeup-display.webp" width="1100"/><span><small>Next project</small><strong>NESSO Safety Monitoring</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</div>
+</nav>
+</main>
+<div id="site-chrome-footer"></div>
+<dialog aria-labelledby="media-dialog-title" class="media-dialog">
+<div class="media-dialog-inner">
+<header>
+<h2 id="media-dialog-title">Preview</h2>
+<button aria-label="Close preview" class="icon-button" data-close="" type="button">
+<iconify-icon aria-hidden="true" icon="lucide:x"></iconify-icon>
+</button>
+</header>
+<div class="dialog-image"></div>
+<footer>
+<span aria-live="polite" class="dialog-count"></span>
+<div class="dialog-arrows">
+<button aria-label="Previous image" class="icon-button" data-prev="" type="button">
+<iconify-icon aria-hidden="true" icon="lucide:arrow-left"></iconify-icon>
+</button>
+<button aria-label="Next image" class="icon-button" data-next="" type="button">
+<iconify-icon aria-hidden="true" icon="lucide:arrow-right"></iconify-icon>
+</button>
+</div>
+<a class="text-link dialog-original" rel="noopener noreferrer" target="_blank">Open original <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</footer>
+</div>
+</dialog>
+</body>
+</html>

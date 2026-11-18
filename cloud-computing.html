@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="I built a music-store website on AWS and connected the servers, database and storage behind it." name="description"/>
+<title>AWS Music Store Web Application · Karthik</title>
+<script>
+(() => {
+  let saved;
+  try { saved=localStorage.getItem('karthik-beige-theme'); } catch {}
+  document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+})();
+
+</script>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link as="font" crossorigin="" href="assets/space-grotesk.woff2" rel="preload" type="font/woff2"/>
+<link rel="stylesheet" href="case-studies.bundle.css"><link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;display=swap" rel="stylesheet"/>
+<script defer src="case-studies.bundle.js"></script>
+
+
+
+
+
+
+
+
+</head>
+<body class="case-view unified-case-chrome refreshed-case-page" data-ambient-dots>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div aria-hidden="true" id="top"></div>
+<div id="site-chrome-header"></div>
+<main id="main-content" tabindex="-1">
+<article class="case-page tone-4">
+<header class="shell case-heading">
+<a class="back-link" href="all-projects.html"><iconify-icon aria-hidden="true" icon="lucide:arrow-left"></iconify-icon> All projects</a>
+<div class="case-title">
+<h1 data-title-reveal>AWS Music Store Web Application<span class="wordmark-period">.</span></h1>
+<p class="lead">
+              I built a music-store website on AWS and connected the servers, database and storage behind
+              it.
+            </p>
+</div>
+<figure class="case-cover">
+<a aria-label="Enlarge project cover" class="image-preview" data-alt="Original portfolio cover image for cloud computing" data-preview="case" data-title="AWS Music Store Web Application" href="assets/cloud-storefront-1.webp" rel="noopener noreferrer" target="_blank">
+<img alt="Music-store product catalogue from my AWS project" class="" decoding="async" fetchpriority="high" height="651" loading="eager" src="assets/cloud-storefront-1.webp" width="1100"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+</figure>
+</header>
+<div class="shell case-body">
+<div class="case-story">
+<section class="case-overview" data-reveal="" id="overview">
+<div class="project-summary">
+<div class="project-summary-copy">
+<h2>Project overview</h2>
+<p>
+                    For the Cloud Computing Development Project, I built a
+                    <strong>music-store catalogue on AWS</strong>. The assignment required a page showing
+                    nine instruments, with product details held in a database and images stored
+                    separately. It also required attention to reliability, performance and a
+                    <strong>$50 budget</strong>.
+                  </p>
+<ul class="project-overview-points">
+<li>
+                      Requests passed through an <strong>Application Load Balancer</strong> to EC2
+                      instances in an Auto Scaling Group across two availability zones.
+                    </li>
+<li>
+                      RDS MySQL held the product information, with Multi-AZ configured for a standby
+                      database, while S3 held the images.
+                    </li>
+<li>Security-group rules controlled access between the components.</li>
+</ul>
+<p>
+                    I worked on the
+                    <mark class="project-highlight">AWS configuration and application deployment</mark>,
+                    then checked resource usage with CloudWatch and set up SNS and budget alerts. I
+                    compared t3.micro and t3.small using ApacheBench and used a Python boto3 script to
+                    check the Auto Scaling Group’s health. The result was a working school catalogue,
+                    rather than a shop processing real customer orders.
+                  </p>
+</div>
+<figure class="case-overview-visual" data-reveal=""><img alt="Cloud music store application interface" decoding="async" loading="lazy" src="assets/cloud-storefront-2.webp"/><figcaption>A closer look at the project</figcaption></figure></div>
+</section>
+<div class="case-question-grid"><section class="study-detail-section" data-detail-section="1" data-reveal="" id="problem">
+<div>
+<h2>The problem</h2>
+<p>
+                  The assignment required a <strong>nine-product music catalogue</strong> hosted on AWS,
+                  with separate product data and image storage. It also included scaling, monitoring and
+                  a <strong>$50 budget limit</strong>.
+                </p>
+</div>
+</section><section class="study-detail-section" data-detail-section="2" data-reveal="" id="solution">
+<div>
+<h2>The solution</h2>
+<p>
+                  I connected EC2 web servers, an Application Load Balancer, an Auto Scaling Group, RDS
+                  MySQL and S3. CloudWatch, SNS and budget alerts were used to monitor the setup.
+                </p>
+</div>
+</section></div>
+
+<div class="project-notes">
+<section class="study-feature study-architecture study-architecture--branched" data-architecture="" data-reveal="" id="workflow">
+<h2>Explore the cloud stack.</h2>
+<p>Select a component to see its part in the project.</p>
+<div class="study-architecture-layout">
+<div aria-label="Architecture components" class="study-architecture-steps" role="group">
+<button aria-pressed="true" class="study-architecture-step" data-architecture-step="" data-step-description="A visitor opens the instrument catalogue in a browser." data-step-name="Visitor" type="button">
+<span class="study-step-number">01</span><span><strong>Visitor</strong><small>Catalogue requests</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="The VPC contains the cloud resources. The Application Load Balancer distributes requests to the web instances." data-step-name="VPC and load balancer" type="button">
+<span class="study-step-number">02</span><span><strong>VPC and load balancer</strong><small>Network and request routing</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="EC2 instances host the website. The Auto Scaling Group can adjust capacity as demand changes." data-step-name="EC2 and Auto Scaling" type="button">
+<span class="study-step-number">03</span><span><strong>EC2 and Auto Scaling</strong><small>Web servers in two availability zones</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="RDS MySQL stores product names, prices and descriptions, with Multi-AZ configured for a standby database." data-step-name="RDS MySQL" type="button">
+<span class="study-step-number">04</span><span><strong>RDS MySQL</strong><small>Product information</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="S3 stores the product photographs separately from the web servers and database." data-step-name="Amazon S3" type="button">
+<span class="study-step-number">05</span><span><strong>Amazon S3</strong><small>Product images</small></span><span aria-hidden="true">→</span></button><button aria-pressed="false" class="study-architecture-step" data-architecture-step="" data-step-description="CloudWatch monitored CPU usage and network traffic. An Auto Scaling Group health alarm notified the project via SNS. AWS Budgets tracked spending against the $50 limit." data-step-name="CloudWatch and SNS" type="button">
+<span class="study-step-number">06</span><span><strong>CloudWatch and SNS</strong><small>Monitoring and alerts</small></span><span aria-hidden="true">→</span>
+</button>
+</div>
+<div aria-atomic="true" aria-live="polite" class="study-architecture-description">
+<h3 data-step-title="">Visitor</h3>
+<p data-step-copy="">A visitor opens the instrument catalogue in a browser.</p>
+</div>
+</div>
+<noscript><ol class="static-steps">
+<li>
+<strong>Visitor</strong>
+<p>A visitor opens the instrument catalogue in a browser.</p>
+</li>
+<li>
+<strong>VPC and load balancer</strong>
+<p>
+                        The VPC contains the cloud resources. The Application Load Balancer distributes
+                        requests to the web instances.
+                      </p>
+</li>
+<li>
+<strong>EC2 and Auto Scaling</strong>
+<p>
+                        EC2 instances host the website. The Auto Scaling Group can adjust capacity as
+                        demand changes.
+                      </p>
+</li>
+<li>
+<strong>RDS MySQL</strong>
+<p>
+                        RDS MySQL stores product names, prices and descriptions, with Multi-AZ configured
+                        for a standby database.
+                      </p>
+</li>
+<li>
+<strong>Amazon S3</strong>
+<p>
+                        S3 stores the product photographs separately from the web servers and database.
+                      </p>
+</li>
+<li>
+<strong>CloudWatch and SNS</strong>
+<p>
+                        CloudWatch monitored CPU usage and network traffic. An Auto Scaling Group health
+                        alarm notified the project via SNS. AWS Budgets tracked spending against the $50
+                        limit.
+                      </p>
+</li>
+</ol></noscript>
+<details class="diagram-toggle">
+<summary>
+                    View complete diagram
+                    <iconify-icon aria-hidden="true" icon="lucide:chevron-down"></iconify-icon>
+</summary>
+<div class="project-ideas project-diagram">
+<div aria-label="AWS application flow from visitors to load balancer, EC2 autoscaling, RDS database and S3 storage, with CloudWatch monitoring" class="cloud-topology" role="group">
+<div class="cloud-topology-head">
+<span><i></i> AWS · US-EAST-1</span><span>VPC · 10.0.0.0/16</span>
+</div>
+<div class="cloud-topology-row cloud-topology-entry">
+<div class="cloud-node cloud-node--entry">
+<iconify-icon icon="lucide:users"></iconify-icon><b>Visitors</b><small>Internet requests</small>
+</div>
+</div>
+<div aria-hidden="true" class="cloud-topology-down">↓</div>
+<div class="cloud-topology-row">
+<div class="cloud-node cloud-node--balancer">
+<iconify-icon icon="lucide:network"></iconify-icon><b>Application Load Balancer</b><small>Distributes HTTP requests</small>
+</div>
+</div>
+<div aria-hidden="true" class="cloud-topology-down">↓</div>
+<div class="cloud-topology-core">
+<span>WEB APPLICATION / AUTO SCALING GROUP</span>
+<div class="cloud-ec2-pair">
+<div class="cloud-node">
+<iconify-icon icon="lucide:server"></iconify-icon><b>EC2 capacity</b><small>Public subnet / AZ A</small>
+</div>
+<div class="cloud-node">
+<iconify-icon icon="lucide:server"></iconify-icon><b>EC2 capacity</b><small>Public subnet / AZ B</small>
+</div>
+</div>
+</div>
+<div aria-hidden="true" class="cloud-topology-down">↓</div>
+<div class="cloud-topology-services">
+<div class="cloud-node">
+<iconify-icon icon="lucide:database"></iconify-icon><b>RDS MySQL</b><small>Product information · Multi-AZ</small>
+</div>
+<div class="cloud-node">
+<iconify-icon icon="lucide:images"></iconify-icon><b>Amazon S3</b><small>Product images</small>
+</div>
+</div>
+<div class="cloud-topology-foot">
+<span><iconify-icon icon="lucide:activity"></iconify-icon> CloudWatch ·
+                          Monitoring</span><span><iconify-icon icon="lucide:bell-ring"></iconify-icon> SNS · Alerts</span><span><iconify-icon icon="lucide:wallet"></iconify-icon> AWS Budgets</span>
+</div>
+</div>
+</div>
+</details>
+</section>
+<section class="study-feature" data-reveal="" id="features">
+<h2>Application and monitoring</h2>
+<p>
+                  The main image shows the first three products. These screenshots show the remaining
+                  six. Select an image to enlarge it.
+                </p>
+<div class="feature-list">
+<figure class="project-photo">
+<a aria-label="Enlarge Music catalogue with guqin, harmonica and harp" class="image-preview" data-alt="Music catalogue with guqin, harmonica and harp" data-preview="case" data-title="Catalogue · Guqin to harp" href="assets/cloud-storefront-2.webp" rel="noopener noreferrer" target="_blank"><img alt="Music catalogue with guqin, harmonica and harp" decoding="async" height="946" loading="lazy" src="assets/cloud-storefront-2.webp" width="1406"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">01</span>
+<h3>Catalogue · Guqin to harp</h3>
+<p>Guqin, harmonica and harp products.</p>
+</figcaption>
+</figure>
+<figure class="project-photo">
+<a aria-label="Enlarge Music catalogue with piano, trumpet and violin" class="image-preview" data-alt="Music catalogue with piano, trumpet and violin" data-preview="case" data-title="Catalogue · Piano to violin" href="assets/cloud-storefront-3.webp" rel="noopener noreferrer" target="_blank"><img alt="Music catalogue with piano, trumpet and violin" decoding="async" height="838" loading="lazy" src="assets/cloud-storefront-3.webp" width="1395"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">02</span>
+<h3>Catalogue · Piano to violin</h3>
+<p>Piano, trumpet and violin products.</p>
+</figcaption>
+</figure>
+</div>
+<p class="project-media-note">
+                  I used these <strong>CloudWatch charts</strong> to check server CPU usage, database CPU
+                  usage and network traffic.
+                </p>
+<div class="feature-list">
+<figure class="project-photo">
+<a aria-label="Enlarge CloudWatch EC2 CPU chart" class="image-preview" data-alt="CloudWatch EC2 CPU chart" data-preview="case" data-title="EC2 CPU usage" href="assets/cloudwatch-ec2-cpu.webp" rel="noopener noreferrer" target="_blank"><img alt="CloudWatch EC2 CPU chart" decoding="async" height="272" loading="lazy" src="assets/cloudwatch-ec2-cpu.webp" width="806"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">03</span>
+<h3>EC2 CPU usage</h3>
+<p>EC2 CPU usage during monitoring.</p>
+</figcaption>
+</figure>
+<figure class="project-photo">
+<a aria-label="Enlarge CloudWatch RDS CPU chart" class="image-preview" data-alt="CloudWatch RDS CPU chart" data-preview="case" data-title="RDS CPU usage" href="assets/cloudwatch-rds-cpu.webp" rel="noopener noreferrer" target="_blank"><img alt="CloudWatch RDS CPU chart" decoding="async" height="273" loading="lazy" src="assets/cloudwatch-rds-cpu.webp" width="623"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">04</span>
+<h3>RDS CPU usage</h3>
+<p>RDS CPU usage.</p>
+</figcaption>
+</figure>
+<figure class="project-photo project-photo--wide">
+<a aria-label="Enlarge CloudWatch network traffic chart" class="image-preview" data-alt="CloudWatch network traffic chart" data-preview="case" data-title="Network traffic" href="assets/cloudwatch-network.webp" rel="noopener noreferrer" target="_blank"><img alt="CloudWatch network traffic chart" decoding="async" height="349" loading="lazy" src="assets/cloudwatch-network.webp" width="806"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">05</span>
+<h3>Network traffic</h3>
+<p>Network traffic in and out.</p>
+</figcaption>
+</figure>
+</div>
+</section>
+</div>
+<section class="study-detail-section" data-detail-section="3" data-reveal="" id="contributions">
+<div>
+<h2>What I worked on</h2>
+<ul>
+<li>
+                    Configured the
+                    <strong>VPC, load balancer, EC2 instances, Auto Scaling Group, RDS MySQL and S3</strong>
+                    for the catalogue.
+                  </li>
+<li>
+                    Restricted HTTP access to the web instances so requests came through the
+                    <strong>load balancer’s security group</strong>. The database was accessed within the
+                    VPC.
+                  </li>
+<li>
+                    Configured <strong>RDS Multi-AZ</strong> for a standby database in another
+                    availability zone.
+                  </li>
+<li>
+                    Compared <strong>t3.micro and t3.small using ApacheBench</strong> under the same
+                    load. The report found comparable performance for this application.
+                  </li>
+<li>
+                    Monitored CPU usage and network traffic with <strong>CloudWatch</strong>. Set a
+                    StatusCheckFailed alarm at Auto Scaling Group level and connected it to SNS email
+                    notifications.
+                  </li>
+<li>
+                    Configured a <strong>$50 monthly budget</strong> with an alert at
+                    <strong>80%</strong>. Used a Python boto3 script to check Auto Scaling Group health.
+                  </li>
+</ul>
+</div>
+</section>
+<section class="study-detail-section" data-detail-section="4" data-reveal="" id="technologies">
+<div>
+<h2>Technologies</h2>
+<div class="study-tech">
+<span>Amazon VPC</span><span>EC2</span><span>Application Load Balancer</span><span>Auto Scaling</span><span>RDS MySQL</span><span>S3</span><span>CloudWatch</span><span>SNS</span><span>Python boto3</span><span>ApacheBench</span>
+</div>
+</div>
+</section>
+<section class="study-detail-section" data-detail-section="5" data-reveal="" id="outcome">
+<div>
+<h2>Outcome</h2>
+<p>
+                  The catalogue displayed <strong>nine musical instruments</strong>, with names, prices
+                  and descriptions in MySQL and product images in S3. The load balancer and Auto Scaling
+                  Group handled the web layer, with monitoring and spending alerts configured alongside
+                  it.
+                </p>
+<p>
+                  The instance comparison supported using <strong>t3.micro</strong> for this workload.
+                  This was a school application, not a shop taking real orders or evidence of
+                  production-scale performance.
+                </p>
+</div>
+</section>
+</div>
+</div>
+</article>
+<nav aria-label="Project navigation" class="shell case-navigation">
+<div class="section-head">
+<h2>More projects</h2>
+<a class="text-link" href="all-projects.html">Back to projects<iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</div>
+<div>
+<a class="next-card tone-3" href="iot-sustainable-living.html">
+<img alt="" class="" decoding="async" height="646" loading="lazy" src="assets/iot-hardware-workbench-display.webp" width="1100"/><span><small>Previous project</small><strong>Household IoT</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a><a class="next-card tone-5" href="road-safety.html">
+<img alt="" class="" decoding="async" height="770" loading="lazy" src="assets/road-safety-cover-display.webp" width="1100"/><span><small>Next project</small><strong>Road Safety Analysis</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</div>
+</nav>
+</main>
+<div id="site-chrome-footer"></div>
+<dialog aria-labelledby="media-dialog-title" class="media-dialog">
+<div class="media-dialog-inner">
+<header>
+<h2 id="media-dialog-title">Preview</h2>
+<button aria-label="Close preview" class="icon-button" data-close="" type="button">
+<iconify-icon aria-hidden="true" icon="lucide:x"></iconify-icon>
+</button>
+</header>
+<div class="dialog-image"></div>
+<footer>
+<span aria-live="polite" class="dialog-count"></span>
+<div class="dialog-arrows">
+<button aria-label="Previous image" class="icon-button" data-prev="" type="button">
+<iconify-icon aria-hidden="true" icon="lucide:arrow-left"></iconify-icon>
+</button>
+<button aria-label="Next image" class="icon-button" data-next="" type="button">
+<iconify-icon aria-hidden="true" icon="lucide:arrow-right"></iconify-icon>
+</button>
+</div>
+<a class="text-link dialog-original" rel="noopener noreferrer" target="_blank">Open original <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
+</footer>
+</div>
+</dialog>
+</body>
+</html>
