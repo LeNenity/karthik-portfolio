@@ -8,6 +8,19 @@
   let saved;
   try { saved=localStorage.getItem('karthik-beige-theme'); } catch {}
   document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+
+  // Cover the first paint when an internal link started a page sweep.
+  try {
+    const key = 'karthik:page-signal-v2';
+    const pending = JSON.parse(sessionStorage.getItem(key));
+    sessionStorage.removeItem(key);
+    if (pending?.url === location.href && Date.now() - pending.time < 10000 &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const root = document.documentElement;
+      root.classList.add('sweep-arriving');
+      setTimeout(() => root.classList.remove('sweep-arriving'), 2500);
+    }
+  } catch {}
 })();
 
 </script>
@@ -33,7 +46,8 @@
   
   
   
-  <script defer src="home.bundle.js"></script>
+  <script defer src="motion.js"></script>
+  <script defer src="home.bundle.js?v=original-ribbon"></script>
   
   
   
@@ -46,6 +60,8 @@
 
 
 
+
+<link rel="stylesheet" href="motion.css">
 
 </head>
 <body>
@@ -57,7 +73,7 @@
 </button>
 <nav aria-label="Main navigation" class="dock glass">
 <a aria-current="page" aria-label="Home" class="nav-item" href="#home" id="nav-home"><iconify-icon aria-hidden="true" icon="lucide:house"></iconify-icon><span class="nav-label">Home</span></a>
-<a aria-controls="about-preview" aria-expanded="false" aria-label="About" class="nav-item" data-about-trigger="" href="#about" id="nav-about"><iconify-icon aria-hidden="true" icon="lucide:user-round"></iconify-icon><span class="nav-label">About</span><iconify-icon class="nav-dropdown-caret" icon="lucide:chevron-down" aria-hidden="true"></iconify-icon></a>
+<a aria-controls="about-preview" aria-expanded="false" aria-label="About" class="nav-item" data-about-trigger="" href="#about" id="nav-about"><iconify-icon aria-hidden="true" icon="lucide:user-round"></iconify-icon><span class="nav-label">About</span></a>
 <a aria-label="Projects" class="nav-item" href="all-projects.html" id="nav-projects"><iconify-icon aria-hidden="true" icon="lucide:briefcase-business"></iconify-icon><span class="nav-label">Projects</span></a><a aria-label="Achievements and Certificates" class="nav-item" href="certificates.html" id="nav-awards"><iconify-icon aria-hidden="true" icon="lucide:award"></iconify-icon><span class="nav-label">Achievements</span></a>
 </nav>
 <button aria-label="Switch to light mode" class="theme-toggle glass" id="theme-toggle" type="button"><iconify-icon aria-hidden="true" icon="lucide:sun" id="theme-icon"></iconify-icon></button>
@@ -70,7 +86,7 @@
 <a class="internship-cta about-preview-link" href="internship.html">View my internship <iconify-icon aria-hidden="true" icon="lucide:arrow-right"></iconify-icon></a>
 </div>
 <figure class="about-preview-photo">
-<img alt="Utility meter connected to an IoT modem during my internship testing" decoding="async" height="1200" loading="lazy" src="assets/internship-s47-preparation.webp" width="1600"/>
+<img alt="Utility meter connected to an IoT modem during my internship testing" decoding="async" height="720" loading="eager" fetchpriority="low" src="assets/internship-s47-preparation-display.webp" width="960"/>
 <figcaption>Connected devices from my time at iWOW.</figcaption>
 </figure>
 </div>
@@ -185,11 +201,8 @@
 </ol>
 <div class="about-journey-actions">
 <a class="about-resume-button" href="internship.html">Internship <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
-
+<a class="about-resume-button about-awards-button" href="certificates.html">Achievements &amp; certificates <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
 </div>
-<nav aria-label="More about my experience" class="about-journey-links">
-<a href="certificates.html">Achievements &amp; certificates <iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
-</nav>
 </div>
 </div>
 

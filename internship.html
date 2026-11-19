@@ -8,6 +8,19 @@
   let saved;
   try { saved=localStorage.getItem('karthik-beige-theme'); } catch {}
   document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+
+  // Cover the first paint when an internal link started a page sweep.
+  try {
+    const key = 'karthik:page-signal-v2';
+    const pending = JSON.parse(sessionStorage.getItem(key));
+    sessionStorage.removeItem(key);
+    if (pending?.url === location.href && Date.now() - pending.time < 10000 &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const root = document.documentElement;
+      root.classList.add('sweep-arriving');
+      setTimeout(() => root.classList.remove('sweep-arriving'), 2500);
+    }
+  } catch {}
 })();
 
 </script>
@@ -24,7 +37,8 @@
 
 
 
-<script defer src="internship.bundle.js"></script>
+<script defer src="motion.js"></script>
+  <script defer src="internship.bundle.js"></script>
 
 
 
@@ -38,16 +52,18 @@
 
 
 
+
+<link rel="stylesheet" href="motion.css">
 
 </head>
-<body class="all-projects-page internship-page">
+<body class="all-projects-page internship-page" data-ambient-dots>
 <a class="skip" href="#internship-main">Skip to internship</a>
 <header aria-label="Main header" class="floating-header"><button aria-controls="mobile-sidebar" aria-expanded="false" aria-label="Open menu" class="menu-toggle glass" id="menu-toggle" type="button">
 <span aria-hidden="true" class="menu-bars"><span></span><span></span><span></span></span>
 </button>
 <nav aria-label="Main navigation" class="dock glass">
 <a aria-label="Home" class="nav-item" href="index.html#home" id="nav-home"><iconify-icon aria-hidden="true" icon="lucide:house"></iconify-icon><span class="nav-label">Home</span></a>
-<a aria-controls="about-preview" aria-expanded="false" aria-label="About" class="nav-item" data-about-trigger="" href="index.html#about" id="nav-about"><iconify-icon aria-hidden="true" icon="lucide:user-round"></iconify-icon><span class="nav-label">About</span><iconify-icon class="nav-dropdown-caret" icon="lucide:chevron-down" aria-hidden="true"></iconify-icon></a>
+<a aria-controls="about-preview" aria-expanded="false" aria-label="About" class="nav-item" data-about-trigger="" href="index.html#about" id="nav-about"><iconify-icon aria-hidden="true" icon="lucide:user-round"></iconify-icon><span class="nav-label">About</span></a>
 <a aria-label="Projects" class="nav-item" href="all-projects.html" id="nav-projects"><iconify-icon aria-hidden="true" icon="lucide:briefcase-business"></iconify-icon><span class="nav-label">Projects</span></a><a aria-label="Achievements and Certificates" class="nav-item" href="certificates.html" id="nav-awards"><iconify-icon aria-hidden="true" icon="lucide:award"></iconify-icon><span class="nav-label">Achievements</span></a>
 </nav>
 <button aria-label="Switch to dark mode" class="theme-toggle glass" id="all-theme-toggle" type="button"><iconify-icon aria-hidden="true" icon="lucide:moon" id="all-theme-icon"></iconify-icon></button>
@@ -60,7 +76,7 @@
 <a class="internship-cta about-preview-link" href="internship.html">View my internship <iconify-icon aria-hidden="true" icon="lucide:arrow-right"></iconify-icon></a>
 </div>
 <figure class="about-preview-photo">
-<img alt="Utility meter connected to an IoT modem during my internship testing" decoding="async" height="1200" loading="lazy" src="assets/internship-s47-preparation.webp" width="1600"/>
+<img alt="Utility meter connected to an IoT modem during my internship testing" decoding="async" height="720" loading="eager" fetchpriority="low" src="assets/internship-s47-preparation-display.webp" width="960"/>
 <figcaption>Connected devices from my time at iWOW.</figcaption>
 </figure>
 </div>
@@ -88,13 +104,14 @@
 </aside><main class="intern-main frame" id="internship-main">
 <header class="intern-hero intern-reveal" id="intern-overview">
 <div class="intern-hero-copy">
+<a class="project-back-link intern-back-link" href="index.html#about"><iconify-icon aria-hidden="true" icon="lucide:arrow-left"></iconify-icon> Back to portfolio</a>
 <h1 data-title-reveal>IoT Intern<span class="intern-title-punctuation">.</span><br/><span>at iWOW Connections.</span></h1>
 <p class="intern-lead">I helped prepare connected devices, check utility-meter readings and support technicians during site work.</p>
 <p>My attachment involved both hands-on equipment work and the records behind it: configuring modems, investigating readings, checking connectivity and documenting what needed attention.</p>
 <div class="intern-hero-actions"><a class="intern-explore" href="#intern-devices">Explore my work <iconify-icon aria-hidden="true" icon="lucide:arrow-down-right"></iconify-icon></a><span class="intern-date-label"><iconify-icon aria-hidden="true" icon="lucide:calendar-days"></iconify-icon> 8 APR — 26 AUG 2024</span></div>
 </div>
 <figure class="intern-photo intern-hero-photo">
-<button aria-label="Enlarge S47 and Itron preparation photo" class="ed-image-open" data-alt="S47 pulse counter and Itron sensor prepared for a water-meter check" data-photo="assets/internship-s47-preparation.webp" type="button"><img decoding="async" alt="S47 pulse counter and Itron sensor prepared for a water-meter check" fetchpriority="high" height="1200" loading="eager" src="assets/internship-s47-preparation.webp" width="1600"/></button>
+<button aria-label="Enlarge S47 and Itron preparation photo" class="ed-image-open" data-alt="S47 pulse counter and Itron sensor prepared for a water-meter check" data-photo="assets/internship-s47-preparation.webp" type="button"><img decoding="async" alt="S47 pulse counter and Itron sensor prepared for a water-meter check" fetchpriority="high" height="720" loading="eager" src="assets/internship-s47-preparation-display.webp" width="960"/></button>
 <figcaption>Preparing an S47 pulse counter and Itron sensor for a water-meter check.</figcaption>
 </figure>
 </header>
@@ -126,7 +143,7 @@
 <p>During the NUS work, I also helped reconfigure installed modems to read additional parameters such as <strong>power factor and current</strong>, rather than energy consumption alone.</p>
 </div>
 <figure class="intern-photo">
-<button aria-label="Enlarge modem wiring photo" class="ed-image-open" data-alt="Preparing connectors for modem power wiring" data-photo="assets/internship-modem-wiring.webp" type="button"><img decoding="async" alt="Preparing connectors for modem power wiring" height="1600" loading="lazy" src="assets/internship-modem-wiring.webp" width="1200"/></button>
+<button aria-label="Enlarge modem wiring photo" class="ed-image-open" data-alt="Preparing connectors for modem power wiring" data-photo="assets/internship-modem-wiring.webp" type="button"><img decoding="async" alt="Preparing connectors for modem power wiring" height="1200" loading="lazy" src="assets/internship-modem-wiring-display.webp" width="900"/></button>
 <figcaption>Preparing connectors for the modem power wiring.</figcaption>
 </figure>
 </div>
@@ -146,7 +163,7 @@
 <p>I also checked device status and battery records for other sensor deployments. This included distinguishing a tracker in standby mode from one that had stopped communicating.</p>
 </div>
 <figure class="intern-photo">
-<button aria-label="Enlarge BTU testing photo" class="ed-image-open" data-alt="Two BTU meters connected on a bench for temperature-sensor testing" data-photo="assets/internship-btu-testing.webp" type="button"><img decoding="async" alt="Two BTU meters connected on a bench for temperature-sensor testing" height="1536" loading="lazy" src="assets/internship-btu-testing.webp" width="2048"/></button>
+<button aria-label="Enlarge BTU testing photo" class="ed-image-open" data-alt="Two BTU meters connected on a bench for temperature-sensor testing" data-photo="assets/internship-btu-testing.webp" type="button"><img decoding="async" alt="Two BTU meters connected on a bench for temperature-sensor testing" height="900" loading="lazy" src="assets/internship-btu-testing-display.webp" width="1200"/></button>
 <figcaption>Bench-testing two BTU meters with temperature sensors.</figcaption>
 </figure>
 </div>
@@ -166,7 +183,7 @@
 <p>The documentation mattered as much as the reading itself. A clear device ID, location, timestamp and remark made it easier for the next person to check the same issue.</p>
 </div>
 <figure class="intern-photo">
-<button aria-label="Enlarge AHU-room photo" class="ed-image-open" data-alt="AHU-room equipment seen during internship site work" data-photo="assets/internship-ahu-site.webp" type="button"><img decoding="async" alt="AHU-room equipment seen during internship site work" height="1600" loading="lazy" src="assets/internship-ahu-site.webp" width="1200"/></button>
+<button aria-label="Enlarge AHU-room photo" class="ed-image-open" data-alt="AHU-room equipment seen during internship site work" data-photo="assets/internship-ahu-site.webp" type="button"><img decoding="async" alt="AHU-room equipment seen during internship site work" height="1200" loading="lazy" src="assets/internship-ahu-site-display.webp" width="900"/></button>
 <figcaption>Air-handling unit and chilled-water pipes during a site visit.</figcaption>
 </figure>
 </div>

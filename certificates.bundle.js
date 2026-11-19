@@ -1,6 +1,15 @@
 /* START scripts/shared/icons.js */
 /* Lucide icons, ISC license; see THIRD_PARTY_LICENSES.txt. */
 (()=>{const nodes={"lucide:house":[["path",{"d":"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"}],["path",{"d":"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"}]],"lucide:briefcase-business":[["path",{"d":"M12 12h.01"}],["path",{"d":"M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"}],["path",{"d":"M22 13a18.15 18.15 0 0 1-20 0"}],["rect",{"width":"20","height":"14","x":"2","y":"6","rx":"2"}]],"lucide:user-round":[["circle",{"cx":"12","cy":"8","r":"5"}],["path",{"d":"M20 21a8 8 0 0 0-16 0"}]],"lucide:mail":[["path",{"d":"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"}],["rect",{"x":"2","y":"4","width":"20","height":"16","rx":"2"}]],"lucide:sun":[["circle",{"cx":"12","cy":"12","r":"4"}],["path",{"d":"M12 2v2"}],["path",{"d":"M12 20v2"}],["path",{"d":"m4.93 4.93 1.41 1.41"}],["path",{"d":"m17.66 17.66 1.41 1.41"}],["path",{"d":"M2 12h2"}],["path",{"d":"M20 12h2"}],["path",{"d":"m6.34 17.66-1.41 1.41"}],["path",{"d":"m19.07 4.93-1.41 1.41"}]],"lucide:arrow-up-right":[["path",{"d":"M7 7h10v10"}],["path",{"d":"M7 17 17 7"}]],"lucide:copy":[["rect",{"width":"14","height":"14","x":"8","y":"8","rx":"2","ry":"2"}],["path",{"d":"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"}]],"lucide:linkedin":[["path",{"d":"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"}],["path",{"d":"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"}]],"lucide:message-circle":[["path",{"d":"M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"}]],"lucide:x":[["path",{"d":"M18 6 6 18"}],["path",{"d":"m6 6 12 12"}]],"lucide:plus":[["path",{"d":"M5 12h14"}],["path",{"d":"M12 5v14"}]],"lucide:arrow-up":[["path",{"d":"m5 12 7-7 7 7"}],["path",{"d":"M12 19V5"}]],"lucide:toggle-right":[["rect",{"x":"2","y":"5","width":"20","height":"14","rx":"7"}],["circle",{"cx":"15","cy":"12","r":"4"}]],"lucide:cpu":[["rect",{"x":"4","y":"4","width":"16","height":"16","rx":"2"}],["rect",{"x":"9","y":"9","width":"6","height":"6"}],["path",{"d":"M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"}]],"lucide:settings":[["path",{"d":"M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"}],["path",{"d":"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06-1.9 1.9-.06-.06A1.65 1.65 0 0 0 16 18.4a1.65 1.65 0 0 0-1 .27A1.65 1.65 0 0 0 14.25 20v.1h-4.5V20A1.65 1.65 0 0 0 9 18.67a1.65 1.65 0 0 0-1-.27 1.65 1.65 0 0 0-1.82.33l-.06.06-1.9-1.9.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.33-1H3.1V10h.17A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06 1.9-1.9.06.06A1.65 1.65 0 0 0 8 5.6c.37 0 .71-.1 1-.27A1.65 1.65 0 0 0 9.75 4v-.1h4.5V4A1.65 1.65 0 0 0 15 5.33c.29.17.63.27 1 .27.65 0 1.31-.33 1.82-.33l.06-.06 1.9 1.9-.06.06A1.65 1.65 0 0 0 19.4 9c.17.29.27.63.27 1H20.9v4h-1.23c0 .37-.1.71-.27 1z"}]],"lucide:play":[["polygon",{"points":"6 3 20 12 6 21 6 3"}]],"lucide:pause":[["rect",{"x":"6","y":"4","width":"4","height":"16","rx":"1"}],["rect",{"x":"14","y":"4","width":"4","height":"16","rx":"1"}]],"lucide:moon":[["path",{"d":"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"}]]};Object.assign(nodes,{"lucide:thermometer-sun":[["path",{"d":"M14 14.76V5a3 3 0 0 0-6 0v9.76a5 5 0 1 0 6 0Z"}],["path",{"d":"M11 11v8"}],["path",{"d":"M20 12h2 M18.3 5.7l1.4-1.4 M18 9a3 3 0 0 0-3-3"}]],"lucide:sprout":[["path",{"d":"M12 22V12"}],["path",{"d":"M12 12C6 12 4 8 4 4c6 0 8 3 8 8Z"}],["path",{"d":"M12 15c0-6 3-9 9-9 0 6-3 9-9 9Z"}]],"lucide:radio":[["rect",{"x":3,"y":8,"width":18,"height":13,"rx":2}],["path",{"d":"M7 8 17 2 M7 13h6 M7 17h4"}],["circle",{"cx":17,"cy":16,"r":2}]],"lucide:radio-tower":[["circle",{"cx":12,"cy":10,"r":2}],["path",{"d":"m5 22 7-10 7 10 M8 18h8 M6.3 5.5a8 8 0 0 0 0 9 M17.7 5.5a8 8 0 0 1 0 9"}]],"lucide:database":[["ellipse",{"cx":12,"cy":5,"rx":9,"ry":3}],["path",{"d":"M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5 M3 12c0 1.7 4 3 9 3s9-1.3 9-3"}]],"lucide:users":[["path",{"d":"M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2 M20 21v-2a4 4 0 0 0-3-3.87"}],["circle",{"cx":9.5,"cy":7,"r":4}],["path",{"d":"M17 3.1a4 4 0 0 1 0 7.8"}]],"lucide:network":[["rect",{"x":9,"y":2,"width":6,"height":6,"rx":1}],["rect",{"x":2,"y":16,"width":6,"height":6,"rx":1}],["rect",{"x":16,"y":16,"width":6,"height":6,"rx":1}],["path",{"d":"M12 8v4 M5 16v-4h14v4"}]],"lucide:server":[["rect",{"x":3,"y":2,"width":18,"height":9,"rx":2}],["rect",{"x":3,"y":13,"width":18,"height":9,"rx":2}],["path",{"d":"M7 6h.01 M7 17h.01 M11 6h6 M11 17h6"}]],"lucide:images":[["rect",{"x":4,"y":3,"width":17,"height":15,"rx":2}],["path",{"d":"m4 14 4-4 3 3 4-4 6 6 M2 8v13h17"}],["circle",{"cx":9,"cy":7,"r":1}]],"lucide:activity":[["path",{"d":"M2 12h4l3-8 5 16 3-8h5"}]],"lucide:bell-ring":[["path",{"d":"M18 8a6 6 0 0 0-12 0c0 8-3 9-3 11h18c0-2-3-3-3-11 M10 22h4 M3 4l2-2 M21 4l-2-2"}]],"lucide:wallet":[["rect",{"x":3,"y":5,"width":18,"height":16,"rx":2}],["path",{"d":"M3 9h18 M3 5l3-3h11 M16 15h3"}]],"lucide:layers":[["path",{"d":"m12 2 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 17l9 5 9-5"}]],"lucide:database-zap":[["ellipse",{"cx":12,"cy":5,"rx":9,"ry":3}],["path",{"d":"M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5 M3 12c0 1.7 4 3 9 3s9-1.3 9-3"}],["path",{"d":"m12 9-3 5h3l-1 5 4-7h-3l1-3"}]],"lucide:chart-no-axes-combined":[["path",{"d":"M3 20h18 M4 15l5-5 4 3 7-8 M17 5h3v3"}],["path",{"d":"M5 17v3 M11 15v5 M17 12v8"}]]});Object.assign(nodes,{"lucide:search":[["circle",{"cx":"11","cy":"11","r":"8"}],["path",{"d":"m21 21-4.35-4.35"}]]});Object.assign(nodes,{
+"lucide:chevron-down":[["path",{"d":"M6 9l6 6 6-6"}]],
+"lucide:chevron-left":[["path",{"d":"M15 18l-6-6 6-6"}]],
+"lucide:chevron-right":[["path",{"d":"M9 18l6-6-6-6"}]],
+"lucide:arrow-down-right":[["path",{"d":"M7 7l10 10m0-10v10H7"}]],
+"lucide:calendar-days":[["path",{"d":"M4 5h16v15H4zM8 3v4m8-4v4M4 10h16m-12 4h.01m4 0h.01m4 0h.01m-8 3h.01m4 0h.01m4 0h.01"}]],
+"lucide:clipboard-list":[["path",{"d":"M9 5H6v16h12V5h-3M9 3h6v4H9zM9 12h6m-6 4h6"}]],
+"lucide:building-2":[["path",{"d":"M3 21h18M5 21V5h9v16m0-11h5v11M8 9h3m-3 4h3m-3 4h3m5-3h.01m0 3h.01"}]],
+"lucide:clipboard-check":[["path",{"d":"M9 5H6v16h12V5h-3M9 3h6v4H9zm0 11 2 2 4-4"}]],
+"lucide:file-check-2":[["path",{"d":"M6 3h8l4 4v14H6zM14 3v5h4M9 14l2 2 4-4"}]],
 "lucide:arrow-left":[["path",{"d":"m12 19-7-7 7-7"}],["path",{"d":"M19 12H5"}]],
 "lucide:arrow-right":[["path",{"d":"M5 12h14"}],["path",{"d":"m12 5 7 7-7 7"}]],
 "lucide:award":[["circle",{"cx":"12","cy":"8","r":"6"}],["path",{"d":"M8.21 13.89 7 23l5-3 5 3-1.21-9.12"}]],
@@ -77,13 +86,37 @@
   let closeTimer = 0;
 
   function setPanel(menu, open) {
-    menu.panel.hidden = !open;
-    menu.trigger.setAttribute('aria-expanded', String(open));
-    menu.panel.dispatchEvent(new CustomEvent('portfolio:preview-toggle', {detail: {open}}));
+    const {panel, trigger} = menu;
+    const rest = {opacity: 1, translate: '-50% 0', scale: '1'};
+    const tucked = {opacity: 0, translate: '-50% -12px', scale: '.975'};
+    const computed = panel.hidden ? null : getComputedStyle(panel);
+    const initial = computed ? {opacity: computed.opacity, translate: computed.translate, scale: computed.scale} : tucked;
+    menu.animation?.cancel();
+    menu.animation = null;
+    trigger.setAttribute('aria-expanded', String(open));
+    panel.inert = !open;
+    panel.classList.add('dock-animated-panel');
+    panel.dispatchEvent(new CustomEvent('portfolio:preview-toggle', {detail: {open}}));
+    if (reduceMotion.matches || !desktop.matches || typeof panel.animate !== "function") {
+      panel.hidden = !open;
+      return;
+    }
+    panel.hidden = false;
+    const animation = panel.animate([initial, open ? rest : tucked], {
+      duration: open ? 390 : 270, easing: open ? 'cubic-bezier(.22,1,.36,1)' : 'cubic-bezier(.4,0,.2,1)', fill: 'both'
+    });
+    menu.animation = animation;
+    animation.finished.then(() => {
+      if (menu.animation !== animation) return;
+      panel.hidden = !open;
+      menu.animation = null;
+      animation.cancel();
+    }, () => {});
   }
 
   function close() {
     clearTimeout(openTimer);
+    openTimer = 0;
     clearTimeout(closeTimer);
     if (!active) return;
     const previous = active;
@@ -104,23 +137,27 @@
     closeTimer = setTimeout(() => {
       if (!active?.panel.contains(document.activeElement) && !active?.panel.matches(':hover') &&
           !active?.trigger.matches(':hover')) close();
-    }, 230);
+    }, 170);
   }
 
   for (const trigger of triggers) {
     const panel = document.getElementById(trigger.getAttribute('aria-controls'));
     if (!panel) continue;
     const menu = {trigger, panel};
-    trigger.addEventListener('pointerenter', event => {
+    // A centered dock moves its link boxes as it opens. Only physical
+    // pointer movement should trigger About's dropdown during that shift.
+    trigger.addEventListener('pointermove', event => {
       if (event.pointerType === 'touch' || !desktop.matches) return;
       clearTimeout(closeTimer);
-      clearTimeout(openTimer);
+      if (active === menu || openTimer) return;
       openTimer = setTimeout(() => {
+        openTimer = 0;
         if (trigger.matches(':hover')) open(menu);
-      }, active || reduceMotion.matches ? 100 : 325);
+      }, active || reduceMotion.matches ? 35 : 130);
     });
     trigger.addEventListener('pointerleave', () => {
       clearTimeout(openTimer);
+      openTimer = 0;
       scheduleClose();
     });
     trigger.addEventListener('keydown', event => {
@@ -406,7 +443,7 @@
   const stageCounter = stage.querySelector('.cert-stage-counter');
   let featured = Math.max(0, allDocuments.findIndex(entry => entry.preview.href === front.href));
   const wrap = value => (value + allDocuments.length) % allDocuments.length;
-  function showFeatured(direction = 0) {
+  function showFeatured(direction = 0, announce = false) {
     featured = wrap(featured + direction);
     const entry = allDocuments[featured];
     front.href = entry.preview.href;
@@ -417,10 +454,12 @@
     rightImage.src = allDocuments[wrap(featured + 1)].pages[0].src;
     stageTitle.textContent = entry.title;
     stageCounter.textContent = (featured + 1) + ' / ' + allDocuments.length;
+    if (announce) stage.querySelector('.cert-stage-status').textContent = entry.title;
+    front.style.setProperty('--card-travel', (direction * 27) + 'px');
+    front.style.setProperty('--card-turn', (direction * 15) + 'deg');
     if (direction) {
       stage.classList.remove('is-shuffling');
       front.classList.remove('is-turning');
-      front.style.setProperty('--card-turn', (direction * 16) + '%');
       // Restart all three animations as a single shuffle.
       void stage.offsetWidth;
       stage.classList.add('is-shuffling');
@@ -439,7 +478,7 @@
   // Autoplay only while the deck is on screen. Pause on hover/focus, in a
   // document preview, in a background tab, and when reduced motion is preferred.
   const preloadedThumbnails = new Set();
-  const autoplayInterval = 2600;
+  const autoplayInterval = 2500;
   let featuredTimer = 0;
   let stageInView = false;
   let pointerOnStage = false;
@@ -470,7 +509,8 @@
   } else {
     stageInView = true;
   }
-  stage.addEventListener('pointerenter', () => {
+  stage.addEventListener('pointerenter', event => {
+    if (event.pointerType === 'touch') return;
     pointerOnStage = true;
     stopFeaturedAutoplay();
   });
@@ -486,14 +526,38 @@
   reducedMotion.addEventListener?.('change', scheduleFeaturedAutoplay);
   window.addEventListener('pagehide', stopFeaturedAutoplay);
   stage.querySelectorAll('[data-cert-step]').forEach(button => {
-    button.addEventListener('click', () => showFeatured(Number(button.dataset.certStep)));
+    button.addEventListener('click', () => { showFeatured(Number(button.dataset.certStep), true); scheduleFeaturedAutoplay(); });
   });
   stage.addEventListener('keydown', event => {
     if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
     event.preventDefault();
-    showFeatured(event.key === 'ArrowLeft' ? -1 : 1);
+    showFeatured(event.key === 'ArrowLeft' ? -1 : 1, true);
     scheduleFeaturedAutoplay();
   });
+  let swipe;
+  let suppressClickUntil = 0;
+  const deck = stage.querySelector('.cert-stage-deck');
+  deck.addEventListener('pointerdown', event => {
+    if (!event.isPrimary || event.pointerType !== 'touch') return;
+    swipe = {x: event.clientX, y: event.clientY, id: event.pointerId};
+    stopFeaturedAutoplay();
+  });
+  deck.addEventListener('pointercancel', () => { swipe = null; scheduleFeaturedAutoplay(); });
+  deck.addEventListener('pointerup', event => {
+    if (event.pointerId !== swipe?.id) return;
+    const x = event.clientX - swipe.x, y = event.clientY - swipe.y;
+    swipe = null;
+    if (Math.abs(x) > 40 && Math.abs(x) > Math.abs(y) * 1.2) {
+      showFeatured(x < 0 ? 1 : -1, true);
+      suppressClickUntil = performance.now() + 350;
+    }
+    scheduleFeaturedAutoplay();
+  });
+  deck.addEventListener('click', event => {
+    if (event.detail === 0 || performance.now() > suppressClickUntil) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, {capture: true});
   front.setAttribute('aria-haspopup', 'dialog');
   front.addEventListener('click', event => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -541,34 +605,6 @@
 })();
 
 /* END scripts/pages/certificates-gallery.js */
-;
-/* START scripts/pages/certificates-dots.js */
-/* Quiet ambient dots, distributed around the viewport; decorative and pointer-safe. */
-(() => {
-  if (document.querySelector('.intern-twinkle-field')) return;
-  const layer = document.createElement('div');
-  layer.className = 'intern-twinkle-field';
-  layer.setAttribute('aria-hidden', 'true');
-  let state = 28411;
-  const random = () => {
-    state = (1664525 * state + 1013904223) >>> 0;
-    return state / 4294967296;
-  };
-  const fragment = document.createDocumentFragment();
-  for (let i = 0; i < 80; i++) {
-    const dot = document.createElement('i');
-    dot.style.setProperty('--dot-x', `${(random() * 100).toFixed(2)}%`);
-    dot.style.setProperty('--dot-y', `${(random() * 100).toFixed(2)}%`);
-    dot.style.setProperty('--dot-size', `${(2 + random() * 3.5).toFixed(1)}px`);
-    dot.style.setProperty('--dot-delay', `${(-random() * 13).toFixed(2)}s`);
-    dot.style.setProperty('--dot-duration', `${(5.3 + random() * 6).toFixed(2)}s`);
-    fragment.append(dot);
-  }
-  layer.append(fragment);
-  document.body.prepend(layer);
-})();
-
-/* END scripts/pages/certificates-dots.js */
 ;
 /* START scripts/home/skills.js */
 (() => {
@@ -708,8 +744,16 @@
     themeToggle.append(icons);
     themeToggle.classList.add('has-orbit-icons');
     const themeColor = document.querySelector('meta[name="theme-color"]');
+    let themeFrame;
     function applyTheme(theme) {
-      root.dataset.theme = theme;
+      if (root.dataset.theme !== theme) {
+        root.classList.add('theme-sync');
+        root.dataset.theme = theme;
+        cancelAnimationFrame(themeFrame);
+        themeFrame = requestAnimationFrame(() => {
+          themeFrame = requestAnimationFrame(() => root.classList.remove('theme-sync'));
+        });
+      }
       themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
       themeColor?.setAttribute('content', theme === 'dark' ? '#10182d' : '#f8faff');
     }

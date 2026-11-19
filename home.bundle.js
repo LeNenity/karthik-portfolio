@@ -1,6 +1,15 @@
 /* START scripts/shared/icons.js */
 /* Lucide icons, ISC license; see THIRD_PARTY_LICENSES.txt. */
 (()=>{const nodes={"lucide:house":[["path",{"d":"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"}],["path",{"d":"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"}]],"lucide:briefcase-business":[["path",{"d":"M12 12h.01"}],["path",{"d":"M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"}],["path",{"d":"M22 13a18.15 18.15 0 0 1-20 0"}],["rect",{"width":"20","height":"14","x":"2","y":"6","rx":"2"}]],"lucide:user-round":[["circle",{"cx":"12","cy":"8","r":"5"}],["path",{"d":"M20 21a8 8 0 0 0-16 0"}]],"lucide:mail":[["path",{"d":"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"}],["rect",{"x":"2","y":"4","width":"20","height":"16","rx":"2"}]],"lucide:sun":[["circle",{"cx":"12","cy":"12","r":"4"}],["path",{"d":"M12 2v2"}],["path",{"d":"M12 20v2"}],["path",{"d":"m4.93 4.93 1.41 1.41"}],["path",{"d":"m17.66 17.66 1.41 1.41"}],["path",{"d":"M2 12h2"}],["path",{"d":"M20 12h2"}],["path",{"d":"m6.34 17.66-1.41 1.41"}],["path",{"d":"m19.07 4.93-1.41 1.41"}]],"lucide:arrow-up-right":[["path",{"d":"M7 7h10v10"}],["path",{"d":"M7 17 17 7"}]],"lucide:copy":[["rect",{"width":"14","height":"14","x":"8","y":"8","rx":"2","ry":"2"}],["path",{"d":"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"}]],"lucide:linkedin":[["path",{"d":"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"}],["path",{"d":"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"}]],"lucide:message-circle":[["path",{"d":"M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"}]],"lucide:x":[["path",{"d":"M18 6 6 18"}],["path",{"d":"m6 6 12 12"}]],"lucide:plus":[["path",{"d":"M5 12h14"}],["path",{"d":"M12 5v14"}]],"lucide:arrow-up":[["path",{"d":"m5 12 7-7 7 7"}],["path",{"d":"M12 19V5"}]],"lucide:toggle-right":[["rect",{"x":"2","y":"5","width":"20","height":"14","rx":"7"}],["circle",{"cx":"15","cy":"12","r":"4"}]],"lucide:cpu":[["rect",{"x":"4","y":"4","width":"16","height":"16","rx":"2"}],["rect",{"x":"9","y":"9","width":"6","height":"6"}],["path",{"d":"M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"}]],"lucide:settings":[["path",{"d":"M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"}],["path",{"d":"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06-1.9 1.9-.06-.06A1.65 1.65 0 0 0 16 18.4a1.65 1.65 0 0 0-1 .27A1.65 1.65 0 0 0 14.25 20v.1h-4.5V20A1.65 1.65 0 0 0 9 18.67a1.65 1.65 0 0 0-1-.27 1.65 1.65 0 0 0-1.82.33l-.06.06-1.9-1.9.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.33-1H3.1V10h.17A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06 1.9-1.9.06.06A1.65 1.65 0 0 0 8 5.6c.37 0 .71-.1 1-.27A1.65 1.65 0 0 0 9.75 4v-.1h4.5V4A1.65 1.65 0 0 0 15 5.33c.29.17.63.27 1 .27.65 0 1.31-.33 1.82-.33l.06-.06 1.9 1.9-.06.06A1.65 1.65 0 0 0 19.4 9c.17.29.27.63.27 1H20.9v4h-1.23c0 .37-.1.71-.27 1z"}]],"lucide:play":[["polygon",{"points":"6 3 20 12 6 21 6 3"}]],"lucide:pause":[["rect",{"x":"6","y":"4","width":"4","height":"16","rx":"1"}],["rect",{"x":"14","y":"4","width":"4","height":"16","rx":"1"}]],"lucide:moon":[["path",{"d":"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"}]]};Object.assign(nodes,{"lucide:thermometer-sun":[["path",{"d":"M14 14.76V5a3 3 0 0 0-6 0v9.76a5 5 0 1 0 6 0Z"}],["path",{"d":"M11 11v8"}],["path",{"d":"M20 12h2 M18.3 5.7l1.4-1.4 M18 9a3 3 0 0 0-3-3"}]],"lucide:sprout":[["path",{"d":"M12 22V12"}],["path",{"d":"M12 12C6 12 4 8 4 4c6 0 8 3 8 8Z"}],["path",{"d":"M12 15c0-6 3-9 9-9 0 6-3 9-9 9Z"}]],"lucide:radio":[["rect",{"x":3,"y":8,"width":18,"height":13,"rx":2}],["path",{"d":"M7 8 17 2 M7 13h6 M7 17h4"}],["circle",{"cx":17,"cy":16,"r":2}]],"lucide:radio-tower":[["circle",{"cx":12,"cy":10,"r":2}],["path",{"d":"m5 22 7-10 7 10 M8 18h8 M6.3 5.5a8 8 0 0 0 0 9 M17.7 5.5a8 8 0 0 1 0 9"}]],"lucide:database":[["ellipse",{"cx":12,"cy":5,"rx":9,"ry":3}],["path",{"d":"M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5 M3 12c0 1.7 4 3 9 3s9-1.3 9-3"}]],"lucide:users":[["path",{"d":"M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2 M20 21v-2a4 4 0 0 0-3-3.87"}],["circle",{"cx":9.5,"cy":7,"r":4}],["path",{"d":"M17 3.1a4 4 0 0 1 0 7.8"}]],"lucide:network":[["rect",{"x":9,"y":2,"width":6,"height":6,"rx":1}],["rect",{"x":2,"y":16,"width":6,"height":6,"rx":1}],["rect",{"x":16,"y":16,"width":6,"height":6,"rx":1}],["path",{"d":"M12 8v4 M5 16v-4h14v4"}]],"lucide:server":[["rect",{"x":3,"y":2,"width":18,"height":9,"rx":2}],["rect",{"x":3,"y":13,"width":18,"height":9,"rx":2}],["path",{"d":"M7 6h.01 M7 17h.01 M11 6h6 M11 17h6"}]],"lucide:images":[["rect",{"x":4,"y":3,"width":17,"height":15,"rx":2}],["path",{"d":"m4 14 4-4 3 3 4-4 6 6 M2 8v13h17"}],["circle",{"cx":9,"cy":7,"r":1}]],"lucide:activity":[["path",{"d":"M2 12h4l3-8 5 16 3-8h5"}]],"lucide:bell-ring":[["path",{"d":"M18 8a6 6 0 0 0-12 0c0 8-3 9-3 11h18c0-2-3-3-3-11 M10 22h4 M3 4l2-2 M21 4l-2-2"}]],"lucide:wallet":[["rect",{"x":3,"y":5,"width":18,"height":16,"rx":2}],["path",{"d":"M3 9h18 M3 5l3-3h11 M16 15h3"}]],"lucide:layers":[["path",{"d":"m12 2 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 17l9 5 9-5"}]],"lucide:database-zap":[["ellipse",{"cx":12,"cy":5,"rx":9,"ry":3}],["path",{"d":"M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5 M3 12c0 1.7 4 3 9 3s9-1.3 9-3"}],["path",{"d":"m12 9-3 5h3l-1 5 4-7h-3l1-3"}]],"lucide:chart-no-axes-combined":[["path",{"d":"M3 20h18 M4 15l5-5 4 3 7-8 M17 5h3v3"}],["path",{"d":"M5 17v3 M11 15v5 M17 12v8"}]]});Object.assign(nodes,{"lucide:search":[["circle",{"cx":"11","cy":"11","r":"8"}],["path",{"d":"m21 21-4.35-4.35"}]]});Object.assign(nodes,{
+"lucide:chevron-down":[["path",{"d":"M6 9l6 6 6-6"}]],
+"lucide:chevron-left":[["path",{"d":"M15 18l-6-6 6-6"}]],
+"lucide:chevron-right":[["path",{"d":"M9 18l6-6-6-6"}]],
+"lucide:arrow-down-right":[["path",{"d":"M7 7l10 10m0-10v10H7"}]],
+"lucide:calendar-days":[["path",{"d":"M4 5h16v15H4zM8 3v4m8-4v4M4 10h16m-12 4h.01m4 0h.01m4 0h.01m-8 3h.01m4 0h.01m4 0h.01"}]],
+"lucide:clipboard-list":[["path",{"d":"M9 5H6v16h12V5h-3M9 3h6v4H9zM9 12h6m-6 4h6"}]],
+"lucide:building-2":[["path",{"d":"M3 21h18M5 21V5h9v16m0-11h5v11M8 9h3m-3 4h3m-3 4h3m5-3h.01m0 3h.01"}]],
+"lucide:clipboard-check":[["path",{"d":"M9 5H6v16h12V5h-3M9 3h6v4H9zm0 11 2 2 4-4"}]],
+"lucide:file-check-2":[["path",{"d":"M6 3h8l4 4v14H6zM14 3v5h4M9 14l2 2 4-4"}]],
 "lucide:arrow-left":[["path",{"d":"m12 19-7-7 7-7"}],["path",{"d":"M19 12H5"}]],
 "lucide:arrow-right":[["path",{"d":"M5 12h14"}],["path",{"d":"m12 5 7 7-7 7"}]],
 "lucide:award":[["circle",{"cx":"12","cy":"8","r":"6"}],["path",{"d":"M8.21 13.89 7 23l5-3 5 3-1.21-9.12"}]],
@@ -301,23 +310,30 @@ function drawGlobe() {
   strokeCurves(connections, false, `rgba(${ink}, .21)`);
   strokeCurves(connections, true, `rgba(${ink}, .58)`);
 
-  // One dot follows connected project arcs and reverses at either end of the route.
+  // The lead pulse crosses project nodes; five quieter pulses travel separate links.
   const distance = ((globeElapsed + 4300) / 14500) % 2;
   const routePosition = (1 - Math.abs(1 - distance)) * (globeRoute.length - 1);
   const leg = Math.min(Math.floor(routePosition), globeRoute.length - 2);
-  const curve = connections[leg];
-  const progress = (routePosition - leg) * (curve.length - 1);
-  const segment = Math.min(Math.floor(progress), curve.length - 2);
-  const a = curve[segment], b = curve[segment + 1], t = progress - segment;
-  const depth = a.z + (b.z - a.z) * t;
+  function drawPulse(curve, fraction, index) {
+    const travel = fraction * (curve.length - 1);
+    const segment = Math.min(Math.floor(travel), curve.length - 2);
+    const a = curve[segment], b = curve[segment + 1], t = travel - segment;
+    const depth = a.z + (b.z - a.z) * t;
+    const violet = index % 2 === 0;
+    ctx.globalAlpha = .34 + .66 * clamp((depth + .35) / 1.2, 0, 1);
+    ctx.fillStyle = violet ? (dark ? '#cfb5ff' : '#703fc8') : (dark ? '#a0e4ff' : '#3869c9');
+    ctx.shadowColor = ctx.fillStyle;
+    ctx.shadowBlur = index === 0 ? 11 : 6;
+    ctx.beginPath();
+    ctx.arc(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, index === 0 ? 3.4 : 2.75, 0, fullTurn);
+    ctx.fill();
+  }
   ctx.save();
-  ctx.globalAlpha = .38 + .62 * clamp((depth + .2) / .8, 0, 1);
-  ctx.shadowColor = dark ? '#ab7cff' : '#8155e8';
-  ctx.shadowBlur = 12;
-  ctx.fillStyle = dark ? '#c09aff' : '#7138ce';
-  ctx.beginPath();
-  ctx.arc(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, 3, 0, fullTurn);
-  ctx.fill();
+  drawPulse(connections[leg], routePosition - leg, 0);
+  for (let i = 0; i < 5; i++) {
+    const phase = (globeElapsed / (4900 + 640 * i) + (i + 1) * .29) % 2;
+    drawPulse(connections[5 + i * 3], 1 - Math.abs(1 - phase), i + 1);
+  }
   ctx.restore();
 
   const projected = globeMarkers.map(marker => ({...marker, position: project(marker.point)}));
@@ -388,7 +404,7 @@ function scheduleGlobeFrame() {
 
 function animateGlobe(now) {
   globeFrame = 0;
-  const dt = globeLastFrame ? Math.min(now - globeLastFrame, 34) : 0;
+  const dt = globeLastFrame ? clamp(now - globeLastFrame, 0, 34) : 0;
   globeLastFrame = now;
   const canSpin = globeAutoSpin && !globeDrag;
   let redraw = false;
@@ -592,6 +608,16 @@ const galleryTemplate = projectRail.firstElementChild;
 let galleryIndex = 0;
 let galleryTouch = null;
 let gallerySuppressClick = 0;
+let galleryTimer;
+let galleryVisible = false;
+let galleryHovered = false;
+
+function scheduleGallery() {
+  clearTimeout(galleryTimer);
+  if (!galleryVisible || galleryHovered || galleryTouch || document.hidden || motion.matches ||
+      projectCarousel.contains(document.activeElement)) return;
+  galleryTimer = setTimeout(() => showGalleryProject(galleryIndex + 1), 4600);
+}
 
 const galleryCards = projectData.map((project, index) => {
   const card = galleryTemplate.cloneNode(true);
@@ -625,6 +651,7 @@ function showGalleryProject(index, announce = false) {
   if (moveFocus) galleryCards[galleryIndex].link.focus({preventScroll: true});
   document.getElementById('project-carousel-number').textContent = String(galleryIndex + 1).padStart(2, '0');
   if (announce) galleryStatus.textContent = projectData[galleryIndex].name;
+  scheduleGallery();
 }
 
 for (const button of projectCarousel.querySelectorAll('[data-carousel-step]')) {
@@ -636,13 +663,16 @@ projectCarousel.addEventListener('keydown', event => {
   showGalleryProject(galleryIndex + (event.key === 'ArrowLeft' ? -1 : 1), true);
 });
 projectRail.addEventListener('pointerdown', event => {
-  if (event.pointerType === 'touch' && event.isPrimary) galleryTouch = event;
+  if (event.pointerType !== 'touch' || !event.isPrimary) return;
+  galleryTouch = event;
+  scheduleGallery();
 });
-projectRail.addEventListener('pointercancel', () => { galleryTouch = null; });
+projectRail.addEventListener('pointercancel', () => { galleryTouch = null; scheduleGallery(); });
 projectRail.addEventListener('pointerup', event => {
   if (!galleryTouch || galleryTouch.pointerId !== event.pointerId) return;
   const dx = event.clientX - galleryTouch.clientX, dy = event.clientY - galleryTouch.clientY;
   galleryTouch = null;
+  scheduleGallery();
   if (Math.abs(dx) < 42 || Math.abs(dx) <= Math.abs(dy) * 1.2) return;
   gallerySuppressClick = performance.now() + 400;
   showGalleryProject(galleryIndex + (dx < 0 ? 1 : -1), true);
@@ -653,6 +683,20 @@ projectRail.addEventListener('click', event => {
     event.stopPropagation();
   }
 }, {capture: true});
+new IntersectionObserver(([entry]) => {
+  galleryVisible = entry.intersectionRatio >= .42;
+  scheduleGallery();
+}, {threshold: .42}).observe(projectRail);
+projectCarousel.addEventListener('pointerenter', event => {
+  if (event.pointerType === 'touch') return;
+  galleryHovered = true;
+  scheduleGallery();
+});
+projectCarousel.addEventListener('pointerleave', () => { galleryHovered = false; scheduleGallery(); });
+projectCarousel.addEventListener('focusin', scheduleGallery);
+projectCarousel.addEventListener('focusout', () => queueMicrotask(scheduleGallery));
+document.addEventListener('visibilitychange', scheduleGallery);
+motion.addEventListener('change', scheduleGallery);
 showGalleryProject(0);
 
 const sectionNames=['home','about','projects','contact'];
@@ -681,11 +725,43 @@ function setActive(name){
   const links = [...sectionRail.querySelectorAll('a')];
   paintRail(Math.max(0, links.findIndex(link => link.hash === '#' + name)));
 }
+let sectionScrollFrame = 0;
+function cancelSectionScroll() {
+  cancelAnimationFrame(sectionScrollFrame);
+  sectionScrollFrame = 0;
+  document.documentElement.classList.remove('section-scrolling');
+}
+for (const type of ['wheel', 'touchstart']) window.addEventListener(type, cancelSectionScroll, {passive: true});
+window.addEventListener('keydown', e => {
+  if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(e.key)) cancelSectionScroll();
+});
 function scrollSection(name, immediate = false) {
   const section = document.getElementById(name);
-  const top = section.getBoundingClientRect().top + scrollY - (name === 'home' ? 0 : 84);
-  scrollTo({top: Math.max(0, top), behavior: immediate || motion.matches ? 'instant' : 'smooth'});
-  setActive(name === 'skills' ? 'about' : name);
+  if (!section) return;
+  cancelSectionScroll();
+  const start = window.scrollY;
+  const target = Math.max(0, Math.min(document.documentElement.scrollHeight - innerHeight,
+    section.getBoundingClientRect().top + start - (name === 'home' ? 0 : 84)));
+  if (immediate || motion.matches || Math.abs(target - start) < 2) {
+    window.scrollTo({top: target, behavior: 'instant'});
+    setActive(name === 'skills' ? 'about' : name);
+    return;
+  }
+  document.documentElement.classList.add('section-scrolling');
+  document.querySelector('.floating-header')?.classList.remove('is-scroll-hidden');
+  const duration = Math.min(1050, Math.max(600, 440 + Math.abs(target - start) * .38));
+  const began = performance.now();
+  function step(now) {
+    const t = Math.min(1, (now - began) / duration);
+    const eased = t * t * t * (t * (t * 6 - 15) + 10);
+    window.scrollTo({top: start + (target - start) * eased, behavior: 'instant'});
+    if (t < 1) sectionScrollFrame = requestAnimationFrame(step);
+    else {
+      cancelSectionScroll();
+      setActive(name === 'skills' ? 'about' : name);
+    }
+  }
+  sectionScrollFrame = requestAnimationFrame(step);
 }
 
 function navigate(immediate = false) {
@@ -880,13 +956,37 @@ if(metricsCard){
   let closeTimer = 0;
 
   function setPanel(menu, open) {
-    menu.panel.hidden = !open;
-    menu.trigger.setAttribute('aria-expanded', String(open));
-    menu.panel.dispatchEvent(new CustomEvent('portfolio:preview-toggle', {detail: {open}}));
+    const {panel, trigger} = menu;
+    const rest = {opacity: 1, translate: '-50% 0', scale: '1'};
+    const tucked = {opacity: 0, translate: '-50% -12px', scale: '.975'};
+    const computed = panel.hidden ? null : getComputedStyle(panel);
+    const initial = computed ? {opacity: computed.opacity, translate: computed.translate, scale: computed.scale} : tucked;
+    menu.animation?.cancel();
+    menu.animation = null;
+    trigger.setAttribute('aria-expanded', String(open));
+    panel.inert = !open;
+    panel.classList.add('dock-animated-panel');
+    panel.dispatchEvent(new CustomEvent('portfolio:preview-toggle', {detail: {open}}));
+    if (reduceMotion.matches || !desktop.matches || typeof panel.animate !== "function") {
+      panel.hidden = !open;
+      return;
+    }
+    panel.hidden = false;
+    const animation = panel.animate([initial, open ? rest : tucked], {
+      duration: open ? 390 : 270, easing: open ? 'cubic-bezier(.22,1,.36,1)' : 'cubic-bezier(.4,0,.2,1)', fill: 'both'
+    });
+    menu.animation = animation;
+    animation.finished.then(() => {
+      if (menu.animation !== animation) return;
+      panel.hidden = !open;
+      menu.animation = null;
+      animation.cancel();
+    }, () => {});
   }
 
   function close() {
     clearTimeout(openTimer);
+    openTimer = 0;
     clearTimeout(closeTimer);
     if (!active) return;
     const previous = active;
@@ -907,23 +1007,27 @@ if(metricsCard){
     closeTimer = setTimeout(() => {
       if (!active?.panel.contains(document.activeElement) && !active?.panel.matches(':hover') &&
           !active?.trigger.matches(':hover')) close();
-    }, 230);
+    }, 170);
   }
 
   for (const trigger of triggers) {
     const panel = document.getElementById(trigger.getAttribute('aria-controls'));
     if (!panel) continue;
     const menu = {trigger, panel};
-    trigger.addEventListener('pointerenter', event => {
+    // A centered dock moves its link boxes as it opens. Only physical
+    // pointer movement should trigger About's dropdown during that shift.
+    trigger.addEventListener('pointermove', event => {
       if (event.pointerType === 'touch' || !desktop.matches) return;
       clearTimeout(closeTimer);
-      clearTimeout(openTimer);
+      if (active === menu || openTimer) return;
       openTimer = setTimeout(() => {
+        openTimer = 0;
         if (trigger.matches(':hover')) open(menu);
-      }, active || reduceMotion.matches ? 100 : 325);
+      }, active || reduceMotion.matches ? 35 : 130);
     });
     trigger.addEventListener('pointerleave', () => {
       clearTimeout(openTimer);
+      openTimer = 0;
       scheduleClose();
     });
     trigger.addEventListener('keydown', event => {
@@ -978,7 +1082,7 @@ if(metricsCard){
     const current = position();
     const delta = current - previous;
     previous = current;
-    if (current <= 100 || document.body.classList.contains('menu-open') ||
+    if (current <= 100 || document.documentElement.classList.contains('section-scrolling') || document.body.classList.contains('menu-open') ||
         header.querySelector('.nav-preview:not([hidden])') ||
         header.querySelector(':focus-visible')) {
       show();
@@ -1060,14 +1164,15 @@ if(metricsCard){
   const angle = Math.PI * 2;
   const colors = ['#3f36b6', '#5b4fe3', '#7d74ff', '#9b98ff', '#62b8ff'];
   const glyphs = ['A', 'K', 'R', 'T', 'H', 'I', '0', '1', '3', '7', '&', '@', '#', '+', '×', '∞', '≋', '•', '{', '}', '⌁', '/'];
-  const cycleEvery = 11400;
+  const glyphSteps = [3, 5, 7, 9, 13, 15, 17, 19];
+  const cycleEvery = 9500;
   const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, strength: 0, inside: false };
   let width = 0;
   let height = 0;
   let particles = [];
   let mode = 0;
   let oldMode = 0;
-  let changedAt = -2050;
+  let changedAt = -1550;
   let lastSwitchAt = 0;
   let ripple;
   let inView = false;
@@ -1093,12 +1198,8 @@ if(metricsCard){
     glyphs.forEach((glyph, column) => brush.fillText(glyph, (column + 0.5) * cell, (row + 0.54) * cell));
   });
 
-  // All three scenes share the SAME symbols. Morphing changes their coordinates
-  // and size rather than fading one particle system out and another one in.
-  function sample(pattern, particle, drift) {
-    const { u, v } = particle;
+  function wavePoint(u, v, drift) {
     const phi = v * angle;
-    if (pattern === 0) {
       // Original neural ribbon — broad and airy across the hero.
       const slope = Math.sin(u * 6.6 - 0.4 + drift);
       const taper = Math.pow(Math.sin(u * Math.PI), 0.61);
@@ -1109,14 +1210,28 @@ if(metricsCard){
         z: Math.sin(twist + 0.3) * taper,
         scale: 1,
       };
-    }
+  }
+
+  function helixPoint(u, strand, drift, lane = 0) {
+    const phase = u * angle * 2.65 - drift * .92 + strand * Math.PI;
+    const depth = Math.cos(phase);
+    const x = (u - .5) * 1.94 + depth * (.05 + lane * .031);
+    const y = Math.sin(phase) * (.28 + .056 * Math.sin(u * Math.PI)) * (1 + lane * .28);
+    return {x: x * .984 + y * .178, y: y * .984 - x * .178, z: depth * .88,
+      scale: .72 + depth * .12 + Math.abs(lane) * .20};
+  }
+
+  // The canvas reuses the same glyphs as it changes shape.
+  function sample(pattern, particle, drift) {
+    const {u, v} = particle;
+    if (pattern === 0) return wavePoint(particle.waveU, particle.waveV, drift);
     if (pattern === 1) {
       const {orbit, dustRadius, dustAngle, seed} = particle;
       const falling = !orbit && seed < .35;
       const progress = (seed * 17 + drift * (.083 + seed * .1)) % 1;
-      const radial = orbit ? .19 + orbit.ring * .137 + .015 * Math.sin(orbit.slot * 2) :
+      const radial = orbit ? .19 + orbit.ring * .137 + (particle.spacing - .5) * .055 :
         falling ? .10 + .86 * (1 - progress) ** 1.53 : dustRadius;
-      const theta = orbit ? angle * orbit.slot / orbit.count + drift * (1.05 - orbit.ring * .13) + orbit.ring * .37 :
+      const theta = orbit ? angle * (orbit.slot + particle.spacing - .5) / orbit.count + drift * (1.05 - orbit.ring * .13) + orbit.ring * .37 :
         dustAngle + drift * (.34 + (1.1 - radial) * .53) + (falling ? progress * 7.2 : 0);
       const x = Math.cos(theta) * radial * 1.07;
       const y = Math.sin(theta) * radial * .55;
@@ -1127,20 +1242,16 @@ if(metricsCard){
         scale: orbit ? .86 : falling ? .34 + Math.sin(progress * Math.PI) * .30 : .26 + seed * .32,
       };
     }
-    // Two separate strands. Symbols follow the twist rather than occupy
-    // multiple coincident lanes, which prevents the old stacked appearance.
-    const strand = v < 0.5 ? 0 : 1;
-    const strandV = strand === 0 ? v * 2 : (v - 0.5) * 2;
-    const lane = strandV - 0.5;
-    const phase = u * angle * 2.95 + drift * 0.78 + strand * Math.PI;
-    const sin = Math.sin(phase);
-    const cos = Math.cos(phase);
-    return {
-      x: (u - 0.5) * 1.86 + sin * 0.07 * lane * 1.5,
-      y: sin * 0.3 + cos * 0.13 * lane,
-      z: cos * 0.88 - Math.abs(lane) * 0.14,
-      scale: 0.78,
-    };
+    const strand = v < .5 ? 0 : 1;
+    return helixPoint(u, strand, drift, (v * 2 - strand - .5) * 2);
+  }
+
+  // Mix each particle ID so adjacent glyphs do not share a repeating pattern.
+  function particleNoise(key) {
+    let bits = Math.imul(key + 1, 0x9e3779b1);
+    bits = Math.imul(bits ^ (bits >>> 16), 0x21f0aaad);
+    bits = Math.imul(bits ^ (bits >>> 15), 0x735a2d97);
+    return ((bits ^ (bits >>> 15)) >>> 0) / 4294967296;
   }
 
   function makeParticles() {
@@ -1153,7 +1264,8 @@ if(metricsCard){
     particles = Array.from({ length: tracks * columns }, (_, index) => {
       const column = index % columns;
       const row = Math.floor(index / columns);
-      const seed = ((index * 48271 + 1771) % 2147483) / 2147483;
+      const key = index * 8;
+      const seed = particleNoise(key);
       const isOrbit = index % stride === 0 && index / stride < orbitSlots;
       let orbit = null;
       if (isOrbit) {
@@ -1170,10 +1282,14 @@ if(metricsCard){
       const dustSeed = (index * 0.6180339887498948) % 1;
       const dustRadialSeed = (index * 0.7548776662466927) % 1;
       return {
-        u: (column + 0.5 + (row % 2 ? 0.24 : -0.24)) / columns,
-        v: (row + 0.5) / tracks,
+        u: (column + .06 + .88 * particleNoise(key + 1)) / columns,
+        v: (row + .06 + .88 * particleNoise(key + 2)) / tracks,
         seed,
-        glyph: Math.floor(seed * glyphs.length),
+        glyph: Math.floor(particleNoise(key + 3) * glyphs.length),
+        spacing: particleNoise(key + 4),
+        phase: particleNoise(key + 5),
+        glyphEvery: 2500 + 2400 * particleNoise(key + 6),
+        glyphStep: glyphSteps[Math.floor(particleNoise(key + 7) * glyphSteps.length)],
         orbit,
         dustAngle: dustSeed * angle,
         dustRadius: 0.29 + Math.sqrt(dustRadialSeed) * 0.86,
@@ -1181,6 +1297,34 @@ if(metricsCard){
         dy: 0,
       };
     });
+
+    // Original ribbon lattice. The regular staggered grid creates the visible
+    // twisting rows of characters, without changing the other art modes.
+    const waveTracks = compact ? 12 : 16;
+    const waveColumns = compact ? 28 : 52;
+    const waveTotal = waveTracks * waveColumns;
+    const sharedCount = particles.length;
+    const occupied = new Set();
+    function setWaveCoordinates(particle, index) {
+      const row = Math.floor(index / waveColumns);
+      const column = index % waveColumns;
+      particle.waveU = (column + .5 + (row % 2 ? .24 : -.24)) / waveColumns;
+      particle.waveV = (row + .5) / waveTracks;
+      particle.waveOnly = false;
+    }
+    particles.forEach((particle, index) => {
+      const slot = Math.floor(index * waveTotal / sharedCount);
+      occupied.add(slot);
+      setWaveCoordinates(particle, slot);
+    });
+    for (let slot = 0; slot < waveTotal; slot++) {
+      if (occupied.has(slot)) continue;
+      const template = particles[Math.min(sharedCount - 1, Math.floor(slot * sharedCount / waveTotal))];
+      const extra = {...template, dx: 0, dy: 0, glyph: Math.floor(particleNoise(slot + 10000) * glyphs.length)};
+      setWaveCoordinates(extra, slot);
+      extra.waveOnly = true;
+      particles.push(extra);
+    }
   }
 
   // Crisp art direction for non-wave scenes. These are drawn behind/above
@@ -1203,12 +1347,12 @@ if(metricsCard){
     context.fillStyle = haze;
     context.fill();
 
-    for (let arm = 0; arm < 5; arm++) {
+    for (let arm = 0; arm < 6; arm++) {
       context.beginPath();
       for (let point = 0; point <= 78; point++) {
         const progress = point / 78;
         const orbit = (.1 + progress ** 1.38 * .94) * alpha;
-        const theta = progress * 7.1 + drift * .57 + arm * angle / 5;
+        const theta = progress * 7.1 + drift * .57 + arm * angle / 6;
         const x = Math.cos(theta) * orbit * radius * 1.07;
         const y = Math.sin(theta) * orbit * radius * .55;
         if (point === 0) context.moveTo(x, y);
@@ -1276,62 +1420,15 @@ if(metricsCard){
     context.restore();
   }
 
-  // Wave: luminous flowing filaments with moving packets and clean negative space.
-  // All secondary strokes stay below the same symbol particles, never cover copy.
-  function waveFilaments(alpha, drift, radius, cx, cy) {
-    if (alpha <= .001) return;
-    const dark = document.documentElement.dataset.theme === 'dark';
-    context.save();
-    context.globalAlpha = alpha;
-    const gradient = context.createLinearGradient(cx - radius, cy, cx + radius, cy);
-    gradient.addColorStop(0, dark ? '#4268ec00' : '#574bda00');
-    gradient.addColorStop(.18, dark ? '#6978fa46' : '#6153d528');
-    gradient.addColorStop(.53, dark ? '#a293ff9a' : '#6954db78');
-    gradient.addColorStop(.78, dark ? '#6dc6fa5c' : '#5b9ce94b');
-    gradient.addColorStop(1, dark ? '#779bff00' : '#3b82de00');
-    for (let lane = 0; lane < 11; lane++) {
-      const depth = (lane - 5) / 5;
-      context.beginPath();
-      for (let i = 0; i <= 72; i++) {
-        const u = i / 72;
-        const x = cx + (u - .5) * radius * 1.88;
-        const envelope = Math.pow(Math.sin(u * Math.PI), .75);
-        const y = cy + (Math.sin(u * 6.6 - .4 + drift) * .29 +
-          Math.sin(u * 8.7 + drift * .7 + depth * 1.6) * envelope * .10 +
-          depth * envelope * .23) * radius;
-        if (i === 0) context.moveTo(x,y);
-        else context.lineTo(x,y);
-      }
-      context.lineWidth = lane === 5 ? 1.7 : .7 + (1 - Math.abs(depth)) * .9;
-      context.strokeStyle = gradient;
-      context.globalAlpha = alpha * (.31 + (1 - Math.abs(depth)) * .37);
-      context.stroke();
-    }
-    // A small moving glimmer travels with the waveform.
-    for (let i=0; i<5; i++) {
-      const u = ((drift * .075 + i / 5) % 1 + 1) % 1;
-      const x = cx + (u - .5) * radius * 1.88;
-      const y = cy + (Math.sin(u * 6.6 - .4 + drift) * .29 +
-        Math.sin(u * 8.7 + drift * .7) * Math.pow(Math.sin(u * Math.PI),.75) * .1) * radius;
-      context.globalAlpha = alpha * (.35 + .55 * Math.sin(u * Math.PI));
-      context.fillStyle = dark ? '#b2cbff' : '#7063e8';
-      context.beginPath(); context.arc(x,y,2.5,0,angle); context.fill();
-    }
-    context.restore();
-  }
-
   // Helix: two actual spatial strands, illuminated rungs, and travelling markers.
   // Depth-dependent line weights make the DNA ribbon readable from a distance.
   function helixLinks(alpha, drift, radius, cx, cy) {
     if (alpha <= .001) return;
     const dark = document.documentElement.dataset.theme === 'dark';
     const span = radius * 1.86;
-    const height = radius * .29;
-    const phaseAt = (u, strand = 0) => u * angle * 3.3 + drift * .79 + strand * Math.PI;
     const point = (u, strand = 0) => {
-      const phase = phaseAt(u, strand);
-      return {x: cx + (u-.5) * span, y: cy + Math.sin(phase) * height,
-        depth: Math.cos(phase)};
+      const p = helixPoint(u, strand, drift);
+      return {x: cx + p.x * radius, y: cy + p.y * radius, depth: p.z};
     };
     context.save();
     const aura = context.createLinearGradient(cx - span / 2, cy, cx + span / 2, cy);
@@ -1356,7 +1453,7 @@ if(metricsCard){
       }
       context.globalAlpha=alpha;
       context.lineCap='round';
-      context.strokeStyle=dark ? '#656ee680' : '#7572db62';
+      context.strokeStyle = strand === 0 ? (dark ? '#ac8bff9e' : '#7657d875') : (dark ? '#7bd6ff9e' : '#3885d175');
       context.lineWidth=5.2;
       context.stroke();
       context.strokeStyle=aura;
@@ -1398,7 +1495,7 @@ if(metricsCard){
     if (!width || !height) return;
     context.clearRect(0, 0, width, height);
     const drift = elapsed / 4250;
-    const progress = Math.max(0, Math.min(1, (elapsed - changedAt) / 2050));
+    const progress = Math.max(0, Math.min(1, (elapsed - changedAt) / 1550));
     // Smoothstep keeps velocity continuous as one art shape becomes another.
     const blend = reduce.matches ? 1 : progress * progress * (3 - 2 * progress);
     const radius = Math.min(width * 0.6, height * 0.98);
@@ -1414,18 +1511,21 @@ if(metricsCard){
     const holeAmount = mode === 1 ? blend : oldMode === 1 ? 1 - blend : 0;
     const helixAmount = mode === 2 ? blend : oldMode === 2 ? 1 - blend : 0;
     const waveAmount = mode === 0 ? blend : oldMode === 0 ? 1 - blend : 0;
-    waveFilaments(waveAmount, drift, radius, midX, midY);
     blackHoleField(holeAmount, drift, radius, midX, midY);
     helixLinks(helixAmount, drift, radius, midX, midY);
     pointer.x += (pointer.targetX - pointer.x) * 0.13;
     pointer.y += (pointer.targetY - pointer.y) * 0.13;
     pointer.strength += ((pointer.inside ? 1 : 0) - pointer.strength) * 0.11;
 
+    const still = reduce.matches;
     for (const particle of particles) {
-      const { seed, glyph } = particle;
-      const from = sample(oldMode, particle, drift);
-      const to = sample(mode, particle, drift);
-      // Travel in one continuous arc, preserving each glyph's identity.
+      if (particle.waveOnly && waveAmount <= .001) continue;
+      const {seed, phase} = particle;
+      const swaps = still || seed > .57 ? 0 : Math.floor((elapsed / particle.glyphEvery) + phase);
+      const glyph = (particle.glyph + swaps * particle.glyphStep) % glyphs.length;
+      const to = sample(particle.waveOnly ? 0 : mode, particle, drift);
+      const from = blend === 1 || particle.waveOnly ? to : sample(oldMode, particle, drift);
+      // Follow a continuous arc between the artwork shapes.
       const turn = Math.sin(blend * Math.PI) * 0.032 * (seed - 0.5);
       const next = {
         x: from.x + (to.x - from.x) * blend + turn * (to.y - from.y),
@@ -1435,8 +1535,10 @@ if(metricsCard){
       };
       const depth = 0.5 + 0.5 * next.z;
       const perspective = 0.92 + depth * 0.13;
-      const x = midX + next.x * radius * perspective;
-      const y = midY + next.y * radius * perspective;
+      const sway = phase * angle + drift * (.75 + seed * .64);
+      const spread = radius * (.005 + .013 * particle.spacing) * (1 - waveAmount);
+      const x = midX + next.x * radius * perspective + Math.cos(sway) * spread;
+      const y = midY + next.y * radius * perspective + Math.sin(sway) * spread;
       let pushX = 0;
       let pushY = 0;
       if (!reduce.matches && pointer.strength > 0.01) {
@@ -1444,7 +1546,7 @@ if(metricsCard){
         const ry = y - pointer.y;
         const distance = Math.hypot(rx, ry);
         if (distance < reach) {
-          const force = (1 - distance / reach) ** 2 * pointer.strength * 37;
+          const force = (1 - distance / reach) ** 2 * pointer.strength * 48;
           const safeDistance = Math.max(8, distance);
           pushX += ((rx - ry * 0.36) / safeDistance) * force;
           pushY += ((ry + rx * 0.36) / safeDistance) * force;
@@ -1474,10 +1576,10 @@ if(metricsCard){
               : lit > 0.26
                 ? 1
                 : 0;
-      const size = baseSize * (0.8 + depth * 0.58 + pulse * 0.26) * next.scale;
+      const size = baseSize * ((.74 + depth * .57 + .18 * phase) * (1 - waveAmount) + (.8 + depth * .58) * waveAmount + pulse * .26) * next.scale;
       // Do NOT interpolate alpha between art modes. Symbols physically move
       // and resize, without an invisible gap or crossfade.
-      context.globalAlpha = Math.min(1, 0.52 + depth * 0.41 + pulse * 0.2);
+      context.globalAlpha = Math.min(1, 0.52 + depth * 0.41 + pulse * 0.2) * (particle.waveOnly ? waveAmount : 1);
       context.drawImage(
         atlas,
         glyph * cell,
@@ -1495,10 +1597,9 @@ if(metricsCard){
   }
 
   function fit() {
-    const rect = canvas.getBoundingClientRect();
-    width = rect.width;
-    height = rect.height;
-    const scale = Math.min(1.8, window.devicePixelRatio || 1);
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    const scale = Math.min(1.25, window.devicePixelRatio || 1);
     canvas.width = Math.max(1, Math.round(width * scale));
     canvas.height = Math.max(1, Math.round(height * scale));
     context.setTransform(scale, 0, 0, scale, 0, 0);
@@ -1509,6 +1610,11 @@ if(metricsCard){
   function tick(time) {
     frameId = 0;
     if (!inView || document.hidden || reduce.matches) return;
+    if (document.documentElement.classList.contains('is-transitioning')) {
+      lastTime = time;
+      frameId = requestAnimationFrame(tick);
+      return;
+    }
     elapsed += Math.max(0, Math.min(40, time - lastTime));
     lastTime = time;
     if (manualMode && elapsed >= manualUntil) {manualMode = false;lastSwitchAt = elapsed;}
@@ -1541,7 +1647,19 @@ if(metricsCard){
       setMode(Number(button.dataset.artwork));
     });
   }
-  if (controls.length) controls[0].parentElement.hidden = false;
+  if (controls.length) {
+    const switcher = controls[0].parentElement;
+    switcher.hidden = false;
+    switcher.addEventListener('keydown', event => {
+      if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+      event.preventDefault();
+      const current = controls.indexOf(document.activeElement);
+      const step = event.key === 'ArrowRight' ? 1 : -1;
+      const next = controls[(current + step + controls.length) % controls.length];
+      next.focus();
+      next.click();
+    });
+  }
 
   const interactionSurface = panel.closest('.hero') || panel;
   interactionSurface.addEventListener('pointermove', (event) => {
@@ -1582,6 +1700,9 @@ if(metricsCard){
     sync();
   }).observe(panel);
   document.addEventListener('visibilitychange', sync);
+  new MutationObserver(() => { if (reduce.matches) draw(); }).observe(document.documentElement, {
+    attributes: true, attributeFilter: ['data-theme']
+  });
   fit();
   panel.classList.add('is-rendering');
 })();
@@ -1695,7 +1816,29 @@ if(metricsCard){
     details.append(panel);
   }
 
-  const interval = 5700;
+  for (const panel of panels.values()) {
+    const title = panel.querySelector('h3');
+    const text = title.textContent.trim();
+    title.setAttribute('aria-label', text);
+    title.replaceChildren();
+    let order = 0;
+    for (const [index, word] of text.split(' ').entries()) {
+      if (index) title.append(' ');
+      const group = document.createElement('span');
+      group.className = 'skills-title-word';
+      group.setAttribute('aria-hidden', 'true');
+      for (const symbol of word) {
+        const letter = document.createElement('span');
+        letter.className = 'skills-title-letter';
+        letter.style.setProperty('--letter-index', order++);
+        letter.textContent = symbol;
+        group.append(letter);
+      }
+      title.append(group);
+    }
+  }
+
+  const interval = 3600;
   let selected = 0;
   let visible = !('IntersectionObserver' in window);
   let lastManualChoice = -Infinity;
@@ -1705,9 +1848,9 @@ if(metricsCard){
     clearTimeout(timer);
     const focused = document.activeElement;
     const focusNeedsStability = details.contains(focused) ||
-      (browser.contains(focused) && focused.tagName === 'A');
+      (tabs.includes(focused) && focused.matches(':focus-visible'));
     if (!visible || focusNeedsStability || document.hidden || reduce.matches) return;
-    const cooldown = Math.max(0, 9000 - (performance.now() - lastManualChoice));
+    const cooldown = Math.max(0, 6000 - (performance.now() - lastManualChoice));
     timer = setTimeout(() => choose((selected + 1) % tabs.length), Math.max(interval, cooldown));
   }
 
@@ -1720,6 +1863,7 @@ if(metricsCard){
       tab.tabIndex = active ? 0 : -1;
       const panel = panels.get(tab.dataset.skill);
       panel.classList.toggle('is-inactive', !active);
+      panel.classList.toggle('is-introducing', active && !reduce.matches);
       panel.inert = !active;
     }
     details.setAttribute('aria-labelledby', tabs[selected].id);
@@ -1761,9 +1905,10 @@ if(metricsCard){
   reduce.addEventListener('change', schedule);
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => {
-      visible = entry.intersectionRatio >= .35;
+      visible = entry.intersectionRatio >= .3;
+      browser.classList.toggle('is-in-view', visible);
       schedule();
-    }, {threshold: .35}).observe(browser);
+    }, {threshold: .3}).observe(browser);
   }
   choose(0);
 })();
@@ -1790,8 +1935,16 @@ if(metricsCard){
     themeToggle.append(icons);
     themeToggle.classList.add('has-orbit-icons');
     const themeColor = document.querySelector('meta[name="theme-color"]');
+    let themeFrame;
     function applyTheme(theme) {
-      root.dataset.theme = theme;
+      if (root.dataset.theme !== theme) {
+        root.classList.add('theme-sync');
+        root.dataset.theme = theme;
+        cancelAnimationFrame(themeFrame);
+        themeFrame = requestAnimationFrame(() => {
+          themeFrame = requestAnimationFrame(() => root.classList.remove('theme-sync'));
+        });
+      }
       themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
       themeColor?.setAttribute('content', theme === 'dark' ? '#10182d' : '#f8faff');
     }
@@ -1875,92 +2028,4 @@ if(metricsCard){
 })();
 
 /* END scripts/shared/experience.js */
-;
-/* START scripts/shared/ambient-dots.js */
-(() => {
-  const regions = document.querySelectorAll('[data-ambient-dots]');
-  if (!regions.length) return;
-  const canvas = document.createElement('canvas');
-  canvas.className = 'ambient-dots';
-  canvas.setAttribute('aria-hidden', 'true');
-  document.body.prepend(canvas);
-  const context = canvas.getContext('2d');
-  if (!context) return;
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  const inView = new Set();
-  let width, height, dots;
-  let frame = 0, lastPaint = 0;
-
-  function draw(time) {
-    context.clearRect(0, 0, width, height);
-    const dark = document.documentElement.dataset.theme === 'dark';
-    context.fillStyle = dark ? '#b7aaff' : '#6860cd';
-    const ranges = [...inView].map(region => region.getBoundingClientRect());
-    for (const dot of dots) {
-      if (!ranges.some(range => dot.y >= range.top && dot.y <= range.bottom)) continue;
-      const wave = (1 + Math.sin(time * dot.speed + dot.phase)) / 2;
-      context.globalAlpha = (dark ? .32 : .30) * (reduce.matches ? .6 : wave * wave);
-      context.beginPath();
-      context.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
-      context.fill();
-    }
-    context.globalAlpha = 1;
-  }
-
-  function tick(time) {
-    frame = 0;
-    if (!inView.size || document.hidden) return;
-    if (time - lastPaint >= 44) {
-      lastPaint = time;
-      draw(time);
-    }
-    if (!reduce.matches) frame = requestAnimationFrame(tick);
-  }
-
-  function sync() {
-    cancelAnimationFrame(frame);
-    frame = 0;
-    canvas.hidden = !inView.size;
-    if (!inView.size || document.hidden) return;
-    draw(performance.now());
-    if (!reduce.matches) frame = requestAnimationFrame(tick);
-  }
-
-  function fit() {
-    width = document.documentElement.clientWidth;
-    height = innerHeight;
-    const ratio = Math.min(devicePixelRatio || 1, 1.5);
-    canvas.width = Math.round(width * ratio);
-    canvas.height = Math.round(height * ratio);
-    context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    const count = Math.min(76, Math.max(22, Math.round(width * height / 17500)));
-    dots = Array.from({length: count}, (_, i) => ({
-      x: ((i * .618034 + .13) % 1) * width,
-      y: ((i * .754878 + .39) % 1) * height,
-      phase: i * 1.323,
-      speed: .001 + (i % 7) * .00013,
-      size: i % 13 === 0 ? 2.1 : 1.1 + i % 4 * .22
-    }));
-    sync();
-  }
-
-  const observer = new IntersectionObserver(entries => {
-    for (const {target, isIntersecting} of entries) {
-      if (isIntersecting) inView.add(target);
-      else inView.delete(target);
-    }
-    sync();
-  });
-  regions.forEach(region => observer.observe(region));
-  window.addEventListener('resize', fit, {passive: true});
-  window.addEventListener('scroll', () => {
-    if (reduce.matches && inView.size) draw(performance.now());
-  }, {passive: true});
-  reduce.addEventListener('change', sync);
-  document.addEventListener('visibilitychange', sync);
-  fit();
-})();
-
-
-/* END scripts/shared/ambient-dots.js */
 ;

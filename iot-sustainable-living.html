@@ -11,13 +11,27 @@
   let saved;
   try { saved=localStorage.getItem('karthik-beige-theme'); } catch {}
   document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+
+  // Cover the first paint when an internal link started a page sweep.
+  try {
+    const key = 'karthik:page-signal-v2';
+    const pending = JSON.parse(sessionStorage.getItem(key));
+    sessionStorage.removeItem(key);
+    if (pending?.url === location.href && Date.now() - pending.time < 10000 &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const root = document.documentElement;
+      root.classList.add('sweep-arriving');
+      setTimeout(() => root.classList.remove('sweep-arriving'), 2500);
+    }
+  } catch {}
 })();
 
 </script>
 <link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link as="font" crossorigin="" href="assets/space-grotesk.woff2" rel="preload" type="font/woff2"/>
 <link rel="stylesheet" href="case-studies.bundle.css"><link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;display=swap" rel="stylesheet"/>
-<script defer src="case-studies.bundle.js"></script>
+<script defer src="motion.js"></script>
+  <script defer src="case-studies.bundle.js"></script>
 
 
 
@@ -25,6 +39,8 @@
 
 
 
+
+<link rel="stylesheet" href="motion.css">
 
 </head>
 <body class="case-view unified-case-chrome refreshed-case-page" data-ambient-dots>
@@ -42,7 +58,7 @@
             </p>
 </div>
 <figure class="case-cover">
-<a aria-label="Enlarge project cover" class="image-preview" data-alt="Original portfolio cover image for iot sustainable living" data-preview="case" data-title="IoT System for Sustainable Household Living" href="assets/iot-hardware-workbench.webp" rel="noopener noreferrer" target="_blank">
+<a aria-label="Enlarge project cover" class="image-preview" data-alt="Original portfolio cover image for iot sustainable living" data-preview="cover" data-title="IoT System for Sustainable Household Living" href="assets/iot-hardware-workbench.webp" rel="noopener noreferrer" target="_blank">
 <img alt="Our household sensor prototype with Arduino and Raspberry Pi" class="" decoding="async" fetchpriority="high" height="646" loading="eager" src="assets/iot-hardware-workbench.webp" width="1100"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
 </figure>
 </header>
