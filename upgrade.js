@@ -1,8 +1,8 @@
 /* Original interaction layer: zero runtime dependencies, no external component code. */
 (()=>{
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'), fine=matchMedia('(hover:hover) and (pointer:fine)');
- const selector='#hero-projects,.project-index-link,.about-resume-button,.contact-socials a,.cert-card-cta,.outpost-mission .upgrade-action,.case-primary-action';
- const excluded='.floating-header,.mobile-sidebar,#mobile-sidebar,.about-preview,.internship-cta,.theme-toggle,[data-carousel-step],.upgrade-options button';
+ const selector='.project-index-link,.about-resume-button,.contact-socials a,.cert-card-cta,.outpost-mission .upgrade-action,.case-primary-action';
+ const excluded='.refresh-hero-actions,.floating-header,.mobile-sidebar,#mobile-sidebar,.about-preview,.internship-cta,.theme-toggle,[data-carousel-step],.upgrade-options button';
  function eligible(el){return !el.closest(excluded)&& !/view (my )?internship/i.test(el.textContent);}
  const states=new Map(); let active=null,raf=0, pointerFrame=0, latestEvent=null, pressed=null;
  const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
@@ -26,7 +26,7 @@
    const r=s.el.getBoundingClientRect(),l=r.left-s.x,t=r.top-s.y,w=r.width,h=r.height;
    if(w<18||h<12||r.bottom<0||r.top>innerHeight)continue;
    const dx=e.clientX-(l+w/2),dy=e.clientY-(t+h/2),d=Math.hypot(Math.max(Math.abs(dx)-w/2,0),Math.max(Math.abs(dy)-h/2,0));
-   const large=s.el.matches('#hero-projects,.outpost-mission .upgrade-action,.outpost-page .case-primary-action');const radius=large?44:10;
+   const large=s.el.matches('.outpost-mission .upgrade-action,.outpost-page .case-primary-action');const radius=large?44:10;
    if(d<=radius&&(s.el===hit||d<dist)){best=s;dist=s.el===hit?-1:d;rect={dx,dy,w,h,large,radius,d};if(s.el===hit)break;}
   }
   if(active&&active!==best){active.tx=active.ty=0;}

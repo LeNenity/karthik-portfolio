@@ -198,6 +198,13 @@
   let width, height, points;
   let frame = 0;
   let lastPaint = 0;
+  let paintTimer = 0;
+  function schedulePaint() {
+    clearTimeout(paintTimer);
+    if (!visible.size || document.hidden || reduced.matches) return;
+    const delay = Math.max(0, window.portfolioPerf.interval(45,65,100) - (performance.now() - lastPaint) - 8);
+    paintTimer = setTimeout(() => { frame = requestAnimationFrame(tick); }, delay);
+  }
 
   function render(now) {
     ctx.clearRect(0, 0, width, height);
@@ -226,22 +233,25 @@
 
   function tick(now) {
     frame = 0;
+    if (!visible.size || document.hidden || reduced.matches) return;
     if (now - lastPaint >= window.portfolioPerf.interval(45, 65, 100)) {
       lastPaint = now;
       const paintStart = performance.now();
       render(now);
       window.portfolioPerf.paintCost(performance.now() - paintStart);
     }
-    frame = requestAnimationFrame(tick);
+    schedulePaint();
   }
 
   function sync() {
     cancelAnimationFrame(frame);
+    clearTimeout(paintTimer);
     frame = 0;
     canvas.hidden = !visible.size;
     if (!points || !visible.size || document.hidden) return;
-    render(performance.now());
-    if (!reduced.matches) frame = requestAnimationFrame(tick);
+    lastPaint = performance.now();
+    render(lastPaint);
+    if (!reduced.matches) schedulePaint();
   }
 
   function fit() {

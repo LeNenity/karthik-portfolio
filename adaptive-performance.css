@@ -1,5 +1,1 @@
-/* Preserve the layout and interactions; reduce only decorative paint costs. */
-html[data-auto-quality="balanced"] .intern-twinkle-field i {animation-duration:calc(var(--dot-duration, 8s) * 1.6)!important;}
-html[data-auto-quality="low"] .intern-twinkle-field i {animation:none!important;opacity:.18;}
-html[data-auto-quality="low"] :is(.tile-orbit-trace,.loader-glyph,.skills-details) {animation:none!important;}
-html[data-auto-quality="low"] .upgrade-magnetic {will-change:auto;}
+html[data-auto-quality="balanced"] .intern-twinkle-field i{animation-duration:calc(var(--dot-duration, 8s) * 1.6)!important;}html[data-auto-quality="low"] .intern-twinkle-field i{animation:none!important;opacity:.18;}html[data-auto-quality="low"] :is(.tile-orbit-trace,.loader-glyph,.skills-details){animation:none!important;}html[data-auto-quality="low"] .upgrade-magnetic{will-change:auto;}
