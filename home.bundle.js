@@ -35,12 +35,13 @@ const motion=matchMedia('(prefers-reduced-motion: reduce)');
 const root = document.documentElement;
 
 const projectData=[
-  {slug:'machine-learning',category:'Machine learning',name:'Machine Learning Project',summary:'I compared Decision Tree and AdaBoost models using Parkinson’s voice measurements.'},
-  {slug:'data-engineering',category:'Data engineering',name:'NESSO Safety Monitoring System',summary:'We used four NESSO devices to collect movement readings and flag possible safety incidents.'},
-  {slug:'engineering-exploration',category:'Engineering exploration',name:'Engineering Exploration Project',summary:'Our small-scale tri-star wheel prototype, with an Arduino-controlled motor circuit.'},
-  {slug:'iot-sustainable-living',category:'Internet of Things',name:'IoT System for Sustainable Household Living',summary:'An Arduino and Raspberry Pi prototype for household automation.'},
-  {slug:'cloud-computing',category:'Cloud Computing',name:'AWS Music Store Web Application',summary:'A nine-instrument catalogue on AWS, with MySQL product data and S3 images.'},
-  {slug:'road-safety',category:'Data & analytics',name:'Road Safety & Infrastructure Analysis',summary:'My Power BI analysis of Singapore road infrastructure, accidents, injuries and deaths.'}
+  {slug:'outpost-07',category:'07 / NASA Space Apps · Hackathon',name:'Outpost 07',summary:'Our team’s Roblox lunar mission trainer uses NASA space-weather data to teach resource planning.'},
+  {slug:'machine-learning',category:'06 / Machine learning',name:'Parkinson’s Disease Prediction',summary:'I compared Decision Tree and AdaBoost models using Parkinson’s voice measurements.'},
+  {slug:'data-engineering',category:'03 / Data engineering',name:'NESSO Safety Monitoring System',summary:'We used four NESSO devices to collect movement readings and flag possible safety incidents.'},
+  {slug:'engineering-exploration',category:'01 / Engineering exploration',name:'Tri-Star Wheel Prototype',summary:'Our small-scale tri-star wheel prototype, with an Arduino-controlled motor circuit.'},
+  {slug:'iot-sustainable-living',category:'02 / Internet of Things',name:'IoT System for Sustainable Household Living',summary:'An Arduino and Raspberry Pi prototype for household automation.'},
+  {slug:'cloud-computing',category:'04 / Cloud Computing',name:'AWS Music Store Web Application',summary:'A nine-instrument catalogue on AWS, with MySQL product data and S3 images.'},
+  {slug:'road-safety',category:'05 / Data & analytics',name:'Road Safety & Infrastructure Analysis',summary:'My Power BI analysis of Singapore road infrastructure, accidents, injuries and deaths.'}
 ];
 // Project titles and previews share the same projected position as their globe nodes.
 const globe = document.getElementById('project-sphere');
@@ -51,6 +52,7 @@ const pinLayer = document.getElementById('project-sphere-pins');
 const globeStatus = document.getElementById('project-globe-status');
 const globeContext = globeCanvas.getContext('2d');
 const globeProjects = {
+  'outpost-07': [-37, 142, 'https://raw.githubusercontent.com/bigbobopenguin-abc/andrea-portfolio/main/static/images/outpost-07/outpost.jpg'],
   'machine-learning': [19, -55, 'assets/ml-model-comparison-display.webp'],
   'engineering-exploration': [52, -8, 'assets/project-engineering-display.webp'],
   'iot-sustainable-living': [19, 54, 'assets/iot-hardware-workbench-display.webp'],
@@ -69,6 +71,8 @@ const surfacePoint = (latitude, longitude) => ({
 const globeCameraDistance = 4.8;
 const globeHorizon = 1 / globeCameraDistance;
 const globeTopics = [
+  ['NASA DONKI', -55, 125, ['outpost-07'], 1],
+  ['Roblox Studio', -15, 115, ['outpost-07'], -1],
   ['Tri-star wheels', 65, 32, ['engineering-exploration'], -1],
   ['Arduino', 43, -61, ['engineering-exploration', 'iot-sustainable-living'], -1],
   ['Raspberry Pi', 44, 61, ['iot-sustainable-living'], -1],
@@ -175,7 +179,7 @@ const globeMarkers = Object.entries(globeProjects).map(([slug, [latitude, longit
   select.className = 'project-sphere-title';
   select.id = marker.id + '-title';
   select.href = project.slug + '.html';
-  select.textContent = project.name;
+  select.textContent = project.category.split(' / ')[0] + ' · ' + project.name;
   select.setAttribute('aria-label', 'Open ' + project.name + ' project');
   title.append(select);
 
@@ -184,9 +188,10 @@ const globeMarkers = Object.entries(globeProjects).map(([slug, [latitude, longit
   preview.href = project.slug + '.html';
   preview.setAttribute('aria-label', 'Open ' + project.name + ' project');
   const photo = document.createElement('img');
-  photo.src = image;
-  photo.alt = '';
   photo.loading = 'lazy';
+  photo.fetchPriority = 'low';
+  photo.src = image;
+  photo.alt = ''; 
   photo.decoding = 'async';
   const caption = document.createElement('span');
   caption.className = 'project-sphere-action';
@@ -255,7 +260,7 @@ function positionGlobeMarker(item, placed, compact) {
 function drawProjectSpace() {
   const width = projectSpace.clientWidth, height = projectSpace.clientHeight;
   if (!projectSpaceContext || !width || !height) return;
-  const scale = Math.min(window.devicePixelRatio || 1, 2);
+  const scale = window.portfolioPerf.ratio(2);
   projectSpace.width = Math.round(width * scale);
   projectSpace.height = Math.round(height * scale);
   projectSpaceContext.setTransform(scale, 0, 0, scale, 0, 0);
@@ -404,7 +409,9 @@ function scheduleGlobeFrame() {
 
 function animateGlobe(now) {
   globeFrame = 0;
-  const dt = globeLastFrame ? clamp(now - globeLastFrame, 0, 34) : 0;
+  const minimum = window.portfolioPerf.interval(0, 32, 48);
+  if (globeLastFrame && now - globeLastFrame < minimum) { scheduleGlobeFrame(); return; }
+  const dt = globeLastFrame ? clamp(now - globeLastFrame, 0, 80) : 0;
   globeLastFrame = now;
   const canSpin = globeAutoSpin && !globeDrag;
   let redraw = false;
@@ -434,7 +441,9 @@ function animateGlobe(now) {
   }
   if (redraw) {
     if (!motion.matches) globeElapsed += dt;
+    const paintStart = performance.now();
     drawGlobe();
+    window.portfolioPerf.paintCost(performance.now() - paintStart);
   }
   if (canSpin || globeGlide || globeTurn || steerDistance > .0002) scheduleGlobeFrame();
   else globeLastFrame = 0;
@@ -474,7 +483,7 @@ if (globeContext) {
     globe.style.setProperty('--globe-center-x', `${centerX}px`);
     globe.style.setProperty('--globe-center-y', `${centerY}px`);
     globe.style.setProperty('--globe-diameter', `${2 * radius}px`);
-    const scale = Math.min(window.devicePixelRatio || 1, 2);
+    const scale = window.portfolioPerf.ratio(2);
     globeCanvas.width = Math.round(globeWidth * scale);
     globeCanvas.height = Math.round(globeHeight * scale);
     globeContext.setTransform(scale, 0, 0, scale, 0, 0);
@@ -496,6 +505,7 @@ if (globeContext) {
   }
 
   new ResizeObserver(fitGlobe).observe(globe);
+  document.addEventListener('portfolio-quality-change', () => { fitGlobe(); drawProjectSpace(); });
   document.fonts.ready.then(fitGlobe);
   new IntersectionObserver(([entry]) => {
     globeVisible = entry.isIntersecting;
@@ -619,16 +629,21 @@ function scheduleGallery() {
   galleryTimer = setTimeout(() => showGalleryProject(galleryIndex + 1), 4600);
 }
 
-const galleryCards = projectData.map((project, index) => {
+const featuredProjects = ["outpost-07", "data-engineering", "machine-learning"].map(slug => projectData.find(project => project.slug === slug));
+const galleryCards = featuredProjects.map((project, index) => {
   const card = galleryTemplate.cloneNode(true);
   card.dataset.project = project.slug;
   const link = card.querySelector('a');
   link.href = project.slug + '.html';
   const image = card.querySelector('img');
-  image.src = globeProjects[project.slug][2];
+  image.loading = 'lazy';
+  image.fetchPriority = 'low';
+  image.src = project.slug === "outpost-07" ? "https://raw.githubusercontent.com/bigbobopenguin-abc/andrea-portfolio/main/static/images/outpost-07/outpost.jpg" : globeProjects[project.slug][2];
+  if (project.slug === "outpost-07") { image.dataset.outpostPhoto = ""; image.addEventListener("error", () => { if (!image.src.endsWith("outpost-07-cover.svg")) {image.src = "assets/outpost-07-cover.svg"; image.alt = "Illustrated Outpost 07 cover — gameplay image unavailable";} }, {once:true}); }
   image.dataset.cover = project.slug;
   image.decoding = 'async';
-  image.loading = index <= 1 || index === projectData.length - 1 ? 'eager' : 'lazy';
+  image.loading = 'lazy';
+  image.fetchPriority = 'low';
   card.querySelector('.project-carousel-category').textContent = project.category;
   card.querySelector('h4').textContent = project.name;
   card.querySelector('.project-carousel-copy > p:last-of-type').textContent = project.summary;
@@ -650,7 +665,7 @@ function showGalleryProject(index, announce = false) {
   }
   if (moveFocus) galleryCards[galleryIndex].link.focus({preventScroll: true});
   document.getElementById('project-carousel-number').textContent = String(galleryIndex + 1).padStart(2, '0');
-  if (announce) galleryStatus.textContent = projectData[galleryIndex].name;
+  if (announce) galleryStatus.textContent = featuredProjects[galleryIndex].name;
   scheduleGallery();
 }
 
@@ -808,7 +823,7 @@ window.addEventListener('scroll', () => {
 }, {passive: true});
 
 // The homepage introduction is always visible; no click-to-expand controls.
-const roles = ['Internet of Things|Enthusiast', 'AI & Data|Engineering Student', 'Background in|Electronics'];
+const roles = ['Applied|Machine Learning', 'AI & Data|Engineering Student', 'Background in|Electronics'];
 const role = document.getElementById('rotating-role');
 let roleIndex = 0;
 
@@ -1255,9 +1270,10 @@ if(metricsCard){
   }
 
   function makeParticles() {
-    const compact = width < 510 || coarse.matches;
-    const tracks = compact ? 10 : 14;
-    const columns = compact ? 27 : 44;
+    const compact = width < 510 || coarse.matches || window.portfolioPerf.level > 0;
+    const low = window.portfolioPerf.level === 2;
+    const tracks = low ? 7 : compact ? 10 : 14;
+    const columns = low ? 21 : compact ? 27 : 44;
     const stride = 4;
     const ringCounts = compact ? [8, 12, 17, 21, 26] : [18, 29, 38, 50, 62];
     const orbitSlots = ringCounts.reduce((sum, count) => sum + count, 0);
@@ -1300,8 +1316,8 @@ if(metricsCard){
 
     // Original ribbon lattice. The regular staggered grid creates the visible
     // twisting rows of characters, without changing the other art modes.
-    const waveTracks = compact ? 12 : 16;
-    const waveColumns = compact ? 28 : 52;
+    const waveTracks = low ? 8 : compact ? 12 : 16;
+    const waveColumns = low ? 22 : compact ? 28 : 52;
     const waveTotal = waveTracks * waveColumns;
     const sharedCount = particles.length;
     const occupied = new Set();
@@ -1599,7 +1615,7 @@ if(metricsCard){
   function fit() {
     width = canvas.clientWidth;
     height = canvas.clientHeight;
-    const scale = Math.min(1.25, window.devicePixelRatio || 1);
+    const scale = window.portfolioPerf.ratio(1.25);
     canvas.width = Math.max(1, Math.round(width * scale));
     canvas.height = Math.max(1, Math.round(height * scale));
     context.setTransform(scale, 0, 0, scale, 0, 0);
@@ -1619,8 +1635,10 @@ if(metricsCard){
     lastTime = time;
     if (manualMode && elapsed >= manualUntil) {manualMode = false;lastSwitchAt = elapsed;}
     if (!manualMode && elapsed - lastSwitchAt >= cycleEvery) setMode(mode + 1);
-    if (elapsed - lastPaint >= (coarse.matches ? 42 : 32)) {
+    if (elapsed - lastPaint >= window.portfolioPerf.interval(coarse.matches ? 42 : 32, 42, 48)) {
+      const paintStart = performance.now();
       draw();
+      window.portfolioPerf.paintCost(performance.now() - paintStart);
       lastPaint = elapsed;
     }
     frameId = requestAnimationFrame(tick);
@@ -1661,12 +1679,21 @@ if(metricsCard){
     });
   }
 
+  // Canvas drawing uses clientWidth/clientHeight, while the visible canvas
+  // is transformed by CSS. Invert that scale, including its transform origin.
+  function artworkPoint(event) {
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height || !width || !height) return null;
+    return {x: (event.clientX - rect.left) * width / rect.width,
+            y: (event.clientY - rect.top) * height / rect.height};
+  }
   const interactionSurface = panel.closest('.hero') || panel;
   interactionSurface.addEventListener('pointermove', (event) => {
     if (event.pointerType === 'touch') return;
-    const rect = canvas.getBoundingClientRect();
-    pointer.targetX = event.clientX - rect.left;
-    pointer.targetY = event.clientY - rect.top;
+    const point = artworkPoint(event);
+    if (!point) return;
+    pointer.targetX = point.x;
+    pointer.targetY = point.y;
     if (!pointer.inside) {
       pointer.x = pointer.targetX;
       pointer.y = pointer.targetY;
@@ -1678,8 +1705,9 @@ if(metricsCard){
   });
   interactionSurface.addEventListener('click', (event) => {
     if (reduce.matches || event.target.closest('a,button')) return;
-    const rect = canvas.getBoundingClientRect();
-    ripple = { x: event.clientX - rect.left, y: event.clientY - rect.top, start: elapsed };
+    const point = artworkPoint(event);
+    if (!point) return;
+    ripple = { ...point, start: elapsed };
   });
 
   reduce.addEventListener('change', () => {
@@ -1695,6 +1723,7 @@ if(metricsCard){
     fit();
   });
   new ResizeObserver(fit).observe(canvas);
+  document.addEventListener('portfolio-quality-change', fit);
   new IntersectionObserver(([entry]) => {
     inView = entry.isIntersecting;
     sync();

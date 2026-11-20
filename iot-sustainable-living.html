@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="A school prototype for temperature control, lighting, soil moisture and doorway alerts." name="description"/>
-<title>IoT System for Sustainable Household Living · Karthik</title>
+<title>IoT System for Sustainable Household Living · Karthik Portfolio</title>
 <script>
 (() => {
   let saved;
@@ -29,21 +29,14 @@
 </script>
 <link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link as="font" crossorigin="" href="assets/space-grotesk.woff2" rel="preload" type="font/woff2"/>
-<link rel="stylesheet" href="case-studies.bundle.css"><link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;display=swap" rel="stylesheet"/>
-<script defer src="motion.js"></script>
-  <script defer src="case-studies.bundle.js"></script>
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="motion.css">
-
-</head>
-<body class="case-view unified-case-chrome refreshed-case-page" data-ambient-dots>
+<link href="shared-base.css" rel="stylesheet"/><link href="case-studies.bundle.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><noscript><link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;display=swap" rel="stylesheet"/></noscript>
+<script defer="" src="adaptive-performance.js"></script><script defer="" src="motion.js"></script>
+<script defer="" src="case-studies.bundle.js"></script>
+<link href="motion.css" rel="stylesheet"/>
+<link href="upgrade.css" rel="stylesheet"/>
+<script defer="" src="upgrade.js"></script>
+<link href="studio.css" rel="stylesheet"/><script defer="" src="studio.js"></script><link href="project-refinement.css" rel="stylesheet"/><script defer="" src="project-refinement.js"></script><meta content="IoT System for Sustainable Household Living · Karthik Portfolio" property="og:title"/><meta content="A school prototype for temperature control, lighting, soil moisture and doorway alerts." property="og:description"/><meta content="website" property="og:type"/><meta content="https://karthik-portfolio-8hzt.onrender.com/iot-sustainable-living.html" property="og:url"/><meta content="https://karthik-portfolio-8hzt.onrender.com/assets/social-preview.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Karthik Portfolio · AI &amp; Data Engineering" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="IoT System for Sustainable Household Living · Karthik Portfolio" name="twitter:title"/><meta content="A school prototype for temperature control, lighting, soil moisture and doorway alerts." name="twitter:description"/><meta content="https://karthik-portfolio-8hzt.onrender.com/assets/social-preview.png" name="twitter:image"/><link rel="stylesheet" href="adaptive-performance.css"/></head>
+<body class="case-view unified-case-chrome refreshed-case-page" data-ambient-dots="" data-project-lab="iot-sustainable-living">
 <a class="skip-link" href="#main-content">Skip to content</a>
 <div aria-hidden="true" id="top"></div>
 <div id="site-chrome-header"></div>
@@ -51,8 +44,8 @@
 <article class="case-page tone-3">
 <header class="shell case-heading">
 <a class="back-link" href="all-projects.html"><iconify-icon aria-hidden="true" icon="lucide:arrow-left"></iconify-icon> All projects</a>
-<div class="case-title">
-<h1 data-title-reveal>IoT System for Sustainable Household Living<span class="wordmark-period">.</span></h1>
+<div class="case-title"><p class="project-number">PROJECT 02 / IOT &amp; EMBEDDED SYSTEMS</p>
+<h1 data-title-reveal="">IoT System for Sustainable Household Living<span class="wordmark-period">.</span></h1>
 <p class="lead">
               A school prototype for temperature control, lighting, soil moisture and doorway alerts.
             </p>
@@ -64,6 +57,7 @@
 </header>
 <div class="shell case-body">
 <div class="case-story">
+<section aria-label="Project at a glance" class="case-snapshot studio-snapshot"><p class="upgrade-kicker">Team project · integration contribution</p><div class="studio-overview"><div><h2>At a glance</h2><p>Programmed the ventilation and doorway alert, integrated the sensor code and helped debug the upload.</p><small>Arduino · Raspberry Pi · ThingSpeak</small></div></div><div class="snapshot-grid"><div><strong>4</strong><span>Sensor functions</span></div><div><strong>29°C</strong><span>Ventilation trigger</span></div><div><strong>150 cm</strong><span>Doorway-alert distance</span></div></div><p class="upgrade-note">Demonstrated in school; household energy savings and long-term reliability were not measured.</p><div class="studio-links"><a href="#workflow">Architecture <span>↗</span></a><a href="#features">Project evidence <span>↗</span></a><a href="#contributions">My contribution <span>↗</span></a></div></section>
 <section class="case-overview" data-reveal="" id="overview">
 <div class="project-summary">
 <div class="project-summary-copy">
@@ -117,9 +111,50 @@
                 </p>
 </div>
 </section></div>
-
 <div class="project-notes">
-<section class="study-feature study-architecture" data-architecture="" data-reveal="" id="workflow">
+<section class="study-feature" data-reveal="" id="features">
+<h2>System functions and dashboard</h2>
+<ul>
+<li>
+<strong>Temperature:</strong> a DHT11 reading of
+                    <strong>29°C or above</strong> switches on the ventilation relay.
+                  </li>
+<li>
+<strong>Lighting:</strong> the light sensor switches the indoor lights off when there
+                    is enough daylight.
+                  </li>
+<li>
+<strong>Soil moisture:</strong> a NeoPixel shows red for dry soil, green for moist
+                    soil and blue for wet soil.
+                  </li>
+<li>
+<strong>Doorway alert:</strong> the ultrasonic sensor triggers an MP3 alert when
+                    someone stays within <strong>150 cm</strong> for <strong>three seconds</strong>.
+                  </li>
+</ul>
+<p>
+                  ThingSpeak showed the readings as charts and status indicators so we could check how
+                  the sensors were responding.
+                </p>
+<div class="feature-list">
+<figure class="project-photo">
+<a aria-label="Enlarge ThingSpeak dashboard with four sensor charts" class="image-preview" data-alt="ThingSpeak dashboard with four sensor charts" data-preview="case" data-title="ThingSpeak dashboard" href="assets/iot-dashboard.webp" rel="noopener noreferrer" target="_blank"><img alt="ThingSpeak dashboard with four sensor charts" decoding="async" height="875" loading="lazy" src="assets/iot-dashboard.webp" width="874"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">01</span>
+<h3>ThingSpeak dashboard</h3>
+<p>The four sensor readings on ThingSpeak.</p>
+</figcaption>
+</figure>
+<figure class="project-photo">
+<a aria-label="Enlarge ThingSpeak sensor status indicators" class="image-preview" data-alt="ThingSpeak sensor status indicators" data-preview="case" data-title="Status indicators" href="assets/iot-indicators.webp" rel="noopener noreferrer" target="_blank"><img alt="ThingSpeak sensor status indicators" decoding="async" height="864" loading="lazy" src="assets/iot-indicators.webp" width="872"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
+<figcaption>
+<span aria-hidden="true" class="feature-number">02</span>
+<h3>Status indicators</h3>
+<p>Status indicators used to check the readings.</p>
+</figcaption>
+</figure>
+</div>
+</section><section class="study-feature study-architecture" data-architecture="" data-reveal="" id="workflow">
 <h2>Follow a sensor reading.</h2>
 <p>Select a component to see its part in the project.</p>
 <div class="study-architecture-layout">
@@ -173,49 +208,7 @@
 <a class="text-link" data-alt="IoT prototype block diagram" data-preview="case" href="assets/iot-block-diagram.webp" rel="noopener noreferrer" target="_blank">View the original block diagram ↗</a>
 </p>
 </section>
-<section class="study-feature" data-reveal="" id="features">
-<h2>System functions and dashboard</h2>
-<ul>
-<li>
-<strong>Temperature:</strong> a DHT11 reading of
-                    <strong>29°C or above</strong> switches on the ventilation relay.
-                  </li>
-<li>
-<strong>Lighting:</strong> the light sensor switches the indoor lights off when there
-                    is enough daylight.
-                  </li>
-<li>
-<strong>Soil moisture:</strong> a NeoPixel shows red for dry soil, green for moist
-                    soil and blue for wet soil.
-                  </li>
-<li>
-<strong>Doorway alert:</strong> the ultrasonic sensor triggers an MP3 alert when
-                    someone stays within <strong>150 cm</strong> for <strong>three seconds</strong>.
-                  </li>
-</ul>
-<p>
-                  ThingSpeak showed the readings as charts and status indicators so we could check how
-                  the sensors were responding.
-                </p>
-<div class="feature-list">
-<figure class="project-photo">
-<a aria-label="Enlarge ThingSpeak dashboard with four sensor charts" class="image-preview" data-alt="ThingSpeak dashboard with four sensor charts" data-preview="case" data-title="ThingSpeak dashboard" href="assets/iot-dashboard.webp" rel="noopener noreferrer" target="_blank"><img alt="ThingSpeak dashboard with four sensor charts" decoding="async" height="875" loading="lazy" src="assets/iot-dashboard.webp" width="874"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
-<figcaption>
-<span aria-hidden="true" class="feature-number">01</span>
-<h3>ThingSpeak dashboard</h3>
-<p>The four sensor readings on ThingSpeak.</p>
-</figcaption>
-</figure>
-<figure class="project-photo">
-<a aria-label="Enlarge ThingSpeak sensor status indicators" class="image-preview" data-alt="ThingSpeak sensor status indicators" data-preview="case" data-title="Status indicators" href="assets/iot-indicators.webp" rel="noopener noreferrer" target="_blank"><img alt="ThingSpeak sensor status indicators" decoding="async" height="864" loading="lazy" src="assets/iot-indicators.webp" width="872"/><span aria-hidden="true" class="expand-image"><iconify-icon aria-hidden="true" icon="lucide:expand"></iconify-icon></span></a>
-<figcaption>
-<span aria-hidden="true" class="feature-number">02</span>
-<h3>Status indicators</h3>
-<p>Status indicators used to check the readings.</p>
-</figcaption>
-</figure>
-</div>
-</section>
+
 </div>
 <section class="study-detail-section" data-detail-section="3" data-reveal="" id="contributions">
 <div>
@@ -264,17 +257,7 @@
 </div>
 </div>
 </article>
-<nav aria-label="Project navigation" class="shell case-navigation">
-<div class="section-head">
-<h2>More projects</h2>
-<a class="text-link" href="all-projects.html">Back to projects<iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
-</div>
-<div>
-<a class="next-card tone-2" href="engineering-exploration.html">
-<img alt="" class="" decoding="async" height="800" loading="lazy" src="assets/project-engineering-display.webp" width="969"/><span><small>Previous project</small><strong>Tri-Star Wheel</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a><a class="next-card tone-4" href="cloud-computing.html">
-<img alt="" class="" decoding="async" height="651" loading="lazy" src="assets/cloud-storefront-1-display.webp" width="1100"/><span><small>Next project</small><strong>AWS Music Store</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a>
-</div>
-</nav>
+<nav aria-label="Project navigation" class="shell case-navigation"><div class="section-head"><h2>More projects</h2><a class="text-link" href="all-projects.html">All projects ↗</a></div><div><a class="next-card tone-2" href="engineering-exploration.html"><img alt="" decoding="async" loading="lazy" src="assets/project-engineering-display.webp"/><span><small>Previous project · 01</small><strong>Tri-Star Wheel Prototype</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a><a class="next-card tone-1" href="data-engineering.html"><img alt="" decoding="async" loading="lazy" src="assets/project-data-fast.webp"/><span><small>Next project · 03</small><strong>NESSO Safety Monitoring System</strong></span><iconify-icon aria-hidden="true" icon="lucide:arrow-up-right"></iconify-icon></a></div></nav>
 </main>
 <div id="site-chrome-footer"></div>
 <dialog aria-labelledby="media-dialog-title" class="media-dialog">

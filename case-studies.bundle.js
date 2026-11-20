@@ -1,5 +1,5 @@
 /* START scripts/pages/shared-project-chrome.js */
-/* The six project stories share the homepage header and footer from one template. */
+/* The seven project stories share the homepage header and footer from one template. */
 (()=>{
   const header=document.getElementById('site-chrome-header');
   const footer=document.getElementById('site-chrome-footer');
@@ -23,7 +23,7 @@
 <a class="internship-cta about-preview-link" href="internship.html">View my internship <iconify-icon aria-hidden="true" icon="lucide:arrow-right"></iconify-icon></a>
 </div>
 <figure class="about-preview-photo">
-<img alt="Utility meter connected to an IoT modem during my internship testing" decoding="async" height="720" loading="eager" fetchpriority="low" src="assets/internship-s47-preparation-display.webp" width="960"/>
+<img alt="Utility meter connected to an IoT modem during my internship testing" decoding="async" height="720" loading="lazy" fetchpriority="low" src="assets/internship-s47-preparation-display.webp" width="960"/>
 <figcaption>Connected devices from my time at iWOW.</figcaption>
 </figure>
 </div>

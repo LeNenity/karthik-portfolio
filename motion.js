@@ -2,7 +2,7 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const handoffKey = 'karthik:page-signal-v2';
   const root = document.documentElement;
-  const sweepDuration = 360;
+  const sweepDuration = window.portfolioPerf.level === 2 ? 240 : 360;
   const shape = y => (y - .5) * .87 + Math.sin((y - .12) * Math.PI) * .16;
   const accelerate = t => t * (.48 + .52 * t);
   const colors = ['#ddc9ff', '#8bcfff', '#a690ff', '#f2eaff'];
@@ -31,7 +31,7 @@
       onDone();
       return;
     }
-    const ratio = 1;
+    const ratio = window.portfolioPerf.ratio(1);
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
     activeCanvas = canvas;
@@ -99,7 +99,7 @@
       ctx.lineCap = 'round';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      for (const spark of sparks) {
+      for (const spark of (window.portfolioPerf.level === 2 ? sparks.filter((_,i)=>i%2===0) : sparks)) {
         const y = spark.lane - t * .2;
         const x = curve(y, spark.offset * width + Math.sin(y * 10 + t * 8) * 15);
         const py = y * height;
@@ -226,9 +226,11 @@
 
   function tick(now) {
     frame = 0;
-    if (now - lastPaint >= 45) {
+    if (now - lastPaint >= window.portfolioPerf.interval(45, 65, 100)) {
       lastPaint = now;
+      const paintStart = performance.now();
       render(now);
+      window.portfolioPerf.paintCost(performance.now() - paintStart);
     }
     frame = requestAnimationFrame(tick);
   }
@@ -245,11 +247,11 @@
   function fit() {
     width = document.documentElement.clientWidth;
     height = innerHeight;
-    const ratio = Math.min(devicePixelRatio || 1, 1.5);
+    const ratio = window.portfolioPerf.ratio(1.5);
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-    const count = Math.min(216, Math.max(43, Math.round(width * height / 7200)));
+    const count = Math.min(216, Math.max(43, Math.round(width * height / 7200 * [1,.65,.4][window.portfolioPerf.level])));
     points = Array.from({length: count}, (_, i) => ({
       x: ((i * .618034 + .13) % 1) * width,
       y: ((i * .754878 + .39) % 1) * height,
@@ -271,6 +273,7 @@
   });
   regions.forEach(region => observer.observe(region));
   window.addEventListener('resize', fit, {passive: true});
+  document.addEventListener('portfolio-quality-change', fit);
   window.addEventListener('scroll', () => { if (reduced.matches && visible.size) render(performance.now()); }, {passive: true});
   document.addEventListener('visibilitychange', sync);
   reduced.addEventListener('change', sync);
@@ -338,49 +341,24 @@
 })();
 
 
-// Warm the cache for the next page so the sweep lands on a page that is already loaded.
+// Warm only the single intentionally hovered destination on a known fast connection.
 (() => {
-  const link = navigator.connection;
-  if (link?.saveData || /(^|-)2g$/.test(link?.effectiveType || '')) return;
-  const warmed = new Set();
-
-  function warm(href) {
-    let url;
-    try { url = new URL(href, location.href); } catch { return; }
-    if (url.origin !== location.origin || !url.pathname.endsWith('.html') ||
-        url.pathname === location.pathname) return;
-    url.hash = '';
-    if (warmed.has(url.href)) return;
-    warmed.add(url.href);
-    fetch(url.href, {credentials: 'same-origin'})
-      .then(response => response.ok ? response.text() : '')
-      .then(html => {
-        for (const [, file] of html.matchAll(/(?:href|src)="([^"]+\.bundle\.(?:css|js))"/g)) {
-          const hint = document.createElement('link');
-          hint.rel = 'prefetch';
-          hint.as = file.endsWith('.css') ? 'style' : 'script';
-          hint.href = new URL(file, url).href;
-          document.head.append(hint);
-        }
-      })
-      .catch(() => {});
-  }
-
-  const fromEvent = event => {
-    const anchor = event.target.closest?.('a[href]');
-    if (anchor && !anchor.hasAttribute('download')) warm(anchor.href);
-  };
+  const warmed = new Set(); let timer = 0, pending = null;
+  function clear() { clearTimeout(timer); pending = null; }
   document.addEventListener('pointerover', event => {
-    if (event.pointerType !== 'touch') fromEvent(event);
-  }, {passive: true});
-  document.addEventListener('touchstart', fromEvent, {passive: true});
-  document.addEventListener('focusin', fromEvent);
-
-  // Home and Internship are reached from every header, so fetch them once the page is idle.
-  const idle = window.requestIdleCallback || (callback => setTimeout(callback, 1500));
-  addEventListener('load', () => idle(() => {
-    for (const anchor of document.querySelectorAll('.floating-header a[href]')) {
-      if (/(^|\/)(index|internship)\.html$/.test(new URL(anchor.href, location.href).pathname)) warm(anchor.href);
-    }
-  }, {timeout: 4000}), {once: true});
+    if (!window.portfolioPerf.allowPrefetch || event.pointerType === 'touch' || document.hidden || document.readyState !== 'complete') return;
+    const anchor = event.target.closest?.('a[href]');
+    if (!anchor || anchor.hasAttribute('download') || anchor.target === '_blank' || anchor === pending) return;
+    let url; try {url=new URL(anchor.href,location.href);} catch {return;}
+    if (url.origin !== location.origin || !url.pathname.endsWith('.html') || url.pathname === location.pathname) return;
+    url.hash = ''; if (warmed.has(url.href) || warmed.size >= 2) return;
+    clear(); pending=anchor;
+    timer=setTimeout(()=>{
+      if (!window.portfolioPerf.allowPrefetch || document.hidden || !anchor.matches(':hover')) return;
+      warmed.add(url.href); const hint=document.createElement('link'); hint.rel='prefetch'; hint.href=url.href; document.head.append(hint);
+      pending=null;
+    },300);
+  }, {passive:true});
+  document.addEventListener('pointerout', event=>{if(pending && !pending.contains(event.relatedTarget))clear();},{passive:true});
+  document.addEventListener('visibilitychange',clear);
 })();

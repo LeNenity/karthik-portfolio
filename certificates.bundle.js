@@ -467,7 +467,7 @@
     }
     // Cache only the next thumbnail to avoid a blank frame during the next turn.
     const upcoming = allDocuments[wrap(featured + 2)].pages[0].src;
-    if (upcoming && !preloadedThumbnails.has(upcoming)) {
+    if (!window.portfolioPerf.slowNetwork && upcoming && !preloadedThumbnails.has(upcoming)) {
       preloadedThumbnails.add(upcoming);
       const preload = new Image();
       preload.decoding = 'async';
