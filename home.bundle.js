@@ -1147,6 +1147,7 @@ if(metricsCard){
   const glyphs = ['A', 'K', 'R', 'T', 'H', 'I', '0', '1', '3', '7', '&', '@', '#', '+', '×', '∞', '≋', '•', '{', '}', '⌁', '/'];
   const glyphSteps = [3, 5, 7, 9, 13, 15, 17, 19];
   const cycleEvery = 9500;
+  const artworkCount = 3;
   const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, strength: 0, inside: false };
   let width = 0;
   let height = 0;
@@ -1201,6 +1202,7 @@ if(metricsCard){
     return {x: x * .984 + y * .178, y: y * .984 - x * .178, z: depth * .88,
       scale: .72 + depth * .12 + Math.abs(lane) * .20};
   }
+
 
   // The canvas reuses the same glyphs as it changes shape.
   function sample(pattern, particle, drift) {
@@ -1466,7 +1468,7 @@ if(metricsCard){
   function setMode(next) {
     if (next === mode) return;
     oldMode = mode;
-    mode = (next + 3) % 3;
+    mode = (next + artworkCount) % artworkCount;
     controls.forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.artwork) === mode)));
     changedAt = elapsed;
     lastSwitchAt = elapsed;
